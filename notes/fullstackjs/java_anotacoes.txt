@@ -1,0 +1,425 @@
+Rodar:
+mvn spring-boot:run
+
+
+Atalhos:
+main+control+espaco
+syso
+
+control+shift+f11
+
+Primitivos:
+Primitivos além de tipos primitivos, são palavras reservadas e ficam em roxo.
+Todos eles são escritos de forma minúscula.
+
+byte, short, int, long, float, double, char, boolean;
+
+
+
+Variáveis:
+
+Toda a vez que eu declarar uma "var nome", eu sou obrigado a inicializar ela com algum valor.
+E quando eu usar o 'tipo nome', eu nao preciso inicializar com valor.
+Em resumo, quando eu nao inicializar com valor, eu posso usar o 'tipo nome', e quando eu ja tiver um valor inicial eu uso o 'var nome = valor';
+
+int idade = 25;
+String nome = "João";
+double salario = 4500.50;
+
+var idade = 25;
+var nome = "João";
+var salario = 4500.50;
+
+var idade = 25;       // tipo inferido: int
+var nome = "João";    // tipo inferido: String
+var salario = 4500.50; // tipo inferido: double
+
+int idade;       // OK: sem inicialização
+idade = 25;      // OK: atribuição depois
+
+String nome;     // OK: sem inicialização
+nome = "João";   // OK: atribuição depois
+
+var idade = 25;       // OK: tipo inferido como int
+var nome = "João";    // OK: tipo inferido como String
+var salario = 4500.50; // OK: tipo inferido como double
+
+var idade;  // ERRO: não é possível inferir o tipo
+idade = 25; // Isso não é permitido com `var`
+
+
+
+
+
+- Conversao:
+
+Conversão em Java
+
+Conversão de String para Número
+No JavaScript, você faz algo como parseInt("580").
+Em Java, você usa métodos da classe Integer ou Double para realizar a conversão.
+
+Exemplo:
+
+String num1 = "580";
+
+// Conversão direta sem criar nova variável
+int numero = Integer.parseInt(num1);
+
+// Ou, se quiser, pode criar uma nova variável
+int outroNumero = Integer.parseInt(num1);
+Conversão de Número para String
+No JavaScript, você usa String(123) ou 123.toString().
+Em Java, você usa o método String.valueOf() ou toString().
+
+Exemplo:
+
+int num2 = 123;
+
+// Conversão direta para String
+String texto = String.valueOf(num2);
+
+// Ou usar uma nova variável
+String outroTexto = Integer.toString(num2);
+Conversão entre Tipos Primitivos
+Em JavaScript, você pode converter implicitamente ou usar funções como Number(), String(), etc.
+Em Java, há casting explícito para conversões entre tipos primitivos, mas nem sempre é necessário criar uma nova variável.
+
+Exemplo:
+
+double preco = 19.99;
+
+// Conversão para int (perde a parte decimal)
+int precoInteiro = (int) preco; // Casting explícito
+
+// Ou armazena o resultado em uma nova variável
+int outroPrecoInteiro = (int) preco;
+Diferenças principais entre Java e JavaScript
+Casting explícito:
+Em Java, para converter tipos primitivos como double para int, você deve usar (int). Isso é mais restritivo que no JavaScript.
+
+Métodos utilitários para conversão:
+Java utiliza classes como Integer, Double, String, etc., com métodos como parseInt(), valueOf(), ou toString().
+
+Imutabilidade de Strings:
+Strings em Java são imutáveis, então, ao converter ou manipular Strings, você sempre cria novos objetos.
+
+Resumo
+Você pode realizar conversões em Java diretamente ou criando uma nova variável, dependendo da necessidade. Assim como no JavaScript, não é obrigatório criar uma nova variável, mas isso pode melhorar a clareza do código.
+
+Exemplo prático:
+
+// Conversão sem criar nova variável
+String numStr = "42";
+int num = Integer.parseInt(numStr);
+
+// Criando uma nova variável
+String outraStr = "3.14";
+double valor = Double.parseDouble(outraStr);
+Se a conversão for complexa ou envolver vários passos, criar uma nova variável é recomendado para tornar o código mais legível.
+
+
+
+Springboot:
+
+https://start.spring.io/
+
+Maven, Java, Jar
+
+
+Spring Boot DevTools
+SpringWeb
+
+
+JPA, Mysql,
+
+
+- Importar projeto:
+clicar com botão direito no Explorar do Eclipse e clicar em Import, ir em General/Existing Project into workspace;
+ou abrir o import e clicar em Maven/Existing Maven Projects;
+
+
+- pom.xlm:
+Contem as infos do projeto, as dependências, os plugins.
+
+
+@RequestMapping(method = RequestMethod.GET, path = "ola") irá funcionar normalmente.
+
+
+- Maneira de criar uma rota:
+
+@RestController
+public class PrimeiroController {
+
+	@RequestMapping(method = RequestMethod.GET, path = "/ola")
+	public String ola() {
+		return "Ola Spring Boot!";
+	}
+	
+}
+
+
+
+- Os dois respondem para o mesmo URL:
+
+@RestController
+public class PrimeiroController {
+
+	@GetMapping(path = {"/ola", "/saudacao"})
+	public String ola() {
+		return "Ola Spring Boot!";
+	}
+	
+}
+
+- Comando "Alt+Shift+S" para gerar os getters and setters;
+
+
+
+
+===================
+
+No Java, quando você escreve algo assim:
+
+java
+Copiar
+Editar
+public Cliente obterCliente() { 
+    return new Cliente(28, "Pedro", "123.456.789-00"); 
+}
+Isso não significa que Cliente é uma herança ou algo especial. O que acontece aqui é que Cliente é o tipo de retorno do método.
+
+Por que não se escreve public function?
+No Java, não usamos a palavra-chave function como em outras linguagens (por exemplo, JavaScript e PHP). Em vez disso, os métodos sempre precisam ter um tipo de retorno.
+
+A estrutura correta de um método em Java é:
+
+java
+Copiar
+Editar
+public TipoDoRetorno nomeDoMetodo(Parametros) {
+    // Corpo do método
+}
+No seu caso:
+
+Cliente → Tipo de retorno (a função retorna um objeto dessa classe).
+obterCliente → Nome do método.
+() → Indica que é um método (função).
+return new Cliente(...) → Retorna um objeto da classe Cliente.
+Exemplo com outros tipos
+Se o método retornasse uma string, ele seria assim:
+
+java
+Copiar
+Editar
+public String obterNome() {
+    return "Pedro";
+}
+Se não retornasse nada (void):
+
+java
+Copiar
+Editar
+public void imprimirMensagem() {
+    System.out.println("Olá, mundo!");
+}
+Se fosse uma lista de clientes:
+
+java
+Copiar
+Editar
+public List<Cliente> obterTodosClientes() {
+    return List.of(new Cliente(1, "João", "000.111.222-33"),
+                   new Cliente(2, "Ana", "333.444.555-66"));
+}
+Resumindo
+Java não usa function, pois os métodos são definidos com um tipo de retorno.
+Cliente no método é o tipo de retorno, indicando que ele retorna um objeto dessa classe.
+O Java é fortemente tipado, então você sempre precisa definir um tipo de retorno (ou void).
+
+
+
+Exemplos práticos
+✅ Correto: O tipo de retorno bate com o que está sendo retornado.
+
+java
+Copiar
+Editar
+public int somar(int a, int b) {
+    return a + b; // Retorna um int, que é o esperado
+}
+🚨 Errado: O tipo de retorno não bate com o que está sendo retornado.
+
+java
+Copiar
+Editar
+public int somar(int a, int b) {
+    return "Resultado: " + (a + b); // ❌ Erro! Retornando String quando deveria ser int
+}
+E se eu quiser retornar qualquer tipo?
+Se quiser um método que possa retornar qualquer tipo de dado, você pode usar Generics ou Object, mas isso não é comum.
+
+Exemplo usando Object (não recomendado na maioria dos casos):
+
+java
+Copiar
+Editar
+public Object retornarAlgo(boolean opcao) {
+    if (opcao) {
+        return "Isso é uma String";
+    } else {
+        return 42; // Retornando um int
+    }
+}
+Isso funciona, mas não é considerado uma boa prática, pois exige casting para recuperar o tipo certo depois.
+
+E se eu não quiser retornar nada?
+Aí você usa void:
+
+java
+Copiar
+Editar
+public void mostrarMensagem() {
+    System.out.println("Olá, mundo!");
+}
+Resumo
+✅ O tipo de retorno do método precisa ser fixo.
+✅ Java não aceita mudar o tipo do retorno (se um método retorna String, sempre retorna String).
+✅ Se não quiser retornar nada, usa void.
+
+
+
+===================
+
+
+@RestController
+@RequestMapping(path = "/clientes")
+public class ClienteController {
+
+	@GetMapping(path = "/qualquer")
+	public Cliente obterCliente() {
+		return new Cliente(28, "Pedro", "123.456.789-00");
+	}
+	
+	@GetMapping("/{id}")
+	public Cliente obterClientePorId1(@PathVariable int id) {
+		return new Cliente(id, "Maria", "987.654.321-00");
+	}
+	
+	//http://localhost:8080/clientes/cliente2?id=5
+	@GetMapping("/cliente2")
+	public Cliente obterClientePorId2(
+	        @RequestParam(name = "id", defaultValue = "1") int id) {  
+	    return new Cliente(id, "Maria", "111.222.333-44");
+	}
+	
+	/* Parametros (escrita):
+	 * http://localhost:8080/clientes?id=123456&nome=Teste&rua=ABC
+	 * 
+	 * google.com/search?q=Linux+Ubuntu&hl=en
+	 * 
+	 * 
+	 * */
+}
+
+
+
+
+
+@RestController
+@RequestMapping("/calculadora")
+public class CalculadoraController {
+
+	//Se o nome do parâmetro da URL for igual ao do método, name não é necessário.
+	//Se os nomes forem diferentes, então name é necessário.
+	
+	//calculadora/subtrair?a=100&b=39;
+	
+	//http://localhost:8080/calculadora/soma?num1=10&num2=20
+	@GetMapping("/soma")
+	public int Soma(
+			@RequestParam(name = "num1", defaultValue = "0") int num1,
+			@RequestParam(name = "num2", defaultValue = "0") int num2)
+	{
+		return num1+num2;
+	}
+	
+	@GetMapping("/subtracao")
+	public int soma(@RequestParam int num1, @RequestParam int num2) {
+	    return num1 - num2;
+	}
+	
+	
+	
+	
+}
+
+
+
+- Driver do mysql:
+JPA;
+
+- Tenho que adicionar a dependência no "pom.xml"
+
+		<dependency>
+		     <groupId>org.springframework.boot</groupId>
+		     <artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		 
+		<dependency>
+		     <groupId>mysql</groupId>
+		     <artifactId>mysql-connector-java</artifactId>
+		     <version>8.0.32</version>
+		</dependency>
+
+
+
+
+- No arquivo application.properties
+
+spring.datasource.url=jdbc:mysql://localhost:3306/springboot
+spring.datasource.username=root
+spring.datasource.password=
+ 
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+
+
+
+
+- Construtor:
+
+O construtor sempre eh composto:
+
+===================================================================
+
+ClasseAlvo classeAlvo;
+
+public PropriaClasse(ClasseAlvo classeAlvo){
+	this.classeAlvo = classeAlvo;
+}
+
+===================================================================
+
+- Classe Controller:
+
+	DemoService demoService;
+		
+	//construtor;
+	public DemoController(DemoService demoService) {
+		this.demoService = demoService;
+	}	
+
+===================================================================
+
+- Classe Service:
+
+	DemoRepository demoRepository;
+	
+	public DemoService(DemoRepository demoRepository)
+	{
+		this.demoRepository = demoRepository;
+	}
+
+===================================================================

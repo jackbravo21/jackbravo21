@@ -1,0 +1,95 @@
+
+Gerenciar listas de usuários:
+Se você estiver buscando uma lista de usuários do backend, o array permite armazenar e renderizar essa lista facilmente no React.
+Operações CRUD:
+É útil para operações como buscar todos os usuários, adicionar, editar ou excluir usuários individuais.
+Exemplo Completo de Slice com users:
+js
+Copiar código
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+    userData: {
+        id: null,
+        fullname: null,
+        mail: null,
+        password: null,
+        creatAt: null,
+    },
+    userInfo: null,
+    isLoggedIn: false,
+    administrator: false,
+    users: [],  // Array para armazenar todos os usuários
+    error: null,
+    loading: false,
+};
+
+export const userSlice = createSlice({
+    name: "user",
+    initialState,
+    reducers: {
+
+        // Adicionar usuários ao array
+        fetchUsersSuccess: (state, action) => {
+            state.users = action.payload;  // Armazena a lista de usuários no array
+            state.loading = false;
+        },
+
+        // Adicionar um único usuário
+        addUserSuccess: (state, action) => {
+            state.users.push(action.payload);  // Adiciona um usuário ao array
+        },
+
+        // Editar um usuário no array
+        editUserSuccess: (state, action) => {
+            const index = state.users.findIndex(user => user.id === action.payload.id);
+            if (index !== -1) {
+                state.users[index] = action.payload;
+            }
+        },
+
+        // Remover um usuário do array
+        deleteUserSuccess: (state, action) => {
+            state.users = state.users.filter(user => user.id !== action.payload.id);
+        },
+
+        // Lidando com falhas
+        fetchUsersFailure: (state, action) => {
+            state.error = action.payload;
+            state.loading = false;
+        },
+
+        // Exemplo de login
+        loginSuccess: (state, action) => {
+            state.userData = action.payload;
+            state.isLoggedIn = true;
+            state.loading = false;
+        }
+    },
+});
+
+export const { fetchUsersSuccess, addUserSuccess, editUserSuccess, deleteUserSuccess, fetchUsersFailure, loginSuccess } = userSlice.actions;
+
+export default userSlice.reducer;
+Fluxo com Redux-Saga:
+No Saga, você buscaria a lista de usuários e dispararia a ação correspondente:
+
+js
+Copiar código
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { fetchUsersSuccess, fetchUsersFailure } from './slice';
+import { fetchUsersService } from '../../services/users';
+
+// Função Saga para buscar usuários
+function* fetchUsers() {
+    try {
+        const response = yield call(fetchUsersService);
+        yield put(fetchUsersSuccess(response.data));  // Dispara sucesso com a lista de usuários
+    } catch (error) {
+        yield put(fetchUsersFailure(error.message));  // Dispara falha
+    }
+}
+
+export function* userSaga() {
+    yield takeLatest('user/fetchUsers', fetchUsers);
+}

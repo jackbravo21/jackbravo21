@@ -1,0 +1,61 @@
+- Node precisa ter um arquivo "app.js" como arquivo principal "entrypoint".
+- Para rodar um projeto no console, basta usar: >node app.js
+
+- node app.js			//rodar projeto com server node, package manager - npm.
+- npm init			//inicia um projeto node. (entry point = arquivo que inicia o projeto)
+- npm i				//installa todas as dependencias do arquivo package.json.
+- npm init -y			//installa tudo padrao.
+- yarn				//para instalar as dependencias do projeto pelo yarn.
+- npm audit fix --force		//forca corrigir algum erro ou problema.
+- npm fund			//mostra onde esta ocorrendo o erro.
+- npm install express --save	//instala o express framework.
+- npm install nodemon -g	//insta o nodemon, para nao precisar reiniciar a cada modificacao. "-g" = global.
+- yarn add express		//
+- yarn global add nodemon	//
+- package.json			//arquivo do projeto que contem as informacoes dele.
+- entry point = arquivo inicial do projeto: index.js.
+- npm install ejs --save	//EJS = motor draw html.
+- nodemon index.js		//rodar projeto com server nodemon = nao precisa reiniciar a cada modificacao do codigo.
+- npm install body-parser --save	//biblioteca para receber dados de formulario.
+- npm install --save sequelize		//instala o gerenciador de conexao com banco de dados do JS.
+- npm install --save mysql2		//add a biblioteca do mysql no sequelize, para poder trabalhar com ele.
+- npm install mongoose --save	//installar moongoose;
+- npm install axios		//instala o Axios (npm) para consumir API externa.
+- yarn add axios		//instala o Axios (yarn) para consumir API externa.
+- npm install cors		//instal o CORS: "var cors = require('cors');" | "app.use(cors());"
+- npx lite-server		//cria um server para servir o html.
+- npm install bcrypt --save	//Criptografia (bcrypt).
+- npm install jsonwebtoken --save	//webtoken para gerar token;
+- yarn add graphql-yoga		//servidor para rodar graphql.
+- npm install express express-graphql graphql --save		//bibliotecas graphQL
+- npm add graphql-request graphql	//requests do graphql
+- npm install knex -g		//global, gerenciar o banco de dados.
+- npm install knex --save	//instalar o knex para gerenciar banco de dados.
+- knex init			//cria o arquivo knexfile.js
+- npm knex --version		//versao do knex.
+- node --trace-warnings ...	//exibe no console os erros.
+- npm i autentique-v2-nodejs	//dependencia do autentique;
+- npm install -g typescript	//instalar o typescript global;
+- npm install typescript --save-dev	//vai ser uma dependencia de desenvolvimento;
+- npm install @types/node --save-dev	//pacote de tipagem para node;
+- tsc -help				//abre o help do tsc;
+- tsc --init				//cria um arquivo de configuracao ts.config;
+- npm install ts-node -g --save		//instala o ts-node;
+
+- npm install express-generator -g	//gerador de aplicativos, com estrutura pronta;
+- express -h				//opcoes do gerador;
+- express --view=pug nomeDoMeuApp	//instala/gera a estrutura;
+
+- JSON: 				//app.use(express.json());
+
+$ npm install knex --save
+# Then add one of the following (adding a --save) flag:
+$ npm install pg
+$ npm install sqlite3
+$ npm install mysql
+$ npm install mysql2
+$ npm install oracledb
+$ npm install tedious
+
+- Get-ExecutionPolicy		//verifica a politica do windows para rodar scripts como nodemon.
+- Set-ExecutionPolicy RemoteSigned	//seta para poder executar scripts e rodar nodemon.

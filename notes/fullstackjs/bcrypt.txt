@@ -1,0 +1,145 @@
+1. Instalando o bcrypt
+No Node.js, você pode instalar o pacote bcrypt diretamente com o npm ou yarn:
+
+bash
+Copiar código
+npm install bcrypt
+# ou
+yarn add bcrypt
+Se você estiver em um ambiente onde a instalação do bcrypt padrão falhar (geralmente por problemas de compilação nativa), você pode optar por bcryptjs, que é uma versão puramente escrita em JavaScript, mas um pouco mais lenta:
+
+bash
+Copiar código
+npm install bcryptjs
+# ou
+yarn add bcryptjs
+2. Configurando o bcrypt
+Depois de instalado, importe o pacote no seu projeto:
+
+javascript
+Copiar código
+const bcrypt = require('bcrypt');
+Nota: Se você usar bcryptjs, apenas substitua require('bcrypt') por require('bcryptjs'). A API é a mesma.
+
+3. Exemplo básico de uso
+Aqui está um exemplo básico para hash de senhas e verificação:
+
+javascript
+Copiar código
+const bcrypt = require('bcrypt');
+
+// Número de salt rounds (recomenda-se 10 para balancear segurança e desempenho)
+const saltRounds = 10;
+
+// Exemplo de senha
+const senha = 'minhaSenhaSuperSecreta';
+
+// Gerando o hash da senha
+bcrypt.hash(senha, saltRounds, (err, hash) => {
+    if (err) {
+        console.error('Erro ao gerar hash:', err);
+    } else {
+        console.log('Hash gerado:', hash);
+
+        // Comparando a senha com o hash
+        bcrypt.compare(senha, hash, (err, result) => {
+            if (err) {
+                console.error('Erro ao comparar senha:', err);
+            } else if (result) {
+                console.log('Senha correta!');
+            } else {
+                console.log('Senha incorreta!');
+            }
+        });
+    }
+});
+4. Usando async/await para facilitar
+O bcrypt suporta Promises, então você pode usar async/await para deixar o código mais limpo:
+
+javascript
+Copiar código
+const bcrypt = require('bcrypt');
+
+async function hashAndVerifyPassword() {
+    const senha = 'minhaSenhaSuperSecreta';
+    const saltRounds = 10;
+
+    try {
+        // Gerando o hash
+        const hash = await bcrypt.hash(senha, saltRounds);
+        console.log('Hash gerado:', hash);
+
+        // Comparando a senha com o hash
+        const isMatch = await bcrypt.compare(senha, hash);
+        console.log(isMatch ? 'Senha correta!' : 'Senha incorreta!');
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+}
+
+hashAndVerifyPassword();
+
+
+
+
+
+
+- RESUMO:
+
+
+Passos para trabalhar com bcrypt:
+Instalação e configuração:
+
+bash
+Copiar código
+npm install bcrypt
+Depois no arquivo onde será usado:
+
+javascript
+Copiar código
+const bcrypt = require('bcrypt');
+Quando o usuário cria a senha:
+
+Gere o hash e armazene-o no banco de dados:
+javascript
+Copiar código
+const saltRounds = 10; // Ajusta a complexidade
+const senha = 'senhaDoUsuario'; // O que o usuário forneceu
+
+bcrypt.hash(senha, saltRounds)
+  .then(hash => {
+    console.log('Senha protegida:', hash);
+    // Salve o hash no banco
+  })
+  .catch(err => console.error('Erro ao hashear senha:', err));
+Quando o usuário faz login:
+
+Compare a senha digitada com o hash armazenado:
+javascript
+Copiar código
+const senhaEntrada = 'senhaDoUsuario'; // O que o usuário digitou
+const hashArmazenado = 'hashDoBancoDeDados';
+
+bcrypt.compare(senhaEntrada, hashArmazenado)
+  .then(isMatch => {
+    if (isMatch) {
+      console.log('Senha válida!');
+      // Continue o login
+    } else {
+      console.log('Senha inválida!');
+      // Envie um erro ao usuário
+    }
+  })
+  .catch(err => console.error('Erro ao comparar senha:', err));
+Pontos importantes:
+Não há como "desfazer" o hash: A senha original nunca pode ser recuperada do hash.
+
+Isso é intencional, porque aumenta a segurança. Mesmo se alguém invadir o banco, tudo que terá são os hashes.
+Comparação é o segredo: Quando um usuário tenta acessar, a mágica é feita no bcrypt.compare, que verifica se a entrada, ao ser processada, se transforma no mesmo hash.
+
+Armazene apenas o hash no banco: Nada de armazenar senhas em texto puro!
+
+Ajuste os saltRounds com equilíbrio:
+
+Valores muito baixos (ex: 4) são rápidos, mas menos seguros.
+Valores altos (ex: 15) aumentam a segurança, mas podem impactar a performance.

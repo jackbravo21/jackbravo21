@@ -1,0 +1,298 @@
+npm install --save-dev jest
+npm test -- --coverage
+
+
+O que é Jest?
+Jest é um framework de testes em JavaScript desenvolvido pelo Facebook. Ele é muito popular para testar aplicativos Node.js e front-end (como React). Ele oferece suporte para:
+
+Testes unitários
+Testes de integração
+Cobertura de código
+Mocking de funções, módulos e temporizadores
+Instalação
+Para usar Jest em um projeto Node.js, você pode instalá-lo como dependência de desenvolvimento:
+
+bash
+Copiar código
+npm install --save-dev jest
+Depois, configure o script de teste no seu package.json:
+
+json
+Copiar código
+"scripts": {
+  "test": "jest"
+}
+Criando seu primeiro teste
+Imagine que você tem uma função em math.js que soma dois números:
+
+math.js
+
+javascript
+Copiar código
+function add(a, b) {
+  return a + b;
+}
+module.exports = add;
+Agora, crie um arquivo de teste chamado math.test.js para verificar essa função:
+
+math.test.js
+
+javascript
+Copiar código
+const add = require('./math');
+
+test('soma 1 + 2 para ser igual a 3', () => {
+  expect(add(1, 2)).toBe(3);
+});
+Execute os testes:
+
+bash
+Copiar código
+npm test
+Estrutura recomendada
+Um projeto Node.js bem organizado geralmente segue uma estrutura como esta:
+
+lua
+Copiar código
+project/
+│
+├── src/
+│   ├── controllers/
+│   ├── services/
+│   ├── models/
+│   └── utils/
+│
+├── tests/
+│   ├── controllers/
+│   ├── services/
+│   ├── models/
+│   └── utils/
+│
+├── package.json
+└── jest.config.js
+Testando APIs com Jest e Supertest
+Se você estiver desenvolvendo uma API com Express, pode usar o pacote supertest para testar endpoints:
+
+Instalação
+
+bash
+Copiar código
+npm install --save-dev supertest
+Exemplo Imagine um endpoint básico:
+
+app.js
+
+javascript
+Copiar código
+const express = require('express');
+const app = express();
+
+app.get('/hello', (req, res) => {
+  res.status(200).send('Hello, world!');
+});
+
+module.exports = app;
+test/app.test.js
+
+javascript
+Copiar código
+const request = require('supertest');
+const app = require('../app');
+
+test('GET /hello retorna "Hello, world!"', async () => {
+  const response = await request(app).get('/hello');
+  expect(response.status).toBe(200);
+  expect(response.text).toBe('Hello, world!');
+});
+Mocking com Jest
+Mocking permite simular módulos, funções ou dependências externas. Exemplo:
+
+userService.js
+
+javascript
+Copiar código
+async function fetchUser(id) {
+  // Imagine que esta função faz uma chamada a um banco de dados
+  return { id, name: 'John Doe' };
+}
+module.exports = fetchUser;
+userService.test.js
+
+javascript
+Copiar código
+const fetchUser = require('./userService');
+
+jest.mock('./userService'); // Mocka o módulo
+
+test('fetchUser retorna o usuário correto', async () => {
+  fetchUser.mockResolvedValue({ id: 1, name: 'Mock User' });
+  
+  const user = await fetchUser(1);
+  expect(user.name).toBe('Mock User');
+});
+Cobertura de código
+Você pode verificar a cobertura de código usando a flag --coverage:
+
+bash
+Copiar código
+npm test -- --coverage
+Isso gera um relatório mostrando quais partes do código foram testadas.
+
+Boas práticas
+Organize os testes por funcionalidade: Separe testes unitários, de integração e de end-to-end.
+Use mocks estrategicamente: Mock apenas o que é necessário para o teste.
+Teste cenários reais: Inclua testes para casos de borda (e.g., entradas inválidas).
+Automatize os testes: Configure CI/CD para executar os testes automaticamente.
+Mantenha os testes rápidos: Evite testes longos que desacelerem o desenvolvimento.
+Se você tiver exemplos ou dúvidas específicas, posso ajudar a refinar ou resolver problemas com os testes!
+
+
+
+
+
+
+Dito por si:
+- No "math.test.js" o 'expect' é uma convencao de esperado? E o 'toBe' é a resposta esperada?
+- O npm test é o que gera o arquivo html que mostra as coberturas?
+- O jest supertest testa o endPoint e mostra a resposta, tipo um Insomnia?
+- O que é um 'mock' em testes? Porque eu conheço Mock de dados em um arquivo texto que contem dados/registros, que usamos para testar os endPoints quando nao temos ainda ou nao vamos usar um banco de dados no inicio do projeto.
+- npm test --coverage é o que gera o codigo html que mostra as coberturas?
+
+
+Dito pelo ChatGPT:
+ChatGPT
+Ótimas perguntas! Vamos detalhar cada uma delas:
+
+1. O expect e o toBe
+O expect é uma função usada para declarar qual é o valor esperado no teste.
+O toBe é um matcher (comparador) que verifica se o valor real é igual ao valor esperado.
+Exemplo detalhado:
+
+javascript
+Copiar código
+const resultado = soma(1, 2);
+expect(resultado).toBe(3); // Aqui estamos dizendo: "Espero que o resultado seja 3"
+Outros matchers incluem:
+
+toEqual: Compara objetos ou arrays.
+toBeNull: Verifica se o valor é null.
+toContain: Verifica se um array ou string contém um item específico.
+toThrow: Verifica se uma função lança um erro.
+2. O npm test e relatórios de cobertura
+O comando npm test por si só não gera relatórios HTML de cobertura de código.
+Para isso, você precisa usar a flag --coverage:
+bash
+Copiar código
+npm test -- --coverage
+Isso cria um diretório chamado coverage/ com relatórios, incluindo arquivos HTML que mostram:
+
+Quais linhas do código foram testadas.
+Qual porcentagem de cada arquivo foi coberta pelos testes.
+Para visualizar:
+
+Vá até a pasta coverage/.
+Abra o arquivo index.html no navegador.
+3. O Jest com Supertest é como o Insomnia?
+Sim, é semelhante! Quando você usa supertest com Jest, ele:
+
+Faz requisições aos endpoints da sua aplicação (GET, POST, PUT, DELETE, etc.).
+Verifica a resposta recebida (status, corpo, cabeçalhos).
+Funciona como o Insomnia/Postman, mas dentro de um teste automatizado.
+Exemplo:
+
+javascript
+Copiar código
+const request = require('supertest');
+const app = require('../app'); // Importa sua aplicação Express
+
+test('GET /hello retorna "Hello, world!"', async () => {
+  const response = await request(app).get('/hello');
+  expect(response.status).toBe(200); // Verifica o status HTTP
+  expect(response.text).toBe('Hello, world!'); // Verifica o corpo da resposta
+});
+Vantagem sobre o Insomnia: Os testes são automatizados e podem ser executados em qualquer máquina, enquanto o Insomnia é mais para testes manuais.
+
+4. O que é um mock em testes?
+Um mock em testes é uma simulação de algo que o código depende. Pode ser:
+
+Um módulo.
+Uma função.
+Um banco de dados.
+Objetivo: Substituir dependências reais por simulações para isolar o que está sendo testado.
+
+Exemplo: Se sua função depende de uma API externa, você pode mockar essa API para simular sua resposta:
+
+Original:
+
+javascript
+Copiar código
+const fetchUser = async (id) => {
+  const response = await fetch(`https://api.exemplo.com/users/${id}`);
+  return response.json();
+};
+Mock em teste:
+
+javascript
+Copiar código
+jest.mock('./fetchUser'); // Simula a função
+fetchUser.mockResolvedValue({ id: 1, name: 'Mock User' });
+
+test('fetchUser retorna um usuário simulado', async () => {
+  const user = await fetchUser(1);
+  expect(user.name).toBe('Mock User');
+});
+No seu exemplo de mock de dados (em texto ou JSON), isso também é uma forma de simular dados, mas é mais estático. Já os mocks do Jest podem simular comportamento dinâmico.
+
+5. O npm test --coverage gera o relatório de cobertura?
+Sim! O comando npm test -- --coverage:
+
+Gera relatórios em HTML mostrando a cobertura do código.
+Cria a pasta coverage/ no projeto.
+Exibe estatísticas como:
+Statements: Percentual de declarações cobertas.
+Branches: Percentual de ramificações cobertas (e.g., if, switch).
+Functions: Percentual de funções cobertas.
+Lines: Percentual de linhas de código cobertas.
+Você pode abrir o arquivo coverage/index.html no navegador para visualizar.
+
+Se precisar de mais detalhes sobre algum ponto ou de ajuda com exemplos específicos, é só falar! 😊
+
+
+
+
+
+
+Dito por si:
+No caso de testes "expect(resultado).toBe(3)", o expect é a action, e o toBe é o result, tipo no redux/Saga, tem uma ação e o que se espera dela;
+Dito pelo ChatGPT:
+ChatGPT
+Exatamente, a analogia com Redux/Saga faz bastante sentido!
+
+No contexto de testes com Jest:
+
+expect é como a "ação": Ele define o que está sendo testado (uma função ou comportamento). Assim como no Redux/Saga, você despacha uma ação (dispatch(action)), no Jest você "invoca" o expect.
+
+toBe é como o "resultado esperado": Ele define o estado ou o valor esperado após a ação ser executada. No Redux/Saga, o resultado seria, por exemplo, o estado atualizado ou os efeitos colaterais esperados.
+
+Comparação Redux/Saga vs Jest:
+Redux/Saga
+Action: Representa o que deve ser feito (e.g., LOGIN_USER).
+Reducer (ou Saga): Manipula a ação e atualiza o estado.
+Estado esperado: O estado resultante após a ação.
+Exemplo:
+
+javascript
+Copiar código
+dispatch({ type: 'INCREMENT' });
+// Espera-se que o estado agora seja incrementado
+expect(state.count).toBe(1);
+Jest
+Expect (ação): Define o que você está verificando.
+Matcher (resultado esperado): Verifica se o comportamento ou valor corresponde ao esperado.
+Exemplo:
+
+javascript
+Copiar código
+const resultado = soma(2, 3);
+expect(resultado).toBe(5); // "Espero que o resultado seja 5 após executar soma(2, 3)"
+Assim como no Redux/Saga você avalia se a lógica produz o resultado esperado com base em uma ação disparada, no Jest você verifica se uma função ou comportamento produz o resultado correto usando matchers como toBe, toEqual, toContain, etc.

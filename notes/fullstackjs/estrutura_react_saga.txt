@@ -1,0 +1,66 @@
+Para incluir o Redux-Saga na estrutura de pastas do seu projeto React, a organização pode ser assim:
+
+my-react-project/
+├── public/             // Arquivos públicos, como index.html
+├── src/
+│   ├── assets/         // Imagens, fontes, e outros arquivos estáticos
+│   ├── components/     // Componentes reutilizáveis da aplicação
+│   ├── pages/          // Componentes de páginas individuais
+│   ├── hooks/          // Custom React Hooks
+│   ├── store/          // Configuração do Redux e Sagas
+│   │   ├── sagas/      // Arquivos de sagas (por exemplo, userSaga.js)
+│   │   ├── slices/     // Slices do Redux Toolkit ou reducers
+│   │   ├── actions/    // Ações (caso não use Redux Toolkit)
+│   │   ├── reducers/   // Reducers (caso não use Redux Toolkit)
+│   │   └── index.js    // Configuração principal do store
+│   ├── routes/         // Arquivos relacionados a rotas (por exemplo, AppRouter.js)
+│   ├── services/       // Chamadas de API e funções de backend
+│   ├── styles/         // Arquivos de estilo global
+│   ├── utils/          // Funções utilitárias
+│   ├── App.js          // Componente principal da aplicação
+│   └── index.js        // Ponto de entrada da aplicação
+├── package.json
+└── README.md
+
+Onde colocar o Saga e como organizar:
+src/store/sagas/: Coloque aqui os arquivos que contêm suas funções de saga (por exemplo, userSaga.js, authSaga.js).
+src/store/index.js: Configure o Redux e importe o redux-saga middleware aqui.
+src/store/rootSaga.js: Combine todas as suas sagas em um único rootSaga que será importado na configuração do store.
+
+Exemplo de código para configuração de Saga:
+=====================================================
+src/store/index.js
+
+import { configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
+import rootReducer from './slices';
+import rootSaga from './rootSaga';
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: [sagaMiddleware],
+});
+
+sagaMiddleware.run(rootSaga);
+
+export default store;
+
+=====================================================
+
+src/store/rootSaga.js
+
+import { all } from 'redux-saga/effects';
+import userSaga from './sagas/userSaga';
+
+export default function* rootSaga() {
+  yield all([
+    userSaga(),
+    // outras sagas...
+  ]);
+}
+
+=====================================================
+
+Com essa estrutura, seu projeto React estará bem organizado para escalar e gerenciar o estado e efeitos colaterais de forma eficiente usando o Redux-Saga.

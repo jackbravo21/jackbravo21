@@ -1,0 +1,190 @@
+Rodar:
+mvn spring-boot:run
+
+
+Gerar template:
+https://start.spring.io/
+
+Marcar: Mave;
+
+Groupt: nome do domínio;
+
+Dependences:
+- Spring Boot DevTools;
+- Spring Web;
+- Spring data JPA;
+- Mysql Driver;
+- Lombok;
+
+- Validation I/O
+Bean Validation with Hibernate validator.
+
+(Generate)
+
+
+
+- Dependências:
+
+        <!-- Spring Boot DevTools (para recarga automática) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Spring Web (para criar APIs REST) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Data JPA (para interação com o banco de dados) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- MySQL Driver (para conexão com o MySQL) -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Lombok (opcional, para reduzir boilerplate code) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Testes (JUnit e Spring Test) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+application.properties:
+
+# Configurações do servidor
+server.port=8080
+
+# Configurações do banco de dados MySQL
+spring.datasource.url=jdbc:mysql://localhost:3306/seu_banco_de_dados?useSSL=false&serverTimezone=UTC
+spring.datasource.username=seu_usuario
+spring.datasource.password=sua_senha
+
+# Configurações do Hibernate (JPA)
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+
+
+Pastas:
+
+pom.ml
+- Eh onde o maven vai gerenciar as dependências, como o node faz.
+
+.mvm
+- Onde ficam as conviguracoes do maven.
+
+@SpringBootApplication
+- Eh a porta de entrada de config do spring boot
+
+@Configuration
+- Vai definir que a nossa classe pode ter métodos que definem beans;
+
+@EnableConfiguration
+- Classe que ativa a auto configuração do spring boot, o springboot saiba que estamos fazendo configurações automaticas;
+
+@ComponentScan
+- Vai scanear o pacote em busca de tudo, de controladores, componentes, etc.
+
+@RestController
+- Indica que minha classe eh um controller rest, ou seja, combinando as anotações da @Controller e @ResponseBody;
+
+@RequestMapping("/hello-word")
+- Eh a rota;
+
+@GetMapping
+- Eh o route.get que vai responder no hello-word;
+
+@GetMapping("/get")
+- Responde para além da raiz do hello-word/get;
+
+
+localhost:8080/
+
+
+- Alterar a porta:
+/resources/aplication.properties
+- Devo criar a linha:
+server.port=9000
+
+- Também posso usar o "/resources/aplication.properties" para logar no banco de dados com:
+spring.datasource.url=jdbc:mysql://localhost:3306/first_spring_app
+spring.datasource.username=root
+spring.datasource.password=""
+
+@Profile("dev")
+- posso criar uma 'application-dev.properties', e posso dizer no 'application.properties' qual esta ativo com a linha:
+spring.profiles.active=dev
+- ou:
+spring.profiles.active=${ACTIVE_PROFILE:dev}
+
+
+
+@Service
+- Anotation para indicar que a classe eh um service;
+
+
+- Para criar um método construtor, ele deve ser publico, com o mesmo nome da classe;
+
+@Autowired
+private HelloWordService hellowWorldService;
+- Falo que a dependência vai ser injetada, com o Autowired;
+
+@Bean
+- Eu uso dentro das classes que tem o @Configuration, para indicar para o spring que ele deve gerenciar o retorno do método como um Bean da aplicação;
+- Implementa uma classe externa que vem de terceiros, mapeando os métodos que estão com @Bean;
+
+
+@Getter
+@Setter
+@AllArgsConstructor
+- Anotações para getters and setters;
+
+
+@PostMapping("/{id}")
+public String helloWordPost(@PathVariable("id") String id, @RequestBody User body) {
+return "Hello Word Post " + body.getName() + id;
+}
+
+
+@PostMapping("/param/{id}")
+public String helloWordPost(@PathVariable("id") String id, @RequestParam(value = "filter", defaultValue="nenhum") String filter, @RequestBody User body) {
+return "Hello Word Post " + body.getName() + id + filter;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,248 @@
+
+Entendi! Se você não está enviando FormData e está apenas enviando dados comuns (JSON), o que aconteceu é que ao configurar o Content-Type como multipart/form-data, o axios tenta preparar os dados para um envio de formulário com arquivos (como imagens, por exemplo). Isso acaba gerando problemas na sua requisição quando você não está realmente enviando arquivos.
+
+O que estava acontecendo:
+Quando você usa Content-Type: 'multipart/form-data', o axios passa a tentar estruturar a requisição de uma forma que é específica para envio de arquivos e dados em partes (por exemplo, imagens e texto juntos). Como você não está enviando um arquivo, mas apenas dados simples (texto), essa configuração do cabeçalho causou problemas, pois o axios tentou tratar os dados de forma inadequada.
+
+O que você deveria fazer:
+Como você está apenas enviando dados simples (textos) e não um formulário com arquivos, o cabeçalho Content-Type não precisa ser definido manualmente. O axios vai automaticamente configurar o cabeçalho como application/json para o envio de dados JSON. Ou seja, a melhor prática é remover a configuração do cabeçalho Content-Type no caso de enviar apenas JSON.
+
+A requisição para enviar dados simples (JSON) ficaria assim:
+
+javascript
+Copiar código
+export const productEditService = async(productData) => {
+    const response = await axios.put(`${BASE_URL}editar`, productData);
+    return response.data;
+}
+Ou seja, ao remover o cabeçalho manual, o axios irá automaticamente enviar a requisição como JSON.
+
+Em resumo:
+O problema foi o cabeçalho Content-Type: 'multipart/form-data' que você estava utilizando, mas ele só é necessário para enviar arquivos (como imagens). Para dados comuns, o axios já lida automaticamente com o tipo correto. Portanto, remover essa configuração resolve o problema.
+
+
+
+
+
+
+Dito por si:
+e esse content-type do axios quer dizer o que?
+Dito pelo ChatGPT:
+ChatGPT
+O Content-Type é um cabeçalho HTTP que informa ao servidor qual é o tipo de dado que está sendo enviado na requisição. Esse cabeçalho é crucial para que o servidor saiba como interpretar o conteúdo da requisição.
+
+Aqui estão alguns tipos comuns de Content-Type usados no axios e em requisições HTTP:
+
+1. application/json
+Uso: É usado quando você está enviando dados no formato JSON. Esse é o tipo de conteúdo mais comum em APIs RESTful.
+Exemplo de requisição:
+javascript
+Copiar código
+axios.post('/api', {
+    name: 'Produto A',
+    price: 20.99
+}, {
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
+Quando usar: Use esse tipo quando você está enviando apenas dados estruturados em JSON.
+2. multipart/form-data
+Uso: Esse tipo é utilizado quando você está enviando dados binários, como arquivos (imagens, documentos) em conjunto com outros campos de formulário.
+Exemplo de requisição:
+javascript
+Copiar código
+const formData = new FormData();
+formData.append('file', fileInput.files[0]);
+formData.append('name', 'Produto A');
+
+axios.post('/upload', formData, {
+    headers: {
+        'Content-Type': 'multipart/form-data'
+    }
+});
+Quando usar: Use esse tipo quando você estiver enviando arquivos através de um formulário, como uma imagem ou documento, e quiser enviar também dados de texto junto com esses arquivos.
+3. application/x-www-form-urlencoded
+Uso: Esse tipo é utilizado quando os dados são enviados como pares chave-valor, assim como em formulários HTML.
+Exemplo de requisição:
+javascript
+Copiar código
+axios.post('/api', 'name=Produto A&price=20.99', {
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+});
+Quando usar: Use esse tipo quando você estiver enviando dados de formulário no formato key=value, o que é comum quando você usa um formulário HTML normal. Este formato é usado em muitas APIs legadas ou quando os dados precisam ser processados de forma semelhante aos dados enviados por um formulário web.
+4. text/plain
+Uso: Esse tipo é utilizado quando você envia dados como texto simples.
+Exemplo de requisição:
+javascript
+Copiar código
+axios.post('/api', 'Este é um texto simples', {
+    headers: {
+        'Content-Type': 'text/plain'
+    }
+});
+Quando usar: Use esse tipo quando os dados que você está enviando são apenas texto simples, sem formatação ou estrutura.
+Como o Content-Type afeta o envio:
+JSON (application/json): Quando você envia dados em formato JSON, o servidor precisa entender que ele deve tratar o corpo da requisição como um objeto JSON. Isso é mais comum em APIs REST.
+Formulário com arquivos (multipart/form-data): Ao usar esse tipo, você está indicando ao servidor que o corpo da requisição pode conter tanto dados de formulário quanto arquivos binários. Quando você usa o FormData no frontend, o axios já ajusta o tipo para multipart/form-data, e você geralmente não precisa configurar manualmente.
+Formulário simples (application/x-www-form-urlencoded): É a forma como os navegadores enviam dados em formulários HTML tradicionais. O servidor precisa decodificar esses dados para extrair os valores.
+Conclusão:
+O Content-Type é crucial para o servidor entender como processar os dados que estão sendo enviados. Para dados JSON simples, o axios já usa application/json automaticamente, mas se você estiver enviando arquivos ou dados binários, como imagens, deve usar multipart/form-data. É importante não definir o Content-Type incorretamente, pois isso pode causar falhas na comunicação com o servidor.
+
+
+
+
+
+
+Dito por si:
+Deixa eu ver, o content-type é o cabeçalho do datagrama, dizendo que tipo de dados estao sendo enviados, caso eu nao colocoque nada, ele entende que os dados sao default, ou seja, json... quando eu seto, ele tenta enviar os dados que eu estou obrigando ele a enviar, o headers sempre eh enviado, mesmo que eu nao coloque, porem se eu nao colocar, soh nao estará implicito, mas ele eh enviado igual.
+Dito pelo ChatGPT:
+ChatGPT
+Exatamente! Vamos organizar e explicar o que você mencionou:
+
+O cabeçalho Content-Type:
+
+Ele indica para o servidor qual o tipo de dados que estão sendo enviados no corpo da requisição.
+Por padrão, quando você envia dados com axios sem especificar um Content-Type, o axios assume que os dados são do tipo JSON (application/json), o que é o padrão para a maioria das APIs RESTful.
+Se você não definir o Content-Type:
+
+Quando você não especifica o cabeçalho, o axios automaticamente usa application/json para enviar os dados.
+Por exemplo, se você enviar um objeto simples usando o axios.post() sem definir o Content-Type, ele será enviado com o cabeçalho Content-Type: application/json, e o servidor vai esperar dados JSON.
+Quando você define o Content-Type explicitamente:
+
+Ao adicionar um cabeçalho Content-Type diferente, como multipart/form-data ou application/x-www-form-urlencoded, você está explicitamente dizendo ao servidor que os dados estão em um formato diferente do padrão JSON.
+Exemplo: Se você estiver enviando um arquivo, como uma imagem, usando FormData, você deve definir Content-Type: multipart/form-data. Isso indica que o corpo da requisição inclui tanto dados de formulário quanto arquivos.
+Headers são sempre enviados:
+
+O axios sempre envia os cabeçalhos, mesmo que você não defina explicitamente. Porém, ao não definir, o cabeçalho Content-Type pode ser implicitamente atribuído, dependendo dos dados sendo enviados (por exemplo, JSON).
+Se você não definir o Content-Type, o axios irá automaticamente ajustar o tipo conforme o tipo de dados. Mas, quando você define explicitamente, o axios passará esse valor no cabeçalho.
+Comportamento do axios:
+
+Sem cabeçalho Content-Type explícito:
+javascript
+Copiar código
+axios.post('/api', { name: 'Produto A' });
+// Envia com o cabeçalho Content-Type: application/json por padrão.
+Com cabeçalho Content-Type explícito:
+javascript
+Copiar código
+axios.post('/api', formData, {
+  headers: { 'Content-Type': 'multipart/form-data' }
+});
+// Envia com o cabeçalho Content-Type: multipart/form-data.
+Conclusão:
+O Content-Type define o formato dos dados no corpo da requisição, e se você não especificá-lo, o axios irá usar application/json por padrão quando você enviar objetos ou dados em JSON. Quando você define o cabeçalho explicitamente, você está dizendo ao servidor para esperar um formato específico (como multipart/form-data para upload de arquivos, ou application/x-www-form-urlencoded para dados de formulário).
+
+Portanto, se você não colocar o cabeçalho, o axios tenta adivinhar o tipo de dados e enviar conforme o padrão para dados JSON. Mas quando você define um cabeçalho, ele tenta enviar exatamente o que você especificou.
+
+
+
+
+
+
+Dito por si:
+e quando eu quero enviar um token por ele, pode me dar um exemplo? Ainda é json?
+Dito pelo ChatGPT:
+ChatGPT
+Sim, quando você precisa enviar um token de autenticação (geralmente no cabeçalho Authorization), os dados ainda são geralmente no formato JSON, mas o que muda é como o token é enviado no cabeçalho da requisição, não no corpo.
+
+Aqui está um exemplo básico de como enviar um token de autenticação com axios:
+
+Enviar Token no Cabeçalho
+Quando você faz uma requisição que exige autenticação, o token geralmente é enviado no cabeçalho Authorization, no formato Bearer <token>. O formato Bearer é o mais comum, mas se o servidor exigir outro formato, você pode modificá-lo de acordo.
+
+Exemplo com axios:
+javascript
+Copiar código
+const token = 'seu-token-aqui';
+
+axios.post('/api/protected', { 
+    name: 'Produto A',
+    description: 'Descrição do Produto'
+}, {
+    headers: {
+        'Content-Type': 'application/json',  // Conteúdo da requisição
+        'Authorization': `Bearer ${token}`  // Cabeçalho de autenticação com o token
+    }
+})
+.then(response => {
+    console.log('Resposta:', response.data);
+})
+.catch(error => {
+    console.error('Erro:', error.response ? error.response.data : error.message);
+});
+O que acontece aqui:
+Cabeçalho Content-Type: application/json:
+
+Indica que o corpo da requisição é JSON, que é o padrão quando você envia dados estruturados, como objetos ou arrays.
+Cabeçalho Authorization: Bearer <token>:
+
+Esse cabeçalho envia o token de autenticação para o servidor, onde ele pode ser validado.
+Bearer é um tipo comum de esquema de autenticação, mas o formato pode variar dependendo da API (por exemplo, Basic, Token, etc.).
+Outro Exemplo com axios para GET:
+Se a requisição for um GET e você precisar enviar o token, você pode enviar o token no cabeçalho da mesma forma:
+
+javascript
+Copiar código
+axios.get('/api/protected', {
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }
+})
+.then(response => {
+    console.log('Resposta:', response.data);
+})
+.catch(error => {
+    console.error('Erro:', error.response ? error.response.data : error.message);
+});
+Quando usar Authorization:
+Token Bearer é um método comum para autenticação baseada em token, onde o token é obtido normalmente após um login bem-sucedido (por exemplo, via OAuth, JWT, etc.).
+O JSON no corpo da requisição é usado para os dados que você está enviando para o servidor (no caso do exemplo acima, o produto e descrição).
+Em resumo, quando você envia um token com axios, ele ainda faz parte do cabeçalho da requisição (Authorization), enquanto o corpo da requisição (os dados) pode continuar sendo JSON se você estiver enviando informações como objetos.
+
+
+
+
+
+
+Dito por si:
+"Authorization" eh um nome padrao? ou vc que definiu, porque o bear eu sei que eh padrao, tem no axios, e em sistemas para enviar e testar, o bear eu sei que eh padrao, assim como token eh nome padrao, mas esse que vc usou tb eh?
+Dito pelo ChatGPT:
+ChatGPT
+Sim, o nome Authorization é um cabeçalho padrão definido pelo protocolo HTTP, utilizado para enviar informações de autenticação com a requisição.
+
+O nome do cabeçalho Authorization não é algo que você precise definir; ele já é padrão nas especificações do protocolo HTTP, sendo usado para enviar credenciais de autenticação de diferentes tipos (como Basic, Bearer, entre outros). O que você define é o valor que será atribuído a esse cabeçalho, e no caso de tokens, o valor é tipicamente no formato Bearer <token>.
+
+Explicação:
+Authorization é o nome do cabeçalho.
+Bearer é o tipo de esquema de autenticação que você está usando (especificamente para tokens de acesso).
+<token> é o token real que você está enviando (exemplo: JWT).
+Exemplo padrão com token:
+http
+Copiar código
+Authorization: Bearer <seu-token-aqui>
+Tipos de autenticação com o cabeçalho Authorization:
+Basic Authentication:
+
+Usado quando o servidor espera um nome de usuário e senha codificados em base64.
+http
+Copiar código
+Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
+Bearer Token:
+
+Usado com tokens de autenticação, como JWT (JSON Web Tokens).
+http
+Copiar código
+Authorization: Bearer <seu-token-aqui>
+Outros esquemas:
+
+Dependendo do servidor, pode haver outros tipos de autenticação (mas o Bearer é o mais comum para autenticação baseada em token).
+http
+Copiar código
+Authorization: Token <seu-token-aqui>
+No contexto do axios:
+Quando você usa axios, o cabeçalho Authorization é geralmente configurado automaticamente com o valor apropriado quando você passa o token de autenticação com o tipo Bearer. O Bearer é uma convenção amplamente utilizada para enviar tokens JWT, mas o nome Authorization é o padrão.
+
+Portanto, não é algo que você precisa definir manualmente, pois o cabeçalho Authorization é definido pela especificação HTTP, mas o valor Bearer e o token são específicos de como você deseja autenticar.

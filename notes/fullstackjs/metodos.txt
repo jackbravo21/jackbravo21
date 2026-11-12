@@ -1,0 +1,61 @@
+
+Esses três métodos são usados para acessar diferentes partes de uma solicitação HTTP no Node.js (com frameworks como Express). Cada um tem uma função específica:
+
+req.body:
+Descrição: Contém os dados enviados pelo cliente em uma solicitação HTTP com método POST ou PUT. Esses dados vêm do corpo da requisição e normalmente são usados para enviar dados em formatos como JSON.
+Uso comum: console.log(req.body); é útil para depurar dados recebidos de formulários ou chamadas de API.
+Exemplo: Se você enviar { "name": "John" } em uma requisição POST, req.body.name seria John.
+
+req.params:
+Usado para acessar parâmetros de rota, como em uma rota dinâmica definida com :param.
+Use req.params para acessar os parâmetros de rota definidos com :param.
+Descrição: Contém os parâmetros de rota da solicitação, que são extraídos da parte da URL definida como variável na rota.
+Uso comum: Usado para acessar dados dinâmicos na URL, como /user/:id, onde :id é um parâmetro de rota.
+Exemplo: Se a rota for /user/:id e a URL acessada for /user/123, req.params.id será 123.
+-----------------------------------
+app.get('/user/:id', (req, res) => {
+    const userId = req.params.id; // Acessa o parâmetro de rota 'id'
+    console.log(userId);
+    res.send(`ID do usuário: ${userId}`);
+});
+-----------------------------------
+Se você acessar http://localhost:3000/user/123, req.params.id será 123.
+
+req.data:
+Descrição: req.data não é uma propriedade padrão do objeto request no Express. Se você vir isso no código, é provável que seja algo personalizado que foi adicionado por um middleware ou processado em algum momento antes de ser acessado.
+Uso comum: Se estiver presente, deve ser documentado no projeto, pois não faz parte do objeto de requisição padrão.
+Exemplo: Pode ser usado por bibliotecas ou middlewares específicos para armazenar dados processados antes de chegar ao seu manipulador de rota.
+
+req.query: 
+Descrição: Este método permite acessar os parâmetros de consulta (query parameters) da URL, que são passados após o símbolo ?. Esses parâmetros são normalmente usados para enviar informações na URL, como em http://example.com/search?term=nodejs.
+Use req.query para acessar os parâmetros de consulta na URL (?param=valor).
+Uso comum:
+Exemplo de uso req.query:
+-----------------------------------
+app.get('/search', (req, res) => {
+    const searchTerm = req.query.term; // Acessa o parâmetro 'term' da URL
+    console.log(searchTerm);
+    res.send(`Você pesquisou por: ${searchTerm}`);
+});
+-----------------------------------
+Se você acessar http://localhost:3000/search?term=nodejs, req.query.term será nodejs.
+
+Resumo:
+Use req.body para acessar o corpo da solicitação em POST ou PUT.
+Use req.params para acessar parâmetros de rota passados na URL.
+Use req.data mas verifique se está documentado no projeto ou adicionado por middleware, pois não faz parte do padrão Express.
+Use req.query para acessar os parâmetros de consulta na URL (?param=valor).
+
+
+
+- Propriedades do req no Express.js:
+
+req.originalUrl:
+Representa a URL original da requisição, incluindo o caminho (path). Por exemplo:
+Para uma requisição a /api/products/1, o valor seria "/api/products/1".
+
+req.method:
+Indica o método HTTP utilizado na requisição, como GET, POST, PUT, ou DELETE.
+
+req.body:
+Contém os dados enviados no corpo da requisição (quando aplicável, como em métodos POST ou PUT). Isso depende de você configurar um middleware como express.json().

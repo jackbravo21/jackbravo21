@@ -1,0 +1,71 @@
+A coleta de dados de Web Vitals (como First Contentful Paint, Largest Contentful Paint, e Cumulative Layout Shift) via o reportWebVitals pode ser verificada de diferentes maneiras, dependendo da ferramenta que você usa para relatar essas métricas.
+
+Como Funciona o reportWebVitals
+O reportWebVitals coleta essas métricas e as envia para um endpoint de monitoramento ou ferramenta de análise, como o Google Analytics, para visualizá-las. No código padrão gerado pelo create-react-app, o reportWebVitals não exibe gráficos diretamente no console ou na interface do navegador. Em vez disso, ele envia esses dados para onde você configurou. Se você não tiver configurado nada, ele simplesmente não fará nada.
+
+Aqui está como você pode configurar o reportWebVitals para usar o Google Analytics (um dos métodos mais comuns):
+
+Instalação do Google Analytics (se você já não estiver usando):
+
+Crie uma conta no Google Analytics e obtenha o ID de rastreamento (algo como UA-XXXXXX-X).
+Instale a biblioteca react-ga para integrar o Google Analytics no React.
+
+npm install react-ga
+Configuração do reportWebVitals para usar o Google Analytics: No arquivo reportWebVitals.js, adicione o seguinte código para enviar as métricas para o Google Analytics:
+
+
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-XXXXXX-X'); // Substitua pelo seu ID do Google Analytics
+
+export function reportWebVitals(metric) {
+  ReactGA.send({
+    hitType: 'event',
+    eventCategory: 'Web Vitals',
+    eventAction: metric.name,
+    eventLabel: metric.id,
+    eventValue: Math.round(metric.value),
+    nonInteraction: true,
+  });
+}
+Aqui, você envia os dados das métricas como eventos personalizados para o Google Analytics, onde você poderá visualizá-los nos relatórios.
+
+Como Ver as Métricas
+Google Analytics:
+
+Acesse sua conta do Google Analytics.
+Vá para Comportamento > Eventos > Visão geral para ver as métricas de "Web Vitals" que foram enviadas.
+Os eventos podem incluir dados como First Contentful Paint (FCP), Largest Contentful Paint (LCP) e Cumulative Layout Shift (CLS).
+Ferramentas de Desenvolvimento no Navegador:
+
+No Google Chrome, você pode usar as Ferramentas de Desenvolvedor para inspecionar as métricas de desempenho diretamente:
+Abra as Ferramentas de Desenvolvedor (F12 ou clique com o botão direito > Inspecionar).
+Vá para a aba Performance.
+Clique em Gravar e então recarregue a página.
+Você verá as métricas de Web Vitals sendo registradas no gráfico de desempenho.
+Lighthouse:
+
+O Lighthouse é uma ferramenta integrada no Chrome que analisa o desempenho da sua aplicação, incluindo Web Vitals.
+Abra as Ferramentas de Desenvolvedor (F12).
+Vá até a aba Lighthouse.
+Clique em Gerar relatório e escolha o tipo de análise que você quer (ex. Performance).
+O relatório incluirá Web Vitals e outras métricas de performance.
+Sem uma Ferramenta de Monitoramento (como o Google Analytics)
+Se você não deseja usar o Google Analytics ou outra ferramenta, pode modificar o reportWebVitals para simplesmente logar as métricas no console:
+
+export function reportWebVitals(metric) {
+  console.log(metric);
+}
+Isso fará com que as métricas sejam exibidas no console do navegador sempre que a página for carregada, com informações como:
+
+name: o nome da métrica (ex. FCP, LCP, CLS).
+id: um ID único da métrica.
+value: o valor da métrica (geralmente em milissegundos ou pontuação para o CLS).
+Isso ajuda a ver o desempenho da aplicação no navegador, mas não gerará gráficos. Para gráficos e insights contínuos, é recomendável configurar o envio dessas métricas para um serviço de monitoramento como o Google Analytics.
+
+Resumo
+Google Analytics: Envie as métricas para o Google Analytics para visualizar gráficos e relatórios detalhados.
+Ferramentas de Desenvolvedor no Navegador: Use a aba Performance nas Ferramentas de Desenvolvedor para ver gráficos de desempenho.
+Lighthouse: Gere relatórios de desempenho com Web Vitals.
+Console: Faça log das métricas diretamente no console para monitoramento manual.
+Essas abordagens ajudam a monitorar a experiência do usuário e otimizar o desempenho da sua aplicação React.

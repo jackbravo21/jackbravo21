@@ -1,0 +1,131 @@
+Claro! Vou te mostrar um exemplo básico de uma aplicação Node.js com Express que realiza uma requisição para buscar dados de um usuário em um banco de dados. Esse exemplo demonstra como os dados fluem desde a camada de routes até os controllers, passam pelos services e chegam aos models que interagem diretamente com o banco de dados.
+
+Estrutura de Pastas:
+lua
+Copiar código
+project-root/
+|-- controllers/
+|   |-- userController.js
+|-- services/
+|   |-- userService.js
+|-- models/
+|   |-- userModel.js
+|-- routes/
+|   |-- userRoutes.js
+|-- app.js
+
+1. userRoutes.js (Rota)
+javascript
+Copiar código
+const express = require('express');
+const router = express.Router();
+const userController = require('../controllers/userController');
+
+router.get('/users/:id', userController.getUserById);
+
+module.exports = router;
+
+2. userController.js (Controller)
+javascript
+Copiar código
+const userService = require('../services/userService');
+
+const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await userService.getUserById(userId);
+
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao buscar usuário', error });
+  }
+};
+
+module.exports = {
+  getUserById,
+};
+
+3. userService.js (Service)
+javascript
+Copiar código
+const userModel = require('../models/userModel');
+
+const getUserById = async (id) => {
+  // Lógica de negócio adicional pode ser implementada aqui, como validações
+  const user = await userModel.findUserById(id);
+  return user;
+};
+
+module.exports = {
+  getUserById,
+};
+
+4. userModel.js (Model)
+javascript
+Copiar código
+// Simulação de interação com banco de dados
+const db = require('../db'); // Dependência fictícia de banco de dados
+
+const findUserById = async (id) => {
+  // Exemplo de uma consulta ao banco de dados
+  const user = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+  return user.rows[0]; // Retorna o primeiro resultado encontrado
+};
+
+module.exports = {
+  findUserById,
+};
+5. app.js (Configuração principal)
+javascript
+Copiar código
+const express = require('express');
+const app = express();
+const userRoutes = require('./routes/userRoutes');
+
+app.use(express.json());
+app.use('/api', userRoutes);
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
+
+Ordem da Lógica:
+
+Rota (userRoutes.js): Recebe a requisição HTTP (GET /users/:id) e encaminha para o controller.
+Controller (userController.js): Processa a requisição, captura o id dos parâmetros e chama a função correspondente no service.
+Service (userService.js): Implementa a lógica de negócios e chama o método do model para buscar os dados no banco de dados.
+Model (userModel.js): Interage diretamente com o banco de dados e executa a consulta, retornando os dados ao service.
+Fluxo de resposta: O service retorna os dados para o controller, que então responde ao cliente com os dados ou uma mensagem de erro.
+Explicação:
+Camada de Rota: Apenas direciona a requisição para o controller.
+Controller: Cuida da lógica relacionada à requisição e à resposta HTTP.
+Service: Gerencia as regras de negócio e faz chamadas ao model.
+Model: Conecta-se ao banco de dados e executa operações de CRUD.
+Essa separação ajuda a manter o código organizado e fácil de manter, permitindo que a aplicação cresça de forma modular e escalável.
+
+
+============================================================================
+
+Logica da Rede Social (BackEnd):
+
+Usuario:
+- Rota para cadastrar o usuario;
+- Rota para recuperar senha do usuario;
+- Rota para logar;
+- Rota para logout;
+
+- Rota para perfil / pagina inicial;
+- Rota para perfil / dos outros;
+
+- Rota para os amigos;
+- Rota para procurar amigos novos;
+- Rota para adicionar amigos;
+- Rota para aceitar amigos;
+- Rota para excluir amigos;
+
+

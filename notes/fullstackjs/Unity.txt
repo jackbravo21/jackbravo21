@@ -1,0 +1,79 @@
+GetActiveScene
+GetAxisRaw
+GetButton
+GetButtonDown
+GetComponent
+GameObject
+gameObject
+gravityScale
+
+
+
+Bom dia! Capturar a entrada do teclado é uma das tarefas mais comuns na Unity, e existem basicamente duas formas de fazer isso, dependendo de qual sistema você está usando: o Input Manager (clássico) ou o Input System Package (moderno).
+
+Aqui estão os comandos principais para cada um:
+
+1. Input Manager (O Método Tradicional)
+Este é o método mais simples e já vem configurado por padrão. Você usa a classe Input dentro do método Update().
+
+==================================================================
+Input.GetKeyDown(KeyCode.Space): Retorna true apenas no primeiro frame em que a tecla foi pressionada. Ideal para ações únicas, como pular.
+
+Input.GetKey(KeyCode.Space): Retorna true em todos os frames enquanto a tecla estiver sendo segurada. Ideal para movimentação contínua.
+
+Input.GetKeyUp(KeyCode.Space): Retorna true apenas no frame em que o usuário soltou a tecla.
+==================================================================
+
+
+Exemplo de Código:
+
+==================================================================
+void Update() {
+    if (Input.GetKeyDown(KeyCode.Space)) {
+        Debug.Log("Espaço foi pressionado uma vez!");
+    }
+
+    if (Input.GetKey(KeyCode.W)) {
+        Debug.Log("W está sendo segurado!");
+    }
+}
+==================================================================
+
+2. Input System Package (O Novo Padrão)
+Se você estiver usando o novo sistema (instalado via Package Manager), a lógica muda um pouco para ser mais profissional e compatível com múltiplos dispositivos.
+
+Keyboard.current.spaceKey.wasPressedThisFrame: Equivalente ao GetKeyDown.
+
+Keyboard.current.wKey.isPressed: Equivalente ao GetKey.
+
+Keyboard.current.anyKey.wasPressedThisFrame: Detecta se qualquer tecla foi pressionada.
+
+
+3. Diferença entre os Comandos
+Para ajudar a escolher o melhor para o seu caso:
+
+==================================================================
+Comando		Comportamento			Uso Comum
+GetKeyDown	Ativado no clique inicial	"Pulo, Abrir Inventário, Atirar"
+GetKey		Ativado enquanto segura		"Correr, Andar, Dirigir"
+GetKeyUp	Ativado ao soltar		"Carregar um ataque, Soltar granada"
+==================================================================
+
+
+Dica de Ouro: Input por Eixos
+Em vez de capturar tecla por tecla (W, A, S, D), é muito comum usar o Input.GetAxis. Ele retorna um valor entre -1 e 1, facilitando a movimentação:
+
+==================================================================
+float horizontal = Input.GetAxis("Horizontal"); 	// A (-1) e D (1)
+float vertical = Input.GetAxis("Vertical");     	// S (-1) e W (1)
+==================================================================
+
+
+
+
+HealthBar
+https://www.youtube.com/watch?v=ftWHJ2OUSBU
+
+
+
+

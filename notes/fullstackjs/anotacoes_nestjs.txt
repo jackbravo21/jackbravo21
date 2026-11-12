@@ -1,0 +1,391 @@
+npm i -g @nestjs/cli                //installa global;
+nest new my-nest-project            //installa o projeto;
+npm run start                       //executa o projete;
+nest generate module users          //adiciona um novo modulo "users";
+nest generate controller users      //adiciona um novo controller do "users";
+nest generate service users         //adicionar um novo service do "users";
+
+
+nest g resource users
+Cria:
+users.controller.ts
+users.service.ts
+users.module.ts
+DTOs
+Também pode configurar automaticamente para usar CRUD básico se você confirmar no prompt.
+Dica:
+Se você quiser ver todas as opções disponíveis, use:
+
+nest g --help
+Isso mostrará todas as entidades que você pode gerar (controller, service, module, etc.) e como personalizá-las.
+
+
+==========================================
+
+Tipos de Requisições HTTP
+@Get(): Para buscar dados.
+@Post(): Para criar novos recursos.
+@Put(): Para atualizar recursos existentes.
+@Patch(): Para atualizações parciais de recursos.
+@Delete(): Para excluir recursos.
+@Options(): Para obter informações sobre quais métodos HTTP são suportados por uma rota.
+@Head(): Para retornar apenas os cabeçalhos da resposta, sem o corpo.
+
+==========================================
+
+Decorators para parâmetros
+Os decorators são usados para extrair dados da requisição ou do contexto. Aqui estão os principais:
+
+@Body():
+
+Extrai o corpo da requisição (JSON ou outro payload).
+Normalmente usado em rotas POST, PUT ou PATCH.
+Pode ser tipado usando DTOs.
+
+------------------------------------------
+
+@Post('/create')
+async create(@Body() createDto: CreateDto) {
+  return this.service.create(createDto);
+}
+
+------------------------------------------
+
+@Query():
+
+Extrai parâmetros da query string (ex.: ?id=123).
+
+------------------------------------------
+
+@Get('/user')
+async find(@Query('id') id: string) {
+  return this.service.findUser(id);
+}
+
+------------------------------------------
+
+@Param():
+
+Extrai parâmetros de rota dinâmicos (ex.: /user/:id).
+
+------------------------------------------
+
+@Get('/user/:id')
+async find(@Param('id') id: string) {
+  return this.service.findUser(id);
+}
+
+------------------------------------------
+
+@Headers():
+
+Extrai valores dos cabeçalhos HTTP.
+
+------------------------------------------
+
+@Get('/custom-header')
+async getHeader(@Headers('Authorization') authHeader: string) {
+  return { authHeader };
+}
+
+------------------------------------------
+
+@Req() (ou Request):
+
+Acessa o objeto completo da requisição HTTP.
+
+------------------------------------------
+
+@Get('/request-info')
+async getInfo(@Req() req: Request) {
+  return req.headers;
+}
+
+------------------------------------------
+
+@Res() (ou Response):
+
+Acessa o objeto completo da resposta HTTP, permitindo manipulações diretas.
+Nota: Quando usado, você deve gerenciar manualmente a resposta.
+
+------------------------------------------
+
+@Get('/custom-response')
+async customResponse(@Res() res: Response) {
+  res.status(200).send('Custom Response');
+}
+
+------------------------------------------
+
+@Session():
+
+Acessa a sessão do usuário (usado com middlewares como express-session).
+
+------------------------------------------
+
+@Get('/session')
+getSession(@Session() session: Record<string, any>) {
+  return session;
+}
+
+------------------------------------------
+
+@UploadedFile():
+
+Extrai arquivos enviados (usado com bibliotecas como Multer para uploads).
+
+------------------------------------------
+
+@Post('/upload')
+async uploadFile(@UploadedFile() file: Express.Multer.File) {
+  return file.filename;
+}
+
+------------------------------------------
+
+@UploadedFiles():
+
+Para múltiplos arquivos enviados.
+typescript
+Copiar código
+@Post('/upload-multiple')
+async uploadFiles(@UploadedFiles() files: Express.Multer.File[]) {
+  return files;
+}
+
+------------------------------------------
+
+@Ip():
+
+Obtém o endereço IP do cliente.
+
+------------------------------------------
+
+@Get('/client-ip')
+getClientIp(@Ip() ip: string) {
+  return ip;
+}
+
+------------------------------------------
+
+@HostParam():
+
+Acessa valores do host dinamicamente.
+
+------------------------------------------
+
+@Get()
+getHost(@HostParam('subdomain') subdomain: string) {
+  return subdomain;
+}
+
+------------------------------------------
+
+@Cookies() (usado com um middleware de cookies como cookie-parser):
+
+Lê cookies da requisição.
+
+------------------------------------------
+
+@Get('/cookies')
+getCookies(@Cookies('sessionId') sessionId: string) {
+  return sessionId;
+}
+
+------------------------------------------
+
+@HttpCode():
+
+Define o código de status HTTP da resposta.
+
+------------------------------------------
+
+@Post('/create')
+@HttpCode(201)
+async create(@Body() createDto: CreateDto) {
+  return { success: true };
+}
+
+------------------------------------------
+
+@Redirect():
+
+Redireciona para outra URL.
+
+------------------------------------------
+
+@Get('/docs')
+@Redirect('https://docs.example.com', 302)
+getDocs() {}
+
+==========================================
+
+Exemplo de Crud:
+
+
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.usersService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(+id, updateUserDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.usersService.remove(+id);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.remove(id);
+  }
+
+======================================================
+
+Fluxo:
+
+Objeto:
+
+------------------------------------------
+const user: { id: number; name: string } = {
+  id: 1,
+  name: "Ash",
+};
+------------------------------------------
+
+Aqui:
+user é a variável que contém os valores reais (como id: 1 e name: "Ash").
+O tipo { id: number; name: string } define o que é permitido estar dentro de user:
+id deve ser um número.
+name deve ser uma string.
+Com isso, você pode acessar os valores de user assim:
+
+------------------------------------------
+console.log(user.id); // 1
+console.log(user.name); // Ash
+------------------------------------------
+
+Aplicando ao NestJS
+Com o NestJS e o DTO, funciona da mesma forma:
+
+Exemplo do DTO:
+
+------------------------------------------
+export class CreatePokemonDto {
+  id: number;
+  name: string;
+  type: string[];
+}
+------------------------------------------
+
+
+Controller:
+
+------------------------------------------
+@Post()
+async create(@Body() createPokemonDto: CreatePokemonDto) {
+  console.log(createPokemonDto.name); // Acessando o valor do DTO
+  return this.pokemonService.create(createPokemonDto);
+}
+------------------------------------------
+
+Service:
+
+------------------------------------------
+create(data: CreatePokemonDto) {
+  console.log(data.name); // Aqui, você acessa `data.name`, que é validado pelo DTO
+  return this.prisma.pokemon.create({
+    data,
+  });
+}
+------------------------------------------
+
+==========================================
+
+O que realmente acontece ali?
+Quando você escreve:
+
+------------------------------------------
+async create(@Body() createPokemonDto: CreatePokemonDto)
+@Body():
+------------------------------------------
+
+Captura o corpo da requisição HTTP (req.body) enviado pelo cliente.
+createPokemonDto: CreatePokemonDto:
+
+Define que o valor capturado pelo @Body() deve ser transformado em uma instância da classe CreatePokemonDto.
+Essa classe é usada para validar os dados e mapear os valores para os campos definidos.
+
+Execução automática:
+
+O NestJS pega o body da requisição, verifica se os dados enviados são válidos com base na estrutura de CreatePokemonDto, e injeta o resultado diretamente no parâmetro createPokemonDto.
+Por que não parece "separado"?
+Na prática, a sintaxe fica "sem separação" porque o NestJS está otimizando a experiência. É como dizer:
+
+"Pegue os dados do @Body() e passe diretamente para createPokemonDto."
+A função completa seria equivalente a algo como:
+
+------------------------------------------
+async create(req: Request): Promise<any> {
+  const body = req.body; // Pega os dados do body manualmente.
+  const validatedData = validate(CreatePokemonDto, body); // Valida manualmente o DTO.
+  return this.service.create(validatedData); // Usa os dados validados.
+}
+------------------------------------------
+
+Só que o NestJS simplifica tudo isso com a injeção automática.
+
+Então, por que os dados do body são inseridos automaticamente?
+
+O @Body() funciona como um decorator mágico:
+
+Ele "escuta" o conteúdo do req.body na requisição.
+Transforma os dados em uma instância da classe especificada (CreatePokemonDto).
+Injeta essa instância como o valor do parâmetro da função.
+O que acontece se você adicionar outro parâmetro?
+Se você adicionar mais decoradores, o NestJS entende como mapear cada valor da requisição para os parâmetros da função:
+
+------------------------------------------
+@Post()
+async create(
+  @Body() createPokemonDto: CreatePokemonDto, 
+  @Param('id') id: number, 
+  @Query('type') type: string
+) {
+  console.log(createPokemonDto, id, type);
+}
+@Body(): Pega o corpo da requisição.
+@Param('id'): Pega o valor do parâmetro de rota /create/:id.
+@Query('type'): Pega os valores de query string, como ?type=fire.
+------------------------------------------
+
+Resumo
+A falta de separação após @Body() pode parecer estranha no início, mas:
+
+É apenas o estilo do NestJS para reduzir verbosidade e usar injeção de dependência diretamente.
+O espaço é suficiente para indicar que o decorator (@Body()) se aplica ao parâmetro seguinte (createPokemonDto).
+Sim, os dados do body são automaticamente validados e injetados na variável com base no tipo (CreatePokemonDto).
+Você pode melhorar a legibilidade separando o decorator e o tipo para que fique mais visualmente claro:
+
+------------------------------------------
+async create(
+  @Body()
+  createPokemonDto: CreatePokemonDto
+) {
+  // lógica aqui
+}
+------------------------------------------
+

@@ -1,0 +1,574 @@
+Sim. Isso é do **Redux**, mais especificamente do **React-Redux**. Como você já trabalhou bastante com Redux/Saga, provavelmente é só aquela sintaxe que ficou enferrujada. 😄
+
+```ts
+const dispatch = useDispatch();
+```
+
+### O que é `dispatch`?
+
+O `dispatch` é a função que você usa para **enviar uma action para o Redux**.
+
+Pense assim:
+
+```text
+Componente React
+      │
+      │ dispatch(action)
+      ▼
+   Redux Store
+      │
+      ▼
+    Reducer
+      │
+      ▼
+ Estado atualizado
+```
+
+Por exemplo, suponha que você tenha uma action:
+
+```ts
+const action = {
+  type: 'user/login',
+  payload: {
+    email: 'jack@email.com'
+  }
+};
+```
+
+Você poderia fazer:
+
+```ts
+const dispatch = useDispatch();
+
+dispatch(action);
+```
+
+Ou, normalmente, usando uma action criada pelo Redux Toolkit:
+
+```ts
+dispatch(loginUser({
+  email: 'jack@email.com',
+  password: '12345'
+}));
+```
+
+---
+
+## E o que é `useDispatch()`?
+
+`useDispatch()` é um **hook do React-Redux**.
+
+Ele pega o `dispatch` da sua Redux Store e entrega para o componente.
+
+Ou seja:
+
+```ts
+const dispatch = useDispatch();
+```
+
+pode ser entendido mentalmente como:
+
+> "React-Redux, me dê a função `dispatch` da minha Store."
+
+Depois você pode fazer:
+
+```ts
+dispatch(minhaAction());
+```
+
+---
+
+### E o `useSelector` é o contrário
+
+Provavelmente você também lembra desse:
+
+```ts
+const user = useSelector(state => state.user);
+```
+
+A diferença fundamental é:
+
+```text
+useSelector()
+    ↓
+LÊ dados da Store
+
+useDispatch()
+    ↓
+ENVIA actions para a Store
+```
+
+Por exemplo:
+
+```ts
+const dispatch = useDispatch();
+
+const user = useSelector(state => state.user);
+
+function login() {
+    dispatch(loginUser());
+}
+```
+
+Então:
+
+**`useSelector` → "me dê uma informação que está no Redux."**
+
+**`dispatch` → "Redux, faça alguma coisa com essa action."**
+
+---
+
+### No seu caso antigo com Redux Saga
+
+Aí provavelmente você usava bastante algo como:
+
+```ts
+dispatch(loginRequest());
+```
+
+O fluxo era aproximadamente:
+
+```text
+Componente
+    │
+    │ dispatch(loginRequest())
+    ▼
+Redux
+    │
+    ▼
+Saga
+    │
+    │ chamada API
+    ▼
+Backend
+    │
+    ▼
+Saga
+    │
+    ▼
+dispatch(loginSuccess(user))
+    │
+    ▼
+Reducer
+    │
+    ▼
+Store atualizada
+```
+
+E é justamente por isso que `dispatch` aparece tanto em aplicações React com Redux/Saga.
+
+**Uma diferença importante:** `dispatch` não é "uma função do Redux que chama diretamente o backend". Ele **despacha uma action**; o que acontece depois depende da arquitetura — reducer, Saga, middleware etc.
+
+Se quiser, também posso criar uma imagem comparando **React + Redux + `dispatch` + `useSelector` + Saga**, que pode ajudar bastante a refrescar isso visualmente.
+
+
+
+
+
+
+
+
+
+
+Sim — olhando esse código dá para perceber exatamente onde estão os quatro conceitos que você esqueceu. E como você **já conhecia React**, vou focar em recuperar o modelo mental, não em explicar React do zero.
+
+## 1. `useState` — estado local do componente
+
+Você tem:
+
+```js
+const [fullname, setFullName] = useState('');
+```
+
+Pense nisso como:
+
+```text
+fullname    → valor atual
+setFullName → função que altera o valor
+```
+
+Começa assim:
+
+```js
+fullname = ''
+```
+
+Quando o usuário digita:
+
+```js
+function prepareSetName(e) {
+    setFullName(e.target.value);
+}
+```
+
+Se ele digitar `Jack`:
+
+```text
+input
+  ↓
+onChange
+  ↓
+prepareSetName()
+  ↓
+setFullName("Jack")
+  ↓
+React atualiza o estado
+  ↓
+fullname === "Jack"
+```
+
+E você tinha vários:
+
+```js
+const [fullname, setFullName] = useState('');
+const [mail, setSetEmail] = useState('');
+const [password, setPassword] = useState('');
+const [confirmpassword, setConfirmassword] = useState('');
+```
+
+Então o `useState` é simplesmente o mecanismo para o componente **guardar um estado que pode mudar**.
+
+---
+
+# 2. `useSelector` — LER o Redux
+
+Aqui:
+
+```js
+const error = useSelector((state) => state.user.error);
+```
+
+Você está dizendo:
+
+> "Redux, me dê `error` que está dentro de `user`."
+
+Imagine sua Store:
+
+```js
+state = {
+    user: {
+        error: "As senhas não são iguais!",
+        ...
+    }
+}
+```
+
+Então:
+
+```js
+useSelector((state) => state.user.error)
+```
+
+retorna:
+
+```text
+"As senhas não são iguais!"
+```
+
+E você usa:
+
+```jsx
+<p className='registerErro'>
+    <b>{error}</b>
+</p>
+```
+
+Portanto:
+
+```text
+useSelector
+     ↓
+    LÊ
+     ↓
+Redux Store
+```
+
+---
+
+# 3. `useDispatch` — ENVIAR uma action para o Redux
+
+Aqui:
+
+```js
+const dispatch = useDispatch();
+```
+
+Você está obtendo a função `dispatch`.
+
+Depois:
+
+```js
+dispatch(resetErrorUser());
+```
+
+ou:
+
+```js
+dispatch(setErrorUser({
+    error: "Preencha todos os campos!"
+}));
+```
+
+ou:
+
+```js
+dispatch(createUser({
+    fullname: fullname,
+    mail: mail,
+    password: password,
+}));
+```
+
+A ideia é:
+
+```text
+             Redux
+               ↑
+               │
+          dispatch()
+               │
+          Componente
+```
+
+Você **manda uma action para o Redux**.
+
+Por exemplo:
+
+```js
+dispatch(setErrorUser({
+    error: "As senhas não são iguais!"
+}));
+```
+
+O `setErrorUser(...)` cria uma action.
+
+O `dispatch(...)` envia essa action.
+
+---
+
+# 4. Então `useSelector` e `useDispatch` são praticamente opostos
+
+Essa é uma maneira boa de guardar:
+
+```text
+useSelector()
+     ↓
+   LER
+     ↓
+   Redux
+
+
+dispatch()
+     ↓
+  ENVIAR
+     ↓
+   Redux
+```
+
+No seu código:
+
+```js
+const error = useSelector((state) => state.user.error);
+```
+
+**Você lê o estado.**
+
+Enquanto:
+
+```js
+dispatch(setErrorUser(...));
+```
+
+**Você manda uma alteração/ação para o Redux.**
+
+---
+
+# 5. `useEffect` — executar algo quando alguma coisa mudar
+
+Você também tem:
+
+```js
+useEffect(() => {
+    if (error) {
+        console.error("Erro detectado: ", error);
+    }
+}, [error]);
+```
+
+O `[error]` é importante.
+
+Significa:
+
+> "Execute esse efeito quando `error` mudar."
+
+Por exemplo:
+
+```text
+error = null
+
+usuário tenta cadastrar
+       ↓
+dispatch(setErrorUser(...))
+       ↓
+Redux altera error
+       ↓
+error mudou
+       ↓
+useEffect executa
+       ↓
+console.error(...)
+```
+
+Então:
+
+```js
+useEffect(() => {
+   // faça alguma coisa
+}, [algumaCoisa]);
+```
+
+é basicamente:
+
+> "Quando `algumaCoisa` mudar, execute isso."
+
+---
+
+# 6. E olhando seu `register()`, agora fica bem fácil enxergar tudo
+
+Você tem:
+
+```js
+function register(e)
+{
+    dispatch(resetErrorUser());
+    e.preventDefault();
+
+    if(password !== confirmpassword){
+        dispatch(setErrorUser({
+            error: "As senhas não são iguais!"
+        }));
+        return;
+    }
+```
+
+Aqui:
+
+### `useState`
+
+Guarda:
+
+```js
+password
+confirmpassword
+```
+
+### `dispatch`
+
+Envia:
+
+```js
+setErrorUser(...)
+```
+
+para o Redux.
+
+### `useSelector`
+
+Recebe:
+
+```js
+const error = useSelector(
+    (state) => state.user.error
+);
+```
+
+### JSX
+
+Mostra:
+
+```jsx
+{error}
+```
+
+### `useEffect`
+
+Percebe que:
+
+```text
+error mudou
+```
+
+e executa:
+
+```js
+console.error(...)
+```
+
+---
+
+## E tem dois errinhos interessantes no seu código antigo
+
+Esse aqui:
+
+```js
+function login()
+{
+    dispatch(dispatch(resetErrorUser()));
+    navigate('/login')
+}
+```
+
+tem um `dispatch` duplicado.
+
+Provavelmente era:
+
+```js
+function login()
+{
+    dispatch(resetErrorUser());
+    navigate('/login');
+}
+```
+
+E esse trecho:
+
+```js
+dispatch(createUser(...));
+
+dispatch(resetErrorUser());
+
+console.log(`Usuário "${mail}" cadastrado com sucesso!`);
+alert(`Usuário "${mail}" cadastrado com sucesso!`);
+navigate("/login");
+```
+
+é **problemático se `createUser` fizer uma requisição assíncrona ao backend**, porque o seu código está dizendo "cadastrado com sucesso" imediatamente depois de despachar a action, sem necessariamente esperar a resposta do backend.
+
+Se você estava usando **Redux Saga**, provavelmente o fluxo era justamente:
+
+```text
+Register
+   │
+   │ dispatch(createUser())
+   ▼
+Redux/Saga
+   │
+   │ HTTP
+   ▼
+Backend
+   │
+   │ resposta
+   ▼
+Saga
+   │
+   ├── sucesso → createUserSuccess()
+   │
+   └── erro    → setErrorUser()
+```
+
+Então essa parte provavelmente merece uma revisão quando você voltar para esse projeto.
+
+E uma coisa legal: você não esqueceu React de verdade. 😄 Você esqueceu **a mecânica dos hooks**, mas olhando seu código dá para ver que a arquitetura que você montou ainda está aí na cabeça.
+
+Posso também criar uma imagem mostrando **`useState → useSelector → dispatch → Redux/Saga → Backend → volta para o componente`**.
+

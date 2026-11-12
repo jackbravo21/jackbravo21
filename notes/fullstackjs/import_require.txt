@@ -1,0 +1,118 @@
+Porque está errado?
+
+C:\server\labs\projetos_fullstack\produtos\backend\middlewares\bcrypt.js:5
+export const securePassword = async(userPassword, saltRounds = defaultSaltRounds) => {
+^^^^^^
+
+SyntaxError: Unexpected token 'export'
+
+==============
+
+- Codigo:
+
+const bcrypt = require('bcrypt');
+const defaultSaltRounds = 10;                  //salts do bcrypt, entre 4-15, recomendado 10;
+
+//se nao for enviado um valor como segundo argumento, vai ser usado como padrao a defaultSaltRounds;
+export const securePassword = async(userPassword, saltRounds = defaultSaltRounds) => { 
+    const userHash = await bcrypt.hash(userPassword, saltRounds);
+    return userHash;
+};
+
+export const comparePassword = async(userPassword, dbPassword) => {
+    const compare = await bcrypt.compare(userPassword, dbPassword);
+    return compare;
+};
+Dito pelo ChatGPT:
+ChatGPT
+O erro ocorre porque você está usando a sintaxe de ESM (ECMAScript Modules) (export) em um arquivo que provavelmente está configurado para utilizar o sistema de CommonJS (require e module.exports). Por padrão, o Node.js trata arquivos .js como módulos CommonJS, a menos que você tenha configurado o projeto explicitamente para usar ESM (como adicionar "type": "module" no package.json).
+
+Soluções
+1. Alterar para CommonJS
+Se você preferir manter o CommonJS, substitua export por module.exports:
+
+javascript
+Copiar código
+const bcrypt = require('bcrypt');
+const defaultSaltRounds = 10; // salts do bcrypt, entre 4-15, recomendado 10
+
+// Exportando as funções usando module.exports
+const securePassword = async (userPassword, saltRounds = defaultSaltRounds) => {
+    const userHash = await bcrypt.hash(userPassword, saltRounds);
+    return userHash;
+};
+
+const comparePassword = async (userPassword, dbPassword) => {
+    const compare = await bcrypt.compare(userPassword, dbPassword);
+    return compare;
+};
+
+module.exports = { securePassword, comparePassword };
+No arquivo onde você importa, continue usando:
+
+javascript
+Copiar código
+const { securePassword, comparePassword } = require('../middlewares/bcrypt');
+2. Configurar o projeto para usar ESM
+Se você preferir usar export e import, altere o package.json para incluir:
+
+json
+Copiar código
+{
+  "type": "module"
+}
+E então ajuste o código para:
+
+javascript
+Copiar código
+import bcrypt from 'bcrypt';
+
+const defaultSaltRounds = 10;
+
+export const securePassword = async (userPassword, saltRounds = defaultSaltRounds) => {
+    const userHash = await bcrypt.hash(userPassword, saltRounds);
+    return userHash;
+};
+
+export const comparePassword = async (userPassword, dbPassword) => {
+    const compare = await bcrypt.compare(userPassword, dbPassword);
+    return compare;
+};
+Na importação:
+
+javascript
+Copiar código
+import { securePassword, comparePassword } from '../middlewares/bcrypt.js';
+
+
+
+
+Você adiciona a propriedade "type": "module" diretamente no objeto do package.json, na raiz do arquivo, geralmente logo abaixo ou acima da propriedade "main". Ficaria assim:
+
+json
+Copiar código
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "joi": "^17.13.3",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.11.4",
+    "sequelize": "^6.37.5"
+  }
+}
+Após adicionar "type": "module", o Node.js tratará os arquivos .js do seu projeto como módulos ESM, permitindo o uso das sintaxes import e export.

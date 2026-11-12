@@ -1,0 +1,196 @@
+O middleware de tratamento de erros é uma forma centralizada de lidar com erros no Express. Ele substitui a necessidade de repetir try-catch com res.status(...).json(...) em cada controlador. Em vez disso, o erro é automaticamente capturado e tratado pelo middleware.
+
+Vamos ver como implementar isso e onde ele substitui código no seu projeto.
+
+1. Código Atual:
+No userController, você tem try-catch em todos os métodos. Veja um exemplo:
+
+javascript
+Copiar código
+const checkLogin = async (req, res) => {    
+    const { mail, password } = req.body;
+
+    try {       
+        const selectUser = await userLogin(mail, password);
+    
+        if (selectUser) {
+            console.log("BackEnd: ", selectUser);
+            res.send(selectUser);
+        } else {
+            res.status(404).json({ Message: "Usuário não foi encontrado." });
+        }
+    } catch (error) {
+        console.log(`Usuário não foi encontrado!`);
+        res.status(500).json({ Message: `Usuário não foi encontrado.` });
+    }
+};
+Isso está funcionando, mas você está repetindo a mesma lógica de captura e resposta para erros.
+
+2. Refatorando com Middleware de Erros:
+Etapa 1: Crie o Middleware
+Crie um arquivo chamado errorHandler.js na pasta middlewares:
+
+javascript
+Copiar código
+// ./middlewares/errorHandler.js
+function errorHandler(err, req, res, next) {
+    console.error(err.stack); // Exibe o erro no console
+    res.status(500).json({ message: err.message || "Erro interno do servidor." });
+}
+
+module.exports = errorHandler;
+Etapa 2: Adicione no index.js
+Adicione o middleware no seu index.js depois de todas as rotas:
+
+javascript
+Copiar código
+const errorHandler = require('./middlewares/errorHandler');
+
+// Rotas
+app.use("/user", userRoute);
+app.use("/product", productRoute);
+
+// Middleware de tratamento de erros
+app.use(errorHandler);
+Esse middleware agora será chamado automaticamente para qualquer erro não tratado no código.
+
+Etapa 3: Simplifique os Controladores
+Agora, nos seus controladores, você não precisa mais capturar os erros com try-catch a menos que queira tratar algo específico. Em vez disso, basta lançar o erro com throw ou permitir que ele aconteça.
+
+Exemplo refatorado do checkLogin:
+
+javascript
+Copiar código
+const checkLogin = async (req, res, next) => {
+    const { mail, password } = req.body;
+
+    const selectUser = await userLogin(mail, password);
+
+    if (!selectUser) {
+        const error = new Error("Usuário não foi encontrado.");
+        error.status = 404; // Defina o status do erro
+        throw error; // Lança o erro
+    }
+
+    console.log("BackEnd: ", selectUser);
+    res.send(selectUser);
+};
+Agora, se algo der errado, o erro será automaticamente tratado pelo middleware errorHandler.
+
+Etapa 4: Adicione Status Personalizado nos Erros (Opcional)
+Se quiser personalizar o código de status de cada erro, basta definir o atributo error.status antes de lançar o erro:
+
+javascript
+Copiar código
+const register = async (req, res, next) => {
+    const { fullname, mail, password } = req.body;
+
+    const createUser = await userCreate(fullname, mail, password);
+
+    if (!createUser) {
+        const error = new Error("Erro ao cadastrar usuário.");
+        error.status = 400;
+        throw error; // Deixa o middleware lidar com isso
+    }
+
+    res.send(createUser);
+};
+3. Benefícios:
+Código Mais Limpo: Você elimina repetições de try-catch em cada controlador.
+Centralização de Lógica: Todo o tratamento de erros está em um único lugar (o middleware).
+Fácil de Manter: Se precisar mudar como os erros são tratados, você faz isso apenas no errorHandler.js.
+
+
+
+==================================================
+
+
+O erro que você está vendo ocorre porque, quando um erro é gerado com throw new Error(...), o JavaScript automaticamente inclui o stack trace (rastreamento de pilha) junto com a mensagem do erro, o que inclui o caminho do arquivo e a linha onde o erro ocorreu. Para evitar isso e retornar apenas a mensagem de erro personalizada, você pode usar o createError ou manipular o erro manualmente.
+
+Aqui estão algumas abordagens para esconder o caminho e linha do erro:
+
+1. Usando o createError.js
+Como você já tem o arquivo createError.js para criar erros, você pode garantir que o erro retornado não inclua o rastreamento de pilha. Em vez de lançar um erro com new Error(), você pode criar um erro customizado com o seu utilitário.
+
+Ajustando a função userLogin para usar createError:
+js
+Copiar código
+// Em userController.js
+const createError = require('../utils/createError');
+
+async function userLogin(userMail, userPassword) {
+    try {
+        const selectUser = await tableUsers.findOne({
+            where: {
+                mail: userMail,
+                password: userPassword,
+            },
+            attributes: { exclude: ['password'] } // Remove o campo senha
+        });            
+        
+        if (!selectUser) {
+            console.log("Dados | mail: " + userMail + " password: " + userPassword);
+            throw createError("Usuário não encontrado no DB...", 404); // Usando createError
+        }
+
+        console.log("BackEnd: ", selectUser);
+        return selectUser;
+    } catch (error) {
+        throw error; // Se necessário, trate o erro aqui
+    }    
+};
+No código acima, em vez de usar new Error("Usuário não encontrado..."), você usa o createError("Usuário não encontrado no DB...", 404), o que cria um erro com uma mensagem personalizada e sem incluir a stack trace.
+
+2. Removendo o Stack Trace ao lançar um erro
+Outra abordagem seria remover manualmente o stack trace do erro antes de enviá-lo ao cliente. Isso pode ser feito com algo assim:
+
+js
+Copiar código
+async function userLogin(userMail, userPassword) {
+    try {
+        const selectUser = await tableUsers.findOne({
+            where: {
+                mail: userMail,
+                password: userPassword,
+            },
+            attributes: { exclude: ['password'] } // Remove o campo senha
+        });
+
+        if (!selectUser) {
+            console.log("Dados | mail: " + userMail + " password: " + userPassword);
+            const error = new Error("Usuário não encontrado no DB...");
+            error.status = 404;
+            delete error.stack;  // Remove o stack trace
+            throw error;
+        }
+
+        console.log("BackEnd: ", selectUser);
+        return selectUser;
+    } catch (error) {
+        throw error; // Tratamento de erro, se necessário
+    }
+};
+Aqui, o delete error.stack; remove o rastreamento de pilha do erro antes de lançá-lo. Com isso, a mensagem de erro será mais limpa, sem detalhes técnicos, e você poderá controlar o status do erro de forma personalizada.
+
+3. Lidar com o erro no middleware ou no controlador
+Se você tem um middleware de erro para o seu app, pode configurar esse middleware para tratar os erros de forma mais amigável e não expor o caminho completo.
+
+Exemplo de middleware de erro:
+
+js
+Copiar código
+// Middleware de erro
+app.use((err, req, res, next) => {
+    console.error(err.stack); // Log do erro no console (com stack trace)
+    res.status(err.status || 500).send({
+        message: err.message || "Erro interno do servidor",
+    });
+});
+Esse middleware garante que, no frontend, você só receba a mensagem de erro, sem o caminho da pilha (stack trace).
+
+Resumo:
+Para evitar que o caminho e a linha do erro apareçam na resposta, utilize o createError ou remova o stack trace manualmente.
+Configure um middleware de erro para garantir que o backend sempre retorne apenas uma mensagem amigável para o cliente.
+Essas práticas ajudam a manter o frontend limpo e sem detalhes internos do sistema.
+
+==========================

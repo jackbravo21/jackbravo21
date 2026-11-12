@@ -1,0 +1,67 @@
+Uma boa organização no NestJS é fundamental para manter o projeto escalável e fácil de gerenciar. O NestJS já traz um padrão que segue boas práticas, mas ao adicionar funcionalidades como "users" e "products", você pode expandir a estrutura com base nos módulos.
+
+Aqui está uma sugestão de organização para seu caso:
+
+Estrutura de pastas organizada:
+
+src/
+│
+├── common/                 # Código compartilhado entre módulos
+│   ├── decorators/         # Decoradores personalizados
+│   ├── filters/            # Filtros globais de exceções
+│   ├── guards/             # Guards de autenticação/autorização
+│   ├── interceptors/       # Interceptores globais
+│   ├── pipes/              # Pipes globais
+│   └── utils/              # Funções utilitárias compartilhadas
+│
+├── config/                 # Configurações do projeto
+│   ├── database.config.ts  # Configuração do banco de dados
+│   ├── jwt.config.ts       # Configuração de JWT
+│   └── app.config.ts       # Configurações gerais
+│
+├── modules/                # Módulos da aplicação
+│   ├── users/              # Funcionalidades relacionadas a usuários
+│   │   ├── dto/            # Data Transfer Objects
+│   │   ├── entities/       # Entidades de banco de dados
+│   │   ├── users.controller.ts
+│   │   ├── users.service.ts
+│   │   └── users.module.ts
+│   │
+│   ├── products/           # Funcionalidades relacionadas a produtos
+│   │   ├── dto/            # Data Transfer Objects
+│   │   ├── entities/       # Entidades de banco de dados
+│   │   ├── products.controller.ts
+│   │   ├── products.service.ts
+│   │   └── products.module.ts
+│   │
+│   └── auth/               # Funcionalidades de autenticação
+│       ├── dto/            # DTOs de login e cadastro
+│       ├── auth.controller.ts
+│       ├── auth.service.ts
+│       └── auth.module.ts
+│
+├── main.ts                 # Arquivo principal
+└── app.module.ts           # Módulo raiz que importa os outros módulos
+
+
+
+Explicação de cada parte:
+common/: Armazena código reutilizável (exemplo: guards, pipes, interceptors, filtros). Isso reduz duplicação de código entre módulos.
+config/: Centraliza configurações importantes (ex.: conexão com banco de dados, JWT, etc.).
+modules/: Cada funcionalidade principal da aplicação (ex.: users, products) é encapsulada em seu próprio módulo.
+dto/: Define as classes para validação e transferência de dados (ex.: CreateUserDto).
+entities/: Contém as classes que mapeiam tabelas do banco de dados (ex.: UserEntity).
+Controller: Define as rotas e o comportamento HTTP.
+Service: Contém a lógica de negócios e se comunica com o banco de dados.
+Module: Conecta o controller e o service, registrando dependências.
+Arquivos globais: O main.ts é o ponto de entrada do aplicativo, enquanto o app.module.ts é o módulo raiz que importa os módulos da aplicação.
+Fluxo de dados:
+Controller: Recebe e valida os dados da requisição HTTP.
+Service: Processa os dados e aplica as regras de negócio.
+Repository (opcional): Faz a interação com o banco de dados (em projetos grandes).
+Entity: Representa as tabelas no banco.
+Boas práticas:
+Um módulo por funcionalidade: Cada domínio (users, products) deve estar isolado em seu próprio módulo.
+Centralizar lógica comum: Reaproveite código comum em common/.
+Seguir convenções do NestJS: Nomeie arquivos como *.module.ts, *.controller.ts, *.service.ts.
+Dividir DTOs e entidades: Facilita a manutenção e leitura do código.

@@ -1,0 +1,207 @@
+https://docs.github.com/pt/github/authenticating-to-github/error-permission-denied-publickey
+https://docs.github.com/pt/github/using-git/changing-a-remotes-url
+
+https://github.com/jackbravo21/crud_php_oo_mvc_pdo/upload
+https://github.com/jackbravo21/crud_php_oo_mvc_pdo.git
+git@github.com:jackbravo21/crud_php_oo_mvc_pdo.git
+
+
+
+
+
+> git init
+> git add .
+> git commit -m "nome do sistema"
+> git checkout -b "developer"
+> git remote add origin https://github.com/jackbravo21/rpositorio.git
+> git push --set-upstream origin developer
+
+
+
+
+
+https://github.com/jackbravo21/crud_php_oo_mvc_pdo
+
+
+echo "# crud_php_oo_mvc_pdo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:jackbravo21/crud_php_oo_mvc_pdo.git
+git push -u origin main
+
+…or push an existing repository from the command line
+
+git remote add origin git@github.com:jackbravo21/crud_php_oo_mvc_pdo.git
+git branch -M main
+git push -u origin main
+
+
+
+
+
+
+
+BitBucket: mais reservado.
+
+
+Copiar um projeto do GITHUB:
+
+$ git clone "link/url"
+
+ou
+
+$ git clone +link +"o nome da pasta que eu quiser"
+
+===================================================
+
+Transformar uma pasta como repositório git:
+
+- Vou ate a pasta pelo cmd, ou abro ela com o GIT, botao direito e digito comando:
+
+$ git init
+
+===================================================
+
+Adicionar o arquivo no GIT (index.php é o arquivo):
+
+$ git add index.php
+
+
+===================================================
+
+Comando para sincronizar as alteracoes de todos os arquivos da pasta no "stage area" (ele vai add ou excluir arquivos que foram incluidos ou removidos no projeto):
+
+$ git add --all
+
+
+===================================================
+
+Enviar o arquivo para o StageArea (ele vai pedir um comentario, motivo):
+
+$ git commit -m "criei meu repositorio"
+
+===================================================
+
+Meu repositorio teste, ele segue um padrao:
+
+https://github.com/jackbravo21/teste.git
+
+===================================================
+
+Setar para qual repositorio eu vou enviar:
+
+$ git remote add origin https://github.com/jackbravo21/teste.git
+
+===================================================
+
+Setar qual eh o seu nome, toda a vez que fizer o commit, vai atrelar ao usuario:
+
+$ git config --global user.name "Joao Rangel"
+
+===================================================
+
+Agora setar o email do GITHUB:
+
+$ git config --global user.email "suporte@hcode.com.br"
+
+===================================================
+
+Vou enviar para o servidor do GITHUB:
+
+$ git push origin master
+
+E apos dar enter, ele vai pedir usuario e senha, que eh o email e a senha.
+
+===================================================
+
+Atualizar na minha máquina, baixando do GIT repositório:
+
+$ git pull origin master
+
+===================================================
+
+Estando o arquivo adicionado ja, pode-se usar soh os comandos:
+
+$ git add --all
+$ git commit -m "comentario"
+
+===================================================
+
+Mudar de Branch:
+
+$ git checkout new_branch
+
+===================================================
+
+===================================================
+
+===================================================
+
+===================================================
+
+===================================================
+
+===================================================
+
+===================================================
+
+===================================================
+
+
+
+Configurar o global, que eh o username:
+
+$ git config --global user.name "jackbravo21"
+
+$ git config --global user.email "jackbravo@jackbravo21.com.br"			(tem que ser o mesmo do GIT)
+
+Posso configurar qual eh meu editor principal de codigo (sublime "sub"):
+$ git config --global core.editor sub
+
+Se eu quiser saber algum  valor a ser utilizado ou que eu utilizei em alguma variavel:
+$ git config user.name
+$ git config user.email
+
+Se eu quiser saber tudo:
+$ git config --list
+
+Iniciar o repositorio, a pasta dos projetos, vou ate a pasta e:
+
+(vai iniciar o repositorio e verificar todas as mudanças dele).
+$ git init
+
+
+
+
+
+=======================================================
+
+Comando para adicionar todos os arquivos:
+
+$ git add --all
+$ git add .
+
+Confirmar:
+
+$ git commit -m "texto"
+
+Conectar:
+
+$ git remote add origin https://github.com/jackbravo21/PHP-Sistema_gerenciamento_usuarios_Mysqli_MVC.git
+
+Enviar arquivos:
+
+$ git push origin master
+
+Ele vai pedir login e senha.
+
+
+git remote add origin https://github.com/jackbravo21/Java-Basico-Logica.git
+
+Verificar remoto:
+
+$ git remote -v
+
+

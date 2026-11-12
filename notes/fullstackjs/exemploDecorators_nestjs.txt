@@ -1,0 +1,142 @@
+Como funcionam os Decorators?
+Decorators são basicamente funções que recebem como argumentos o alvo (classe, método, etc.) que está sendo decorado. Eles podem:
+
+Adicionar metadados.
+Interceptar chamadas ou acessos.
+Alterar o comportamento de classes, métodos ou propriedades.
+Para usar decorators no TypeScript, é necessário habilitá-los no tsconfig.json:
+
+json
+Copiar código
+{
+  "experimentalDecorators": true
+}
+Onde os Decorators podem ser usados?
+Decorators podem ser aplicados a:
+
+Classes (@Decorator)
+Propriedades (@Decorator)
+Métodos (@Decorator)
+Parâmetros de métodos (@Decorator)
+Getters e Setters (@Decorator)
+Tipos de Decorators e Exemplos
+1. Class Decorators
+Um decorator aplicado a uma classe modifica ou estende a classe.
+
+typescript
+Copiar código
+function AddTimestamp(constructor: Function) {
+  constructor.prototype.timestamp = new Date();
+}
+
+@AddTimestamp
+class Example {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+const example = new Example("Test");
+console.log(example.timestamp); // Exibe a data atual
+Aqui, o decorator AddTimestamp adiciona uma propriedade timestamp a qualquer classe onde for aplicado.
+
+2. Property Decorators
+Usados para alterar ou adicionar metadados a propriedades de uma classe.
+
+typescript
+Copiar código
+function Readonly(target: any, propertyKey: string) {
+  Object.defineProperty(target, propertyKey, {
+    writable: false,
+  });
+}
+
+class Example {
+  @Readonly
+  name = "Test";
+}
+
+const example = new Example();
+example.name = "New Test"; // Erro: Não é possível alterar uma propriedade somente leitura
+O decorator Readonly torna a propriedade name imutável.
+
+3. Method Decorators
+Usados para alterar o comportamento de métodos.
+
+typescript
+Copiar código
+function Log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value;
+
+  descriptor.value = function (...args: any[]) {
+    console.log(`Método ${propertyKey} foi chamado com argumentos: ${args}`);
+    return originalMethod.apply(this, args);
+  };
+}
+
+class Example {
+  @Log
+  sayHello(name: string) {
+    console.log(`Olá, ${name}!`);
+  }
+}
+
+const example = new Example();
+example.sayHello("João");
+// Saída:
+// Método sayHello foi chamado com argumentos: João
+// Olá, João!
+Aqui, o decorator Log intercepta chamadas ao método sayHello e registra informações no console.
+
+4. Parameter Decorators
+Permitem adicionar lógica ou metadados aos parâmetros de métodos.
+
+typescript
+Copiar código
+function LogParam(target: any, propertyKey: string, parameterIndex: number) {
+  console.log(`O parâmetro na posição ${parameterIndex} do método ${propertyKey} foi decorado.`);
+}
+
+class Example {
+  greet(@LogParam name: string) {
+    console.log(`Olá, ${name}!`);
+  }
+}
+
+const example = new Example();
+example.greet("Maria");
+// Saída:
+// O parâmetro na posição 0 do método greet foi decorado.
+// Olá, Maria!
+Por que usar Decorators?
+Decorators são úteis para:
+
+Adicionar metadados: Usado frequentemente em frameworks como Angular e NestJS.
+Reduzir código repetitivo: Tornando o código mais limpo e declarativo.
+Implementar padrões de projeto: Como injeção de dependências, validação e interceptação.
+Estender funcionalidades: Sem modificar diretamente o código base.
+Exemplo Completo no Contexto do NestJS
+No NestJS, os decorators são amplamente utilizados para definir controladores, serviços, métodos HTTP, entre outros.
+
+typescript
+Copiar código
+import { Controller, Get, Param } from '@nestjs/common';
+
+@Controller('users')
+export class UserController {
+  @Get(':id')
+  getUserById(@Param('id') id: string) {
+    return `Usuário com ID: ${id}`;
+  }
+}
+Aqui:
+
+@Controller('users') define a rota base.
+@Get(':id') define a rota para o método HTTP GET.
+@Param('id') extrai o parâmetro id da rota.
+Resumo
+Decorators são funções especiais que anotam e modificam classes, métodos, propriedades ou parâmetros.
+Eles são amplamente usados em frameworks como NestJS, Angular e outros que seguem o padrão TypeScript.
+Apesar de parecerem complexos no início, decorators trazem muita flexibilidade e reduzem a repetição de código.

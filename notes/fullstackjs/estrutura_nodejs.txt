@@ -1,0 +1,72 @@
+A estrutura ideal de pastas para um projeto Node.js com Express pode seguir o padrão abaixo, que ajuda a manter a organização e a escalabilidade:
+
+
+=======================================================================================
+
+
+/project-root
+|-- /controllers        // Lógica das rotas e manipulação de requisições/respostas
+|   |-- userController.js
+|   |-- authController.js
+|
+|-- /models             // Definição dos modelos de dados
+|   |-- userModel.js
+|
+|-- /routes             // Definição das rotas da aplicação
+|   |-- userRoutes.js
+|   |-- authRoutes.js
+|
+|-- /middlewares        // Middlewares para validação, autenticação, etc.
+|   |-- authMiddleware.js
+|
+|-- /services           // Regras de negócio e lógica de aplicação
+|   |-- userService.js
+|
+|-- /config             // Configurações da aplicação (conexão com o banco de dados, etc.)
+|   |-- dbConfig.js
+|
+|-- /uploads            // Pasta para armazenar arquivos (pode ser protegida ou pública)
+|
+|-- /utils              // Funções auxiliares e utilitárias
+|   |-- hashPassword.js
+|
+|-- /public             // Arquivos públicos (imagens, CSS, etc.)
+|
+|-- server.js           // Ponto de entrada principal do servidor
+|-- package.json
+|-- .env                // Variáveis de ambiente
+|-- README.md
+
+
+=======================================================================================
+
+Explicação:
+
+controllers: Contém a lógica para lidar com as requisições HTTP.
+models: Define os modelos e esquemas de dados (por exemplo, usando Mongoose).
+routes: Define as rotas e faz o encaminhamento para os controladores.
+middlewares: Contém funções para serem executadas antes das requisições chegarem aos controladores (por exemplo, autenticação).
+services: Contém a lógica de negócio, separando as regras de negócio da lógica de requisição.
+config: Arquivos de configuração, como conexões com bancos de dados.
+utils: Funções utilitárias e scripts auxiliares.
+uploads: Diretório para armazenamento de arquivos enviados.
+public: Diretório com acesso público para servir arquivos estáticos.
+Essa organização torna o projeto mais modular e facilita a manutenção e a escalabilidade.
+
+
+=======================================================================================
+
+
+- Propriedades do req no Express.js:
+
+req.originalUrl:
+Representa a URL original da requisição, incluindo o caminho (path). Por exemplo:
+Para uma requisição a /api/products/1, o valor seria "/api/products/1".
+
+req.method:
+Indica o método HTTP utilizado na requisição, como GET, POST, PUT, ou DELETE.
+
+req.body:
+Contém os dados enviados no corpo da requisição (quando aplicável, como em métodos POST ou PUT). Isso depende de você configurar um middleware como express.json().
+
+

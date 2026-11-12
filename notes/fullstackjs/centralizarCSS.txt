@@ -1,0 +1,29 @@
+nao funcionou, apenas tirou as bordas, nao tem algum comando para só centralizar itens dentro de algo? Antigamente no Html se colocava as tags <center></center> e centralizava qualquer coisa
+
+O ChatGPT disse:
+ChatGPT
+Entendi o que você deseja. De fato, a tag <center> foi depreciada no HTML5, mas ainda é possível centralizar itens de maneira simples utilizando CSS. Para centralizar a tabela ou qualquer outro conteúdo dentro de um contêiner, você pode usar o seguinte método em CSS:
+
+Use display: flex e justify-content: center no contêiner para centralizar o conteúdo horizontalmente. Se for necessário também centralizar verticalmente, você pode adicionar align-items: center.
+Aqui está o código atualizado para centralizar os itens da tabela, mantendo a largura da tabela intacta:
+
+Atualize o CSS da containerSection ou do contêiner pai da tabela:
+
+.containerSection {
+  max-width: 900px;
+  margin: 1px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  
+  display: flex;               /* Adiciona o Flexbox */
+  flex-direction: column;      /* Organiza os itens em coluna */
+  align-items: center;         /* Centraliza os itens horizontalmente */
+}
+Isso deve garantir que todos os elementos dentro de .containerSection, incluindo a tabela, fiquem centralizados. Essa abordagem com Flexbox é simples e funciona bem para a centralização de qualquer conteúdo.
+
+Explicação:
+display: flex: Ativa o Flexbox para o contêiner.
+flex-direction: column: Garante que os itens dentro do contêiner sejam organizados em uma coluna.
+align-items: center: Centraliza os itens dentro do contêiner ao longo do eixo horizontal.
+Tente essa abordagem e veja se resolve seu problema de centralização. Se ainda houver algum problema, podemos ajustar mais detalhes.

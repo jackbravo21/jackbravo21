@@ -1,0 +1,74 @@
+async function fetchInscriptions() {
+    try {
+        // Busca todas as inscrições no banco
+        const inscriptions = await prisma.inscriptions.findMany();
+
+        // Mapeia os campos para os nomes esperados pelo GraphQL
+        const mappedInscriptions = inscriptions.map((inscription) => ({
+            id: inscription.id,
+            studentID: inscription.id_student, // Mapeia para o nome correto
+            courseID: inscription.id_course,  // Mapeia para o nome correto
+            createdAt: inscription.created_at,
+        }));
+
+        // Verifica se os dados estão sendo mapeados corretamente
+        console.log("Mapped Inscriptions: ", mappedInscriptions);
+
+        return mappedInscriptions;
+    } catch (error) {
+        console.error("Erro ao buscar os cursos inscritos: ", error);
+        throw new Error("Erro ao buscar os cursos inscritos.");
+    }
+}
+
+
+
+
+
+async function fetchCourses(){
+    try{
+        const allCourses = await prisma.courses.findMany();
+
+        const updatedCourses = allCourses.map(course => {
+            const { created_at, ...rest } = course;     //Desestrutura para separar created_at
+            correctCourses = {
+                ...rest,
+                createdAt: created_at,                  //Adiciona createdAt com o valor de created_at
+            };
+        });
+
+        return updatedCourses;
+    }
+    catch(error){
+        console.error("Erro ao buscar os cursos: ", error);
+        throw new Error("Erro ao buscar os cursos.");
+    }
+}
+
+
+
+
+
+async function fetchCourses(){
+    try{
+        const allCourses = await prisma.courses.findMany();
+
+        const updatedCourses = allCourses.map(course => {
+            const { id, title, description, image, teacher, created_at } = course;     //Desestrutura para separar created_at
+            return {
+                id: id,
+                title: title,
+                description: description,
+                image: image,
+                teacher: teacher,
+                createdAt: created_at,                  //Adiciona createdAt com o valor de created_at
+            };
+        });
+
+        return updatedCourses;
+    }
+    catch(error){
+        console.error("Erro ao buscar os cursos: ", error);
+        throw new Error("Erro ao buscar os cursos.");
+    }
+}

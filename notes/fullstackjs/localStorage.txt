@@ -1,0 +1,53 @@
+    function home(e)
+    {
+        e.preventDefault();
+
+        console.log("user: ", user);
+        console.log("password: ", password);
+
+        if(user === "" || user === undefined || password === "" || password === undefined)
+        {
+            alert("Digite TODOS os dados do usuário!")
+            return;
+        }
+
+        else{
+
+            dispatch(loginUser({
+                user: user,
+                password: password,
+            }));
+
+            alert("Você Logou com usuario: " + user + " e a senha eh: " + password);
+            localStorage.setItem('user', user);
+            localStorage.setItem('password', password);
+            navigate('/home');
+            window.location.reload();
+        }
+    }
+
+
+    function Navbar({ setUpdateKey }) {
+    const navigate = useNavigate();
+
+    function logoff() {
+        setNickname(""); // Limpa o nickname
+        localStorage.removeItem('user');
+        localStorage.removeItem('password');
+
+        // Atualiza o estado para forçar a renderização do componente Home
+        setUpdateKey(prev => prev + 1);
+
+        // Navega para a página inicial
+        navigate('/home');
+    }
+
+    return (
+        <ul>
+            {/* itens do navbar */}
+            <li className="ex6">
+                <a className="active6" onClick={logoff}>Logoff</a>
+            </li>
+        </ul>
+    );
+}

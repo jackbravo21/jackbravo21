@@ -1,0 +1,113 @@
+No Prisma, a configuração do banco de dados é um pouco diferente, pois ele não utiliza o mesmo padrão de configuração como o Sequelize. O Prisma gera um arquivo de configuração para o banco de dados chamado schema.prisma, onde você define o modelo de dados e a conexão com o banco.
+
+Aqui está um exemplo de como seria o arquivo de configuração no Prisma, baseado no seu exemplo com o Sequelize:
+
+Exemplo de configuração do banco de dados com Prisma
+Instalação do Prisma: Primeiro, você precisa instalar o Prisma e o cliente para seu banco de dados. Para MySQL, por exemplo, você faria:
+
+bash
+Copiar código
+npm install @prisma/client
+npx prisma init
+Arquivo schema.prisma: O Prisma cria automaticamente o arquivo schema.prisma na pasta prisma após você rodar o comando npx prisma init. Abaixo, vou te dar um exemplo de como seria a configuração para conectar ao banco de dados MySQL.
+
+Exemplo de arquivo schema.prisma:
+prisma
+Copiar código
+// schema.prisma
+
+// Define o provedor de banco de dados (no caso MySQL)
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Conexão com o banco de dados
+datasource db {
+  provider = "mysql"   // Aqui você define o banco de dados que está utilizando
+  url      = env("DATABASE_URL")  // Aqui vem a URL de conexão
+}
+No arquivo .env, você coloca as credenciais para o banco de dados:
+
+env
+Copiar código
+// .env
+DATABASE_URL="mysql://root:@localhost:3306/products"
+Criação dos modelos (models) no Prisma:
+No Prisma, você define seus modelos dentro do schema.prisma. Aqui está como você poderia definir um modelo User:
+
+prisma
+Copiar código
+// schema.prisma
+
+model User {
+  id    Int    @id @default(autoincrement()) // Define a chave primária
+  name  String
+  age   Int
+  email String @unique  // Define um campo único
+}
+Gerando o Prisma Client:
+Após configurar o seu banco de dados e modelos, você precisa gerar o Prisma Client para que você possa usar nas suas consultas. Você faz isso rodando o seguinte comando no terminal:
+
+bash
+Copiar código
+npx prisma generate
+Isso irá gerar o cliente Prisma que você pode importar e usar em seu código.
+
+Exemplo de uso no código:
+javascript
+Copiar código
+// db.js (ou qualquer nome que você preferir)
+
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+async function main() {
+  // Buscar todos os usuários
+  const users = await prisma.user.findMany();
+  console.log(users);
+
+  // Criar um usuário
+  const newUser = await prisma.user.create({
+    data: {
+      name: 'João',
+      age: 25,
+      email: 'joao@example.com',
+    },
+  });
+  console.log('Usuário criado:', newUser);
+
+  // Atualizar um usuário
+  const updatedUser = await prisma.user.update({
+    where: { id: 1 },
+    data: { age: 26 },
+  });
+  console.log('Usuário atualizado:', updatedUser);
+
+  // Deletar um usuário
+  const deletedUser = await prisma.user.delete({
+    where: { id: 1 },
+  });
+  console.log('Usuário deletado:', deletedUser);
+}
+
+main()
+  .catch(e => {
+    throw e
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  });
+Migrations no Prisma:
+Prisma também possui um sistema de migrations para gerenciar a estrutura do banco de dados. Para criar uma migration que atualiza o banco de dados de acordo com o seu modelo, você rodaria:
+
+bash
+Copiar código
+npx prisma migrate dev --name init
+Esse comando cria uma migration e aplica as alterações no banco de dados. Com isso, seu banco de dados estará sincronizado com o modelo definido no schema.prisma.
+
+Comparando com o Sequelize:
+Conexão: O Prisma usa um arquivo de configuração (schema.prisma) onde você define a URL de conexão, ao invés de fazer isso diretamente no código.
+Migrations: O Prisma tem um sistema de migrations mais estruturado, onde você define as mudanças de forma declarativa e aplica as migrations ao banco de dados.
+Models: No Prisma, você define os modelos diretamente no arquivo schema.prisma, enquanto no Sequelize os modelos são definidos em arquivos separados com Sequelize, com maior flexibilidade para customização.
+Queries: O Prisma oferece uma API mais simples e tipada, enquanto o Sequelize tem uma abordagem mais tradicional com ORM e permite queries SQL mais flexíveis e customizáveis.
+No Prisma, a configuração e o uso são mais focados em simplificar as interações com o banco de dados e otimizar o desenvolvimento com uma API moderna, o que torna o processo mais eficiente e seguro.

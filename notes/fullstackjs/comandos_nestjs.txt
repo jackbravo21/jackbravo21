@@ -1,0 +1,53 @@
+Você pode usar o comando abaixo para criar um controller, e ele será gerado automaticamente com a estrutura correta.
+
+Comando para criar o controller do users:
+
+nest g controller users
+O que este comando faz?
+Cria automaticamente o arquivo users.controller.ts dentro da pasta users correspondente ao módulo.
+Configura o controlador com a classe e o prefixo padrão.
+Exemplo de saída gerada:
+Se você já tem o módulo users configurado, o comando adicionará o arquivo na pasta do módulo, com este conteúdo padrão:
+
+typescript
+Copiar código
+import { Controller } from '@nestjs/common';
+
+@Controller('users')
+export class UsersController {}
+Outros comandos úteis para criação:
+Criar um módulo:
+
+nest g module users
+Cria users.module.ts na pasta users.
+Criar um serviço:
+
+nest g service users
+Cria users.service.ts com os métodos básicos.
+Criar um DTO (Data Transfer Object):
+
+nest g class users/dto/create-user.dto --no-spec
+Cria create-user.dto.ts na subpasta dto dentro de users.
+Criar tudo de uma vez:
+
+nest g resource users
+Cria:
+users.controller.ts
+users.service.ts
+users.module.ts
+DTOs
+Também pode configurar automaticamente para usar CRUD básico se você confirmar no prompt.
+Dica:
+Se você quiser ver todas as opções disponíveis, use:
+
+nest g --help
+Isso mostrará todas as entidades que você pode gerar (controller, service, module, etc.) e como personalizá-las.
+
+
+npm install @nestjs/sequelize sequelize sequelize-typescript mysql2
+
+npm install bcrypt
+npm install @types/bcrypt --save-dev
+
+//Validator dos Dtos;
+npm install class-validator class-transformer

@@ -1,0 +1,255 @@
+
+//Installador:
+npm install axios
+
+// axios.<método> agora o axios fornecerá preenchimento automático e tipagens de parâmetros:
+const axios = require('axios').default;
+
+
+============================================================================
+
+const axios = require('axios');
+
+Requisições GET:
+
+// Faz uma requisição a um usuarío com um ID expecifico
+axios.get('/user?ID=12345')
+  .then(function (response) {
+    // manipula o sucesso da requisição
+    console.log(response);
+  })
+  .catch(function (error) {
+    // manipula erros da requisição
+    console.error(error);
+  })
+  .finally(function () {
+    // sempre será executado
+  });
+
+// Opcionalmente a requisição acima poderia ser feita assim da seguinte forma
+axios.get('/user', {
+    params: {
+      ID: 12345
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.error(error);
+  })
+  .finally(function () {
+    // sempre será executado
+  });  
+
+// Quer usar async/await? Adicione o prefixo `async` na sua função/método
+async function getUser() {
+  try {
+    const response = await axios.get('/user?ID=12345');
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+============================================================================
+
+Requisições POST:
+
+Executando uma requisição POST
+
+axios.post('/user', {
+    firstName: 'Santos',
+    lastName: 'Dumont'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
+Executando multiplas requisições simultaneamente
+
+function getUserAccount() {
+  return axios.get('/user/1963');
+}
+
+function getUserPermissions() {
+  return axios.get('/user/1963/permissions');
+}
+
+Promise.all([getUserAccount(), getUserPermissions()])
+  .then(function (results) {
+    const acct = results[0];
+    const perm = results[1];
+  });
+
+============================================================================
+
+Requisições podem ser feitas passando as configuraçãos relevantes para o axios.
+
+axios(config)
+import axios from 'axios';
+
+// Envia uma requisição post
+axios({
+  method: "post",
+  url: "/user/12345",
+  data: {
+    firstName: "Fred",
+    lastName: "Flintstone",
+  },
+});
+// Requisição GET para imagem remota em node.js
+axios({
+  method: "get",
+  url: "http://bit.ly/2mTM3nY",
+  responseType: "stream",
+}).then(function (response) {
+  response.data.pipe(fs.createWriteStream("ada_lovelace.jpg"));
+});
+axios(url[, config])
+// Envia uma requisição GET (método padrão)
+axios("/user/12345");
+Apelidos para requisições
+Por conveniência, foram fornecidos pseudônimos para todos os métodos de solicitação suportados.
+
+axios.request(config)
+axios.get(url[, config])
+axios.delete(url[, config])
+axios.head(url[, config])
+axios.options(url[, config])
+axios.post(url[, data[, config]])
+axios.put(url[, data[, config]])
+axios.patch(url[, data[, config]])
+INFO
+Ao usar os pseudônimo dos métodos, as propriedades url, method e data não precisam ser especificadas na configuração.
+
+============================================================================
+
+Instância Axios:
+
+Criando uma instância:
+
+Você pode criar uma nova instância do axios com uma configuração customizada.
+
+axios.create([config])
+const instance = axios.create({
+  baseURL: 'https://some-domain.com/api/',
+  timeout: 1000,
+  headers: {'X-Custom-Header': 'foobar'}
+});
+
+Métodos de instância
+Os métodos de instâncias disponiveis estão listadas abaixo. A configuração especificada será mesclada com a configuração da instância.
+
+axios#request(config)
+axios#get(url[, config])
+axios#delete(url[, config])
+axios#head(url[, config])
+axios#options(url[, config])
+axios#post(url[, data[, config]])
+axios#put(url[, data[, config]])
+axios#patch(url[, data[, config]])
+axios#getUri([config])
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================
+
+
+O axios é uma biblioteca popular para fazer requisições HTTP em Node.js e no frontend. Aqui estão alguns exemplos de como você pode fazer requisições com o axios para uma URL:
+
+1. Importando e configurando o axios:
+Antes de usar, certifique-se de ter instalado o axios com:
+
+npm install axios
+
+
+2. Fazendo requisições GET:
+
+const axios = require('axios');
+
+axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then(response => {
+        console.log(response.data); // Exibe os dados recebidos da URL
+    })
+    .catch(error => {
+        console.error('Erro ao fazer a requisição GET:', error);
+    });
+
+
+3. Fazendo requisições POST:
+
+const axios = require('axios');
+
+axios.post('https://jsonplaceholder.typicode.com/posts', {
+    title: 'foo',
+    body: 'bar',
+    userId: 1
+})
+.then(response => {
+    console.log('Dados enviados:', response.data); // Exibe a resposta após enviar os dados
+})
+.catch(error => {
+    console.error('Erro ao fazer a requisição POST:', error);
+});
+
+
+4. Requisições com headers personalizados:
+
+axios.get('https://api.example.com/data', {
+    headers: {
+        'Authorization': 'Bearer seu_token_aqui',
+        'Custom-Header': 'valor_customizado'
+    }
+})
+.then(response => {
+    console.log('Resposta com headers personalizados:', response.data);
+})
+.catch(error => {
+    console.error('Erro ao fazer a requisição com headers:', error);
+});
+
+
+5. Requisições PUT e DELETE:
+PUT (atualização):
+
+axios.put('https://jsonplaceholder.typicode.com/posts/1', {
+    title: 'titulo atualizado',
+    body: 'conteúdo atualizado',
+    userId: 1
+})
+.then(response => {
+    console.log('Resposta da atualização:', response.data);
+})
+.catch(error => {
+    console.error('Erro ao fazer a requisição PUT:', error);
+});
+
+
+DELETE:
+
+axios.delete('https://jsonplaceholder.typicode.com/posts/1')
+    .then(response => {
+        console.log('Requisição DELETE bem-sucedida:', response.status);
+    })
+    .catch(error => {
+        console.error('Erro ao fazer a requisição DELETE:', error);
+    });
+
+
+Resumo:
+GET é usado para buscar dados de uma URL.
+POST envia dados para a URL especificada.
+PUT atualiza dados existentes.
+DELETE remove dados na URL especificada.
+Esses exemplos cobrem os cenários mais comuns para fazer requisições HTTP usando axios.

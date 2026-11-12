@@ -1,0 +1,73 @@
+npm init -y
+npm install express --save
+npm install nodemon -g
+npm install body-parser --save
+npm install --save sequelize
+npm install --save mysql2
+npm install axios
+npm install cors
+npm install bcrypt
+npm install express-validator
+npm install jsonwebtoken            //cookie ou webtoken
+npm install cookie-parser           //cookie ou webtoken
+npm install dotenv
+
+npm install --save-dev jest
+npm install --save-dev supertest
+
+
+npm list --depth=0      //verifica as dependencias;
+
+npm install joi         //se for usar o joi;
+
+============================================================================
+
+
+A estrutura ideal de pastas para um projeto Node.js com Express pode seguir o padrão abaixo, que ajuda a manter a organização e a escalabilidade:
+
+/project-root
+|-- /controllers        // Lógica das rotas e manipulação de requisições/respostas
+|   |-- userController.js
+|   |-- authController.js
+|
+|-- /models             // Definição dos modelos de dados
+|   |-- userModel.js
+|
+|-- /routes             // Definição das rotas da aplicação
+|   |-- userRoutes.js
+|   |-- authRoutes.js
+|
+|-- /middlewares        // Middlewares para validação, autenticação, etc.
+|   |-- authMiddleware.js
+|
+|-- /services           // Regras de negócio e lógica de aplicação
+|   |-- userService.js
+|
+|-- /config             // Configurações da aplicação (conexão com o banco de dados, etc.)
+|   |-- dbConfig.js
+|
+|-- /uploads            // Pasta para armazenar arquivos (pode ser protegida ou pública)
+|
+|-- /utils              // Funções auxiliares e utilitárias
+|   |-- hashPassword.js
+|
+|-- /public             // Arquivos públicos (imagens, CSS, etc.)
+|
+|-- server.js           // Ponto de entrada principal do servidor
+|-- package.json
+|-- .env                // Variáveis de ambiente
+|-- README.md
+
+
+
+Explicação:
+controllers: Contém a lógica para lidar com as requisições HTTP.
+models: Define os modelos e esquemas de dados (por exemplo, usando Mongoose).
+routes: Define as rotas e faz o encaminhamento para os controladores.
+middlewares: Contém funções para serem executadas antes das requisições chegarem aos controladores (por exemplo, autenticação).
+services: Contém a lógica de negócio, separando as regras de negócio da lógica de requisição.
+config: Arquivos de configuração, como conexões com bancos de dados.
+utils: Funções utilitárias e scripts auxiliares.
+uploads: Diretório para armazenamento de arquivos enviados.
+public: Diretório com acesso público para servir arquivos estáticos.
+Essa organização torna o projeto mais modular e facilita a manutenção e a escalabilidade.

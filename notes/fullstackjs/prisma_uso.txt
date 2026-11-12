@@ -1,0 +1,88 @@
+poderia me dar uma lista de comandos prisma? Por exemplo:
+- Como busco todos os usuarios no banco;
+- Como busco todos os dados de um usuario pelo ID;
+- Como busco um usuario por mail e password;
+- Como edito um usuario pelo ID:
+- Como deleto um usuario pelo ID;
+- Se tiver um findCount como no sequelize, me mostre;
+
+Pode ser nesse padão que vc me mostrou, um embaixo do outro (que ficou muito bom esse seu exemplo):
+
+================================================
+async function getUsers() {
+  const users = await prisma.user.findMany();
+  console.log(users);
+}
+================================================
+
+
+- Claro! Aqui estão os exemplos de como realizar as operações no banco de dados usando Prisma, seguindo o formato que você gostou. Vou listar os comandos para as operações mais comuns:
+
+
+1. Buscar todos os usuários no banco
+================================================
+async function getUsers() {
+  const users = await prisma.user.findMany();
+  console.log(users);
+}
+================================================
+
+2. Buscar um usuário pelo ID
+================================================
+async function getUserById(userId) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  console.log(user);
+}
+================================================
+
+3. Buscar um usuário por email e senha
+================================================
+async function getUserByEmailAndPassword(email, password) {
+  const user = await prisma.user.findUnique({
+    where: { email: email },  // Assumindo que 'email' é um campo único
+  });
+
+  if (user && user.password === password) {
+    console.log(user);
+  } else {
+    console.log('Usuário não encontrado ou senha incorreta');
+  }
+}
+================================================
+Nota: Aqui estou assumindo que você já tem um campo password no seu modelo. Em produção, você deve usar técnicas de hash para armazenar e comparar senhas, como o bcrypt.
+
+
+4. Editar um usuário pelo ID
+================================================
+async function updateUser(userId, newName, newAge) {
+  const updatedUser = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      name: newName,
+      age: newAge,
+    },
+  });
+  console.log(updatedUser);
+}
+================================================
+
+5. Deletar um usuário pelo ID
+================================================
+async function deleteUser(userId) {
+  const deletedUser = await prisma.user.delete({
+    where: { id: userId },
+  });
+  console.log(deletedUser);
+}
+================================================
+
+6. Contar o número de usuários (semelhante ao findCount do Sequelize)
+================================================
+async function countUsers() {
+  const userCount = await prisma.user.count();
+  console.log(userCount);
+}
+================================================
+

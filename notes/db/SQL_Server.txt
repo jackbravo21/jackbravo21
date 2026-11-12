@@ -1,0 +1,200 @@
+SQL Server:
+
+Para passar como parâmetro o comando sobre o qual se necessita de
+ajuda, devermos passá-lo entre aspas, pois caso contrário surgirá uma
+mensagem de erro. As aspas poderão ser simples ou duplas, desde que
+ambas (início e fim) sejam do mesmo tipo. Para maior clareza, e com fins de
+padronização, prefira aspas simples. SP_HELPSQL ‘select’
+
+===============================================================================
+
+USE master
+
+===============================================================================
+
+CREATE TABLE
+Para criarmos uma tabela, deveremos utilizar a declaração CREATE
+TABLE, unindo a ela o nome que será atribuído ao objeto e suas
+características. Para verificar a sintaxe completa, use a declaração vista
+anteriormente SP_HELPSQL ‘CREATE TABLE’. 
+
+
+CREATE TABLE cliente
+(
+cliente numeric (8,0) not null PRIMARY KEY,
+nome varchar (60) null,
+telefone varchar (20) null
+)
+
+++++++++++++++++
+
+CREATE TABLE pedidos
+(
+numero int NOT NULL ,
+cliente numeric(8, 0) NOT NULL ,
+telefone int NOT NULL ,
+PRIMARY KEY
+(
+cliente,
+numero
+),
+FOREIGN KEY
+(
+cliente
+)
+REFERENCES cliente
+(
+cliente
+)
+)
+
+===============================================================================
+
+INSERT
+
+Para inserirmos dados em uma tabela, devemos informar qual é a
+tabela, quais os campos que estamos inserindo e quais são seus valores. 
+
+INSERT cliente (cliente, nome, telefone)
+values (1001,'João','445-0988')
+
+INSERT cliente (cliente, nome, telefone)
+values (1002,'Alberto','465-9887')
+
+INSERT cliente (cliente, nome, telefone)
+values (1003,'Maria','789-9877')
+
+INSERT cliente (cliente, nome, telefone)
+values (1004,'Sônia',null)
+
+A ordem dos campos pode ser diferente da ordem que estes possuem
+na tabela:
+
+INSERT cliente (nome, cliente, telefone)
+values ('Carlos',1005,null)
+
+Caso existam valores para todos os campos, podemos omitir seus
+nomes.
+
+INSERT cliente 
+values (1006,'Viu só?','999-0000')
+
+===============================================================================
+
+SELECT
+
+Através do comando select, recuperamos os dados existentes no
+banco, de acordo com os critérios desejados:
+
+SELECT nome, telefone FROM cliente
+
+Podemos recuperar todas as colunas de uma tabela utilizando o
+caracter coringa *.
+
+SELECT * FROM cliente
+
+A utilização da cláusula WHERE:
+
+SELECT * FROM cliente WHERE telefone LIKE ‘4%’
+
+
+
+===============================================================================
+
+UPDATE
+
+Utilizado para modificar dados já cadastrados. Pode ser usado para
+atualizar todas as linhas ou para atualizar linhas que correspondam a
+determinados critérios. 
+
+UPDATE cliente SET telefone = ‘000-1111’
+
+UPDATE cliente
+SET telefone = '111-0000'
+WHERE cliente = 1004
+
+
+
+===============================================================================
+
+DELETE
+
+Para apagar linhas de uma tabela devermos especificar critérios, através da cláusula WHERE; caso contrário todas as linhas da tabela serão
+apagadas. A tabela, porém, não será eliminada. Continuará existindo, porém vazia. 
+
+DELETE cliente
+WHERE cliente = 1006
+
+===============================================================================
+
+DROP TABLE
+
+Este procedimento irá remover a tabela completamente, não existindo
+nenhum procedimento de “recovery”. Portanto, assegure-se de que a tabela
+em questão realmente não é mais necessária, ou, pelo menos, faça um back
+up do banco antes. Ao apagar uma tabela, saiba que os relacionamentos por ventura com
+ela existente impedirão sua deleção. Por isso, você deverá começar a apagar
+as tabelas desde as “filhas”. 
+
+DROP TABLE cliente
+
+Assim, para apagar a tabela cliente, antes será necessário apagarmos
+a tabela pedidos. 
+
+DROP TABLE pedidos
+DROP TABLE cliente
+
+===============================================================================
+
+CREATE TABLE
+
+Sintaxe:
+
+Tipos de dados Tipos de dados supridos pelo sistema
+
+Binary 			binary[(n)], varbinary[(n)]
+Character 		char[(n)], varchar[(n)]
+Date and time 		datetime, smalldatetime
+Exact numeric 		decimal[(p[,s])]
+Approximate numeric 	float[(n)], real
+Integer 		int, smallint, tinyint
+Monetary 		money, smallmoney
+Special 		bit, timestamp, user-defined datatypes
+Text and imagem 	text, imagem
+Synonyms 		binary, varying for varbinary, character for char, character, varying for varchar, dec for decimal,
+			integer for int, double precision for float
+
+CREATE TABLE [database.[owner].]table_name
+
+===============================================================================
+
+Condições de pesquisa incluídas: 
+
+· Operadores de comparação (=,>,<,<=,>=,<>,!=,!<, e !>) 
+· Amplitude (BETWEEN and NOT BETWEEN) 
+· Lista (IN and NOT IN) 
+· Combinação de Strings (LIKE and NOT LIKE) 
+· Valores desconhecidos (IS NULL e IS NOT NULL) 
+· Combinações destes (AND, OR) 
+· Negações (NOT)
+
+===============================================================================
+
+===============================================================================
+
+===============================================================================
+
+===============================================================================
+
+===============================================================================
+
+===============================================================================
+
+===============================================================================
+
+===============================================================================
+
+
+
+
+

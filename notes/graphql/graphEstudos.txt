@@ -1,0 +1,477 @@
+/users/<id>
+/users/<id>/posts
+/users/<id>/followes
+
+{
+"followers": [{
+"id": "leo83h2dojsu"
+"name": "John",
+"address": {_},
+"birthday: "January 6, 1970"
+}
+
+GraphQL:
+--------
+
+Root Types:
+-----------
+
+type Query{
+...
+}
+type Mutation{
+...
+}
+type Subscription{
+...
+}
+
+
+
+=========================
+
+query{
+User(id: "er3th439frjw"){
+name
+posts{
+title
+}
+followers(last: 3)
+{
+name
+}
+}
+}
+
+type Person{
+	name: String!			//! = campo obrigatorio
+	age: Int!
+	posts: [Posts!]!		//colchetes eh arrayList
+}
+
+type Post{
+	title: String!
+	authors: Person!
+}
+
+- Normalmente tem um endPoint com todos os dados.
+
+
+=====================================
+
+Requisicao:
+-----------
+
+{
+  allPersons {
+    name
+  }
+}
+
+Resposta:
+---------
+
+{
+  "allPersons": [
+    { "name": "Johnny" },
+    { "name": "Sarah" },
+    { "name": "Alice" }
+  ]
+}
+
+=====================================
+
+Consultas com argumentos:
+
+{
+  allPersons {
+    name
+    age
+    posts {
+      title
+    }
+  }
+}
+
+{
+  allPersons(last: 2) {
+    name
+  }
+}
+
+=====================================
+
+Gravando dados com mutacoes:
+
+mutation {
+  createPerson(name: "Bob", age: 36) {
+    name
+    age
+  }
+}
+
+Resposta:
+---------
+
+"createPerson": {
+  "name": "Bob",
+  "age": 36,
+}
+
+=====================================
+
+type Person {
+  id: ID!
+  name: String!
+  age: Int!
+}
+
+=====================================
+
+Solicitando ID na mutacao:
+
+mutation {
+  createPerson(name: "Alice", age: 36) {
+    id
+  }
+}
+
+=====================================
+
+Pedido:
+
+Posso pedir normalmente, solicitando os campos:
+
+subscription {
+  newPerson {
+    name
+    age
+  }
+}
+
+Resposta:
+
+{
+  "newPerson": {
+    "name": "Jane",
+    "age": 23
+  }
+}
+
+=====================================
+
+type Query {
+  allPersons(last: Int): [Person!]!
+  allPosts(last: Int): [Post!]!
+}
+
+type Mutation {
+  createPerson(name: String!, age: Int!): Person!
+  updatePerson(id: ID!, name: String!, age: String!): Person!
+  deletePerson(id: ID!): Person!
+}
+
+type Subscription {
+  newPerson: Person!
+}
+
+type Person {
+  id: ID!
+  name: String!
+  age: Int!
+  posts: [Post!]!
+}
+
+type Post {
+  title: String!
+  author: Person!
+}
+
+=====================================
+
+query Get_hellow
+{
+hello
+}
+
+- no codigo:
+
+//grafic ql
+type Query{
+	hello: String
+	hi: String
+}
+
+//objeto normal do JS
+resolvers:{
+//crio a chave querry
+Query:{
+	hello: () => {
+	return "hello again!";
+},
+},
+},
+
+=====================================
+
+=====================================
+
+- Grafhql tem uma rota soh, em post;
+
+- Dentro do post temos apenas 3 metodos: Query/Mutation/Subscription;
+
+- Query: usada para toda a vez que eu estou buscando uma informacao;
+
+- Mutation: eh usada toda a vez que quiser criar, alterar ou deletar uma informacao;
+
+- Subscription: toda a vez que eu quiser ouvir uma informacao em tempo real (realtime);
+
+
+- Chamando e exibindo todos os usuarios e todos os pedidos (exemplo):
+
+{	
+	query todosUsuarios{
+  	  users()
+	}
+
+	query todosPedidos{
+	  orders()
+	}
+}
+
+- Alterar um usuario com a mutation e solicitar na mesma requisicao uma query de retorno:
+(updateUserFront e o nome que esta no front, e o updateUserBack eh o nome no backend.
+
+{
+	mutation updateUserFront{
+	  updateUserBack(id: 1){			//update no usuario com id = 1;
+		nome: "Diego"
+	  }
+	}
+	
+	query users{
+	 //consulto usuarios, quero que traga 20 registros, estou na pagina 2, e o filtro eh o nome comecando por "Diego".
+	 users({ per_page: 20, page: 2, filter: {nome: { "starts_with": "Diego" } } }) {
+		id
+		nome
+		//alem de retornar o id e nome, quero mostrar os relacionamentos dos grupos no web e nao no front
+		groups{
+		   id
+		   title
+		}
+	 }
+	}
+}
+
+
+> yarn add graphql-yoga 
+
+------------------------------------------------------
+
+server.js
+---------
+
+import { GraphQLServer } from "graphql-yoga";
+
+const server = new GraphQLServer({
+	
+});
+
+server.start();
+
+------------------------------------------------------
+
+- Para definir as rotas do GraphicQL criamos um arquivo no SRC chamado "schema.graphql", ele nao se chama rota, e sim schema;
+
+//tenho 2 tipos de rotas:
+
+type User {			//Crio um tipo para como vai ser o retorno dos usuarios da "type Query" abaixo. (nao eh usuario no banco, e sim o formato do usuario que eh dentro da requisicao dentro da API, o retorno apenas).
+	id: ID!			//sempre me refiro ao tipo ID com letra maiuscula.
+	name: String!
+	email: String!
+}
+
+type Query {			//que eh para quando quero buscar uma informacao;
+				//o users é do tipo array e tem que ser obrigatorio, colocando o ! atras do array, diz que ele eh obrigado a retornar o array obrigatoriamente, mesmo que seja nulo/vazio.
+	users: [Users!]!	//rota users que vai retornar os usuarios, precisamos declarar o tipo de retorno.
+	user(id: ID!): User	//posso ter uma query que retorna um unico usuario, que recebe um parametro "id:" que eh do tipo ID! obrigatorio, retornando um unico usuario "User", se nao tiver o id informado no banco, ele nao retorna nada, se for obrigatorio e nao tiver nada, ele retorna vazio.
+}
+
+type Mutation {			//que eh para criar, alterar, deletar uma informacao;
+				//createUser vai receber um nome que eh uma string obrigatoria, e vai receber um email string obrigatoria, e vai retornar um usuario:User.
+	createUser(name: String!, email: String!): User
+}
+
+
+------------------------------------------------------
+
+- No server agora importamos o nosso schema:
+
+server.js
+---------
+
+const { GraphQLServer } = require("graphql-yoga");	//troco para const para nao ter que configurar nada de especial.
+const path = require("path");				//importo o path do node.
+const resolvers = require("./resolvers");		//importo os resolvers (controllers do GraphiQL).
+
+const server = new GraphQLServer({
+	typeDefs: path.resolve,				//preciso passar a propriedade agora typeDefs, e utiliza o path.resolve para pegar a pasta atual com __dirname, e passo o schema.graphql.
+	resolvers: {}					//controllers dentro do graphQL se chamam "resolvers". Que eh um objeto e tem que criar um arquivo separado.
+});
+
+server.start();
+
+=====================================
+
+- Crio o arquivo resolvers.
+
+resolvers.js
+------------
+
+//preciso declarar os resolvers de query e mutations, e quais os resolvers e mutations que eu tenho dentro.
+
+module.exports = {
+	Query: {
+		users: () => {},		//crio duas arrows function.
+		user: () => {}	
+},
+	Mutation: {
+		createUser: () => {},		//cria-se a create user, porque ela esta na mutation do schema.
+	},
+};
+
+=====================================
+
+- Testando o arquivo resolvers, com usuarios inventados em array teste.
+
+resolvers.js
+------------
+
+//crio users
+
+const users = [
+	{ id: 1, name: "Jack", email: "teste@teste.com.br" },
+	{ id: 2, name: "Crebs", email: "crebs@teste.com.br" }
+];
+
+module.exports = {
+	Query: {
+		users: () => users,		//coloco o users criado ali para testar.
+		user: () => users[0]		//retorno o primeiro usuario para testar.	
+},
+	Mutation: {
+		createUser: () => users[0]	//criar um usuario.		
+	}
+};
+
+=====================================
+
+No terminal:
+> node src/server.js
+
+localhost:4000
+
+(graphql playground)
+
+//vou pedir o id, name, email.
+
+query {
+	users(){
+		id
+		name
+		email
+	}
+}
+
+//vou solicitar apenas um unico usuario:
+
+query {
+	user(id: 1)
+	{
+		name
+		email
+	}
+}
+
+=====================================
+
+//instalar o banco de dados:
+
+> yarn add mongoose
+
+=====================================
+
+
+- No server agora importamos o mongoose:
+
+server.js
+---------
+
+const { GraphQLServer } = require("graphql-yoga");	//troco para const para nao ter que configurar nada de especial.
+const path = require("path");				//importo o path do node.
+const resolvers = require("./resolvers");		//importo os resolvers (controllers do GraphiQL).
+
+const mongoose = require("mongoose");			//declaro o mongoose.
+
+mongoose.connect("mongodb://localhost:27017/graphqlnode", {	//conecto no mongoose.
+	useNewUrlParser: true
+});
+
+
+const server = new GraphQLServer({
+	typeDefs: path.resolve,				//preciso passar a propriedade agora typeDefs, e utiliza o path.resolve para pegar a pasta atual com __dirname, e passo o schema.graphql.
+	resolvers: {}					//controllers dentro do graphQL se chamam "resolvers". Que eh um objeto e tem que criar um arquivo separado.
+});
+
+server.start();
+
+
+=====================================
+
+User.js
+-------
+
+const mongoose = require("mongoose");
+
+const UserSchema = new mongoose.Schema({
+	name: String,
+	email: String,
+});
+
+module.exports = mongoose.model("Users", UserSchema);
+
+=====================================
+
+- Agora vou importar o User.js dentro do resolvers.js
+
+resolvers.js
+------------
+
+const User = require("./User");
+
+module.exports = {
+	Query: {
+		users: () => User.find(),				//nao preciso usar async pq o GFQL ja espera promisses.
+		user: (_, { id }) => Users.findById(id),		//preciso de 2 parametros, colocarei _ soh para ter um, e no segundo eu recupero o parametro do esquema, e pegar {id}, e passar o id no findbyid(id).
+},
+	Mutation: {
+		createUser: (_, { name, email }) => User.create({ name, email }),		//recebo novamente o proxy "_" e recebo o nosso name e email, que sao os dados enviado no schema dentro do Data.
+	}
+};
+
+
+=====================================
+
+=====================================
+
+=====================================
+
+https://graphql.org/graphql-js/running-an-express-graphql-server/
+https://graphql.org/graphql-js/graphql-clients/
+https://altair.autentique.com.br
+https://docs.autentique.com.br/api/integracao/mensagens-de-erro
+
+
+
+
+

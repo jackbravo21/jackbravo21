@@ -1,0 +1,9 @@
+{
+  "document": {
+    "name": "Contrato de marketing"
+  },
+  "signers": [{
+    "email": "troque-esse-email-que-e-publico@tuamaeaquelaursa.com",
+    "action": "SIGN"
+  }]
+}

@@ -1,0 +1,196 @@
+============================================================================
+
+- A criação de documentos difere um pouco das outras mutations por ter o upload de um arquivo. Primeiramente, vamos precisar escrever a mutation:
+
+mutation CreateDocumentMutation(
+  $document: DocumentInput!, # Definição das variáveis $document,
+  $signers: [SignerInput!]!, # $signers e $file, com seus respectivos
+  $file: Upload!             # tipos. (Os "!" indicam que são
+) {                          # parâmetros obrigatórios)
+  createDocument(
+    document: $document, # Passa para os parâmetros da mutation o 
+    signers: $signers,   # valor das variáveis.
+    file: $file          #
+  ) {
+    id
+    name
+    refusable
+    sortable
+    created_at
+    signatures {
+      public_id
+      name
+      email
+      created_at
+      action { name }
+      link { short_link }
+      user { id name email }
+    }
+  }
+}
+
+============================================================================
+
+- Após, precisamos dos valores das variáveis definidas na mutation em um JSON:
+
+/*
+  Abaixo, um signatário receberá o link de assinatura por email,
+  por ter sido passado o "email" e, para o que passou "name",
+  será retornado o atributo "link" no documento com o link de
+  assinatura.
+*/
+
+{
+  "document": {
+    "name": "Contrato de marketing"
+  },
+  "signers": [{
+    "email": "troque-esse-email-que-e-publico@tuamaeaquelaursa.com",
+    "action": "SIGN"
+  }, {
+    "name": "Ronaldo Fuzinato",
+    "action": "SIGN"
+  }]
+}
+
+============================================================================
+
+Percebeu que não foi colocado nenhum valor para a variável $file? Pois é, como é realizado o upload desse arquivo, a requisição precisa ser enviada como multipart/form-data, dessa forma o arquivo precisa ser um pouco diferente. Você pode fazer isso direto no Altair.
+
+============================================================================
+
+- Após criar um documento, você poderá assiná-lo. Para fazer isso basta utilizar a seguinte mutation: (Não esqueça de substituir com o ID de um documento existente)
+
+mutation {
+  signDocument(id: "ID_DO_DOCUMENTO")
+}
+
+============================================================================
+
+Resgatando um documento específico
+No Altair, você pode testar com o item Resgatar documento da collection pronta. Não esqueça de completar a query com o ID de um documento existente para buscar:
+
+query {
+  document(id: "ID_DO_DOCUMENTO") {
+    id
+    name
+    refusable
+    sortable
+    created_at
+    files { original signed }
+    signatures {
+      public_id
+      name
+      email
+      created_at
+      action { name }
+      link { short_link }
+      user { id name email }
+      email_events {
+        sent
+        opened
+        delivered
+        refused
+        reason
+      }
+      viewed { ...event }
+      signed { ...event }
+      rejected { ...event }
+    }
+  }
+}
+
+fragment event on Event {
+  ip
+  port
+  reason
+  created_at
+  geolocation {
+    country
+    countryISO
+    state
+    stateISO
+    city
+    zipcode
+    latitude
+    longitude
+  }
+}
+
+============================================================================
+
+Da mesma forma, você pode usar fragments como uma forma de evitar repetição nas queries com o GraphQL.
+Você também pode consultar vários documentos ao mesmo tempo:
+
+query {
+  primeiro: document(id: "ID_DO_DOCUMENTO_1") { name }
+  segundo: document(id: "ID_DO_DOCUMENTO_2") { name }
+  terceiro: document(id: "ID_DO_DOCUMENTO_3") { name }
+}
+
+============================================================================
+
+Listando documentos
+Também é possível retornar páginas contendo múltiplos documentos:
+
+query {
+  documents(limit: 60, page: 1) {
+    total
+    data {
+      id
+      name
+      refusable
+      sortable
+      created_at
+      signatures {
+        public_id
+        name
+        email
+        created_at
+        action { name }
+        link { short_link }
+        user { id name email }
+        viewed { created_at }
+        signed { created_at }
+        rejected { created_at }
+      }
+      files { original signed }
+    }
+  }
+}
+
+============================================================================
+
+curl - X POST \
+- H "Content-Type: application / json" \
+- d '{"query": "{hello}"}' \
+https://api.autentique.com.br/v2/graphql
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================
+
+
+============================================================================

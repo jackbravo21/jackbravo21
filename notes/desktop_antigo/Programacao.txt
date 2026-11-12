@@ -1,0 +1,120 @@
+
+Junior = Sabe fazer o básico/mínimo. Faz CRUD, páginas web (HTML e CSS), conhece como funciona o básico do protocolo HTTP. Sabe escrever/ler códigos lógicos. Sabe diferenciar o que é back e front. Dá uma "arranhada" nos frameowrks e libs.
+Pleno = Entende melhor a sintaxe da linguagem e suas particularidades, sabe utilizar bem as funções nativas. Tem entendimento e intepretação de OOP mais evidente. Sabe definir bem entidades. Sabe alguns patterns e a base do clean code. Tem maior conhecimento de arquitetura de projeto. Sabe usar bem os frameworks e libs.
+Sênior = Tem conhecimento de patterns de forma mais vasta. Tem mto mais conhecimento técnico a respeito das linguagens em que trabalha. Sabe refatorar código com mais rapidez, sabe definir entidades com maestria. Clean code na veia. Frameworks e libs viraram basicamente seus filhos.
+
+
+
+
+C:\Windows\System32\drivers\etc
+
+RainTPL.
+
+"Filters validate" = Filtros para dados de formularios.
+
+print str_split('nuno');
+
+Toda a entrada de dados vc usa "mysqli_scape_string";
+
+Pegar ultimos 30: SELECT * FROM your_table ORDER BY time DESC LIMIT 30
+
+===========================================================
+===========================================================
+
+While:
+
+Enquanto a condicao for verdadeira, faca.
+
+while(condicao){
+	comando1;
+	comando2;
+	comando3;
+	...
+}
+
+-----------------------------------------------------------
+
+x = 0;
+
+while(x!=5){
+cout << "Valor de X = " << x;
+x=x+1;
+}
+
+cout << "Valor de X depois que da estrutura = " << x;
+
+
+
+===========================================================
+===========================================================
+
+
+Do While:
+
+do{
+
+	comandos;
+
+}while(condicao);
+
+-----------------------------------------------------------
+
+x=0;
+
+do{
+
+	System.out.println("Valor de X = "+x);
+	x = x+1;
+
+}while(x!=5);
+	System.out.println("Valor de X depois que sair da estrutura = "+x);
+
+
+===========================================================
+===========================================================
+
+
+For:
+
+int x;
+for(x=inicial;x<=final;x com incremento ou decremento)
+
+
+De 1 em 1:
+for(x = 0; x <= 10; i++)
+for(x = 10; x >= 0; i--)
+
+resultado: 0,1,2,3,4,5,6,7,8,9,10;
+
+De 2 em 2:
+for(x = 0; x <= 10; x=x+2)
+
+resultado: 0,2,4,6,8,10;
+
+De 20 em 20:
+for(x = 100; x >= 0; x=x-20)
+
+resultado: 100,80,60,40,20,0;
+
+
+===========================================================
+===========================================================
+
+
+
+Ola pessola tenho um while que me tras o resultado com quebra assim:
+22
+23
+24
+eu quero deixa-lo assim 22, 23, 23 eliminado a ultima virgula
+
+O seu while percorre um array com esses números, tem mais dados ? Se for só um array com números e só usar a função join || implode
+$arr = array(22,23,24,25);
+echo join(",",$arr);
+result will be
+22,23,24,25
+E aí você não usa o while. Mas só vendo parte do código para entender.
+
+https://www.php.net/manual/pt_BR/function.join.php?fbclid=IwAR3EK8dvyHIv6n6At37QZkpBGdBdkijz91lH03Bm7F4y8D6kJQDp-t6UNaI
+
+

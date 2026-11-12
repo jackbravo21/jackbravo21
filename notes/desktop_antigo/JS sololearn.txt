@@ -1,0 +1,3643 @@
+
+
+Todo JS eh posto dentro do <script></script>:
+
+=============================================
+
+<script>
+
+...
+</script>
+
+=============================================
+
+Pode ser utilizado dentro do <body> ou <head>.
+
+
+
+Para escrever com JS se usa a funcao "document.write", document.write("Codigo"), assim:
+
+=============================================
+
+<script>
+
+document.write("Hellow World!");
+
+</script>
+
+=============================================
+
+
+
+Pode ser usado tags para ajustar o texto com html:
+
+=============================================
+
+<script>
+
+document.write("<h1>Hellow World!</h1>");
+
+</script>
+
+
+=============================================
+
+
+
+A tag <script> pode ter dois atributos, "language" e "type":
+
+=============================================
+
+<script language="javascript" type="text/javascript">
+</script>
+
+=============================================
+
+
+
+
+
+ALERT BOX:
+
+Para escrever uma mensagem em um alert box:
+
+=============================================
+
+	<script type="text/javascript">
+	alert("This is an alert box!");				
+	</script>
+
+=============================================
+
+
+
+
+
+
+Adicionando arquivo JS externo:
+
+=============================================
+
+<script src="extension/demo.js"></script>
+
+=============================================
+
+
+
+
+
+
+No arquivo demo.js foi adicionado a linha pura:
+
+=============================================
+
+alert("This is an alert Box!");
+
+=============================================
+
+
+
+
+
+
+
+Outro exemplo adicionando arquivo exteno JS chamado "code.js";
+
+=============================================
+
+<script src="code.js"></script>
+
+=============================================
+
+
+
+
+
+Java script comentarios:
+
+=============================================
+
+//This is a single comment;
+
+/* 
+This is
+a multiple
+line comment;
+*/
+
+=============================================
+
+
+
+
+
+Variavels:
+
+variaveis sao container que contem valores de dados.
+Variaveis podem ser mudadas durante o programa e atribuida valores.
+Atribuimos a variavel com "var" o nome dela, e o valor que ela recebe;
+
+=============================================
+
+var x = 10;
+
+=============================================
+
+
+
+
+O valor de igual (=) eh chamado "assignment" operator, diferente do "igual a".
+Pode fazer um valor receber outro, ou receber outras variaveis, como "x = y".
+Quando a variavel nao recebe um valor, ela recebe a propriedade "undefined".
+
+=============================================
+
+var x;
+
+documment.write(x);
+
+//usar o console e digitar x;
+//resultado: undefined;
+
+=============================================
+
+
+
+
+
+Usando variaveis:
+
+Passamos o valor para a variavel e escrevemos ela;
+
+=============================================
+
+var x = 100;
+document.write(x);
+
+=============================================
+
+
+
+
+NOME DE VARIAVEIS:
+
+No JavaScript os nomes das variaveis sao case-sensitive.
+
+Regras:
+- Primeiro caractere deve ser letra ou underscore (_), ou dollar ($).
+- Numeros nao podem ser usados no primeiro caractere.
+- Nomes de variaveis nao podem incluir operadores ou caracteres especiais, ERRADO "2*algumacoisa" ou "this+isso".
+- Nao pode conter espacos.
+
+
+Palavras reservadas:
+
+=============================================
+
+abstract
+boolean
+break
+byte
+case
+catch
+char
+class
+const
+continue
+debugger
+default
+delete
+do
+double
+else
+enum
+export
+extends
+false
+final
+finally
+float
+for
+function
+goto
+if
+implements
+import
+in
+instanceof
+int
+interface
+long
+native
+new
+null
+package
+private
+protected
+public
+return
+short
+static
+super
+switch
+synchronized
+this
+throw
+throws
+transient
+true
+try
+typeof
+var
+void
+volatile
+while
+with
+
+=============================================
+
+
+
+
+Tipos de dados (data type): numbers, strings, arrays.
+
+=============================================
+
+var numDecimal = 18;
+var numFloating = 55.55;
+var palavraString = 'Jack';
+var fraseString = "Meu nome eh Jack";
+var faleOla = "Ola Mundo! \"Eu sou um programador JavaScript!\"";
+var ativado = true;
+var desativado = false;
+
+document.write(numDecimal);
+document.write(numFloating);
+document.write(palavraString);
+document.write(fraseString);
+document.write(faleOla);
+document.write(ativado);
+document.write(desativado);
+
+//strings podem ser usadas aspas simples e aspas duplas, para escrever aspas na string, usa-se o scape \" ou \';
+
+=============================================
+
+
+
+
+O scape (\) pode ser usado para inserir um caractere especial, para add um comportamento:
+
+=============================================
+
+\'	single quote
+\"	double quote
+\\	backslash
+\n	new line
+\r	carriage return
+\t	tab
+\b	backspace
+\f	from feed
+
+=============================================
+
+
+
+
+Operadores aritmeticos:
+
+=============================================
+
++	soma			25+5 = 30
+-	subtracao		25-5 = 20
+*	multiplicacao		10+20 = 200
+/	divisao			20/2 = 10
+%	modulo/resto		56%3 = 2
+++	incremento		var a = 10, a++, Now a = 11;
+--	decremento		var a = 10, a--, Now a = 9;
+
+=============================================
+
+
+
+Calculos aritmeticos:
+
+=============================================
+
+var x = 10;
+var y = 5;
+var z = x+y;
+document.write(z);
+
+document.write("<br>");
+
+var soma = x + 5 + 22 + 45 + 6548;
+document.write(soma);
+
+document.write("<br>");
+
+var letra1 = "So";
+var letra2 = "Ma";
+var concatena = letra1 + letra2;
+document.write(concatena);
+
+document.write("<br><br>");
+
+var xdivisao = 100/5;
+document.write(xdivisao);
+
+document.write("<br>");
+
+var modulo = 26%6;
+document.write(modulo);
+
+document.write("<br>");
+
+var multivar = (100+5)*3;
+document.write(multivar);
+
+document.write("<br>");
+
+var incrementos = (x -=y += 9);
+document.write(incrementos);
+
+document.write("<br>");
+
+var valorteste = 20;
+valorteste *= 5;
+document.write(valorteste);
+
+=============================================
+
+
+
+
+
+Incremento e Decremento:
+
+=============================================
+
+Operator:	Descricao:		Exemplo:				Resultado:
+
+var++		Pos Incremento		var a = 0, b = 10, var a = b++;		a = 10 and b = 11;
+++var		Pre Incremento		var a = 0, b = 10, var a = ++b;		a = 11 and b = 11;
+var--		Pos Decremento		var a = 0, b = 10, var a = b--;		a = 10 and b = 9;
+--var		Pre Decremento		var a = 0, b = 10, var a = --b;		a = 9 and b = 9;
+
+
+
+Operador:	Exemplo:		Equivalente a:
+
+=		x = y			x = y
++=		x += y			x = x + y
+-=		x -= y			x = x - y
+*=		x *= y			x = x * y
+/=		x /= y			x = x / y
+%=		x %= y			x = x % y
+
+=============================================
+
+
+
+
+
+Operadores de comparacao, igual a (==) verifica se os valores sao iguais:
+
+=============================================
+
+Operador:	Igual a:			Exemplo:
+
+==		Igual a				5 == 10 false
+===		Identico ou mesmo tipo		5 === 10 false
+!=		Diferente de			5 != 10 true
+!==		Nao identico			10 !== 10 false
+>		Maior que			10 > 5 true
+>=		Maior ou igual			10 >= 5 true
+<		Menor que			10 < 5 false
+<=		Menor ou igual			10 <= 5 false
+
+=============================================
+
+
+
+
+Operadores Logicos sao como Boolean, retorna com (true ou false):
+
+=============================================
+
+&&	E	Retorna verdadeiro se as duas condicoes sao verdadeiras, se uma for false, retorna falso.
+||	OU	Retorna verdadeiro se apenas um dos valores for verdadeiro.
+!	Nao	Retorna o valor contrario do obtido.
+
+=============================================
+
+
+
+
+
+Operadores:
+
+=============================================
+
+(4>2) && (10>5);	//verdadeiro;
+(4>2) && (10<5);	//falso;
+(4>2) || (10>5);	//verdadeiro;
+(4>2) || (10<5);	//verdadeiro;
+!(4>2) && !(10>5);	//falso;
+!(4>2) || !(10>5);	//falso;
+
+=============================================
+
+
+
+
+Ternario:
+
+=============================================
+
+Ex1.:
+variavel = (condicao) ? valor1 : valor2;
+
+Ex2.:
+var isAdult = (age < 18) ? "To Young" : "Old enough";
+
+Ex3.:
+var age = 15;
+var isAdult = (age < 18) ? "To Young" : "Old enough";
+document.write(isAdult);
+
+- vai return: "To Young";
+
+=============================================
+
+
+
+
+
+Operador String:
+
+=============================================
+
+var mystring1 = "I am learning ";
+var mystring2 = "Javascript with SoloLearn.";
+document.write(mystring1 + mystring2);
+
+----
+
+var x = "50";
+var y = "100";
+document.write(x+y);
+
+=============================================
+
+
+
+
+Condicional IF ELSE:
+
+=============================================
+
+if(condicao){
+	Executa se a condicao for verdadeira;
+}
+
+else{
+	Executa se a condicao for falsa;
+}
+
+=============================================
+
+Ex1.:
+
+var myNum1 = 7;
+var myNum2 = 10;
+if (myNum1 < myNum2) {
+	alert("Javascript is easy to Learn.");
+}
+
+---------------------------------------------
+
+Ex2.:
+
+var var1 = 10;
+var var2 = 5;
+if(var1 > var2){
+	document.write("OK");
+}
+
+---------------------------------------------
+
+Ex3.:
+
+var myNum3 = 7;
+var myNum4 = 10;
+if (myNum3 < myNum4) {
+	alert("Verdadeiro.");
+}
+
+else{
+	alert("Falso");
+}
+
+---------------------------------------------
+
+Ex4.:
+
+var course = 1;
+if(course == 1){
+	document.write("<h1>HTML Tutorial</h1>");
+}
+else if(course == 2){
+	document.write("<h1>CSS Tutorial</h1>");
+}
+else{
+	document.write("<h1>JavaScript Tutorial</h1>");
+}
+
+---------------------------------------------
+
+Ex5.:
+
+var course = 2;
+if(course == 1){
+	document.write("<h1>HTML Tutorial</h1>");
+}
+else if(course == 2){
+	document.write("<h1>CSS Tutorial</h1>");
+}
+else{
+	document.write("<h1>JavaScript Tutorial</h1>");
+}
+
+---------------------------------------------
+
+Ex6.:
+
+var course = 3;
+if(course == 1){
+	document.write("<h1>HTML Tutorial</h1>");
+}
+else if(course == 2){
+	document.write("<h1>CSS Tutorial</h1>");
+}
+else{
+	document.write("<h1>JavaScript Tutorial</h1>");
+}
+
+=============================================
+
+
+
+
+
+Switch:
+
+=============================================
+
+switch (expression){
+
+	case n1:
+		statements;
+	break;
+	case n2:
+		statements;
+	break;
+	case n3:
+		statements;
+	break;
+	default:
+		statements;
+	break;
+
+}
+
+=============================================
+
+switch (day_of_week){
+
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+
+	document.write("Working Days");
+	break;
+
+	case 6:
+	document.write("Saturday");
+
+	default:
+	document.write("Today is Sunday");
+	break;
+
+}
+
+=============================================
+
+Ex1.:
+
+var day = 2;
+
+switch (day){
+
+	case 1:
+		document.write("Segunda");
+	break;
+
+	case 2:
+		document.write("Terca");
+	break;
+
+	case 3:
+		document.write("Quarta");
+	break;
+
+	case 4:
+		document.write("Quinta");
+	break;
+
+	case 5:
+		document.write("Sexta");
+	break;
+
+	case 6:
+		document.write("Sabado");
+	break;
+
+	case 7:
+		document.write("Domingo");
+	break;
+
+	default:
+		document.write("Outro dia");
+	break;
+
+}
+
+=============================================
+
+Ex2.:
+
+var color = "yellow";
+
+switch (color){
+
+	case "blue":
+		document.write("This is Blue.");
+	break;
+
+	case "red":
+		document.write("This is Red.");
+	break;
+
+	case "green":
+		document.write("This is Green.");
+	break;
+
+	case "orange":
+		document.write("This is Orange.");
+	break;
+
+	default:
+		document.write("Nenhuma Cor.");
+	break;
+
+}
+
+=============================================
+
+
+
+
+
+LOOPS (for, while, do while):
+
+---------------------------------------------
+
+for(inicial, final, incremento){
+	codigo a ser executado;
+	incremento++;
+}
+
+---------------------------------------------
+
+Ex1.:
+
+for(i=1; i<=5; i++){
+	document.write(i + "<br />");
+}
+
+---------------------------------------------
+
+Ex2.:
+
+for(u = 0; u <= 10; u++){
+	document.write(u + "<br>");
+}
+
+---------------------------------------------
+
+Ex3.:
+
+var z = 0;
+for(; z <= 10; z++){
+	document.write(z + "<br>");
+}
+
+---------------------------------------------
+
+Ex.4:
+
+var w = 0;
+for(j = 0; j <= 10; j++){
+	document.write(w + "<br>");
+}
+
+=============================================
+
+
+
+
+
+Loop While:
+
+---------------------------------------------
+
+while(condicao){
+	bloco de codigo;
+}
+
+---------------------------------------------
+
+var i = 0;
+while (i <= 10){
+	document.write(i + "<br>");
+	i++;
+}
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Do While:
+
+---------------------------------------------
+
+do {
+	bloco de codigo
+}
+while(condicao);
+
+---------------------------------------------
+
+Ex1.:
+
+var j = 20;
+
+do{
+	document.write(j + "<br>");
+	j++;
+}
+while( j <= 25 );
+
+---------------------------------------------
+
+Ex2.:
+
+var y = 0;
+
+do{
+	document.write(y + "<br>");
+	y += 2;
+}
+while( y <= 20 );
+
+=============================================
+
+
+
+
+
+BREAK e CONTINUE:
+
+---------------------------------------------
+
+for (i = 0; i <= 10; i++){
+	if (i == 5){
+	break;
+}
+	document.write(i + "<br>");
+}
+
+---------------------------------------------
+
+for (j = 0; j <= 10; j++){
+	if (j == 5){
+	continue;
+}
+	document.write(j + "<br>");
+}
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+Funcoes em JavaScript:
+
+---------------------------------------------
+
+function name(){
+	//codigo a ser executado;
+}
+
+---------------------------------------------
+
+function teste(){
+	//codigo;
+}
+
+---------------------------------------------
+
+function myFunction(){
+	alert("Chamando a funcao!");
+}
+
+myFunction();
+//Alerts "Chamando a funcao!";
+
+---------------------------------------------
+
+function names(param1, param2, param3){
+	codigo param1, param2, param3;
+}
+
+---------------------------------------------
+
+
+//Declarando as funcoes:
+
+
+function myFunction(){
+	alert("Chamando a funcao!");
+}
+
+function alertName(name){
+	alert("Chamando a funcao! " + name + "!");
+}
+
+function hello(){
+	document.write("Hellow There! <br><br>");
+}
+
+function names(param1, param2, param3){
+	document.write("Os componentes da equipe sao: " + param1 + ", " + param2 + ", " + param3 + ".<br><br>");
+}
+
+function namesJuntos(param1, param2, param3){
+	document.write("Os componentes da equipe sao: " + param1, param2, param3 + "<br><br>");
+}
+
+function Sum(x, y){
+	raio = x+y;
+	document.write(raio + "<br><br>");
+}
+
+function Soma(x, y){
+	return x+y;
+}
+
+
+
+//Chamando as funcoes:
+
+var nome = "Jack";
+var nome1 = "Jhon";
+var nome2 = "Jim";
+var nome3 = "Jade";
+var x = 20;
+var y = 30;
+var z = 50;
+
+myFunction();						//Alerts "Chamando a funcao!";
+alertName(nome);
+hello();
+iam(nome);
+iam(nome1);
+iam(nome2);
+iam(nome3);
+names(nome1, nome2, nome3);
+namesJuntos(nome1, nome2, nome3);
+Sum(x, y);
+Soma(x, z);
+document.write(Soma(x, z));
+
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+ALERT BOX: 3 opcoes(Aler, Prompt, Confirm).
+
+- prompt serve para pegar a entrada de input do usuario.
+- alert serve para mostrar uma mensagem em caixa de alerta.
+
+---------------------------------------------
+
+Ex1.:
+
+alert("Do you really want to leave this page?");
+
+---------------------------------------------
+
+Ex2.:
+
+alert("Hellow\nHow are you?");
+
+---------------------------------------------
+
+Ex3.:
+
+//var user vai receber um prompt;
+var user = prompt("Please enter your name");		//prompt tem um campo que recebe o nome e depois mostra.
+alert(user);						//mostra o nome.
+
+---------------------------------------------
+
+Ex4.:
+
+//var idade vai receber um prompt;
+var idade = prompt("Please enter your age:");		//exibe um prompt que pede para digitar a idade;
+document.write(idade);	
+
+---------------------------------------------
+
+
+
+
+CONFIRM BOX (confirm):
+
+---------------------------------------------
+
+Ex1.:
+
+var result = confirm("Do you really want to leave this page?");
+
+if (result == true){
+	alert("Thanks for visiting!");
+}
+
+else{
+	alert("Thanks for staying with us");
+}
+
+---------------------------------------------
+=============================================
+
+
+
+
+Objetos:
+
+Objetos sao variaveis tambem, mas podem conter muito valores.
+
+=============================================
+
+var person {
+
+	name: "Jhon", age: 31, favColor: "green", height: 183
+
+};
+
+---------------------------------------------
+
+var person {
+
+	name: "Jhon", 
+	age: 31, 
+	favColor: "green", 
+	height: 183
+};
+
+---------------------------------------------
+
+Propriedade:		Valor da Propriedade:
+
+name			Jhon
+age			31
+favColor		green
+height			183
+
+---------------------------------------------
+=============================================
+
+
+
+
+ACESSANDO PROPRIEDADES:
+
+---------------------------------------------
+
+objectName.propertyName
+//ou
+objectname['propertyName']
+
+---------------------------------------------
+
+
+
+Exemplo de como acessar a idade de um objeto Pessoa:
+
+---------------------------------------------
+
+var Person = {
+
+	name: "John", 
+	age: 31,
+	favColor: "green", 
+	height: 183
+};
+
+var x = Person.age;
+var y = Person['age'];
+
+document.write(x);
+document.write("<br>");
+document.write(y);
+
+---------------------------------------------
+
+- O JavaScript constroi automaticamente a propriedade "length", e usada para contar caracteres na propriedade que for String.
+
+var course = {
+
+	name: "JS",
+	lessons: 41
+};
+
+document.write(course.name.length);
+
+//outputs: 2.
+
+---------------------------------------------
+
+
+
+
+Metodos de Objetos:
+
+Para acessar os metodos dos objetos.
+
+---------------------------------------------
+
+objectName.methodName();
+
+---------------------------------------------
+=============================================
+
+
+
+
+Objeto Construtor:
+
+---------------------------------------------
+
+"this." = Usado para acessar as propriedades do objeto local.
+
+-------------
+//classe:
+
+var Person = {
+
+	name: "John", 
+	age: 31,
+	favColor: "green", 
+	height: 183
+};
+
+-------------
+
+//Funcao construtora, ela que vai ser chamada quando instanciar o objeto:
+
+function funcPerson(name, age, color){
+
+	this.name = name;
+	this.age = age;
+	this.favColor = color;
+	this.height = height;
+}
+
+=============================================
+
+
+
+
+Criando Objetos (new keyword), deve-se instancia a funcao construtora:
+
+---------------------------------------------
+
+var p1 = new Person("John", 42, "green");
+var p2 = new Person("Amy", 21, "red");
+
+document.write(p1.age);		//outputs 42.
+document.write(p2.name);	//outputs "Amy".
+
+//agora o p1 e p1 sao objetos do tipo "Person". Estas propriedades passadas para os respectivos valores.
+
+---------------------------------------------
+
+function person(name, age){
+
+	this.name = name;
+	this.age = age;
+}
+
+var John = new person("John", 25);
+var James = new person("James", 21);
+
+---------------------------------------------
+
+Nome do Objeto:			Nome da Propriedade:
+
+John				name
+John				age
+James				name
+James				age
+
+=============================================
+
+
+
+
+
+Exemplo de uso de Classe:
+
+=============================================
+=============================================
+
+//classe:
+
+
+var Person = {
+
+	name: "John", 
+	age: 31,
+	favColor: "green", 
+	height: 183
+};
+
+var Carro = {
+
+	modelo: "Default",
+	cor: 	"Preto",
+	ano: 	0
+}
+
+
+//---------------------------------------------
+
+//metodo construtor:
+
+
+function funcPerson(name, age, color, height){
+
+	this.name = name;
+	this.age = age;
+	this.favColor = color;
+	this.height = height;
+}
+
+function novoCarro(modelo, cor, ano){
+
+	this.modelo = modelo;
+	this.cor = cor;
+	this.ano = ano;
+}
+
+
+//---------------------------------------------
+
+//instanciar e passar parametros.
+
+var p1 = new funcPerson("John", 42, "green", 176);
+var p2 = new funcPerson("Amy", 21, "red", 162);
+document.write(p1.age);		//outputs 42.
+document.write("<br>");
+document.write(p2.name);	//outputs "Amy".
+
+//agora o p1 e p1 sao objetos do tipo "Person". Estas propriedades passadas para os respectivos valores.
+
+document.write("<br><br>");
+
+var Civic = new novoCarro("New Civic", "Preto", 2018);
+document.write("Modelo: " + Civic.modelo + "<br>");
+document.write("Cor: " + Civic.cor + "<br>");
+document.write("Ano: " + Civic.ano + "<br>");
+
+=============================================
+=============================================
+
+
+
+
+
+METODOS:
+
+Metodos sao funcoes que armazenas propriedades de objetos.
+Metodos tambem sao funcoes, pertence a um objeto, que podem referenciar atraves do "this";
+
+---------------------------------------------
+
+methodName = function(){
+	codigo;
+}
+
+---------------------------------------------
+
+//acessar o metodo do objeto:
+
+objectName.methodName();
+
+---------------------------------------------
+
+Ex.:
+
+function person(name, age){
+
+	this.name = name;
+	this.age = age;
+	this.changeName = function (name)
+ {
+	this.name = name;
+ }
+}
+
+var p = new person("David", 21);
+p.changeName("John");
+
+//Agora p.name recebe "John".
+
+---------------------------------------------
+=============================================
+
+
+
+
+Metodos:
+
+Voce pode definir uma funcao fora da funcao contrutora e associar ao objeto.
+
+---------------------------------------------
+
+function person(name, age){
+
+	this.name = name;
+	this.age = age;
+	this.yearOfBirth = bornYear;
+}
+
+function bornYear(){
+
+	return 2016 - this.age;
+}
+
+//Passamos a propriedade yearOfBirth da funcao "bornYear".
+
+---------------------------------------------
+
+//chamando o metodo:
+
+var p = new person("A", 22);
+document.write(p.yearOfBirth());
+
+//Saida: 1994.
+
+=============================================
+
+
+
+
+Arrays:
+
+Sao multiplos valores em uma soh variavel.
+
+---------------------------------------------
+
+- Estes valores sao declarados normalmente assim:
+
+var course1 = "HTML";
+var course2 = "CSS";
+var course3 = "JS";
+
+---------------------------------------------
+
+- Mas e quando vc tem 500 valores? Melhor usar o array:
+
+var courses = new Array("HTML", "CSS", "JS");
+
+---------------------------------------------
+=============================================
+
+
+
+
+Acessando Array:
+
+Os elementos do array podem ser acessados pelo "index number", usando [];
+
+---------------------------------------------
+
+var courses = new Array("HTML", "CSS", "JS");
+
+var course = courses[0];	//html.
+courses[1] = "C++";		//Muda o segundo elemento.
+
+---------------------------------------------
+
+Ex1.:
+
+var arr = new Array(3, 6, 8);
+document.write(arr[1]);
+
+---------------------------------------------
+
+Ex2.:
+
+var arrayFrutas = new Array("Pessego", "Maca", "Banana", "Laranja", "Abacaxi", "Abacate", "Default");
+
+document.write(arrayFrutas[0]);
+document.write("<br><br>");
+
+
+document.write("Tamanho do array: ");
+document.write(arrayFrutas.length);
+
+
+document.write("<br><br>");
+
+
+for(i = 0; i <= arrayFrutas.length - 1; i++){
+	document.write(arrayFrutas[i] + "<br>");
+}
+---------------------------------------------
+=============================================
+
+
+
+
+
+Criando Arrays:
+
+Arrays podem ser declarados, e adicionado itens depois.
+
+JS eh dinamico, se vc nao passar nenhum elemento par o array, pode ser passado dinamicamente.
+
+---------------------------------------------
+
+var courses = new Array(3);
+
+courses[0] = "HTML";
+courses[1] = "CSS";
+courses[2] = "JS";
+
+//para acessar o elento [2]:
+document.write(courses[2]);
+
+---------------------------------------------
+
+var courses = new Array();
+
+var courses[0] = "HTML";
+var courses[1] = "CSS";
+var courses[2] = "JS";
+var courses[3] = "C++";
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Array Literal:
+
+Sintaxe do array literal:
+---------------------------------------------
+
+var courses = ["HTML", "CSS", "JS"];
+
+---------------------------------------------
+=============================================
+
+
+
+
+A propriedade do Array "length":
+
+A propriedade "length" mostra o tamanho do array.
+
+---------------------------------------------
+
+var courses = ["HTML", "CSS", "JS"];
+
+document.write(courses.length);
+
+//saida: 3.
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+Combinacao de arrays:
+
+Javascript pode concatenar arrays com o metodo "concat()", criando um novo array.
+
+---------------------------------------------
+
+var c1 = ["HTML", "CSS"];
+var c2 = ["JS", "C++"];
+
+var courses = c1.concat(c2);
+
+//O array "courses" resultara contendo 4 elementos.
+
+---------------------------------------------
+
+
+
+
+
+
+Array associativos:
+
+Suporta array associativos com nomes indexados.
+Associative arrays usam [] para declaracao.
+
+---------------------------------------------
+
+var person = []; //empty array.
+
+person["name"] = "John";
+person["age"] = 46;
+
+document.write(person["age"]);
+
+//saida: "46".
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+Biblioteca Math:
+
+---------------------------------------------
+
+Propriedades:			Descricao:
+
+E				Euler's constant
+LN2				Natural log of the value 2
+LN10				Natural log of the value 10
+LOG2E				The base 2 log  Euler's constant (E)
+Log10E				The base 10 log of Euler's constant (E)
+PI				Returns the constant PI
+
+Exemplo:
+
+document.write(Math.PI);
+
+//Saida: 3.141592653589793
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+Math Objects Metodos:
+
+---------------------------------------------
+
+Metodo:				Descricao:
+
+abs(x)				Retorna o valor absoluto de x.
+acos(x)				Retorna o arccosine de x, in Radians.
+asin(x)				Retorna o arcsine do x, in radians.
+atan(x)				Retorna o arctangent do x as a numeric value between -PI/2 and PI/2 radians.
+atan2(x,y)			Retorna o arctangent of the quotient of its arguments.
+ceil(x)				retorna o menor número inteiro maior ou igual a "x".
+cos(x)				Returns the cosine of x(x is in radians).
+exp(x)				Returns the value of E*.
+floor(x)			A função Math.floor(x) retorna o menor número inteiro dentre o número "x".
+log(x)				Returns the natural logarithm (base E) of x.
+max(x,y,z,...,n)		Returns the number with the highest value.
+min(x,y,z,...,n)		Returns the number with the lowest value.
+pow(x,y)			Returns the value of x to the power of y.
+random()			Returns a random number between 0 and 1.
+round(x)			Rounds x to the nearest integer.
+sin(x)				Returns the sine of x(x is in radians).
+sqrt(x)				Returns the square root of x (raiz quadrada).
+tan(x)				Returns the tangent of an angle.
+
+---------------------------------------------
+
+Ex.:
+
+//para calcular o square root de um numero:
+
+var number = Math.sqrt(4);
+document.write(number);
+
+//outputs 2.
+
+---------------------------------------------
+
+- Para pegar um numero randon entre 1-10, use o: 
+"Math.random()".
+
+- E vamos gerar um numero entre 0-1, e multiplicar o numero random por 10 com:
+"Math.ceil(Math.random() * 10).
+
+---------------------------------------------
+
+var n = prompt("Enter a number", "");
+var answer = Math.sqrt(n);
+
+alert("The square root of " + n + " is " + answer);
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+Random ( Aleatorio ):
+---------------------------------------------
+
+document.write(Math.random());
+
+document.write("<br><br>");
+
+document.write(Math.ceil(Math.random() * 10));
+
+---------------------------------------------
+
+//Este exemplo retorna um número entre dois valores definidos. O valor retornado será maior ou igual a min, e menor que max.
+
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+---------------------------------------------
+
+//Este exemplo retorna um número inteiro entre dois valores definidos. O valor não poderá ser menor que min (ou do próximo inteiro maior que min, caso min não seja inteiro), e será menor (mas não igual) a max.
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+---------------------------------------------
+
+//A função getRandomInt() acima tem intervalo com o valor mínimo incluído e o máximo excluído. Mas se você precisar que a função inclua, tanto o mínimo quanto o máximo, em seus resultados? A função getRandomIntInclusive() abaixo faz isso.
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+
+
+setInterval ( INTERVALO ):
+
+O metodo "setInterval()" especifica os intervalos em milisegundos.
+Funcao "setTimeout()".
+O metodo "clearInterval()" eh chamado para encerrar o metodo.
+Funcao "clearTimeout".
+O intervalo de 1000 milisegundos eh de 1 segundo.
+
+---------------------------------------------
+//=============================================
+
+document.write("<br><br>");
+
+
+function myAlert(){
+
+	alert("Hi");
+	clearInterval(i);		//vai parar o processo, para nao ficar infinito.
+}
+
+let i = setInterval(myAlert, 12000);	//vai chamar a funcao apos 12 segundos.
+
+//Chamando a funcao myAlert depois de 10 segundos (1000 ms = 1 segundo);
+
+//---------------------------------------------
+
+document.write("<br><br>");
+
+
+function myAlert1(msg){
+
+	alert("Message: " + msg);
+	clearInterval(x);		//vai parar o processo, para nao ficar infinito.
+}
+
+let x = setInterval(myAlert1, 15000, "Hellow There!");
+
+//Chamando a funcao myAlert depois de 10 segundos (1000 ms = 1 segundo);
+
+//---------------------------------------------
+
+
+function myAlert2(){
+
+	document.write("<br>");
+	document.write("Hellow!");
+	clearInterval(y);		//vai parar o processo, para nao ficar infinito.
+}
+
+//---------------------------------------------
+
+function myAlert3(){
+
+	document.write("<br>");
+	document.write("Tchau!");
+	clearInterval(z);		//vai parar o processo, para nao ficar infinito.
+}
+
+//---------------------------------------------
+
+let y = setInterval(myAlert2, 3000);
+let z = setInterval(myAlert3, 5000);
+
+//---------------------------------------------
+=============================================
+=============================================
+
+
+
+
+
+Date Object:
+
+Serve para trabalhar com Datas.
+
+Deve ser usado o "new Date()" para criar um objeto na biblioteca para "current date and time".
+
+Javascript conta months de 0-11.
+
+---------------------------------------------
+
+var d = new Date();
+
+//d armazena a data e o hora atual.
+
+---------------------------------------------
+
+//Podemos inicializar o objeto, armazenando tambem outras formas especificas de tempo.
+
+new Date(milliseconds);
+new Date(dateString);
+new Date(year, month, day, hours, minutes, seconds, milliseconds);
+
+//javascript calcula o tempo des de 01 January, 1970 00:00:00 Universal Time (UTC). Um dia contem 86,400,000 milliseconds.
+
+---------------------------------------------
+
+//Ex.:
+
+//Fri Jan 02 1970 00:00:00
+var d1 = new Date(86400000);
+
+//Fri Jan 02 2015 10:42:00
+var d2 = new Date("January 2, 2015 10:42:00");
+
+//Fri Jan 11 1988 11:42:00
+var d3 = new Date(88,5,11,11,42,0,0);
+
+//Data atual
+var d4 = new Date();
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Date Metodos:
+
+Obter dados especificos.
+---------------------------------------------
+
+Metodo:				Descricao:
+
+getFullYear()			Pega o ano.
+getMonth()			Pega o mes.
+getDate()			Pega o dia do mes.
+getDay()			Pega o dia da semana.
+getHours()			Pega a hora.
+getMinutes()			Pega o minuto.
+getSeconds()			Pega os segundos.
+getMilliseconds()		Pega os milisegundos.
+
+---------------------------------------------
+
+//Ex.:
+
+var d = new Date();
+var hours = d.getHours();
+
+//hours eh igual a current hora.
+
+---------------------------------------------
+
+function printTime(){
+
+	var d = new Date();
+	var hours = d.getHours();
+	var mins = d.getMinutes();
+	var sec = d.getSeconds();
+	document.body.innerHTML = hours + ":" + mins + ":" + sec;
+}
+
+setInterval(printTime, 1000);
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+
+
+
+==========================================================================================
+
+
+The DOM (Document Object Model):
+---------------------------------------------
+
+Quando abrimos uma pagina web no navegador, o HTML da pagina eh carregado e renderizado visualmente na tela.
+Para terminar esta acao, o navegador constroi o "Document Object Model" na pagina, ao qual utiliza um modelo orientado a objeto na estrutura logica.
+
+Os elementos HTML representam nos/nodes em uma arvore. Todos os nos tem uma relacao com os outros.
+Nos podem ter nos filhos, no mesmo nivel da arvore sao chamados de "siblings/irmaos".
+
+Pode ser representado, herdando de seu pai, gerando filhos:
+
+			Document
+			   |
+	    |------------<html>------------|
+	    |				   |	    
+	  <head>			 <body>
+	    |			|----------|----------|
+	 <title>	       <h1>		     <a>
+
+
+Por exemplo:
+
+<html> tem dois filhos (<head>. <body>);
+<head> tem um filho (<title>) e um pai (<head>) que tem um pai (<html>);
+<title> tem um pai (<head>) e nenhum filho;
+<body> tem dois filhos (<h1> e <a>) e um pai (<html>);
+
+---------------------------------------------
+
+Neste exemplo o <p> eh pai do <h1>:
+
+<body>
+<p><h1>Hi</h1></p>
+</body>
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+O document Object:
+
+Este eh um predefinido "document object" no Javascript, ele pode ser usado para acessar elementos da DOM.
+Em outras palavras o "documento object" eh o owner (ou root) de todos os objetos em sua webpage.
+Entao se vc precisa acessar objetos na pagina HTML, vc sempre comeca com acesso ao "document object".
+
+---------------------------------------------
+
+- Por exemplo:
+
+document.body.innerHTML = "Algum texto";
+
+---------------------------------------------
+
+
+O "body" eh um elemento de DOM, nos podemos acessar usando o "document object" e mudar o conteudo com o "innerHTML" propriedade.
+"InnerHTML" eh uma propriedade.
+A propriedade "innerHTML" pode ser usado em quase todos os elementos HTML, mudando seu conteudo.
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+Selectionando Elementos:
+
+---------------------------------------------
+
+Todo o elemento HTML sao Objetos.
+Sabemos que todos os "objetos" tem "propriedades" e "metodos".
+O "document Object" eh um metodo que permite selecionar o elemento HTML desejado.
+
+Voce deve pegar o elemento apos o codigo html, para ele poder carregar, se for antes, nao existira ainda os objetos.
+
+
+
+Estes tres metodos sao mais comumente acessados selecionando os elementos HTML:
+---------------------------------------------
+
+//encontra o elemento pelo "ID":
+document.getElementById(id);
+
+//encontra o elemento pela "Class Name":
+document.getElementsByClassName(name);
+
+//encontra o elemento pela "Tag Name":
+document.getElementByTagName(name);
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+- getElementById("");
+
+
+No exemplo abaixo, o "getElementById" metodo, eh usado para selecionar o elemento com ' id="demo" ' e muda o conteudo:
+---------------------------------------------
+
+var elem = 
+document.getElementById("demo");
+elem.innerHTML = "Hellow World!";
+
+---------------------------------------------
+
+Ex2.:
+
+var ob = document.getElementById("text");
+ob.innerHTML = "Hi";
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+- getElementsByClassName();
+
+O "getElementsByClassName()" metodo retorna uma colecao com todos os elementos em um documento com o nome da classe especifica.
+Por exemplo, se sua pagina HTML contem 3 elementos com a ' class="demo" ', o seguinte codigo retorna todos os elementos em um array:
+---------------------------------------------
+
+var arr = document.getElementsByClassName("demo");
+
+//accessando o segundo elemento e troca pelo conteudo indicado:
+arr[1].innerHTML = "Hi";
+
+---------------------------------------------
+
+//Para exibir um elemento em especifico, printando na tela, basta usar o comando:
+
+document.write(arr[0].innerHTML);
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+- getElementsByTagName();
+
+Similarmente, o metodo "getElementsByTagName()" retorna todos os elementos da "tag name" especifica em um array.
+
+
+O seguinte exemplo pega todos os elementos dos paragrafos da pagina e troca seu conteudo:
+---------------------------------------------
+
+<p>hi</p>
+<p>hello</p>
+<p>hi</p>
+
+<script>
+
+var arr = 
+document.getElementsByTagName("p");
+
+for(var x = 0; x < arr.length; x++){
+
+	arr[x].innerHTML = "Hi there";
+
+}
+
+</script>
+
+---------------------------------------------
+
+//Selecionar todos os elementos da "div" e dar um "alert" com o terceiro elemento:
+
+var arr = document.
+getEmentByTagName("div");
+
+alert(arr[2].innerHTML);
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+Trabalhando com DOM:
+---------------------------------------------
+
+Cada elemento no DOM tem um conjunto de propriedades e metodos que providenciam informacoes sobre estas relacoes entre o DOM:
+
+element.childNodes retorna um array dos elementos filhos do noh.
+
+element.firstChild retorna o primeiro filho do noh de um elemento.
+
+element.lastChild retorna o ultimo filho do noh de um elemento.
+
+element.hasChildNodes retorna "verdadeiro" se um elemento tem unico filho no noh, de outra forma falso.
+
+element.nextSibling retorna o proximo noh do mesmo level da arvore.
+
+element.previousSibling retorna o noh anterior do mesmo level da arvore.
+
+element.parentNode retorna o pai do noh de um elemento.
+
+---------------------------------------------
+
+
+
+
+
+
+Nos podemos por exemplo, selecionar todos os nos filhos de um elemento e mudar o seu conteudo:
+
+---------------------------------------------
+
+<html>
+<body>
+	<div id="demo">
+		<p>Algum texto</p>
+		<p>Algum outro texto</p>
+	</div>
+
+<script>
+
+	var a = 
+	document.getElementById("demo");
+	var arr = a.childNodes;
+	
+
+	for(var x = 0; x < arr.length; x++){
+
+	arr[x].innerHTML = "new text";
+	}
+
+</script>
+
+</body>
+</html>
+
+---------------------------------------------
+
+
+
+
+
+
+MUDANDO ATRIBUTOS:
+
+Uma vez que vc tem o(s) objeto(s) selecionado(s), voce pode trabalhar com eles, voce pode mudar os atributos.
+
+Como anteriormente foi visto, podemos mudar o conteudo de texto de um elemento usando a propriedade "innerHTML".
+
+Similarmente, nos podemos mudar os atributos dos elementos.
+
+
+Por exemplo, nos podemos mudar o atributo "src" da imagem:
+---------------------------------------------
+
+<img id="myimg" src="orange.png" alt="" />
+
+<script>
+
+	var el = 
+	document.getElementById("myimg");
+	el.src = "apple.png";
+
+</script>
+
+---------------------------------------------
+
+//Nos podemos mudar o atributo "href" do link:
+
+<a href="http://www.example.com">Algum link</a>
+
+<script>
+
+	var el = 
+	document.getElementsByTagName("a");
+	el[0].href = "http://www.sololearn.com";
+
+</script>
+
+---------------------------------------------
+
+//Selecionar todas as imagem da pagina e mudar seu atributo "src":
+
+var arr = document.
+	getElementsByTagName("img");
+
+	for(var x = 0; x < arr.length; x++){
+
+	arr[x].src = "demo.jpg";
+
+}
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+
+Mudando o estilo:
+
+O estilo do HTML pode ser mudado com JavaScript.
+Todos os atributos podem ser acessando usando o "style object" do elemento.
+
+Por exemplo:
+---------------------------------------------
+
+<div id="demo" style="width:200px">Algum texto</div>
+
+<script>
+
+	var x = 
+	document.getElementById("demo");
+	x.style.color = "6600FF";
+	x.style.width = "100px";
+
+</script>
+
+
+//o codigo muda o text color e o width do elemento 'div'.
+
+---------------------------------------------
+
+//Mudando a cor do background com um elemento "span" na pagina.
+
+var s = document.getElementsByTagName("span");
+
+for(var x=0; x < s.length; x++){
+
+	s[x].style.backgroundColor = "#33EA73";
+
+}
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+
+Criando Elementos.
+
+
+Use o seguinte metodo para criar novo noh:
+
+element.cloneNode() clona um elemento e retorna o resultante noh.
+
+document.createElement(element) creates a new element node.
+
+document.createTextNode(text) cria um novo noh para o texto.
+
+---------------------------------------------
+
+//Por exemplo:
+
+var node = document.createTextNode("Some new Text");
+
+---------------------------------------------
+
+Este codigo vai criar um novo noh de texto, mas ele nao aparecera no "document" ate vc atribui-lo a um elemento existente com um dos seguintes metodos:
+
+element.appendChild(newNode) adds a new child node to an element as the last child node.
+
+element.insertBefore(node1, node2) insere node1 quando o filho antes node2.
+
+---------------------------------------------
+
+//Exemplo:
+
+<div id="demo">Algum conteudo</div>
+
+<script>
+
+	//criar um novo paragrafo.
+	var p = document.createElement("p");
+
+	var node = 
+	document.createTextNode("Mais algum texto");
+
+	//adiciona um novo texto para o paragrafo.
+	p.appendChild(node);
+
+	var div = 
+	document.getElementById("demo");
+
+	//adiciona o paragrafo para a div.
+	div.appendChild(p);
+
+</script>
+
+//Este codigo esta adicionando um novo paragrafo e add ele a um elemento "div" existente na pagina.
+
+---------------------------------------------
+
+//Para adicionar um novo elemento <li> para uma unordered list com id="list".
+
+var el = document.createElement("li");
+
+var txt = document.createTextNode("B");
+el.appendChild(txt);
+
+var ul = document.getElementById("list");
+ul.appendChild(el);  
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+
+Removendo Elementos:
+
+Para remover um elemento HTML, voce deve selecionar o pai de um elemento e usar o metodo "removeChild"(do noh).
+
+---------------------------------------------
+
+//Por exemplo:
+
+<div id="demo">
+	<p id="p1">Este eh um paragrafo.</p>
+	<p id="p2">Este eh um outro paragrafo.</p>
+</div>
+
+<script>
+
+	var parent = 
+	document.getElementById("demo");
+
+	var child =
+	document.getElementById("p1");
+	
+	parent.removeChild(child);
+
+</script>
+
+//Este codigo remove o paragrafo com id="p1" da pagina.
+
+---------------------------------------------
+
+//Outra alternativa para se obter o mesmo resultado eh usar a propriedade "parentNode" para pegar o pai do elemeno que nos desejamos remover.
+
+var child = 
+document.getElementById("p1");
+
+child.parentNode.removeChild(child);
+
+---------------------------------------------
+
+//Remover o elemento "node" da pagina(par do no pai);
+
+var par = document.getElementById("par");
+
+var node = 
+document.getElementById("node");
+
+par.removeChild(node);
+
+---------------------------------------------
+
+
+
+
+
+
+
+Substituindo Elementos:
+
+Para substituir um elemento HTML, o metodo "element.replaceChild(newNode, oldNode)" deve ser usado.
+
+---------------------------------------------
+
+//Por exemplo:
+
+<div id="demo">
+	<p id="p1">Este eh um paragrafo.</p>
+
+	<p id="p2">Este eh outro paragrafo.</p>
+
+</div>
+
+<script>
+
+var p = document.createElement("p");
+
+var node = document.createTextNode("Este eh um novo");
+
+p.appendChild(node);
+
+var parent = document.getElementById("demo");
+
+var child = document.GetElementById("p1");
+
+parent.replaceChild(p, child);
+
+</script>
+
+//este codigo cria um novo elemento paragrafo que substitui um paragrafo existente "p1".
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Animations :
+
+Agora que sabemos como selecionar e mudar o DOM elemento, podemos criar uma simples animacao.
+Vamos criar uma simples pagina HTML com um "box element" para animar usando JS.
+
+---------------------------------------------
+
+<style>
+
+#container{
+
+	width: 200px;
+	height: 200px;
+	background: green;
+	position: relative;
+
+}
+
+#box{
+
+	width: 50px;
+	height: 50px;
+	background: red;
+	position: absolute;
+
+}
+
+</style>
+
+<div id="container">
+
+	<div id="box"></div>
+
+</div>
+
+---------------------------------------------
+
+O "box element" dentro do "container element".
+Note a "position attribute" usado para o "elements": o container eh "relative" e o "box" eh "absolute".
+Isso permitira criar uma animacao relativa para o container.
+
+Vamos animar o red box para fazer ele se mover para o lado direito do container.
+
+---------------------------------------------
+
+
+
+Animacoes:
+
+---------------------------------------------
+
+Para criar uma animacao, nos precisamos mudar a propriedade do elemento com pequenos intervalos de tempo.
+Nos podemos arquivar isso usando o metodo "setInterval()", nos permite criar um "timer" e chamar uma funcao para mudar propriedades repetidamente definindo intervalos (em milisegundos).
+
+---------------------------------------------
+
+var t = setInterval(move, 500);
+
+---------------------------------------------
+
+Este codigo cria um timer que chama a funcao "move()" depois de 500 milisegundos.
+Agora nos precisamos definir a funcao "move()", isso muda a posicao do box.
+
+---------------------------------------------
+
+//starting position.
+	var pos = 0;
+
+//our box element.
+	var box = document.getElementById("box");
+
+	function move(){
+
+	pos += 1;
+	box.style.left = pos+"px";	//px = pixels.
+
+	}
+
+//para funcao "move()" incrementa a propriedade "left" do "box element" cada vez que for chamado.
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Animations:
+
+O seguinte codigo define o timer que chama a funcao "move()" depois de 10 milisegundos:
+
+---------------------------------------------
+
+var t = setInterval(move, 10);
+
+---------------------------------------------
+
+Contudo, este codigo faz seus "box" se moverem para a direita eternamente.
+Para parar a animacao quando o "box" alcanca o final do container, nos adicionamos um simples check para a funcao "move()" e usa o metodo "clearInterval()" para parar o timer.
+
+---------------------------------------------
+
+function move(){
+
+	if(pos >= 150){
+
+	clearInterval(t);
+
+	}
+
+	else{
+
+	pos +=1;
+	box.style.left = pos+"px";
+
+	}
+
+}
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+Eventos:
+
+
+Voce pode escrever codigo JS para executar quando um "event" ocorre, quando o usuario clicar em um elemento HTML, move o mouse, ou envia um formulario.
+Quando um evento ocorre sobre um elemento alvo, a funcao "handler"(manipuladora) eh executada.
+
+---------------------------------------------
+
+Evento:			Descricao:
+
+onclick			Ocorre quando um usuario click em um elemento.
+onload			Ocorre quando um objeto eh carregado.
+onunload		Ocorre quando uma pagina eh carregada (for <body>).
+onchange		ocorre quando o conteudo do elemento da form, a selecao, ou o checked state eh mudado (for <input>, <keygen>, <select>, e 							<textare)
+onmouseover		Ocorre quando o ponto eh movido para um elemento, ou para um dos filhos.
+onmouseout		Ocorre quando um usuario move o ponteiro do mouse para fora do elemento, ou fora de um elemento do filho.
+onmousedown		Ocorre quando o usuario pressiona o botao do mouse sobre um elemento.
+onmouseup		Ocorre quando um usuario lanca o botao do mouse sobre um elemento.
+onblur			Ocorre quando um elemento perde o focus.
+onfocus			Ocorre quando um elemento pega o focus.
+
+---------------------------------------------
+
+Correspondente evento pode ser adicionado para o atributo do elemento HTML.
+
+Por exemplo:
+<p onclick="someFunc()">Some Text</p>
+
+---------------------------------------------
+
+O tipo de funcao que executa quando o evento eh chamato eh: "event handler".
+
+---------------------------------------------
+
+
+
+
+
+Handling Events:
+---------------------------------------------
+
+//Vamos mostrar um popup alert quando o usuario clicar num botao especifico:
+
+<button onclick="show()">Click Me</button>
+
+<script>
+
+	function show(){
+
+	alert("Hi There");
+
+	}
+
+</script>
+
+---------------------------------------------
+
+
+Event handlers podem ser passados para elementos.
+
+Por exemplo:
+---------------------------------------------
+
+var x = document.getElementById("demo");
+
+x.onclick = function(){
+
+	document.body.innerHTML = Date();
+
+}
+
+//Voce pode atribuir eventos para todos os elementos HTML.
+
+---------------------------------------------
+
+Quando o botao for clickado ele ativa uma funcao:
+
+<button onclick="func()">Click Here</button>
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Eventos:
+
+Os eventos "onload" e "onunload" sao gatilhos quando o usuario entra ou deixa a pagina.
+Este pode ser util quando realizados antes da pagina ser carregada.
+
+---------------------------------------------
+
+<body onload="doSomething()">
+
+---------------------------------------------
+
+- Similarmente, o evento "window.onload" pode ser usado para percorrer todo o codigo antes da pagina ser carregada.
+
+---------------------------------------------
+
+window.onload = function(){
+	//algum codigo.
+}
+
+---------------------------------------------
+
+O evento "onchange" eh muito usado para "textboxes".
+o "event handler" eh chamado quando o texto dentro da "textbox" muda e foco eh perdido do elemento.
+
+---------------------------------------------
+
+//Por exemplo:
+
+<input type="text" id="name" onchange="change()">
+
+<script>
+
+	function change(){
+
+	var x = document.getElementById("name");
+	x.value = x.value.toUpperCase();
+
+}
+
+</script>
+
+---------------------------------------------
+
+Por exemplo, chamar uma funcao na body:
+
+<body onload="clear()">
+
+</body>
+
+---------------------------------------------
+=============================================
+
+
+
+
+Eventos ouvintes:
+
+---------------------------------------------
+
+O metodo "addEventListener()" atacha um evento manipulador para um elemento fora sobreescrevendo o evento manipulador.
+
+Voce pode adicionar muitos eventos manipuladores para o mesmo tipo de elemento i.e, evento de dois clicks.
+
+---------------------------------------------
+
+Ex. de estrutura:
+
+element.addEventListener(event, function, useCapture);
+
+---------------------------------------------
+
+- O primeiro parametro eh o evento "type"(como "click" ou "mousedown").
+- O segundo parametro eh a "funcao" que nos precisamos chamar para o evento ocorrer.
+- O terceiro parametro eh um valor Booleano especificando se deve usar "bubbling" ou evento "capturing". Este parametro eh opcional.
+
+* Note que vc nao deve usar o prefixo "on" para este evento, use "click" ao inves de "onclick".
+
+---------------------------------------------
+
+//Exemplo:
+
+element.addEventListener("click", myFunction);
+element.addEventListener("mouseover", myFunction);
+
+function myFunction(){
+	alert("Hello World!");
+}
+
+---------------------------------------------
+
+Este adiciona dois eventos ouvintes para o elemento.
+
+Nos podemos remover um dos ouvintes:
+---------------------------------------------
+
+//Exemplo:
+
+element.removeEventListener("mouseover", myFunction);
+---------------------------------------------
+
+
+Vamos criar um evento manipulador que remove este antes de ser executado:
+---------------------------------------------
+
+//Exemplo:
+
+<button id="demo">Start</button>
+
+<script>
+
+var btn = document.getElementById("demo");
+btn.addEventListener("click", myFunction);
+
+function myFunction(){
+
+	alert(Math.random());
+	btn.removeEventListener("click", myFunction);
+
+}
+
+</script>
+
+//Depois de clickar no botao, um alerta com um numero randomico aparece e o evento ouvinte eh removido.
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Propagacao de evento:
+
+Temos duas maneiras de eventos de propagacao com HTML DOM:
+"bubbling" e "capturing".
+
+O Evento de propagacao permite a definicao dos elementos ordenando quando um evento ocorre.
+Se vc tem um elemento <p> dentro de um <div>, e vc usa "clicks" no elemento <p>, quais eventos "click" voce deve tratar primeiro?
+
+In "Bubbling", o evento mais intimo dos elementos deve ser manipulado primeiro e depois manipula-se o mais externo.
+O elemento <p> do evento click eh manipulado primeiro, seguido pelo elemento <div> com evento Click.
+
+Em "Capturing", o evento do elemento mais externo é tratado primeiro e depois o interno. O evento de clique do elemento <div> é tratado primeiro, seguido pelo evento de clique do elemento <p>.
+
+Capturing vai "down" a DOM.
+Bibbling vai "up" a DOM.
+
+Um paragrafo que esta dentro do elemento div, e vc quer o evento click do paragrafo para manipular primeiro, vc usa o Bubbling.
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Capturing vs. Bubbling:
+
+O metodo "addEventListener()" permite especificar o tipo de propagação com o parametro "useCapture".
+
+---------------------------------------------
+
+Ex.:
+
+addEventListener(event, function, useCapture);
+
+---------------------------------------------
+
+O valor default eh "falso", o que significa que a propagação de bolhas é usada, quando o valor é definido como "verdadeiro", o evento usa a propagação de captura.
+
+---------------------------------------------
+
+Ex.:
+
+//Capturing propagation
+	elem1.addEventListener("click", myFunction, true);
+
+//Bubbling propagation
+	elem2.addEventListener("click", myFunction, false);
+
+
+//Isso é particularmente útil quando você tem o mesmo evento manipulado para vários elementos na hierarquia do DOM.
+
+---------------------------------------------
+
+//Manipular o evento click e use a propagacao de captura.
+
+x.addEventListener("click", func, true);
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Image Slider / Imagem deslisante:
+
+Agora nos podemos criar um projeto simples imagem deslizante. A imagem pode ser modificada usando "Next" e "Prev" botoes.
+
+Agora, vamos criar um HTML, vamos incluir uma imagem e duas barras de navegacao:
+
+---------------------------------------------
+
+<div>
+
+	<button>Prev</button>
+	<img id="slider" src="http://www.sololearn.com/uploads/slider/1.jpg" width="200px" height="100px" />
+	<button>Next</button>
+
+</div>
+
+---------------------------------------------
+
+//Seguindo, vamos definir um simples array de imagens:
+
+var images = [ 
+	"http://www.sololearn.com/uploads/slider/1.jpg",
+	"http://www.sololearn.com/uploads/slider/2.jpg",
+	"http://www.sololearn.com/uploads/slider/3.jpg"
+];
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+---------------------------------------------
+
+Definir um simples array:
+
+var arr = ['A', 'B', 'C'];
+
+---------------------------------------------
+
+
+
+
+Image Slider / Imagem deslisante:
+
+Agora nos precisamos para manipular os botoes on click "NEXT" e "PREV" chamar as correspondentes funcoes para trocar a imagem.
+
+HTML:
+---------------------------------------------
+
+<div>
+
+	<button onclick="prev()"> Prev </button>
+	<img id="slider" src="http://www.sololearn.com/uploads/slider/1.jpg" width="200px" height="100px" />
+	<button onclick="next()"> Next </button>
+
+</div>
+
+---------------------------------------------
+
+JS:
+---------------------------------------------
+
+var images = [
+
+	"http://www.sololearn.com/uploads/slider/1.jpg",
+	"http://www.sololearn.com/uploads/slider/2.jpg",
+	"http://www.sololearn.com/uploads/slider/3.jpg"
+
+];
+
+var num = 0;
+
+function next(){
+
+	var slider = document.getElementById("slider");
+	num++;
+
+	if(num >= images.length){
+
+	num = 0;
+
+	}
+
+	slider.src = images[num];
+}
+
+function prev(){
+
+	var slider = document.getElementById("slider");
+	num--;
+	
+	if(num < 0){
+
+	num = images.lenght - 1;
+
+	}
+
+	slider.src = images[num];
+
+}
+
+---------------------------------------------
+
+A variável "num" mantém a imagem atual. Os cliques do botão seguinte e anterior são tratados por suas funções correspondentes, que alteram a fonte da imagem para a imagem seguinte / anterior no array.
+
+---------------------------------------------
+
+//Qual será o conteúdo do parágrafo depois que o usuário clicar nele duas vezes?
+
+<p id="txt" onclick="text()">20</p>
+
+<script>
+
+	function text(){
+
+	var x = document.getElementById("txt");
+	var n = x.innerHTML;
+	x.innerHTML = n/2;
+
+	}
+
+</script>
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+
+
+Form Validation:
+
+---------------------------------------------
+
+O HTML5 adiciona alguns atributos que permitem a validação de formulário. Por exemplo, o atributo "required" pode ser adicionado a um campo de entrada para tornar obrigatório o preenchimento.
+A validação de formulário mais complexa pode ser feita usando JavaScript.
+O elemento do formulário possui um evento "onsubmit" que pode ser manipulado para executar a validação.
+Por exemplo, vamos criar um formulário com duas entradas e um botão. O texto nos dois campos deve ser o mesmo e não estar em branco para passar na validação.
+
+---------------------------------------------
+
+<form onsubmit="return validate()" method="post">
+	Number:
+	<input type="text" name="num1" id="num1" />
+	<br>
+	Repeat:
+	<input type="text" name="num2" id="num2"/>
+	<br>
+	<input type="submit" value="Submit" />
+</form>
+
+---------------------------------------------
+
+//Agora precisamosdefinir a funcao "validate()":
+
+function validate(){
+
+	var n1 = document.getElementById("num1");
+	var n2 = document.getElementById("num2");
+	
+	if(n1.value != "" && n2.value != ""){
+
+	if(n1.value == n2.value){
+
+	return true;
+	}
+	}
+	
+	alert("The values should be equal and not blank");
+
+	return false;
+}
+
+//Retornamos true somente quando os valores não estão em branco e são iguais.
+
+//O formulário não será enviado se o evento "onsubmit" retornar falso.
+
+---------------------------------------------
+
+//Para alterar o conteúdo de todas as tags de parágrafo da página para "SoloLearn":
+
+var arr = document.
+	getElementsByTagName("p");
+
+	for(var x=0; x<arr.length; x++)
+	{
+	arr[x].innerHTML = "SoloLearn";
+	}
+
+---------------------------------------------
+
+//Este codigo vai retornar "true".
+
+<div id="test">
+
+<p>Algum texto</p>
+
+</div>
+
+<script>
+
+	var el = document.getElementById("test");
+	alert(el.hasChildNodes());
+
+</script>
+
+---------------------------------------------
+
+//Para mudar a cor do paragrafo com id="p2" para vermelho.
+
+<script>
+
+	var d = document.getElementById("p2");
+
+	d.style.color="red";
+
+</script>
+
+---------------------------------------------
+---------------------------------------------
+
+//Executar o alert message quando o botao for clicado.
+
+<button onclick="msg()">Click me</button>
+
+<script>
+
+	function msg(){
+
+		alert("Hi!");
+
+	}
+
+</script>
+
+---------------------------------------------
+
+//Display alert quando o ponteiro do mouse estiver sobre a "div" tag:
+
+<div onmouseover="alert('Hi!');">
+
+	Put the mouse pointer over me.
+
+</div>
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+
+
+ECMAScript 6:
+
+Eh a nova orientacao a objetos do JS, com todas as funcoes de classes e bibliotecas.
+
+---------------------------------------------
+
+
+
+
+
+Var & Let
+
+Em ES6 temos tres formas de declarar as variaveis:
+
+---------------------------------------------
+
+var a = 10;
+const b = 'hello';
+let c = true;
+
+---------------------------------------------
+
+O tipo de delcaracao usada depende do escopo necessario. Scopo eh o conceito fundamental em todas as linguagens de programacao, que definem a visibilidade da variavel.
+
+
+
+
+
+
+
+var & ler:
+
+Ao contrario da palavra chave var, que define uma variavel globalmente ou localmente para a funcao inteira, indpendente do escopo do bloco, permite declarar variaveis com escopo limitado ao bloco, instrucao ou expressao em que sao usadas.
+
+---------------------------------------------
+
+//Ex.:
+
+if(true){
+
+	let name = "Jack";
+
+}
+
+alert(name);	//generates an error.
+
+---------------------------------------------
+
+Neste caso, o nome variavel eh acessivel apenas neste escopo do "if" por que foi declarado como "let".
+
+Para demonstrar de forma diferente no escopo da declaracao var e let, considere o seguinte exemplo:
+
+---------------------------------------------
+
+function varTest(){
+
+	var x = 1;
+
+	if(true){
+
+	var x = 2;		//same variable.
+	console.log(x);		//2.
+	}
+
+	console.log(x);		//2.
+}
+
+function letTest(){
+
+	let x = 1;
+	
+	if(true){
+	let x = 2;		//variavel diferente.
+	console.log(x);		//2.
+	}
+
+	console.log(x);		//1.
+}
+
+---------------------------------------------
+
+Uma das melhores maneiras de usar o "let" eh em loops:
+
+---------------------------------------------
+
+for (let i=0; i<3; i++){
+
+	document.write(i);
+
+} 
+
+---------------------------------------------
+
+Aqui a variavel "i" esta acessivel apenas no escopo do loop "for", onde eh necessario.
+
+OBS.: let não está sujeito a icamento variavel, o que significa que as declarações let nao se movem para o topo do contexto de execucão atual.
+
+---------------------------------------------
+
+Ex1.:
+
+function letItBe() {
+  let v = 2;
+  if (true) {
+    let v = 4;  
+    console.log(v); 
+  }
+  console.log(v); 
+}
+letItBe();
+
+//4 2.
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Const:
+---------------------------------------------
+
+As variaveis const tem o mesmo escopo que as variaveis declaradas usando ler. A diferenca eh que as variaveis const sao imutaveis - elas nao podem ser reatribuidas.
+Por exemplo, o seguinte gera uma excecao:
+
+---------------------------------------------
+
+const a = 'Hello';
+a = 'Bye';
+
+---------------------------------------------
+
+const também não está sujeito a Variable Hoist, o que significa que as declarações const não se movem para o topo do contexto de execução atual.
+Observe também que o código ES6 será executado apenas nos navegadores que o suportam. Dispositivos e navegadores mais antigos que não oferecem suporte ao ES6 retornarão um erro de sintaxe.
+
+---------------------------------------------
+
+Ex.: to make a constant named total and the variable i that is only accessible inside the loop.
+  
+const total = 100;
+let sum = 0;
+
+for(let i = 0; i < total; i++) {
+  sum += i;
+}
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+Literais de modelo no ES6
+
+Literais de modelos sao uma maneira de gerar vaiveis na string.
+Antes do ES6, tivemos que quebrar a string, por exemplo:
+
+---------------------------------------------
+
+let name 'David';
+let msg = 'Welcome' + name + '!';
+console.log(msg);
+
+---------------------------------------------
+
+O ES6 apresenta uma nova maneira de gerar valores variaveis em strings. O mesmo codigo acima pode ser reescrito como:
+
+---------------------------------------------
+
+let name = 'David';
+let msg = 'Welcome ${name}!';
+console.log(msg);
+
+---------------------------------------------
+
+Observe que os literais do modelo são delimitados pelo caractere backtick (``) em vez de aspas simples ou duplas.
+A $ {expression} é um espaço reservado e pode incluir qualquer expressão que será avaliada e inserida no modelo literal.
+
+---------------------------------------------
+
+//Por exemplo:
+
+let a = 8;
+let b = 34;
+let msg = `The sum is ${a+b}`;
+console.log(msg);
+
+//Para escapar de um backtick em um literal de modelo, coloque uma barra invertida \ antes do backtick.
+
+---------------------------------------------
+
+//To output "We are learning ES6!".
+
+let n = 6;
+let s = 'ES';
+let msg = `We are learning 
+ 
+$
+ 
+{s + n}!`;
+console.log(
+ 
+msg
+ 
+);
+
+---------------------------------------------
+=============================================
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+
+---------------------------------------------
+
+
+
+
+---------------------------------------------
+=============================================
+---------------------------------------------
+=============================================
+---------------------------------------------
+=============================================
+---------------------------------------------
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+
+=============================================
+
+=============================================
+=============================================
+
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+=============================================
+
+=============================================

@@ -1,0 +1,8 @@
+- Constatar o que fará a tela/programa.
+- Quais são os passos para fazer isso?
+- Declarar as variáveis/consultas/comandos.
+- Escrever na tela as instruções.
+- Coletar dados.
+- Trabalhar os dados.
+- Escrever os dados.
+- Finalizar processo/fechar conexão.

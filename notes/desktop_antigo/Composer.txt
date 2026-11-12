@@ -1,0 +1,92 @@
+
+Iniciar composer:
+
+=====================
+
+$ composer init
+
+=====================
+
+Ele vai perguntar o Package name:
+jackbravo21/composer
+
+=====================
+
+Description:
+Eh a descricao do projeto, coloquei: "JackBravo21 Usando Composer".
+
+=====================
+
+Ele vai pedir o Author, neste formato:
+Jack Bravo <jackbravo@jackbravo21.com.br>
+
+=====================
+
+Minimum Stabilitu: dev (de desenvolvimento);
+
+=====================
+
+Package Type: project
+
+=====================
+
+License: [vazio].
+
+=====================
+
+Quando ele perguntar se vc quer definir as dependencias ou dev dependencias, melhor por "no", se nao ele vai pedir para configurar.
+
+=====================
+
+Ele vai exibir o arquivo, e vc confirma. Finaliza.
+
+=====================
+
+Para instalar o instalador:
+$ composer install
+
+=====================
+
+A partir da segunda vez (melhor usar sempre ele):
+$ composer update
+
+=====================
+
+Apos adicionar manualmente uma classe no composer:
+$ composer dump-autoload
+
+=====================
+
+usando composer para criar autoload:
+
+{
+
+	"autoload":{
+		"psr-4": {
+			"diretorio\\": "Namespace/"
+		}
+	}
+
+
+}
+
+=====================
+
+=====================
+
+=====================
+
+=====================
+
+=====================
+
+=====================
+
+=====================
+
+=====================
+
+=====================
+
+Artisan:
+[base64:S2HwjgMGatQUK050IL7EX+/lphfNM8rff4STkVOLkvU=]

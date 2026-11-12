@@ -1,0 +1,5 @@
+Como é possível perceber, todos os atributos do diagrama de classes foram representados utilizando a palavra-chave private. Isto se deve ao fato de no diagrama de classes esses atributos estarem representados com um sinal de menos (“-”). Portanto, quando houver esse símbolo na frente de atributos ou métodos em um diagrama, ele sempre será private. Caso o símbolo seja um sinal de adição (“+”) esse atributo ou método deve ser codificado como public. E caso o símbolo seja um sinal de Hash (“#”), esse atributo ou método deve ser codificado como protected.
+
+
+CREATE USER 'seuUsuario'@'localhost' IDENTIFIED WITH mysql_native_password BY 'suaSenha';
+GRANT ALL PRIVILEGES ON . TO 'seuUsuario'@'localhost' WITH GRANT OPTION;

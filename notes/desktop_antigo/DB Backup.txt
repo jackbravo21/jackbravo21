@@ -1,0 +1,1110 @@
+
+INSERT INTO `funcionarios` (`id`, `nome`, `idade`, `cargo`, `data_con`, `empresa`) VALUES ('2', 'Thiago', '30', 'tecnico', '2018-06-04', 'Empresa B');
+
+
+
+$SQL = "SELECT * FROM usuarios";
+$resultado = COUNT($SQL);
+echo $resultado;
+
+
+
+================================
+
+
+
+
+
+
+
+
+
+
+
+===========================================;
+===========================================;
+
+===========================================;
+
+USE dbphp7;
+
+CREATE TABLE tb_usuarios(
+idusuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+);
+
+//dtcadastro recebe os valores para receber o dia e hora atuais, usando TIMESTAMP;
+
+SELECT * FROM tb_usuarios;
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root','!@#$%');
+
+SELECT * FROM tb_usuarios;
+
+UPDATE tb_usuarios SET dessenha = '12345' WHERE idusuario = 1;
+
+SELECT * FROM tb_usuarios;
+
+DELETE FROM tb_usuarios WHERE idusuario = 1;
+
+SELECT * FROM tb_usuarios;
+
+//limpa a tabela recriando ela inteira;
+
+TRUNCATE TABLE tb_usuarios;
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root','123456');
+
+UPDATE tb_usuarios SET dessenha = '12345' WHERE idusuario = 1;
+
+TRUNCATE TABLE tb_usuarios;
+
+============================================;
+
+SQL SERVER:;
+
+CREATE TABLE tb_usuarios(
+idusuario INT NOT NULL IDENTITY PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro DATETIME NOT NULL DEFAULT SETDATE()
+);
+
+IDENTITY EH O NOT NULL DO MYSQL.
+DATETIME EH O TIMESTAMP.
+SETDATE EH O CURRENT_TIMESTAMP.
+
+=============================================;
+
+=============================================;
+
+USE db_ecommerce;
+
+SELECT * FROM tb_users;
+
+SELECT * FROM tb_ordersstatus;
+
+=============================================;
+
+USE pdocrudyoutube1;
+
+SELECT * FROM produtos;
+
+=============================================;
+
+USE pegasus;
+
+SELECT * FROM 'cadastro';
+SELECT * FROM empresateste;
+SELECT * FROM funcionario;`test`
+SELECT * FROM cadastro, empresateste, funcionario;
+
+=============================================;
+
+CREATE DATABASE teste2;
+
+USE test2;
+
+SELECT * FROM funcionarios;
+SELECT * FROM msg;
+SELECT * FROM funcionarios WHERE nome = "Maria";
+SELECT * FROM funcionarios WHERE nome = ("Maria");
+
+
+=============================================;
+
+CREATE DATABASE phpfundamental2;
+
+USE phpfundamental2;
+
+//SELECT campo FROM tabela WHERE valor;
+//SELECT campo1, campo2, campo3 FROM tabela WHERE valor;
+
+SELECT * FROM produtos;
+
+SELECT * FROM produtos WHERE produtoID = 1;
+
+SELECT * FROM produtos WHERE nomeproduto = "Sugar" OR nomeproduto = "Thermometer";
+
+SELECT * FROM produtos WHERE nomeproduto IN ("Sugar", "Thermometer");
+
+SELECT * FROM produtos WHERE produtoID = 1 OR produtoID = 5;
+
+SELECT * FROM pedidos;
+
+SELECT data_pedido, transportadoraID, clienteID FROM pedidos;
+
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos;
+
+SELECT DISTINCT tempoentrega FROM produtos;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos LIMIT 10;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY nomeproduto LIMIT 10;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID DESC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID ASC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID ASC, tempoentrega ASC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID DESC LIMIT 10;
+
+//Consulta;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario = 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario < 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario <= 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE precounitario BETWEEN 5 AND 12 ORDER BY precounitario ASC;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 OR tempoentrega = 30;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega IN (5,15,30);
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega NOT IN (5,15,30);
+SELECT nomeproduto FROM produtos WHERE nomeproduto LIKE "%mug";
+SELECT nomeproduto FROM produtos WHERE nomeproduto LIKE "%BLEND%";
+SELECT MIN(precounitario) AS menorpreco FROM produtos;
+SELECT MAX(precounitario) AS menorpreco FROM produtos;
+SELECT AVG(precounitario) AS precomedio FROM produtos;
+SELECT * FROM pedidos;
+SELECT SUM(valor_pedido) FROM pedidos;
+SELECT SUM(valor_pedido) FROM pedidos WHERE YEAR(data_pedido) = '2006';
+SELECT SUM(valor_pedido), COUNT(pedidoID) AS num_pedidos FROM pedidos WHERE YEAR(data_pedido) = '2006';
+
+//Relatorio;
+
+SELECT * FROM produtos WHERE tempoentrega = 5;
+SELECT COUNT(produtoID) AS total FROM produtos WHERE tempoentrega = 5;
+SELECT COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega <= 5;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega HAVING total >= 5;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega HAVING total >= 5 ORDER BY total ASC;
+
+//Realcionar duas tabelas;
+
+SELECT nomeproduto, fornecedorID FROM produtos, fornecedores WHERE produtos.fornecedorID = fornecedores.fornecedorID;
+SELECT nomeproduto, fornecedorID FROM produtos INNER JOIN fornecedores ON produtos.fornecedorID = fornecedores.fornecedoresID;
+
+
+
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM usuarios;
+
+USE forum;
+SHOW TABLES;
+SELECT * FROM usuarios;
+SELECT * FROM mural;
+SELECT * FROM comentarios;
+
+
+USE db-ecomemerce;
+SHOW TABLES;
+SELECT * FROM tb_users;
+SELECT * FROM tb_products;
+SELECT * FROM tb_userspasswordsrecoveries;
+
+USE sistemasmartycrud1;
+SHOW TABLES;
+SELECT * FROM tb_usuarios;
+SELECT * FROM tb_funcionarios;
+
+
+
+SELECT * FROM tb_usuarios WHERE id_usuario LIKE "%8%";
+
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM postagem;
+SELECT * FROM produtos;
+
+USE sistemasmartycrud1;
+
+DROP DATABASE sistemacrud1;
+DROP DATABASE sistema;
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM clientes;
+SELECT * FROM tbclientes;
+SELECT * FROM fornecedores_contatos;
+SELECT * FROM usuarios;
+SELECT * FROM postagens;
+SELECT * FROM postagem;
+
+USE aula-rede-social;
+SHOW TABLES;
+SELECT * FROM amizades;
+SELECT * FROM comentarios;
+SELECT * FROM loves;
+SELECT * FROM mensagens;
+SELECT * FROM notificacoes;
+SELECT * FROM pubs;
+SELECT * FROM users;
+
+TRUNCATE TABLE users;
+
+USE teste2;
+SELECT * FROM funcionarios
+
+CREATE DATABASE ;
+
+USE testedb1;
+SHOW TABLES;
+SELECT * FROM funcionarios;
+
+USE laravelvue;
+SHOW TABLES;
+
+USE curso_intro_laravel;
+SHOW TABLES;
+SELECT * FROM contatos;
+SELECT * FROM cursos;
+//seleciona o ultimo registro da tabela;
+SELECT MAX(id) AS id FROM cursos;
+
+
+USE estudosphp;
+SHOW TABLES;
+SELECT * FROM tb_usuarios;
+
+USE pegasus;
+SHOW TABLES;
+SELECT * FROM cadastro;
+SELECT * FROM empresateste;
+SELECT * FROM funcionario;
+SELECT * FROM funcionarios;
+
+USE phpoomvc;
+SHOW TABLES;
+SELECT * FROM users;
+
+USE aula-rede-social;
+SHOW TABLES;
+SELECT * FROM amizades;
+SELECT * FROM comentarios;
+SELECT * FROM loves;
+SELECT * FROM mensagens;
+SELECT * FROM notificacoes;
+SELECT * FROM pubs;
+SELECT * FROM users;
+
+USE oes;
+SHOW TABLES;
+SELECT * FROM ADMIN;
+UPDATE ADMIN SET PASSWORD = MD5("123456") WHERE id = 2;
+INSERT INTO ADMIN (username, PASSWORD) VALUES ("jack","123456");
+SELECT * FROM users;
+
+================================
+
+
+
+=============================================================
+=============================================================
+
+
+
+
+
+===========================================;
+
+USE dbphp7;
+
+CREATE TABLE tb_usuarios(
+idusuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+);
+
+//dtcadastro recebe os valores para receber o dia e hora atuais, usando TIMESTAMP;
+
+SELECT * FROM tb_usuarios;
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root','!@#$%');
+
+SELECT * FROM tb_usuarios;
+
+UPDATE tb_usuarios SET dessenha = '12345' WHERE idusuario = 1;
+
+SELECT * FROM tb_usuarios;
+
+DELETE FROM tb_usuarios WHERE idusuario = 1;
+
+SELECT * FROM tb_usuarios;
+
+//limpa a tabela recriando ela inteira;
+
+TRUNCATE TABLE tb_usuarios;
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root','123456');
+
+UPDATE tb_usuarios SET dessenha = '12345' WHERE idusuario = 1;
+
+TRUNCATE TABLE tb_usuarios;
+
+============================================;
+
+SQL SERVER:;
+
+CREATE TABLE tb_usuarios(
+idusuario INT NOT NULL IDENTITY PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro DATETIME NOT NULL DEFAULT SETDATE()
+);
+
+IDENTITY EH O NOT NULL DO MYSQL.
+DATETIME EH O TIMESTAMP.
+SETDATE EH O CURRENT_TIMESTAMP.
+
+=============================================;
+
+=============================================;
+
+USE db_ecommerce;
+
+SELECT * FROM tb_users;
+
+SELECT * FROM tb_ordersstatus;
+
+=============================================;
+
+USE pdocrudyoutube1;
+
+SELECT * FROM produtos;
+
+=============================================;
+
+USE pegasus;
+
+SELECT * FROM 'cadastro';
+SELECT * FROM empresateste;
+SELECT * FROM funcionario;`test`
+SELECT * FROM cadastro, empresateste, funcionario;
+
+=============================================;
+
+CREATE DATABASE teste2;
+
+USE test2;
+
+SELECT * FROM funcionarios;
+SELECT * FROM msg;
+SELECT * FROM funcionarios WHERE nome = "Maria";
+SELECT * FROM funcionarios WHERE nome = ("Maria");
+
+
+=============================================;
+
+CREATE DATABASE phpfundamental2;
+
+USE phpfundamental2;
+
+//SELECT campo FROM tabela WHERE valor;
+//SELECT campo1, campo2, campo3 FROM tabela WHERE valor;
+
+SELECT * FROM produtos;
+
+SELECT * FROM produtos WHERE produtoID = 1;
+
+SELECT * FROM produtos WHERE nomeproduto = "Sugar" OR nomeproduto = "Thermometer";
+
+SELECT * FROM produtos WHERE nomeproduto IN ("Sugar", "Thermometer");
+
+SELECT * FROM produtos WHERE produtoID = 1 OR produtoID = 5;
+
+SELECT * FROM pedidos;
+
+SELECT data_pedido, transportadoraID, clienteID FROM pedidos;
+
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos;
+
+SELECT DISTINCT tempoentrega FROM produtos;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos LIMIT 10;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY nomeproduto LIMIT 10;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID DESC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID ASC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID ASC, tempoentrega ASC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID DESC LIMIT 10;
+
+//Consulta;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario = 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario < 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario <= 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE precounitario BETWEEN 5 AND 12 ORDER BY precounitario ASC;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 OR tempoentrega = 30;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega IN (5,15,30);
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega NOT IN (5,15,30);
+SELECT nomeproduto FROM produtos WHERE nomeproduto LIKE "%mug";
+SELECT nomeproduto FROM produtos WHERE nomeproduto LIKE "%BLEND%";
+SELECT MIN(precounitario) AS menorpreco FROM produtos;
+SELECT MAX(precounitario) AS menorpreco FROM produtos;
+SELECT AVG(precounitario) AS precomedio FROM produtos;
+SELECT * FROM pedidos;
+SELECT SUM(valor_pedido) FROM pedidos;
+SELECT SUM(valor_pedido) FROM pedidos WHERE YEAR(data_pedido) = '2006';
+SELECT SUM(valor_pedido), COUNT(pedidoID) AS num_pedidos FROM pedidos WHERE YEAR(data_pedido) = '2006';
+
+//Relatorio;
+
+SELECT * FROM produtos WHERE tempoentrega = 5;
+SELECT COUNT(produtoID) AS total FROM produtos WHERE tempoentrega = 5;
+SELECT COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega <= 5;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega HAVING total >= 5;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega HAVING total >= 5 ORDER BY total ASC;
+
+//Realcionar duas tabelas;
+
+SELECT nomeproduto, fornecedorID FROM produtos, fornecedores WHERE produtos.fornecedorID = fornecedores.fornecedorID;
+SELECT nomeproduto, fornecedorID FROM produtos INNER JOIN fornecedores ON produtos.fornecedorID = fornecedores.fornecedoresID;
+
+
+
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM usuarios;
+
+USE forum;
+SHOW TABLES;
+SELECT * FROM usuarios;
+SELECT * FROM mural;
+SELECT * FROM comentarios;
+
+
+USE db-ecomemerce;
+SHOW TABLES;
+SELECT * FROM tb_users;
+SELECT * FROM tb_products;
+SELECT * FROM tb_userspasswordsrecoveries;
+
+USE sistemasmartycrud1;
+SHOW TABLES;
+SELECT * FROM tb_usuarios;
+SELECT * FROM tb_funcionarios;
+
+
+
+SELECT * FROM tb_usuarios WHERE id_usuario LIKE "%8%";
+
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM postagem;
+SELECT * FROM produtos;
+
+USE sistemasmartycrud1;
+
+DROP DATABASE sistemacrud1;
+DROP DATABASE sistema;
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM clientes;
+SELECT * FROM tbclientes;
+SELECT * FROM fornecedores_contatos;
+SELECT * FROM usuarios;
+SELECT * FROM postagens;
+SELECT * FROM postagem;
+
+USE aula-rede-social;
+SHOW TABLES;
+SELECT * FROM amizades;
+SELECT * FROM comentarios;
+SELECT * FROM loves;
+SELECT * FROM mensagens;
+SELECT * FROM notificacoes;
+SELECT * FROM pubs;
+SELECT * FROM users;
+
+TRUNCATE TABLE users;
+
+USE teste2;
+SELECT * FROM funcionarios
+
+CREATE DATABASE ;
+
+USE testedb1;
+SHOW TABLES;
+SELECT * FROM funcionarios;
+
+USE laravelvue;
+SHOW TABLES;
+
+USE curso_intro_laravel;
+SHOW TABLES;
+SELECT * FROM contatos;
+SELECT * FROM cursos;
+//seleciona o ultimo registro da tabela;
+SELECT MAX(id) AS id FROM cursos;
+
+
+USE estudosphp;
+SHOW TABLES;
+SELECT * FROM tb_usuarios;
+
+USE pegasus;
+SHOW TABLES;
+SELECT * FROM cadastro;
+SELECT * FROM empresateste;
+SELECT * FROM funcionario;
+SELECT * FROM funcionarios;
+
+USE phpoomvc;
+SHOW TABLES;
+SELECT * FROM users;
+
+USE aula-rede-social;
+SHOW TABLES;
+SELECT * FROM amizades;
+SELECT * FROM comentarios;
+SELECT * FROM loves;
+SELECT * FROM mensagens;
+SELECT * FROM notificacoes;
+SELECT * FROM pubs;
+SELECT * FROM users;
+
+USE oes;
+SHOW TABLES;
+SELECT * FROM ADMIN;
+UPDATE ADMIN SET PASSWORD = MD5("123456") WHERE id = 2;
+INSERT INTO ADMIN (username, PASSWORD) VALUES ("jack","123456");
+SELECT * FROM users;
+
+================================
+
+
+
+
+
+INSERT INTO `funcionarios` (`id`, `nome`, `idade`, `cargo`, `data_con`, `empresa`) VALUES ('2', 'Thiago', '30', 'tecnico', '2018-06-04', 'Empresa B');
+
+
+
+$SQL = "SELECT * FROM usuarios";
+$resultado = COUNT($SQL);
+echo $resultado;
+
+
+
+================================
+
+
+
+
+
+
+
+
+
+
+
+===========================================;
+===========================================;
+
+===========================================;
+
+USE dbphp7;
+
+CREATE TABLE tb_usuarios(
+idusuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+);
+
+//dtcadastro recebe os valores para receber o dia e hora atuais, usando TIMESTAMP;
+
+SELECT * FROM tb_usuarios;
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root','!@#$%');
+
+SELECT * FROM tb_usuarios;
+
+UPDATE tb_usuarios SET dessenha = '12345' WHERE idusuario = 1;
+
+SELECT * FROM tb_usuarios;
+
+DELETE FROM tb_usuarios WHERE idusuario = 1;
+
+SELECT * FROM tb_usuarios;
+
+//limpa a tabela recriando ela inteira;
+
+TRUNCATE TABLE tb_usuarios;
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root','123456');
+
+UPDATE tb_usuarios SET dessenha = '12345' WHERE idusuario = 1;
+
+TRUNCATE TABLE tb_usuarios;
+
+============================================;
+
+SQL SERVER:;
+
+CREATE TABLE tb_usuarios(
+idusuario INT NOT NULL IDENTITY PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro DATETIME NOT NULL DEFAULT SETDATE()
+);
+
+IDENTITY EH O NOT NULL DO MYSQL.
+DATETIME EH O TIMESTAMP.
+SETDATE EH O CURRENT_TIMESTAMP.
+
+=============================================;
+
+=============================================;
+
+USE db_ecommerce;
+
+SELECT * FROM tb_users;
+
+SELECT * FROM tb_ordersstatus;
+
+=============================================;
+
+USE pdocrudyoutube1;
+
+SELECT * FROM produtos;
+
+=============================================;
+
+USE pegasus;
+
+SELECT * FROM 'cadastro';
+SELECT * FROM empresateste;
+SELECT * FROM funcionario;`test`
+SELECT * FROM cadastro, empresateste, funcionario;
+
+=============================================;
+
+CREATE DATABASE teste2;
+
+USE test2;
+
+SELECT * FROM funcionarios;
+SELECT * FROM msg;
+SELECT * FROM funcionarios WHERE nome = "Maria";
+SELECT * FROM funcionarios WHERE nome = ("Maria");
+
+
+=============================================;
+
+CREATE DATABASE phpfundamental2;
+
+USE phpfundamental2;
+
+//SELECT campo FROM tabela WHERE valor;
+//SELECT campo1, campo2, campo3 FROM tabela WHERE valor;
+
+SELECT * FROM produtos;
+
+SELECT * FROM produtos WHERE produtoID = 1;
+
+SELECT * FROM produtos WHERE nomeproduto = "Sugar" OR nomeproduto = "Thermometer";
+
+SELECT * FROM produtos WHERE nomeproduto IN ("Sugar", "Thermometer");
+
+SELECT * FROM produtos WHERE produtoID = 1 OR produtoID = 5;
+
+SELECT * FROM pedidos;
+
+SELECT data_pedido, transportadoraID, clienteID FROM pedidos;
+
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos;
+
+SELECT DISTINCT tempoentrega FROM produtos;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos LIMIT 10;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY nomeproduto LIMIT 10;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID DESC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID ASC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID ASC, tempoentrega ASC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID DESC LIMIT 10;
+
+//Consulta;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario = 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario < 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario <= 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE precounitario BETWEEN 5 AND 12 ORDER BY precounitario ASC;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 OR tempoentrega = 30;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega IN (5,15,30);
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega NOT IN (5,15,30);
+SELECT nomeproduto FROM produtos WHERE nomeproduto LIKE "%mug";
+SELECT nomeproduto FROM produtos WHERE nomeproduto LIKE "%BLEND%";
+SELECT MIN(precounitario) AS menorpreco FROM produtos;
+SELECT MAX(precounitario) AS menorpreco FROM produtos;
+SELECT AVG(precounitario) AS precomedio FROM produtos;
+SELECT * FROM pedidos;
+SELECT SUM(valor_pedido) FROM pedidos;
+SELECT SUM(valor_pedido) FROM pedidos WHERE YEAR(data_pedido) = '2006';
+SELECT SUM(valor_pedido), COUNT(pedidoID) AS num_pedidos FROM pedidos WHERE YEAR(data_pedido) = '2006';
+
+//Relatorio;
+
+SELECT * FROM produtos WHERE tempoentrega = 5;
+SELECT COUNT(produtoID) AS total FROM produtos WHERE tempoentrega = 5;
+SELECT COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega <= 5;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega HAVING total >= 5;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega HAVING total >= 5 ORDER BY total ASC;
+
+//Realcionar duas tabelas;
+
+SELECT nomeproduto, fornecedorID FROM produtos, fornecedores WHERE produtos.fornecedorID = fornecedores.fornecedorID;
+SELECT nomeproduto, fornecedorID FROM produtos INNER JOIN fornecedores ON produtos.fornecedorID = fornecedores.fornecedoresID;
+
+
+
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM usuarios;
+
+USE forum;
+SHOW TABLES;
+SELECT * FROM usuarios;
+SELECT * FROM mural;
+SELECT * FROM comentarios;
+
+
+USE db-ecomemerce;
+SHOW TABLES;
+SELECT * FROM tb_users;
+SELECT * FROM tb_products;
+SELECT * FROM tb_userspasswordsrecoveries;
+
+USE sistemasmartycrud1;
+SHOW TABLES;
+SELECT * FROM tb_usuarios;
+SELECT * FROM tb_funcionarios;
+
+
+
+SELECT * FROM tb_usuarios WHERE id_usuario LIKE "%8%";
+
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM postagem;
+SELECT * FROM produtos;
+
+USE sistemasmartycrud1;
+
+DROP DATABASE sistemacrud1;
+DROP DATABASE sistema;
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM clientes;
+SELECT * FROM tbclientes;
+SELECT * FROM fornecedores_contatos;
+SELECT * FROM usuarios;
+SELECT * FROM postagens;
+SELECT * FROM postagem;
+
+USE aula-rede-social;
+SHOW TABLES;
+SELECT * FROM amizades;
+SELECT * FROM comentarios;
+SELECT * FROM loves;
+SELECT * FROM mensagens;
+SELECT * FROM notificacoes;
+SELECT * FROM pubs;
+SELECT * FROM users;
+
+TRUNCATE TABLE users;
+
+USE teste2;
+SELECT * FROM funcionarios
+
+CREATE DATABASE ;
+
+USE testedb1;
+SHOW TABLES;
+SELECT * FROM funcionarios;
+
+USE laravelvue;
+SHOW TABLES;
+
+USE curso_intro_laravel;
+SHOW TABLES;
+SELECT * FROM contatos;
+SELECT * FROM cursos;
+//seleciona o ultimo registro da tabela;
+SELECT MAX(id) AS id FROM cursos;
+
+
+USE estudosphp;
+SHOW TABLES;
+SELECT * FROM tb_usuarios;
+
+USE pegasus;
+SHOW TABLES;
+SELECT * FROM cadastro;
+SELECT * FROM empresateste;
+SELECT * FROM funcionario;
+SELECT * FROM funcionarios;
+
+USE phpoomvc;
+SHOW TABLES;
+SELECT * FROM users;
+
+USE aula-rede-social;
+SHOW TABLES;
+SELECT * FROM amizades;
+SELECT * FROM comentarios;
+SELECT * FROM loves;
+SELECT * FROM mensagens;
+SELECT * FROM notificacoes;
+SELECT * FROM pubs;
+SELECT * FROM users;
+
+USE oes;
+SHOW TABLES;
+SELECT * FROM ADMIN;
+UPDATE ADMIN SET PASSWORD = MD5("123456") WHERE id = 2;
+INSERT INTO ADMIN (username, PASSWORD) VALUES ("jack","123456");
+SELECT * FROM users;
+
+================================;
+
+USE `laravel8quickstart`;
+SHOW TABLES;
+DESC products;
+SELECT * FROM products;
+SELECT * FROM comments;
+DESC comments;
+
+
+=================================;
+
+USE chamadoswebmed;
+SHOW TABLES;
+DESC atendimentos;
+SELECT * FROM atendimentos;
+SELECT * FROM atendimentos_anexos;
+SELECT * FROM usuarios;
+SELECT * FROM comments;
+INSERT INTO usuarios (id, id_externo, id_sistema, id_cliente, nome, email) VALUES(1, 1, 1, 1, "Jhon Mkpica", "teste@teste.com.br");
+SELECT * FROM clientes;
+INSERT INTO clientes (id, id_externo, id_sistema, nome) VALUES(1, 1, 1, "Senior Abravanel");
+
+USE guiaperguntas;
+SHOW TABLES;
+SELECT * FROM perguntas;
+DESC perguntas;
+
+
+
+
+
+
+
+
+
+
+
+USE coreapiaccenture;
+SHOW TABLES;
+
+SELECT * FROM versions;
+SELECT * FROM features;
+SELECT * FROM featuretoggles;
+SELECT * FROM users;
+
+--drop TABLE versions;
+--drop TABLE features;
+--DROP TABLE featuretoggles;
+--DROP TABLE users;
+TRUNCATE TABLE featuretoggles;
+
+DESC versions;
+DESC featuretoggles;
+
+--////////////////////////////////////////////////;
+
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("1.0", 1.0, 1, 1, "ANDROID", "Versoes", "Pacote 1", 1, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("2.0", 2.0, 2, 1, "ANDROID", "Versoes", "Pacote 2", 1, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("2.0", 2.2, 2.0, 1.2, "ANDROID", "Versoes", "Pacote 3", 1, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("3.0", 3.0, 2.5, 2, "ANDROID", "Versoes", "Pacote 4", 1, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("4.0", 4.0, 4, 4, "ANDROID", "Versoes", "Pacote 5", 0, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("5.0", 5.0, 4.8, 4.2, "ANDROID", "Versoes", "Pacote 6", 0, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("4.2", 4.5, 4, 4, "ANDROID", "Versoes", "Pacote 5", 0, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("1.0", 1.0, 1, 1, "IOS", "Versoes", "Pacote 1", 1, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("2.0", 2.0, 2, 1, "IOS", "Versoes", "Pacote 2", 1, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("2.0", 2.2, 2.0, 1.2, "IOS", "Versoes", "Pacote 3", 1, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("3.0", 3.0, 2.5, 2, "IOS", "Versoes", "Pacote 4", 1, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("4.0", 4.0, 4, 4, "IOS", "Versoes", "Pacote 5", 0, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("5.0", 5.0, 4.8, 4.2, "IOS", "Versoes", "Pacote 6", 0, 1);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("2.0", 2.4, 2.1, 1.7, "ANDROID", "Versoes", "Pacote 3", 1, 0);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("2.0", 2.4, 2.1, 1.7, "IOS", "Versoes", "Pacote 3", 1, 0);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("4.0", 4.1, 4, 4, "ANDROID", "Versoes", "Pacote 5", 0, 0);
+INSERT INTO versions (VERSION, patch, major, minor, platform, TYPE, notes, mandatory, ACTIVE) VALUES ("4.0", 4.1, 4, 4, "IOS", "Versoes", "Pacote 5", 0, 0);
+
+
+UPDATE versions SET isActive = 0 WHERE id = 19;
+
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Conductor Additional", "CONDUCTOR_ADDITIONAL", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Upload Photo User", "UPLOAD_PHOTO_USER", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("My Car", "MY_CAR", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Review History", "REVIEW_HISTORY", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Credit Card Payment", "CREDIT_CARD_PAYMENT", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Scheduling Service", "SCHEDULING_SERVICE", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Ativacao do contato pelo App", "ACTIVATE_CONTACT", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Exibir Card de Faturas", "INDICE", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Exibir Schedule de Faturas", "INDICE", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Alteracao de dados", "DATA_CHANGE", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Exibir Geolocalizacao", "GEOLOCATION", 0, TRUE);
+INSERT INTO features (NAME, machineName, permissionList, ACTIVE) VALUES ("Realizar validacao de certificado", "CERTIFICATED_VALIDATION", 0, TRUE);
+
+
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("mr.magoo@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("hans.holeman@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("jhon.mkbone@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("senior.barriga@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("ronald.mcdonald@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("donaldo.duck@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("mikey.mouse@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("arlindo.pinto@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("arlinda.muller@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("dioguito.portugal@accenture.com", "12345", TRUE);
+INSERT INTO users (email, PASSWORD, ACTIVE) VALUES ("chuck.mendes@accenture.com", "12345", TRUE);
+
+
+USE guarana_cadastro;
+SHOW TABLES;
+
+DESC cursos;
+DESC gafanhotos;
+
+SELECT * FROM cursos;
+SELECT * FROM gafanhotos;
+SELECT nome, cursopreferido FROM gafanhotos;
+SELECT nome, ano FROM cursos;
+SELECT gafanhotos.nome, gafanhotos.cursopreferido, cursos.nome, cursos.ano FROM gafanhotos JOIN cursos;
+SELECT gafanhotos.nome, gafanhotos.cursopreferido, cursos.nome, cursos.ano FROM gafanhotos JOIN cursos ON cursos.idcurso = gafanhotos.cursopreferido;
+SELECT * FROM gafanhotos;
+SELECT gafanhotos.nome, gafanhotos.cursopreferido, cursos.nome, cursos.ano FROM gafanhotos JOIN cursos ON cursos.idcurso = gafanhotos.cursopreferido ORDER BY gafanhotos.nome;
+SELECT gafanhotos.nome, gafanhotos.cursopreferido, cursos.nome, cursos.ano FROM gafanhotos INNER JOIN cursos ON cursos.idcurso = gafanhotos.cursopreferido ORDER BY gafanhotos.nome;
+
+
+USE coreapiaccenture;
+SHOW TABLES;
+SELECT * FROM versions;
+SELECT * FROM features;
+SELECT * FROM featuretoggles;
+SELECT * FROM users;
+
+SELECT features.machineName, features.id, users.email, users.id FROM features INNER JOIN users WHERE users.id = features.id ORDER BY features.id ASC; 
+
+
+
+SELECT users.id, users.email, features.id, features.machineName FROM users, features JOIN users.id = featuretoggles.userId AND JOIN features.id = featuretoggles.featureId;
+
+
+SELECT users.* FROM users INNER JOIN featuretoggles ON users.id = featuretoggles.userId;
+SELECT features.* FROM features INNER JOIN featuretoggles ON features.id = featuretoggles.featureId;
+
+SELECT users.id, users.email FROM users INNER JOIN featuretoggles ON users.id = featuretoggles.userId;
+SELECT features.id, features.machineName FROM features INNER JOIN featuretoggles ON features.id = featuretoggles.featureId;
+
+SELECT * FROM featuretoggles INNER JOIN users ON users.id = featuretoggles.userId INNER JOIN features ON features.id = featurestoggles.featureId;
+
+SELECT * FROM featuretoggles INNER JOIN users INNER JOIN features;
+
+SELECT * FROM featuretoggles INNER JOIN users ON users.id = featuretoggles.userId INNER JOIN features;
+
+SELECT userId, featureId FROM featuretoggles INNER JOIN users ON users.id = featuretoggles.userId INNER JOIN features;
+
+SELECT email, machineName FROM featuretoggles INNER JOIN users ON users.id = featuretoggles.userId INNER JOIN features;
+
+SELECT users.email, features.machineName, featuretoggles.userId, featuretoggles.featureId FROM featuretoggles INNER JOIN users ON users.id = featuretoggles.userId INNER JOIN features;
+
+SELECT users.email, features.machineName, featuretoggles.userId, featuretoggles.featureId FROM featuretoggles INNER JOIN users ON users.id = featuretoggles.userId INNER JOIN features;
+
+SELECT features.machineName, features.id, users.email, users.id FROM features INNER JOIN users WHERE users.id = features.id ORDER BY features.id ASC;
+
+--certo:;
+SELECT features.machineName, users.email FROM featuretoggles INNER JOIN users INNER JOIN features WHERE users.id = featuretoggles.userId AND features.id = featuretoggles.featureId;
+
+
+
+
+USE inner_join;
+SHOW TABLES;
+SELECT * FROM tb_contratocotista;
+SELECT * FROM tb_contrato;
+SELECT * FROM tb_cotista;
+
+INSERT INTO tb_contratocotista (id_contato, id_cotista) VALUES (4, 3), (5,4), (5, 4), (6, 5), (7, 6), (8, 8), (9, 9), (10, 11), (11, 12), (12, 13), (13, 14);
+
+INSERT INTO tb_contrato (id_contato, ds_codigo, ds_descritivo, id_conta, bt_ativo, dc_valor_saldo) VALUES 
+(4, 100, 100, NULL, 1, 0.00), 
+(5, 220, 220, NULL, 1, 0.00), 
+(6, 270, 270, NULL, 1, 30.00), 
+(7, 380, 380, NULL, 1, 30.00), 
+(8, 465, 465, NULL, 1, 174.00), 
+(9, 475, 475, NULL, 1, 257.00), 
+(10, 890, 890, NULL, 1, 348.00), 
+(11, 1090, 1090, NULL, 1, 4711.00), 
+(12, 1220, 1220, NULL, 1, 15.00), 
+(13, 1250, 1250, NULL, 1, 105.00),
+(14, 1256, 1256, NULL, 1, 598.20);  
+
+INSERT INTO tb_cotista (id_cotista, ds_nome, ds_email, ds_telefone_1) VALUES 
+(1, "Fulano1", "teste1@teste.com", "1111-1111"), 
+(2, "Fulano2", "teste2@teste.com", "2222-2222"), 
+(3, "Fulano3", "teste3@teste.com", "3333-3333"), 
+(4, "Fulano4", "teste4@teste.com", "4444-4444"), 
+(5, "Fulano5", "teste5@teste.com", "5555-5555"), 
+(6, "Fulano6", "teste6@teste.com", "6666-6666"), 
+(7, "Fulano7", "teste7@teste.com", "7777-7777"), 
+(8, "Fulano8", "teste8@teste.com", "8888-8888"), 
+(9, "Fulano9", "teste9@teste.com", "9999-9999"), 
+(10, "Fulano10", "teste10@teste.com", "1010-1010");
+
+
+SELECT * FROM tb_contratocotista 
+INNER JOIN tb_contrato ON tb_contrato.id_contrato = tb_contratocotista.id_contrato 
+INNER JOIN tb_cotista ON tb_cotista = tb_contratocotista.id_cotista;
+
+SELECT * FROM tb_contratocotista INNER JOIN tb_contrato INNER JOIN tb_cotista;
+
+
+
+USE movies;
+SHOW TABLES;
+SELECT * FROM movie;
+SELECT * FROM person;
+SELECT * FROM movie_languages;
+SELECT * FROM language_role;
+SELECT movie_languages.movie_id, movie_languages.language_id, language_role.language_role FROM movie_languages INNER JOIN language_role WHERE movie_languages.language_role_id = language_role.role_id ORDER BY movie_id ASC;
+

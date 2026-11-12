@@ -1,0 +1,81 @@
+ROTAS:
+
+Rota:
+
+=============================
+
+Route::get('/', function () 
+{
+    return view('index');
+});
+
+=============================
+
+//vou usar um grupo de rotas, com um array, indicando qual vai utilizar.
+route::group(['middleware'=>'auth'], function());
+
+Route::get('admin/cursos/adicionar',['as'=>'admin.cursos.adicionar', 'uses'=>'Admin\CursoController@adicionar']);
+
+Route::post('admin/cursos/salvar',['as'=>'admin.cursos.salvar', 'uses'=>'Admin\CursoController@salvar']);
+
+Route::get('admin/cursos/editar/{id}',['as'=>'admin.cursos.editar', 'uses'=>'Admin\CursoController@editar']);
+
+=============================
+
+<title>@yield('titulo')</title>
+
+@extends('layout.site')
+
+@section('titulo', 'Cursos')
+
+@section('conteudo')
+
+@endsection
+
+@foreach($cursos as $curso)
+
+@endforeach
+
+@include('layout._includes.topo')
+@yield('conteudo')
+@include('layout._includes.footer')
+
+@if(Auth::guest())
+@else
+@endif
+
+=============================
+
+<form class="" action="{{route('site.login.entrar')}}" method="post">
+            <!-- Token -->
+            {{ csrf_field() }}
+
+<h4>{{$curso->titulo}}</h4>
+
+<p>{{$curso->descricao}}</p>
+
+<img src="{{asset($curso->imagem)}}">
+
+{{Auth::user()->name}}!
+
+=============================
+
+public function atualizar(Request $req, $id)
+    {
+      $dados = $req->all();
+
+=============================
+
+
+=============================
+
+
+=============================
+
+
+
+
+
+
+
+

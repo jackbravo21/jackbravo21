@@ -1,0 +1,658 @@
+Iniciante ou não, foca em Javascript amigo. Pode usar nodejs pra backend, ReactJS pra front e React Native pra apps. Não tem erro. Sucesso!
+
+
+
+Funcao anonima sempre sera executada automaticamente.
+
+
+var variavel = valor;
+
+var arr = [];				//array
+
+
+string.replace = para substituir um caractere.
+
+minhaStr.length = Pega o tamanho da string.
+
+
+Ctrl+L = Limpa a tela do console;
+
+
+entrada:
+var idade = prompt("Digite sua idade: ");
+document.write(idade);
+
+document. = me refiro a pagina.
+window.   = me refiro a tudo.
+
+redirect = redireciona.
+
+
+
+array:
+var lista = [valor1, valor2, valor3, valor4];
+
+tamanho do array: lista.length
+
+mostrar primeiro valor: lista[0];
+
+remover o ultimo elemento: lista.pop();
+
+remover o primeirto elemento: lista.shift();
+
+procurar um item: lista.indexOf("valor3");
+
+mudar o valor do item: lista[0] = "NovoValor";
+
+adicionar valor ao fim da lista: lista.push("valor5");
+
+Se nao tiver na lista, o indexOf retorna "-1", podemos verificar se o item está na lista:
+if(lista.indexOf("valor3") > -1)
+{
+alert("Este item esta na lista");
+}
+else
+{
+alert("Item nao encontrado!")
+}
+
+
+
+========================================================================================
+
+Objetos:
+
+var arr = new Array(1,2,3);			//um objeto de arrays primitivo;
+
+var obj = new Object();
+
+obj = {"Title": "titulo", "Texto": "lorem"}	//criar objeto de forma literal;
+obj
+
+alert("oi");					//digita uma mensagem na tela;
+window.alert("Ola");				//exibe mensagem na tela;
+
+
+--------------------------------------------
+
+Construtores: Sao valores que geram novas instancias.
+
+Vou instanciar uma classe do sistema com um objeto.
+
+var hoje = new Date();				//criando uma instancia do objeto nativo Date, ele eh uma copia deste objeto e esta sendo armazenado na 						variavel hoje;
+typeof hoje;					//ele retorna: "object";
+hoje.getDay();					//retorna o dia de hoje da semana;
+
+--------------------------------------------
+
+O array nunca vai ser igual por atributo e sim por referencia, quando eu crio um array, eu crio um espaco na memoria:
+>2 === 2;
+<true
+>[] === []
+<false
+>[1,2] === [1,2]
+<false
+>"daniele" ==== "daniele"
+<true
+
+--------------------------------------------
+
+Funcao se tiver o recebimento de parametros, como preco e cor, se nao vira um construtor vazio, que deve ser colocados as propriedades depois, se nao passar nada, vai pegar os valores default:
+
+                function Caneta(preco, cor){
+                    var color = cor || 'black';
+                    this.preco = preco || 1;
+                    this.mudarCor = function(cor){
+                        if(cor !== 'red' && cor !== 'blue' && cor !== 'black'){
+                            return;
+                        }
+                        color = cor;
+                    }
+
+                    this.pegaCor = function(){
+                        return color;
+                    }
+                }
+
+//se nao passar nada, ele ja vai passar as propriedades de criacao;
+
+var caneta1 = new Caneta();
+
+caneta1
+vai retornar: Caneta {preco: 1, cor: "black", mudarCor: f}
+
+caneta1.preco = 2;
+vai retornar: Caneta {preco: 2, cor: "black", mudarCor: f}
+
+caneta1.cor = 'green';
+vai retornar: Caneta {preco: 2, cor: "green", mudarCor: f}
+
+
+var caneta1 = new Caneta(2);		//pq eh o parametro 1;
+
+var caneta1 = new Caneta(2, 'red');	//instancio e insiro ja os dois parametros;
+
+caneta1.mudarCor('green');
+caneta1					//chamo no console.
+vai retornar: Caneta {preco: 2, cor: "green", mudarCor: f}
+
+//la em cima foi definido que dentro da propriedade cor, tem que ser escolhida 3 cores.
+//criei um metodo pega cor.
+
+caneta1.pegaCor();
+vai retornar: "red";
+
+caneta1.mudarCor('blue');
+caneta1.pegaCor();
+vai retornar: "blue";
+
+//se eu chamar o objeto Caneta1, ele vai mostrar as propriedades e as que sao funcoes;
+
+caneta1
+vai retornar: Caneta {preco: 2, mudarCor: f, mudarCor: f}
+
+
+//para passar a funcao da Caneta la em cima, para o escolpo global, devemos utilizar o "window.Caneta" e atribuir a funcao;
+
+-----------------------------------------------
+
+Você só consegue atrelar uma funcao, a outra nao vai funcionar, soh com level 2 para funcionar 2 eventos.
+
+addEventListener, para criar um evento onclick, com o nome do evento, e a funcao que vai ser usada:
+
+            btn3.addEventListener("click", function(){
+                alert('clicou com dom level 2');
+            });
+            btn3.addEventListener("click", function(){
+                alert('clicou com dom level 2 com outro evento');
+            });
+            
+            btn3.onclick= function (){
+                alert('ola');
+            }
+            btn3.onclick=function(){
+                alert('mundo 3');
+            }
+
+
+-----------------------------------------------
+
+Alguns eventos de console:
+
+            document.addEventListener('click', function(e){
+                
+                console.log('clicou no document');
+                console.log(e.currentTarget);
+                console.log(this);
+                console.log(e.target);
+                
+            }, false);
+
+
+E tb:
+
+            $ul.addEventListener('click', function(e){
+                e.stopPropagation();
+                console.log(this);
+                console.log(e.currentTarget);
+                console.log(e.target);
+                
+                console.log(e.target.nodeName);
+                if(e.target.nodeName === "LI"){
+                    alert('clicou na li');
+                }
+            })
+
+
+
+-----------------------------------------------
+
+=============================================================================
+
+getElementById;
+getElementByTagName;
+getElementByClassName;
+querySelector;
+querySelectorAll;
+
+
+
+getElementById('parametroID');		=> pega o elemento html ou JS;
+
+Exemplo: <main class="cmain" id="idmain";
+
+document.getElementById('pmain');					//retorna quem ele eh;
+document.getElementById('pmain').textContent = "Texto Alterado";
+
+
+debugger; //faz parar naquele ponto do codigo;
+
+
+document.getElementsByClassName();
+document.getElementsByClassName("paragrafos");				//esse comando retorna todos os paragrafos;
+
+//Os elementos retornam uma colecao de objetos, e para alterar cada objeto preciso dizer o indice;
+
+document.getElementsByClassName("paragrafos")[0].textContent = "Texto do incie 0 Alterado";
+
+
+//este tambem retorna uma colection de objetos, nao eh um array, mas uma colecao, tambem precisa de indice, nao possui metodos de array;
+
+document.getElementsByTagName('p')[0];
+
+
+//igual as formas avancadas de CSS;
+
+document.querySelector('#idmain');
+
+document.querySelector('#idmain p');
+
+document.querySelector('#idmain h1');
+
+document.querySelector('#idmain h2');
+
+document.querySelector('#idmain h2').textContent = 'Alterado';
+
+
+//o All precisa de indice;
+
+	document.querySelectorAll('#idmain h2')[0].textContent = 'Alterado 2';
+
+//se eu usar a querySelector no P, ele vai pegar o primeiro paragrafo e alterar.
+
+	document.querySelector('p').textContent = 'Eu tenho o DOM";
+
+//Digamos que eu queira alterar um H1 dentro do HTML. Se eu usar este comando no meu Head, nao vai alterar nada, pq o H1 ainda nao existe no contexto, vai ser null, tenho que colocar meu codigo entao, logo antes do fechamento do body. Depois de todo o codigo;
+
+<script>
+	alert("Vai mudar!"); 		//O alert eh para exibir uma caixa de aviso.
+	document.querySelector('h1').textContent = 'Paragrafo alterado via Javascript';
+</script>
+
+
+
+//Exemplo de como Capturar dados e exibir em tela, posso pegar pelo "getElementById" tb, porem nao uso o "#" dae;
+
+	document.querySelector("#nome").textContent = "Bem-vindo, " + nome + "!";
+        document.querySelector("#idade").textContent = "Sua idade é " + idade + " anos!";
+
+
+//com a "innerHTML" eu posso usar as Tags html para pegar pelo ID e mudar;
+
+	document.querySelector('#msg').innerHTML = "Bem-vindo, <b>" + nome + "</b>";
+
+
+
+//Sempre que eu estiver buscando um elemento por um input, eu pego o campo value.
+//vai pegar no console a propriedade Value, dentro do txtNome e exibir ela: "<input type="text" id="txtNome" value="digite">";
+	txtNome.value;		
+
+
+----------------------------------------
+
+DICA: Tanto as propriedades .value, .textContent e .innerHTML servem para definir um novo valor ou recuperar o valor atual.
+
+HTML:
+<input type="text" id="nome">
+
+Javascript:
+//define um novo valor
+document.querySelector("#nome").value = "Daniel"
+
+----------------------------------------
+
+Exemplo:
+
+HTML:
+<input type="text" id="nome" value="Digite aqui">
+
+Javascript:
+//recupera o value do input...
+var valor = document.querySelector("#nome").value;
+//.. E armazena a string na variavel valor
+
+----------------------------------------
+
+HTML:
+<div id="msg">0</div>
+
+Javascript
+//recupera o texto  da div com o id #msg, vou jogar o texto coletado em uma variavel string.
+var str = document.querySelector("#msg").textContent;
+//str recebe a string "0"
+
+//tudo que vem da interface do usuario eh uma string;
+
+----------------------------------------
+
+//posso acessar uma propriedade disable e setar como "true";
+document.querySelector('#txtNome').disabled = true;                 
+
+//posso acessar a propriedade de apenas leitura "readOnly";
+document.querySelector('#txtNome').radonly = true;    
+
+----------------------------------------
+
+Aproveito para mostrar outras propriedades que diferem do HTML e Javascript:
+
+atributo no HTML     |  propriedade no Javascript
+
+for                  |  forhtml
+
+class                |  className
+
+readonly             |  readOnly
+
+maxlength            | maxLength
+
+cellspacing          |  cellSpacing
+
+rowspan              |  rowSpan
+
+colspan              |  colSpan
+
+tabindex             |  tabIndex
+
+cellpadding          |  cellPadding
+
+contenteditable      |  contentEditable
+
+frameborder          |  frameBorder
+
+usemap               |  useMap
+
+
+----------------------------------------
+
+=============================================================================
+
+Event Handler:
+
+
+
+DOM level 0
+
+no HTML:
+
+<p onclick = "funcao()">
+
+no JS:
+
+p.onclick = funcao			//se eu abrir e fechar parenteses no JS, ele ja executaria antes do click, por isso nao se usa o ();
+
+
+//soh usamos o level 2.
+
+DOM level 2:
+
+p.addEventListener("click", funcao);	//no DOM 2, utilizamos o metodo add... com o nome do evento e a funcao que vai ser executada;
+
+
+------------------------------------------
+
+Codigo errado para estudar, nao se deve usar o () no onclick:
+
+<button id="btn1" onclick = "clicar()">botao 1</button>			//maneira antiga, errada;
+<button id="btn2">botao 2</button>
+
+
+<script>
+
+var btn2 = document.getElementById('btn2');
+
+btn2.onclick = clicar();			//atribuo um evento nivel 0; Se tiver o clicar com (), ele vai tentar atribuir um valor.
+
+function clicar(){
+
+	alert('clicou');			//ele vai sempre executar a funcao, quando abrir a pagina, pela interpretacao do ();
+
+	return function(){
+
+	alert('clicou 2');	
+
+	}
+
+}
+
+</script>
+
+------------------------------------------
+
+
+
+
+
+
+=============================================================================
+
+null ou indefinidy eh vazio.
+
+'use strict';		//argumento que impede de criar variavel sem "var", boa pratica eh usar dentro das nossas funcoes.
+
+
+
+console.log("----------------------------");
+
+//crio uma variavel.
+var x = 0;
+var y = 0;
+
+
+
+console.log("mostra x: ", x);
+console.log("mostra y: ", y);
+
+
+//crio uma funcao
+function mostraX(){
+		var x = 10;				//atribui 10, se eu tirar o "var" eu deixo a variavel global e atribui, se eu deixar, crio local, soh vale aqui dentro;
+		y = 20;							//como foi criada sem a var, passa a ser escopo global.
+		console.log("mostra x: ", x);	//mostrei fora;
+}
+mostraX();		//chamei a funcao.
+
+
+
+=============================================
+
+
+	var n1 = prompt("Digite um Numero: ");
+	n1 = parseInt(n1);
+
+	function escreve(){
+		console.log("-------------------");
+		console.log(n1);
+	}
+
+	escreve();
+
+
+==============================================
+
+
+(function(){
+
+	//faco o "arguments" que mostra o parametros que foram passados.
+	function somar(arr){
+		console.log(arguments);
+		var result = 0;			//crio duas variaveis;
+		var x = 0;				//o X vai ser usado para incrementar;
+
+		while(arguments[x]){
+		//eh igual a: result = result + arguments[x];
+			result += arguments[x];
+			x++;
+		}
+		console.log('result: ');
+	}
+	
+	//passo argumentos para array
+	somar(20, 30, 10, 30);
+
+})();
+
+==============================================
+
+
+//o arguments remete aos argumentos passados, e length o tamanho do array.
+
+
+            (function(){
+                function calcularMedia(){                    
+                    
+                    var total = 0;
+                    var qtd = arguments.length;
+                    var x = 0;
+                    //while(arguments[x]){
+                    while(typeof arguments[x] === 'number'){
+                        total += arguments[x];
+                        x++
+                    }                    
+                    
+                    return total / qtd;
+                }
+                var media1 = calcularMedia(2,3);
+                var media2 = calcularMedia(4, 0, 10, 10);
+                
+                console.log('media1: ', media1)
+                console.log('media2: ', media2)
+            })()
+
+
+
+==============================================
+
+
+        <div id="msg"></div>
+        
+        <script>
+            
+            (function(){
+                var nome = prompt('qual seu nome');
+                //a propriedade textContent eh sempre texto puro e mostra as tags html (textos dentro de tags), a innerHTML eh quando vc tem tags html dentro do elemento buscado. Sempre que usar formularios eh sempre a propriedade Value.
+                document.querySelector('#msg').textContent = "Bem-vindo, " + nome;
+                
+            })()
+            
+        </script>
+
+
+==============================================
+
+//Exemplo de como Capturar dados e exibir em tela, posso pegar, posso pegar pelo "getElementById" tb, porem nao uso o "#" dae;
+
+
+<!doctype html>
+<html>
+    <head>
+        <title>Curso Javascript Completo 2018</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Curso Javascript Completo 2018</h1>
+        
+        <div id="nome"></div>
+        <br>
+        <div id="idade"></div>
+        
+        <script>
+            
+            (function(){
+                var nome = prompt('Qual seu nome?');
+                var idade = prompt('Qual sua idade?');
+                //a propriedade textContent eh sempre texto puro e mostra as tags html (textos dentro de tags), a innerHTML eh quando vc tem tags html dentro do elemento buscado. Sempre que usar formularios eh sempre a propriedade Value.
+                document.querySelector("#nome").textContent = "Bem-vindo, " + nome + "!";
+                document.querySelector("#idade").textContent = "Sua idade é " + idade + " anos!";
+                
+            })()
+            
+        </script>
+        
+    </body>
+</html>
+
+==============================================
+
+
+//como usar negrito, usar a propriedade "innerHTML";
+
+
+<!doctype html>
+<html>
+    <head>
+        <title>Curso Javascript Completo 2018</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Curso Javascript Completo 2018</h1>
+        
+        <div id="msg"></div>
+        
+        <script>
+            
+            (function(){
+                var nome = prompt('qual seu nome');
+                //a propriedade textContent eh sempre texto puro e mostra as tags html (textos dentro de tags), a innerHTML eh quando vc tem tags html dentro do elemento buscado. Sempre que usar formularios eh sempre a propriedade Value.
+                document.querySelector('#msg').innerHTML = "Bem-vindo, <b>" + nome + "</b>";
+                
+            })()
+            
+        </script>
+        
+    </body>
+</html>
+
+
+==============================================
+
+
+//Chama a funcao com o evento onClick;
+
+
+        <h1>Curso Javascript Completo 2018</h1>
+        
+        <input type="text" id="txtNome" value="digite">
+        <button onclick="escreve()">Só clica</button>
+        <div id="msg"></div>
+        
+        <script>
+            
+            //para chamar uma variavel externa, percebi que usa o #
+            var txtNome2 = document.querySelector('#txtNome');
+
+            function escreve(){
+                var nome = txtNome2.value;                    
+                //a propriedade textContent eh sempre texto puro e mostra as tags html (textos dentro de tags), a innerHTML eh quando vc tem tags html dentro do elemento buscado. Sempre que usar formularios eh sempre a propriedade Value.  
+                document.querySelector('#msg').innerHTML = "Bem-vindo, <b>" + nome + "</b>";
+            }
+            
+            
+        </script>
+
+
+==============================================
+
+
+==============================================
+
+
+==============================================
+
+
+==============================================
+
+
+==============================================
+
+
+==============================================
+
+
+==============================================
+
+
+==============================================
+
+
+==============================================
+

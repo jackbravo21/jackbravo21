@@ -1,0 +1,974 @@
+
+No CSS:
+# = ID;
+. = class;
+
+
+//escrever em console:
+console.log("Ola mundo!");
+
+
+
+//chamar o JS    
+<script src="index.js"></script>
+
+
+let = leva em consideracao aonde vc declarou a variavel.
+
+
+typeOf, ou instanceIf, para saber de onde veio.
+
+conversores: parseint, parsefloat, tostring;
+
+
+
+
+//template string (a cada $ eh uma frase), e usar acentos:
+
+let n = 7;
+
+for(let i = 0; i <= 10; i++){
+console.log(`${i} x ${n} = ${i*n}`);
+}
+
+
+arguments ou args para acessar parametros.
+
+
+Existem 3 tipos de funcoes no JS: Expressao de funcao, anonimas, arrow functions.
+Para criar um evento usa-se o "addEventListener();
+Funcao que o JS interpreta a string como script: eval();
+Classe eh um conjunto de atributos e metodos.
+
+mostrar data atual de acordo com a regiao:
+let today = new Date();
+console.log(today.toLocaleDateString());
+
+
+
+
+
+arrow function =>;
+
+
+windows.
+
+//listen ele escuta um evento.
+
+window.addEventListener("focus", event =>{
+
+    console.log("focus");
+
+});
+
+document.addEventListener("click", event =>{
+
+    console.log("click!")
+
+});
+
+
+
+array pode ter tudo misturado:
+
+let carros = ["palio 98", "toro", "uno", 10, true, new Date(), function(){}];
+
+
+//percorrer todo o array:
+carros.forEach(function(value, index){
+
+    console.log(index, value);
+
+});
+
+
+//o this acessa sempre dentro do objeto, pode ser metodo ou atributo.
+
+
+
+
+
+Projeto:
+
+git clone +link.git
+
+
+
+
+Uma classe eh um conjunto de atributos e metodos.
+
+Dentro de uma classe encontramos, variaveis e funcoes. Elas passam a se chamar atributos e metodos.
+
+
+Atributos privados recebem um "_":
+        this._displayCalc = "0";
+
+
+Eventos podem ser manipulados com o DOM.
+Cada TAG eh considerada um objeto, e esta dentro do documento.
+Pode ser visto dando um "document" no console.
+
+Objeto windows, se der "windows" no console, vai aparecer todos os atributos e metodos da windows.
+
+
+querySelector eh mais usado agora, do que o getElementById.
+- document.querySelector("#display");
+
+
+dt = new Date();
+dt.getDate();
+dt.getMonth();
+dt.getFullYear();
+dt.toLocaleDateString("pt-BR");
+dt.toLocaleDateString("pt-BR", {month:'long'});
+dt.toLocaleDateString("pt-BR", {month:'short'});
+dt.toLocaleTimeString("pt-BR");
+
+
+
+//a cada segundo para atualizar, eu vou usar o recurso "setInterval";
+
+        setInterval(() => {
+
+        }, 1000);
+
+
+
+Arrow function vc usa para dizer que tal coisa vai fazer tal coisa =>.
+
+
+setTimeout(() => {}, 10000);				//vai parar apos os 10s.
+
+clearInterval(interval);
+
+
+
+A diferenca entre o "querySelector" e o "querySelectorAll" eh que o "querySelector" traz o primeiro elemento, e o "querySelectorAll" tras todos, por exemplo associados ao buttons.
+
+document.querySelectorAll("#buttons > g, #parts > g");
+
+//este codigo acima vai resultar em uns 38 resultados se tiver 38 tags.
+
+//para selecionar soh um elemento, chamando soh o btn9 por exemplo:
+let buttons = document.querySelectorAll("#buttons > g.btn9");
+
+
+
+event Listener eh escutar evento, por exemplo: click, mouseover, mouseout, drag(clicar e arrastar), drop(quando vc solta), keyup(quando solta um tecla).
+developer.mozilla.org tem a documentacao de todos os eventos nativos do JS para navegador.
+
+split();
+
+
+
+array.push = add ao final do array mais um elemento.
+
+var meuArray = [];
+meuArray.push("Ferrari");
+meuArray.push("BMW");
+meuArray.push("Fusca");
+meuArray;
+
+meuArray.pop();		= elimina o ultimo valor do array;
+
+clearAll		= testar, na teoria deveria limpar tudo.
+
+isNaN;
+
+
+a = [1,2,"+"];
+
+a.length = da o numero de indices do array (total), entao eu uso o "-1" para trabalhar com ele, pois ele comeca com "0";
+
+
+
+A variavel windows ja tem uma funcao que verifica se eh um numero ou nao:
+
+window.isNaN;			//not a number, verica se nao eh um numero.
+window.isNaN("a");		//saida: true. (nao eh um numero).
+window.isNaN(1.4);		//saida: false.
+window.isNaN("1.4");		//saida: false.
+
+
+.split	= eh como o explode.
+.join	= junta o array.
+
+
+
+- No html tudo que temos dentro de um documento HTML sao elementos, como <form>, <div>.
+- Posso acessar os elementos, do HTML com o JS, mudar as propriedades ou estruturas, e posso cria-los com o JS.
+- Ex.: document.createElement("div");
+- Quando estou usando o navegador, eh uma "window." (uma janela), posso acessar historico, dar um refresh na tela.
+- Quando eu falo do site, codigo, chamamos de "document.", que manipula objetos no JS, como "pegue aquele campo de texto".
+
+Posso no console chamar a variavel "window", que vai ter tudo do navegador:
+window;
+
+Posso tambem chamar a "document":
+document;
+
+E agora que eu sei isso, posso combinar para dar comandos (document eh um objeto, e query selector um metodo, porque a primeira letra eh miniscula, e a segunda palavra maiuscula, e ele recebe parametros, por isso os parenteses), e para fazer a referencia, vc coloca o "#":
+
+document.querySelector("#exampleInputName");
+//dentro tem o selector, vamos colocar o ID que deve ser unico, se tiver mais de um, vai pegar soh o primeiro.
+
+Note agora que vou acessar uma propriedade daquele elemento, usando o ".value" e dando a ele um valor "Oi";
+document.querySelector("#exampleInputName").value = "Oi";		
+
+- Para selecionar o elemento input com ID #email e retornar o valor digitado:
+document.querySelector("#email").value;
+
+- O Object window refere-se a janela do Navegador que o usuario utiliza, ja o objeto document refere-se ao site que o usuario esta navegando.
+
+- DOM = Document Objet Model - Eh o modelo de objetos que um documento HTML eh escrito, por hierarquia.s
+
+- Dada a seguinte estrutura:
+document.querySelector("#inputName").value;
+
+//objeto.metodo("seletor").propriedade;
+
+- Todo objeto possui atributos e metodos.
+
+
+Variaveis de memoria;
+
+A document armazena tudo.
+
+Se eu quiser soh o valor que foi digitada dentro da query:
+
+var nome = document.querySelector("#exampleInputName");
+console.log(nome);
+
+console.log(variavel);		//eh o comando mais importante.
+
+
+
+
+- Vou selecionar pelo ID e atribuir a ele um valor com "value", que eh o nome do usuario, mudando tambem a propriedade do CSS "color":
+
+var nome = document.querySelector("#exampleInputName");
+
+//console.log(nome);
+nome.value = "Oi Jack";
+//nome.style.color = "#333333";
+nome.style.color = "red";
+
+Boa pratica:
+# = ID;			(Vai usar uma unica vez, usar ID).
+. = class;		(Voce tem a possibilidade de reuso, usar class).
+
+
+Se eu quiser selecionar o Gender de um formulario:
+
+document.querySelector("#form-user-create");
+document.querySelector("#form-user-create [name=gender]");
+//selecionar todos:
+document.querySelectorAll("#form-user-create [name=gender]");
+//selecionar qual o que me intereca, no caso o selecionado.
+document.querySelectorAll("#form-user-create [name=gender]:checked");
+
+
+- Para selecionar um elemento HTML com Atributo class.gallery e armazenar essas referencias em uma variavel chamada gallery:
+let gallery = document.querySelector(".gallery");
+
+
+
+
+Para percorrer o array escrervendo no console.log o valor de cada posicao de um array:
+
+let cursos = [
+	"Curso Completo de JavaScript",
+	"Curso Completo de PHP7",
+	"Curso Completo de Desenvolvedor Web",
+	"Domando Banco de Dados Com Mysql"
+];
+
+
+cursos.forEach((valor)=>{
+
+	console.log(valor);
+
+});
+
+
+
+
+json:
+
+//primeiro eh o nome da propriedade e o segundo e o valor dessa propriedade.
+var data = { name: "Hcode", email: "hcode@hcode.com.br", year: 2018}
+data;
+data.name;
+typeof(data.name);
+typeof(data.year);
+
+
+Criar um objeto literal:
+
+var empresa = {
+
+	nome: "Hcode",
+	site: "www.hcode.com.br",
+	email: "suporte@hcode.com.br",
+	cidade: "Sao Bernardo",
+	estado: "Sao Paulo"
+
+};
+
+
+
+
+
+apendbrowser.
+
+
+single page (SPA) = aplicacao de uma unica pagina, faz tudo na mesma pagina, tipo gmail, netflix.
+
+
+
+
+O arquivo formulario.html possui um botão com o id #validar. Como podemos criar um evento de click sobre este botão escrevendo no console do navegador a frase "Formulário Validado" e interrompendo o envio do formulario?
+
+var validar = document.querySelector("#validar");
+
+validar.addEventListener("click", function(e){
+
+	console.log("Formulario Validado");
+	e.preventDefault();
+
+});
+
+
+
+
+innerHTML;
+
+
+Dado o código abaixo, crie uma função que retorne a soma dos valores.
+
+    var a = 25;
+    var b = 50;
+
+
+function soma(x, y){
+
+	return x+y;
+}
+
+soma(a, b);
+
+
+
+
+Um objeto eh uma variavel que instancia ou representa uma classe.
+
+
+
+Exemplo de classe em JavaScript:
+================================================================================================================================
+
+//la na index eu vou criar um:
+	var objectUser = new User(
+		user.name, 
+		user.gender, 
+		user.birth, 
+		user.contry, 
+		user.email, 
+		user.password, 
+		user.photo, 
+		user.admin);
+
+
+
+//la na classe eu vou criar:
+
+class User {
+
+    constructor(name, gender, birth, country, email, password, photo, admin){
+
+        this._id;
+        this._name = name;
+        this._gender = gender;
+        this._birth = birth;
+        this._country = country;
+        this._email = email;
+        this._password = password;
+        this._photo = photo;
+        this._admin = admin;
+        this._register = new Date();
+
+    }
+
+    get id(){
+        return this._id;
+    }
+
+    get register(){
+        return this._register;
+    }
+
+    get name(){
+        return this._name;
+    }
+
+    get gender() {
+        return this._gender;
+    }
+
+    get birth() {
+        return this._birth;
+    }
+
+    get country() {
+        return this._country;
+    }
+
+    get email() {
+        return this._email;
+    }
+
+    get photo() {
+        return this._photo;
+    }
+
+    get password() {
+        return this._password;
+    }
+
+    get admin() {
+        return this._admin;
+    }
+
+    set photo(value){
+        this._photo = value;
+    }
+
+    loadFromJSON(json){
+
+        for (let name in json){
+            
+            switch(name){
+
+                case '_register':
+                    this[name] = new Date(json[name]);
+                break;
+                default:
+                    this[name] = json[name];
+
+            }
+            
+
+        }
+
+    }
+
+    static getUsersStorage() {
+
+        let users = [];
+
+        if (localStorage.getItem("users")) {
+
+            users = JSON.parse(localStorage.getItem("users"));
+
+        }
+
+        return users;
+
+    }
+
+    getNewID(){
+
+        let usersID = parseInt(localStorage.getItem("usersID"));
+
+        if (!usersID > 0) usersID = 0;
+
+        usersID++;
+
+        localStorage.setItem("usersID", usersID);
+
+        return usersID;
+
+    }
+
+    save(){
+
+        let users = User.getUsersStorage();
+
+        if (this.id > 0) {
+            
+            users.map(u=>{
+
+                if (u._id == this.id) {
+
+                    Object.assign(u, this);
+
+                }
+
+                return u;
+
+            });
+
+        } else {
+
+            this._id = this.getNewID();
+
+            users.push(this);
+
+        }
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+    }
+
+    remove(){
+
+        let users = User.getUsersStorage();
+
+        users.forEach((userData, index)=>{
+
+            if (this._id == userData._id) {
+
+                users.splice(index, 1);
+
+            }
+
+        });
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+    }
+
+}
+
+
+================================================================================================================================
+
+
+- Podemos usar o "dir" e o elemento entre parenteses, para transformar em objeto a busca:
+
+document.getElementById("form-user-create");
+dir(document.getElementById("form-user-create"));
+
+
+
+Na arrow function vc pode referenciar atributos externos, ja que o "this." dentro da funcao, refere-se 
+
+ao local.
+
+
+
+
+[...] = spread eh para nao dizer o tamanho do indice.
+
+
+
+
+- Qual método utilizamos junto a classe FileReader para ser executado quando um arquivo for carregado?
+
+fileReader = newFileReader();
+fileReader.onload();
+
+
+
+Promise:
+
+getPhoto(){
+
+	//no promise ele vai executar o seguinte codigo se tiver ok, que eh o resolve, se nao eh o reject.
+
+	return Promise(function(resolve, reject){
+
+	...
+
+	//se der erro:
+	fileReader.onerror = (e) =>{
+
+	reject(e);
+
+	};
+
+
+}
+
+
+}
+
+===================================================================
+
+Datas (pode usar o moment.js tambem):
+
+(Unix TimeStamp: 01/01/1970 00:00:00)
+
+new Date();
+new Date(2018, 4, 5);			= mes vai ser no indice 4, tem que usar o indice 0.
+new Date([2018, 4, 5]);			= se passar um array, ele respeita certo.
+new Date("2018-04-05");			= passei uma string, e nao informamos a hora. Ele manda um horario a meia noite.
+new Date("2018-04-05 00:00:00");	= Agora vai voltar o horario exato.
+
+let dt = new Date();
+dt.getDate();				= saber soh o dia.
+dt.getMonth();				= saber a semana.
+dt.getFullYear();			= ano.
+dt.getTime();				= vai retornar o TIMESTAMP em milisegundos.
+
+
+=====================================================================
+
+Construindo uma classe com get and set:
+
+//o "_" eh uma convencao que eh um atributo privado, mas para o JS nao quer dizer nada.
+
+class User{
+
+	constructor(name, gender, birth, country, email, password, photo, admin){
+
+	this._name;
+	this._gender;
+	this._birth;
+	this._country;
+	this._email;
+	this._password;
+	this._photo;
+	this._admin;
+	this._register = new Date();
+
+	}
+
+	get register(){
+	
+	return this._register;
+	
+	}
+
+
+	get name(){
+	
+	return this._name;
+	
+	}
+
+	get gender(){
+	
+	return this._gender;
+	
+	}
+
+	get birth(){
+	
+	return this._birth;
+	
+	}
+
+	get email(){
+	
+	return this._email;
+	
+	}
+
+	get password(){
+	
+	return this._password;
+	
+	}
+
+	get photo(){
+	
+	return this._photo;
+	
+	}
+
+	get admin(){
+	
+	return this._admin;
+	
+	}
+
+	
+	//set sempre tem que passar parametro, qual valor vc vai mudar.
+
+	set photo(value){
+
+	this._photo = value;
+
+	}
+
+
+}
+
+
+
+=====================================================================
+
+
+metodo estatico (pode ser usado com a formatacao da data);
+
+//quando chamar esta classe, nao vamos instanciar ela, vamos usar o metodo estatico, chamando ela pelo nome da classe.
+
+class Utils{
+
+
+	static dateFormat(date){
+
+	return date.getDate()+'/'+(date.getMonth()+1)+date.getFullYeart()+' '+date.getHours()+':'+date.getMinutes();
+
+
+	}
+
+
+
+}
+
+
+=====================================================================
+
+indexOf:
+
+Fazer validacao de dados no form com JS, alem do required:
+
+//indexOf eh o numero do campo no array.
+
+if(['name', 'email', 'password']);
+
+//se eu perguntar no console:
+campos = ['name', 'email', 'password'];
+
+campos;
+//ou no console, vai retornar o mesmo valor.
+['name', 'email', 'password'];
+
+campos.length;			//retorna o tamanho do array;
+
+campos.indexOf("photo");	//nao vai retornar nada "-1";
+
+campos.indexOf("email");	//vai retornar a index do email, no caso 1.
+
+campos.indexOf("name");		//retorna 0.
+
+campos.indexOf("email");	//retorna 1.
+
+
+//o valor maior que -1 quer dizer que ele encontrou o campo. E ve se ele existe, ou nao tem valor no !field.value.
+if(['name', 'email', 'password'].indexOf(field.name) > -1 && !field.value){
+
+	field.parentElement.classList.add("has-error");
+	return false;
+
+};
+
+
+
+OBS: Quando o indexOf nao encontra o valor no array, ele retorna -1 porque ele diz, que acima de 0 nos indicies ele nao encontrou, entao eh soh fazer o valor > -1.
+
+
+=====================================================================
+
+
+API DataSet			= permite leitura e escrita em elementos com data-*.
+
+Serializar			= transformar um objeto em texto.
+
+JSON.stringfy(objeto);		= vai converter esse objeto para string jason.
+JSON.parse(string);		= vai realizar o processo inverso do json.
+
+forIn:
+
+for (let name in json){
+}
+
+
+======================================================================
+
+DataSet				= permite leitura e escrita com elementos com data.
+
+
+
+object.assign			= Copia o valor de atributos de um objeto. Cria um objeto destino, retornando este objeto.
+
+
+
+
+
+
+SESSION:
+
+
+sessionStorage			= armazenando dados na sessao de usuario, nao eh encriptado.
+
+localStorage			= vai armazenar os dados do usuario localmente, o usuario pode ate reiniciar o computador.
+
+
+sessionStorage.setItem();	= usamos para gravar dados na session storage, passando o nome do parametro e o valor, como no smarty (chave/valor).
+
+sessionStorage.setItem("name", "Hcode");
+sessionStorage.getItem("name");			= O getItem pega o item;
+>"Hcode";
+
+
+
+//Crio um array para colocar os usuarios na sessao:
+
+
+let users = [];			//crio array.
+
+users.push(data);		//adiciono um novo elemento no array.
+
+sessionStorage.setItem("user", JSON.stringify(data));
+
+
+//push adiciona novo elemento ao array;
+
+
+//Para local storage:
+
+localStorage.setItem("user", JSON.stringify(users));
+
+
+
+updateCount();			//conta as linhas;
+
+
+
+
+
+==========================================================
+
+
+
+
+
+//carregamos nosso modulo.
+const http = require("http");
+const { readSync } = require("fs");
+
+//criamos o servidor e guardamos na variavel.
+let server = http.createServer((req, res)=>{
+
+    //qual foi a URL chamada no servidor.
+    console.log("URL:", req.url);
+    //qual foi o metodo chamado no servidor.
+    console.log("METHOD:", req.method);
+
+    //res.end("OK");
+
+    switch(req.url){
+
+        case "/":
+
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html");
+            res.end("<h1>Ola</h1>");
+            break;
+
+        case "/users":
+            
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify({
+                users:[{
+                    name: "Jack",
+                    email: "jackbravo@jackbravo21.com.br",
+                    id: 1
+                }]
+            }));
+            break;
+
+    }
+    
+});
+
+//vamos escolher a porta do servidor local e o ip.
+server.listen(3000, "127.0.0.1", ()=>{
+
+    console.log("Servidor Rodando!");
+
+});
+
+
+
+
+
+
+
+
+
+==========================================================
+
+
+
+
+NODEJS:
+
+RESTFUL:
+
+npm init
+
+
+Colocar o express como dependencia no packet json:
+
+npm install express --save
+
+
+NodeMon para rodar automatico quando salvar:
+
+npm install nodemon -g
+
+Ae executa o arquivo com "nodemon index.js".
+
+
+
+
+
+
+REST:
+
+npm install restify-clients --save
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.xvideos.com/video57311025/interracial_slut_carol_wings_first_time_double_penetration_with_three_bbc
+
+https://www.xvideos.com/video51539835/novinha_safada_mostrando_o_cu_e_dando_pro_seu_amigo_em_publico
+
+https://www.xvideos.com/video50240713/novinha_safada_fazendo_putaria_com_dois_na_rua..em_publico_.
+
+https://www.xvideos.com/video51539761/mais_video_da_novinha_safada_dando_na_rua
+
+https://www.xvideos.com/video36938509/namorada_dando_o_cu_ao_lado_do_namoradinho
+
+https://www.xvideos.com/video48718403/medical_doctor_fucking_with_big_dick_patient_anal_
+
+https://www.xvideos.com/video50049509/ted_s_ride_4_i_fucked_the_blonde_s_ass_in_the_car_in_the_middle_of_the_street_-_melissa_alecxander
+
+https://www.xvideos.com/video37039881/loira_safada_da_o_cu
+
+https://www.xvideos.com/video31897615/son_in_law_fuck_moms_nice_ass_-_hdpornmedia.eu
+
+https://www.xvideos.com/video20455523/dany_fuck_jasmine
+
+https://www.xvideos.com/video29447909/sexy_and_hot_chubby_women_legs_wide_open_vol._18
+
+https://www.xvideos.com/video57384491/casada_briga_com_o_marido_e_vai_beber_no_bar_com_o_sobrinho_dele_e_acaba_toda_gozada
+

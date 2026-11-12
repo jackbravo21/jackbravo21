@@ -1,0 +1,787 @@
+
+
+=======================================================================
+
+Game Object, Tag Layer, Transform:
+
+- Todo objeto tem um transform que eh a posicao do objeto;
+- Vamos por o Bg1 como "Texture Type" = "Sprite (2D and UI);
+- Mesh Type eh a malha no sprite, renderizacao;
+- "Pivot" da imagem eh o centro da imagem, o eixo dela;
+- "Mip Maps" eh o mapa de imagem em formatos menores, serve para 3D, cria varias vezes a mesma imagem com renderizacoes de qualidade diferente, para renderizar pela distancia 3D;
+- NPOT (Non Power of 2) eh para ajustar melhor a qualidade da imagem, na potencia de 2, serve para tratar as imagens que nao estao no formato, deixando "To" para maior, menor, proximo;
+
+- Vamos na Imagem do Barbarian1 e colocar como multipla, depois no Sprite Editor, colocar dar um Slice na imagem por celSize, colocando 240 pixels para fatiar, que dara certinho;
+- Colocar sempre "Point no Filter", para tirar o borrado;
+
+- Vamos entrar no sprite editor e renomear todos os sprites por ali, cada um com sua caracteristica (idde1, iddle2...);
+
+- "Sprite Rendering" eh o renderizador de Sprite na tela;
+- Podemos selecionar qualquer imagem para ser o sprite principal do Objeto;
+- Podemos mudar a cor e o Alpha do Objeto, que eh a transparencia;
+- Flip eh a mudanca dos eixos;
+- "Material" eh o tipo de sprite, para trabalhar com luz;
+- "Draw Mode" vc pode usar para fazer o sliced, ou Tiled, o Simples;
+- Sorting Layer eh a camada geral, e o Order in Layer eh a ordem da camada selecionada, quanto mais alto mais para frente;
+
+- Adicionando um componente, em "Micelanius/Animator", para podermos adicionar animacoes;
+- Na pasta Animations, vamos criar uma nova pasta "Controller", e dentro deste "Controller", vamos clicar em "Create/Animator Controller";
+- Vou chamar de PlayerA;
+- Agora vou no Player e no "Animator", e arrasto o "Contoller/PlayerA" para dentro do parametro "Controller";
+- Avatar eu nao preciso, pq eh para representar a forma humanoide em 3D;
+- Update mode mantemos "normal", e no "Culling Mode" vamos deixar "Always Animate";
+- Agora vamos no manue "Windows/Animation" e vamos selecionar o Player para acessar o "Animation" dele;
+- Clicar em Create, e salvar no Animations como "Player/Idle";
+- Jogar o Sprite que eu quero que componham a animacao Idle;
+- Agora criar as outras animacoes, no create new Clip, e criar Walk, Jump, Hurt, Die;
+- No Jump vamos dividir o Pulo, colocar os 3 primeiros,
+- E vamos criar o ultimo sprite de pulo no "Fall" que devemnos criar tambem como animacao, utilizando a ultima do salto apenas;
+- O Die, vamos usar o Hit1 e o Hi2 para completar o die, e fazer ele parecer que caiu;
+- O Crouch vamos colocar apenas o sprite abaixado;
+
+=======================================================================
+
+Gertenciando animacoes no Animator:
+
+- Na tela "Parameters" do Animator, vamos clicar no (+);
+- E criar primeiro um parametro "bool" chamado "grounded";
+- Criar um "int" chamado "idAnimation";
+- Criar um parametro "attack" do tipo "trigger";
+- Criar um parametro "hit" do tipo "trigger";
+
+- Colocar uma ordem nas animacoes:
+	0 - Idle;
+	1 - Walk;
+	2 - Crouch;
+	3 - Hit;
+	4 - Die;
+
+- Fazer uma transicao do Idle para o Walk;
+- Agora no "Inspector" dele, dar um "Reset" e tirar o "Has Exit Time" e ajusta a transicao de Settings, depois colocar a "Conditions" do "Grounded = true" e "idAnimation equals 1";
+- Agora faco a make transition de Walk para Idle, e faco a mesma coisa que acima, no "Conditions" do "Grounded = true" e "idAnimation equals 0";
+- Do Idle para o Attack, vamos fazer todo o esquema do reset, e depois na "Conditions", vamos apenas selecionar o "attack";
+- Voltando do Attack para o Idle, vamos fazer a condicao a "Conditions" do "Grounded = true" e "idAnimation equals 0";
+- Fazer a mesma coisa para o Walk indo para Attack;
+- Voltando do Attack para o Walk, vamos fazer a condicao a "Conditions" do "Grounded = true" e "idAnimation equals 1";
+- Do Idle para o Crouch, fazemos a "Conditions" do "Grounded = true" e "idAnimation equals 2";
+- Voltando do Crounch para o Idle, vamos fazer a condicao a "Conditions" do "Grounded = true" e "idAnimation equals 0";
+- Do Attack para o Crouch, vamos Resetar, deixar marcado o "Has Exit Time, a "Conditions" do "Grounded = true" e "idAnimation equals 2";
+- Do Walk para o Crouch vamos fazer a mesma coisa que o padrao, "Reset, Has..., Settings" e "Conditions" do "Grounded = true" e "idAnimation equals 2";
+- Do Crouch para o Walk, "Reset", "Has Exit Time", Settings" e "Conditions" do "Grounded = true" e "idAnimation equals 1";
+- Do Idle para o Hit, vamos fazer todo o esquema do reset, e depois na "Conditions" adicionar "hit";
+- Do Hit para o Idle, vamos fazer todo o esquema do reset, deixar o "Has Exit Time", "Conditions", "Grounded = true" e "idAnimation equals 0";
+- Do Walk para o Hit, reset, e depois na "Conditions" apenas adicionar o "hit";
+- Di Hit para o Walk, reset, deixar o "Has Exit Time", "Conditions", "Grounded = true" e "idAnimation equals 1";
+- Do Attack para o Hit, reset, desmarcar o "Has Exit Time", "Conditions" = "Hit";
+- Nao tem volta do Hit para o Attack pq ele nao volta atacar, ele toma hit e vai para o Idle ou Walk;
+- Do Crouch para o Hit, reset, e depois na "Conditions" apenas adicionar o "hit";
+- Do Hit para o Crouch, reset, deixar o "Has Exit Time", "Conditions", "Grounded = true" e "idAnimation equals 2";
+
+- Fazer a transicao de todos para Die, vamos fazer Reset, "Has Exit Time", "Conditions" = "idAnimation equals 4", todos apenas vao para o die, ninguem volta;
+- Do Die fazemos uma transicao para o "Exit", Reset, deixar o "Has Exit Time";
+
+=======================================================================
+
+Gerenciar as nossas animacoes por Script:
+
+- Vamos criar um Script de teste para apenas uma aula, chamado "AulaScript";
+
+- Atachar o Script ao Player;
+
+- A primeira coisa que eu preciso eh ter acesso ao Animator, eu ja tenho acesso a todos os componentes do proprio Player, mas preciso pegar ele e atribuir a uma variavel;
+
+- Primeira coisa eh criar a variavel que vai receber esse animator;
+
+	private Animator playerAnimator;
+
+- Depois preciso atribuir a variavel dentro do "Start()", pegando o componente animator que eu quero;
+
+	playerAnimator = GetComponent<Animator>();
+
+- Vamos criar uma Booleana "Grounded" e uma int de "idAnimation";
+
+	public bool grounded;			//indica se esta no chao;
+	public int idAnimation;			//indica o ID da animacao;
+
+- Vamos acessar agora o animator, dentro da "Update()" e vou acessar as propriedades, para isso eu preciso apenas chamar o "playerAnimator" que ja recebeu ele dentro do "Start()", e dar um ponto (.) para chamar a propriedade;
+- Mas como eu quero setar um valor, eu preciso dar um "SetBool" e dentro da funcao, eu preciso dizer a variavel que eu quero alterar, no caso "grounded" que esta dentro do Animator, e no segundo parametro, eu chamo a variavel do meu script, que contem o valor que eu quero passar para a variavel do animator, seria como atribuir a ela o valor que eu quero, atraves da variavel;
+- E vamos fazer a mesma coisa para o "idAnimation", que esta dentro do Animator, e depois na funcao, passar a variavel que eu quero passar para ela;
+
+	void Update()
+    	{
+       		playerAnimator.SetBool("grounded", grounded);
+		playerAnimator.SetInteger("idAnimation", idAnimation);
+    	}
+
+- E assim passamos parametros para o Animator via Script;
+
+=======================================================================
+
+Mecanicas basicas do Personagem:
+
+- Vamos adicionar o "Rigidbody 2D" do personagem;
+- "Body Type" vamos deixar dinamico mesmo;
+- Simulated pode deixar marcado;
+- Constains/Freeze Rotation/Z vamos marcar, para ele nao girar;
+- Adicionar um Box Collider nele, ou um de minha preferencia;
+
+- Criar um chao para o personagem ficar de peh;
+
+- Vamos declarar as variaveis de movimento horizontal e vertical; 
+	private float h;			//horizontal;
+	private float v;			//vertical;
+
+- Vou no Script do Player e dentro de "Update()" vou criar variavel local, do tipo float, chamada "h" (horizontal), e pegar o input;
+
+        h = Input.GetAxisRaw("Horizontal");
+        print(h);
+
+- Agora vamos abrir uma condicao IF e dizer que se a variavel "h" for diferente de 0, a variavel "animation" vai receber o valor 1;
+- Se nao o "idAnimation" vai receber 0;
+
+        if(h != 0)
+        {
+            idAnimation = 1;
+        }
+        else
+        {
+            idAnimation = 0;
+        }
+
+- Vamos fazer uma outra variavel vertical "v" e pegar o Input do "Vertical", e se "v" for igual a -1, idAnimation vai ser igual a 2, e o If anterior do "h" soh vai funcionar se este for checado antes;
+- Entao reescrevendo o codigo, com este acima, fica assim em Update():
+
+
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
+
+        print(h);
+
+        if(v < 0)
+        {
+            idAnimation = 2;
+        }
+
+        else if(h != 0)
+        {
+            idAnimation = 1;
+        }
+        else
+        {
+            idAnimation = 0;
+        }
+
+- Agora vamos verificar abaixo desse codigo, dentro ainda do Update(), se foi apertado o "Fire1", e vamos passar a animacao de attack, como ela eh soh trigger, vamos soh setar ela;
+
+        if(Input.GetButtonDown("Fire1"))
+        {
+            playerAnimator.SetTrigger("attack");   
+        }
+
+- Verificar se o "Has Exit Time" do Attack para os outros esta ligado;
+- O Attack nao funciona com ele abaixado, pq nao temos a transicao para o Attack;
+- Entao vamos adicionar uma condicao, para garantir que quando eu estiver abaixado, nao consiga atacar, para nao bugar nunca;
+
+	if(Input.GetButtonDown("Fire1") && v >= 0){}
+
+- Agora vamos renomear o Script para "PlayerScript" ou para construir outro e deixar este de Backup;
+
+=======================================================================
+
+Criando GroundCheck:
+
+- Vamos criar um Objeto dentro do Player, e chamar de "GroundCheck", colocar ele nos pes do personagem com o gizmos ja selecionado;
+
+- Vamos no Script do Player e criar uma variavel publica Transform e chamar de "groundCheck";
+
+	public Transform groundCheck;               
+	//pega o transform do objeto e verifica se ele esta em contato com o chao ou o que eu disser para verificar;
+
+- Agora vamos na Unity e arrastamos o "GroundCheck" que esta no Player para dentro do Alvo do Script do Player;
+
+- Se eu quizesse, poderia ter criado a variavel que recebe o animator publica, e quando aparece o campo com alvo no Script do Player, era soh arrastar o componente para dentro dele, dae nao precisaria pegar o componente, e atribuir a variavel, pelo Start(), como nos fazemos;
+- Por isso fizemos com private, para ja chamar o componente sem erro, automatico pelo script;
+
+- Vamos criar uma variavel Float chamada "speed", para nossa velocidade, e um float "jumpForce" para nossa forca de pulo;
+
+    public float speed;             //velocidade do personagem;
+    public float jumpForce;         //forca aplicado no pulo do personagem;
+
+- Para ele pular precisa estar com "grounded" true, entao vamos colocar ele no "FixedUpdate();
+
+- Vamos pegar a variavel "grounded" e vamos atribuir a ela uma "Physics2D" com um "OverlapCircle", que cria um circulo para colisao, e dentro dele, eu vou por que eu quero que ele seja checado com o groundCheck.position, que pega a posicao do "GroundCheck" do Player, e vai ser uma colisao pequena de "0.02f";
+- Este tipo de groundCheck checa apenas se o circulo Overlap abaixo dos pes do player, esta tocando em algo, seja la o que for, se tem um chao, sem necessitar de TAG, tudo para eh chao, desde que toque em algo, se quiser adicionar as tags, deve ser criado uma variavel publica e dentro do codigo abaixo, depois do "0.02f", colocar uma virgula e setar esta variavel, que deve pegar as layers que ele tocar, vai considerar chao, no caso, apenas diz quais layers que valem como colisao ao tocar, nao precisa ser um objeto chao, pode ser usado como wallCheck tambem, colocando um gizmos na frente do player e com esse mesmo codigo, setar o wall;
+
+    void FixedUpdate() 
+    {
+        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.02f);
+    }
+
+- Agora vamos criar o pulo, vamos setar na Unity no script do Player o "jumpForce";
+
+- Para criar o pulo precisamos ter acesso ao Rigidbody do Player, e para isso, vamos criar uma variavel para receber ele;
+
+	private Rigidbody2D playerRb;               //variavel que vai receber o rigidbody do Player;
+
+
+- Dentro do "Start()" vamos inicializar ela, atribuindo o rigidbody do Player;
+
+	playerRb = GetComponent<Rigidbody2D>();
+
+- E no script dentro do "Update()", vamos criar um Input para o Jump, e add uma forca, instanciando o new Vector2, mantendo a velocidade no x e add a forca indicada na variavel "jumpForce";
+
+	if(Input.GetButtonDown("Jump") && grounded == true)
+        {
+            playerRb.AddForce(new Vector2(0, jumpForce));
+        }
+
+- Verificar se foi setado no chao, a Tag "Ground", apesar que com essa tecnica nao eh necessario;
+- Ele soh vai pular se estiver em uma superficie qualquer;
+
+- Vamos fazer ele se mover agora;
+- Ja temos a velocidade do Rigidbody e o eixo "x" declarado, vamos fazer o rigidbody do player acessar a velocidade em X e add uma forca nela, como vamos acessar o parametro de "velocity" do rigidbody, entao tem que haver a atribuicao "=", e nao soh chamar o Vector2, entao vamos adicionar no Vector2 e dar a velocidade que o "horizontal" esta enviando ao apertar para os lados, vezes a velocidade indicada pela variavel "speed", e manter a velocidade "y" do personagem, para isso vou chamar a variavel que recebeu o rigidbody do Player, e chamar a velocidade do Y, mantendo ela, pois ele pode estar caindo, pulando, etc;
+- Dentro do "FixedUpdate()", pois comandos que usam fisica, devem estar dentro do "FixedUpdate()";
+
+	playerRb.velocity = new Vector2(h * speed, playerRb.velocity.y);
+
+- Lembrar de por a gravidade em -30;
+
+- Para o Player mudar de lado, vamos criar a variavel bool "facingRight";
+
+	public bool facingRight = true;     //verifica se ele esta olhando para direita, ja comeca com true, pq ja comeca para direita;
+
+- Vamos usar o Scale para mudar a direcao do personagem;
+- Vou criar uma funcao "Flip()" e para isso, basta negar e inverter a variavel "facingRight";
+- E abaixo vou criar uma variavel local "x float", e atribuir o transform do player, recebendo o "localscale" dela no eixo X, ou seja, armazenei na variavel "x" que eu criei o valor do "localscale.x" do player;
+- Apois isso eu vou pegar a variavel "x" que recebeu meu "localscale" e vou inverter ele com "*-1";
+- Agora vamos devolver o valor do "x" para o "transform.localscale" do player, porem temos que indicar todos os valores do Vector3, mantendo o Y e Z;
+
+    void Flip()
+    {
+        facingRight = !facingRight;         //inverte o valor da variavel booleana;
+        float x = transform.localScale.x;
+        x *= -1;
+        transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
+    }
+
+- Agora temos que chamar esta funcao, e vamos ter que chamar ela dentro do "Update()", criando um condicional if, logo no inicio da funcao, dizendo que se eu tiver olhando para direita, ele eh true, se nao eu inverto, e crio para o outro lado igualmente invertendo;
+
+        if(h < 0 && facingRight == true)
+        {
+            Flip();
+        }
+
+        else if(h > 0 && facingRight == false)
+        {
+            Flip();
+        }
+
+
+=======================================================================
+
+Animacao do Pulo:
+
+- Vamos ate o Animator, e no "Parameters", vamos criar um novo parametro com nome de "speedY";
+
+- Vamos na arvore de animacoes, e vamos criar um novo estado, com o direito do mouse e "from new Blending tree", e vamos renomear ele para "JumpFall";
+- Vamos puxar agora no animator, do "Any State" para o "JumpFall" uma transicao (->);
+- E nele vamos dar um "reset", tirar o "Has Exit Time", e nas "Conditions" vamos colocar "grounded" = false, que quer dizer que quando ele nao estiver no chao, vai estar em pulo ou caindo, e vamos desmarcar o "Can Transition to Self", para ele nao transicionar para ele mesmo;
+- Dar 2 Cliques no "JumpFall", e em "Motion", vamos add no (+) 2 "Motion Field", o pulo e queda, no caso "Fall" e "Jump";
+- E agora basta ir na pasta de "Animations" e arrastar as animacoes de Jump e Fall para os alvos dos "Motions";
+- Colocar o Fall em cima e o Jump em baixo, fazendo com que o jump fique em baixo no inicio, e no topo no final do grafico;
+- Colocar o Fall fique em cima no inicio, e em baixo no final do grafico;
+- Desmarcaro "Automate Thresholds", setar no Fall "-0.01", e no Jump "0.01";
+
+- Vamos no codigo e configurar o Pulo;
+- Dentro do "Update()", embaixo dos outros animators;
+
+	playerAnimator.SetFloat("speedY", playerRb.velocity.y);
+
+- Nesse codigo acima, estou passando para o parametro "speedY" la dentro do Animator na Unity, a velocidade de Y, que por sua vez verifica e chama a animacao de pulo correta, conforme a velocidade;
+
+- Fazer as transicoes do "JumpFall" para os outros estados;
+
+- De "JumpFall" para "Iddle", Reset, tirar o "Has Exit Time", "Conditions", "grounded = true", e "idAnimation equals 0";
+- De "JumpFall" para "Walk", Reset, tirar o "Has Exit Time", "Conditions", "grounded = true", e "idAnimation equals 1";
+- De "JumpFall" para "Attack, Reset, tirar o "Has Exit Time", porem nas "Conditions", vamos por apenas "Attack";
+- De "JumpFall" para "Hit", Reset, tirar o "Has Exit Time", porem nas "Conditions", vamos por apenas "Hit";
+- De "JumpFall" para "Crouch", Reset, tirar o "Has Exit Time", "grounded = true", e "idAnimation equals 2";
+
+- Vamos tirar do "Any State" o "JumpFall" e vamos fazer todas as transicoes;
+- Em todas as transicoes eh a mesma coisa: Reset, tirar o "Has Exit Time", e colocar apenas a Condition "grounded = false";
+- Apenas no "Attack", "Hit", que vamos por 
+
+=======================================================================
+
+Parar de andar ao Atacar:
+
+- Vamos ajustar algumas coisa;
+- Na condicional onde verificarmos o "if(v < 0)", vamos adicionar o "h = 0";
+- Isso vai fazer com que o personagem, ao se abaixar, nao ande;
+- Mas se eu me abaixar e saltar, ele pode saltar para frente, porque colocamos o condicional if(grounded);
+        
+	if(v < 0)
+        {
+            idAnimation = 2;
+
+            if(grounded)
+            {
+                h = 0;
+            }
+        }
+
+- Ate aqui podemos fazer ate um sapo assim;
+
+- Vamos criar uma variavel publica "inAttack";
+
+	public bool inAttack;               //indica se o personagem esta atacando;
+
+- Agora para dizer que o personagem nao pode se mexer quando ataca no chao, vamos criar uma funcao no final do codigo;
+
+    public void Attack(int atk)
+    {
+      switch (atk) {
+        case 0:
+            inAttack = false;    
+            break;
+        
+        case 1:
+            inAttack = true;
+        break;
+
+        default :
+            inAttack = false;
+            break;
+      }
+    }
+
+- Podemos criar um condicional dentro de "Update()" e dizer que quando o "inAttack" eh verdadeiro, o h recebe "h = 0", assim ele nao anda quando ataca;
+
+        //imobiliza o Player em attack apenas no chao, se quiser imobilizar no alto, soh tirar o grounded;
+        if(inAttack && grounded == true)
+        {
+            h = 0;
+        }
+
+- Vamos ate o Animation, e no primeiro frame do "Attack", vamos adicionar um evento, clicando no "Add Event." do painel de Animation, Selecionar a funcao "Attack()", passando o "Int = 1" para ele;
+- E no ultimo frame do Attack Animation vamos selecionar ele, e "Add Event.", selecionar novamente a funcao "Attack()", passando o "Int = 0" para ele;
+
+- Vamos ajustar tambem o ataque, para que eu nao possa atacar enquanto estiver atacando, basta adicionar a verificacao que o "inAttack" eh falso, assim ele nao cancela o ataque para atacar por cima do ataque;
+
+	if(Input.GetButtonDown("Fire1") && (v >= 0 ||  v <= 0) && inAttack == false)
+
+- Se eu nao quiser que o Player se vire enquanto ataca, basta adicionar a mesma condicao do "inAttack" false para que ele nao se vire;
+
+        if(h < 0 && facingRight == true && inAttack == false)
+        {
+            Flip();
+        }
+
+- E fazer o mesmo com o de baixo;
+
+        else if(h > 0 && facingRight == false && inAttack == false)
+        {
+            Flip();
+        }
+
+- E vamos mudar o pulo para tambem nao atacar enquanto pula adicionando o condicional boleano;
+
+	if(Input.GetButtonDown("Jump") && grounded == true && inAttack == false)
+
+- Nao usar isso, mas para conhecimento, se eu quiser pegar o box collider do player, basta declarar a variavel que vai pegar ele;
+
+	public Collider2D colliderPlayer;
+
+- E arrastar para dentro da public la na unity, o "Collider" do player que eu quero manipular, e usar como eu quiser onde eu quiser no codigo;
+- E para desligar o Collider, eu simplesmente digo que o enable dele eh false;
+
+	colliderPlayer.enabled = false;
+
+- E pra voltar a mesma coisa soh que true;
+
+=======================================================================
+
+Criando Cenario:
+
+- Colocar as texturas como "Point no Filter";
+- Multipla;
+
+- Vamos no menu "Window/2D/Tile Palette";
+- Arrastar para a paleta, apos criar;
+- Criar um novo Objeto em cena, do tipo "2D/Tilemap/Retangular";
+- Pegar os sprites no pacote de objetos;
+- Separar os sprites dos objetos em 32x32 (tem uns que tem 96x96);
+
+- Para ajustar o grid do tilemap, eu preciso selecionar a Grid, e no Componente "Grid", colocar no X "0.96" e no Y "0.96" tb;
+- Tem que verificar cada Tilemap, por exemplo, o "0.96" eh pq o titlemap eh de 96x96 pixels;
+- Eu posso chamar como eu quiser a grid, tipo grid96 para identificar;
+- Para o de 32, preciso por "0.32" no grid, ou alterar para 100 pixels, 32, depende;
+- As arvores sao 32x32;
+
+- Vamos por o Player nos 3 scale "0.71";
+
+- Criar o mapa com suas layers;
+
+- Criar novo objeto "2D/Physics 2D/Material" e zerar tudo, passando o material para o Rigidbody do Player, para ele nao colar nas paredes;
+
+=======================================================================
+
+Colisores:
+
+- Vamos pegar uma caixa e por na cena;
+- Vamos por os objetos de fizica nele, um box collider;
+
+- Vamos no script do personagem, vamos criar uma funcao da propria unity no final do codigo;
+
+- Vamos criar as funcoes de colisao, 3 relacionadas a colisoes e 3 com trigger;
+
+- Primeira eh a "OnCollisionEnter2D", que eh executada uma unica vez quando uma colisao iniciar, quando colidir com qualquer coisa, ate com o chao;
+- Se eu colocar um parametro recebido pela funcao, precisa ser do tipo "Collision2D", eu vou detectar colisoes especificas das Tags;
+- Eu posso na parte principal da funcao, pegar o nome do objeto que o Player colidiu, apenas colocando "print(col.gameObject.name);", fazendo com que exiba o nome do ojeto;
+- Assim ele vai exibir o nome do objeto que eu estou colidindo, show de bola;
+- E vou colocar uma condicao if para isso, verificando a TAG "Caixa";
+
+//que eh executada uma unica vez quando uma colisao iniciar, quando colidir com qualquer coisa, ate com o chao;
+    void OnCollisionEnter2D(Collision2D col)   
+    {
+        print(col.gameObject.name);             //exibe o nome do objeto que ele colidiu;
+
+        if(col.gameObject.tag == "Box")
+        {
+            Debug.Log("Colidiu com a caixa");
+        }
+
+        if(col.gameObject.tag == "Spike")
+        {
+            Debug.Log("Colidiu com o Spike");
+        }
+
+    }
+
+- Para detectar a saida da colisao com o objeto apos colidir, vamos usar o "OnCollisionExit2D";
+- Agora vamos utilizar a funcao padrao da unity que verifica quando o objeto sai da colisao "OnCollisionExit2D"
+
+//que eh executada uma unica vez quando uma colisao iniciar, quando sair da colisao com algum objeto;
+    void OnCollisionExit2D(Collision2D col)   
+    {
+        if(col.gameObject.tag == "Box")
+        {
+            Debug.Log("Saiu da caixa");
+        }
+
+        if(col.gameObject.tag == "Spike")
+        {
+            Debug.Log("Saiu do Spike");
+        }
+    }
+
+- E a terceira funcao, eh para quando vc estiver em colisao com o objeto "OnCollisionStay2D";
+
+//que eh executada uma unica vez quando uma colisao iniciar, quando estiver em colisao com algum objeto;
+    void OnCollisionStay2D(Collision2D col)   
+    {
+        if(col.gameObject.tag == "Box")
+        {
+            Debug.Log("Em colisao com a caixa");
+        }
+
+        if(col.gameObject.tag == "Spike")
+        {
+            Debug.Log("Em colisao com o Spike");
+        }
+    }
+
+- Agora vamos colocar outro objeto que fique como Trigger;
+- E vamos usar funcoes para tratar trigger, que ao inves de "onCollision" eh "onTrigger", e o tipo, ao inves de "Collision" eh "Collider";
+
+//Funcao que detecta colisao com Trigger;
+    void OnTriggerEnter2D(Collider2D col)   
+    {
+        if(col.gameObject.tag == "Runne")
+        {
+            Debug.Log("Pegou Runa");
+        }
+    }
+
+=======================================================================
+
+Layers e identificando o chao que pisar:
+
+- Podemos trocar as interacoes entre as "Layers", e alterar a fisica no "Edit/Project Settings/Physics 2D";
+
+- Criar uma variavel para indicar o que eh chao, o que esta setado na layerMask como chao, ele vai identificar;
+
+	    public LayerMask ground;                    //Indica qual superficie eh o chao, devemos setar ele la na unity;
+
+- E vou adicionar a variavel na checagem de "Grounded" do FixedUpdate();
+
+        //cria um circulo que checa o contato com o ground, se eu tirar o ground, ele vai checar se ele estiver em contato com qualquer layer nos pes;
+        //posso fazer a checagem de qualquer layer se eu criar outro overlap para checar qualquer outra coisa;
+
+        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.02f, ground);
+
+- No Player dentro da Unity, devemos marcar a Layer indicada no script;
+- Eu posso marcar quantas layers eu quiser neste script, basta selecionar mais de uma dentro da unity no script do player, na parte do LayerCheck, eu vou setar entao as layers "Ground, Cenario", assim ele pode pular em objetos do cenario e ta tudo certo;
+
+=======================================================================
+
+Raycast ou Campo de Visao:
+
+- Em jogos de tiro, eh usado o Raycast, para determinar a mira;
+- Vamos criar a partir do Transform do personagem, ela eh uma linha invisivel;
+
+- Soh que vamos criar para ele poder interagir com objetos, como alavancas, portas, etc;
+- Vamos criar uma funcao no final do Script, chamado "InteractiveObjects()", e chamar esta funcao dentro do "Update()";
+- Dentro da funcao, vamos criar uma variavel do tipo "RaycastHit2D" e chamar ela de hit, e atribuir a ela o comando que queremos, no caso eh chamar o motor de fisica2d e chamar a funcao "Raycast()" e dizer onde que ela vai comecar (que eh no transform do personagem, entao passo a position, e depois para o lado que ele vai, no caso a direita, e depois o comprimento deste raycast, que eh 1;
+- Como ele eh invisivel, temos que usar o comando para ver ele que eh "Debug.DrawRay()" passando os mesmos parametros de cima, soh que como ele nao tem tem comprimento do raio, vamos multiplicar a segunda opcao acima, com a terceira, pois a terceira dele eh a cor;
+
+
+    void RaycastRevelation()
+    {
+        //(posicao onde comeca "proprio player", lado para qual vai, tamanho do laser);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1);
+
+        //debug para desenhar a linha: (posicao onde comeca, lado para qual vai * tamanho do raio, cor);
+        //Debug.Debug.DrawRay(Vector3 start, Vector3 dir, Color color = Color.white, float duration = 0.0f, bool depthTest = true);
+        Debug.DrawRay(transform.position, transform.right * 1, Color.red);
+    }
+
+- Soh que se eu virar o persongem, ele vai continuar para a direita;
+
+- Para virar, poderiamos criar uma variavel privada do tipo "Vector3", porem, basta adicionar um if com a condicional testando o "facingRight" e caso ele seja falso, usar negativo (*-1) na multiplicacao dos valores;
+
+    void RaycastRevelation()
+    {
+        if(facingRight)
+        {
+        //(posicao onde comeca "proprio player", lado para qual vai, tamanho do laser);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1);
+        //debug para desenhar a linha: (posicao onde comeca, lado para qual vai * tamanho do raio, cor);
+        //Debug.Debug.DrawRay(Vector3 start, Vector3 dir, Color color = Color.white, float duration = 0.0f, bool depthTest = true);
+        Debug.DrawRay(transform.position, transform.right * 1, Color.red);
+        }
+        else
+        {
+        //(posicao onde comeca "proprio player", lado para qual vai, tamanho do laser);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1);
+        //debug para desenhar a linha: (posicao onde comeca, lado para qual vai * tamanho do raio, cor);
+        //Debug.Debug.DrawRay(Vector3 start, Vector3 dir, Color color = Color.white, float duration = 0.0f, bool depthTest = true);
+        Debug.DrawRay(transform.position, transform.right * -1, Color.red);
+        }
+    }
+
+- Agora vamos ajustar a linha da altura da mao do personagem, para ela interagir com o personagem, na altura da mao dele;
+- Precisamos que a linha vermelha, saia da altura da mao do personagem;
+- Para isso vamos criar um objeto vazio, da mesma maneira que fazemos o "groundCheck", ou o "AttackRespawn", vamos por ali para checar a interacao, e colocamos na mao do personagem, podemos chamar este objeto de "Hand" mesmo;
+
+- Dentro do script vamos criar uma variavel publica do tipo Transform chamada "hand";
+
+	public Transform hand;          //posicao da mao do personagem;
+
+- Agora voltamos a funcao "InteractiveObjects()" e substituimos os valores "transform.position", pela variavel da "hand.position", pois vai pegar a posicao dela;
+
+    void InteractiveObjects()
+    {
+        if(facingRight)
+        {
+        RaycastHit2D hit = Physics2D.Raycast(hand.position, transform.right, 1);
+        Debug.DrawRay(hand.position, transform.right * 1, Color.red);
+        }
+        else
+        {
+        RaycastHit2D hit = Physics2D.Raycast(hand.position, transform.right, 1);
+        Debug.DrawRay(hand.position, transform.right * -1, Color.red);
+        }
+    }
+
+- Nao esquecer de dentro do Script do Player, na Unity, colocar o objeto "Hand" do Player, dentro do Alvo "Hand";
+
+- Agora vamos ajustar o tamanho do Raycast, porque ele esta muito grande, e ela tem que ter o tamanho do braco do player, podemos por "0.1f" ao inves de 1;
+
+        if(facingRight)
+        {
+        RaycastHit2D hit = Physics2D.Raycast(hand.position, transform.right, 0.1f);
+        Debug.DrawRay(hand.position, transform.right * 0.1f, Color.red);
+        }
+        else
+        {
+        RaycastHit2D hit = Physics2D.Raycast(hand.position, transform.right, 0.1f);
+        Debug.DrawRay(hand.position, transform.right * -0.1f, Color.red);
+        }
+
+- Agora posso fazer um teste, aplicando um if, para verificar a condicao de "hit" eh true, se eu estiver acertando algo com a mao, vai dizer o que no console;
+- Para isso preciso adicionar dentro dos dois essa checagem, de quando ele encostar a mao em algo, aciona;
+
+        if(facingRight)
+        {
+        RaycastHit2D hit = Physics2D.Raycast(hand.position, transform.right, 0.1f);
+        Debug.DrawRay(hand.position, transform.right * 0.1f, Color.red);
+
+        if(hit)
+            {
+                Debug.Log("Mao colidindo com: " + hit.collider.gameObject.name);
+            }
+        }
+
+        else
+        {
+        RaycastHit2D hit = Physics2D.Raycast(hand.position, transform.right, 0.1f);
+        Debug.DrawRay(hand.position, transform.right * -0.1f, Color.red);
+        
+	if(hit)
+            {
+                Debug.Log("Mao colidindo com: " + hit.collider.gameObject.name);
+            }
+        }
+
+- Porem ele vai ficar colidindo com o Player, pois esta dentro do Player, e ele tambem colide.
+- Para corrigir, vamos criar uma variavel do tipo "LayerMask" e setar qual a layer que eu quero que ele interaja com a mao apenas, podemos chamar de "MaskIntaraction";
+
+	public LayerMask intaraction;   //Obtem a layer que pode ser interagida com a mao;
+
+- Ir dentro da Unity e na "Mask Intaraction" setar a Layer "ObjectInteractive" (Se nao tiver criado esta Layer, criar);
+
+- Agora dentro do comando do RayCast, eu posso adicionar mais um valor, que eh o "maskIntaraction", que vai dizer qual layer eu interajo;
+
+	RaycastHit2D hit = Physics2D.Raycast(hand.position, transform.right, 0.1f, maskIntaraction);
+
+- Verificar novamente se no script esta setado a layer, e testar;
+- No objeto que eu testar, colocar um Box Collider para ele collidir, posso setar como "Trigger" sem problemas;
+- Se eu criar um Raycast maior que alcance 2 objetos ao mesmo tempo, ele soh conta o mais proximo do Player;
+- Rayquest pode ser usado como linha, para um inimigo detectar e atirar no Player;
+- Eh um teste fisico baseado em uma Linha, que soh eh vista no Scene, e nao no Game;
+
+=======================================================================
+
+
+
+=======================================================================
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+=======================================================================
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+
+
+=======================================================================
+25 
+23
+c2
+oF.
+Pu
+19
+4
+6
+d6
+d3
+28
+
+old
+
+C6
+
+20
+24
+L1
+oF.
+Pu
+23
+0
+7
+oF.
+d2
+37
+
+

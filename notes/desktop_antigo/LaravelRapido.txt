@@ -1,0 +1,2168 @@
+Junit, cucumber.
+
+PHP Laravel com elouquente com tinker.
+
+
+
+C:\xampp\htdocs\server\labs\laravel\laravelpuro\projeto
+
+
+
+- laravel new blog
+
+- composer create-project --prefer-dist laravel/laravel blog
+- composer create-project --prefer-dist laravel/laravel blog "5.5.*"
+
+- php artisan			(mostra todos os comandos)
+- php artisan -V		(versao do framework laravel)
+- php artisan --help
+
+- php artisan serve
+
+
+- npm run watch
+- npm audit fix			(corrige problemas no npm)
+- composer dump-autoload	(corrige erros do autoload)
+
+
+- php artisan route:list	(verifica as rotas do projeto)
+- php artisan route:cache	(criar route cache file, mesmo cache do smarty)
+- php artisan route:clear	(Remove o route cache file, mesmo cache do smarty)
+
+- php artisan make:auth		(cria autenticacao no Laravel automaticamente)
+- php artisan make:controller --help
+- php artisan make:controller NomeDoControllador	(/app/Http/Controllers/NomeDoControllador.php)
+- php artisan make:model
+- php artisan key:generate	(gera a chave, caso nao tenha gerado ou vc tenha apagado)
+
+- migrate
+- php artisan migrate:install		(cria o banco de dados)
+- php artisan migrate:refresh		(Reset and re-run all migrations)
+- php artisan migrate:reset		(apaga todo o banco de dado)
+- php artisan migrate:rollback		(Roolback da ultima migracao do database)
+- php artisan migrate:status		(mostra o status da migracao/tabelas que estao rodando)
+
+
+http://127.0.0.1:8000/home
+
+Rota Laravel 8: 
+Route::get('logteste', 'App\Http\Controllers\DashboardController@getLogteste')
+      ->name('logteste');
+
+Route::get('/hellow-world', [\App\Http\Controllers\HelloWorldController::class, 'hellowWorld']);
+
+=====================================================================
+
+Principais diretorios:
+
+
+Configuracoes locais, nao vai para o servidor, esta dentro do ".gitignore".
+
+/.env		-> arquivo de config.
+
+APP_KEY=base64:QgpvyWNRDUzFkglcHCroAvuUqbImUSD8Sco8cj29oxA=	(chave)
+APP_DEBUG=true							(versao desenvolvimento ligada)
+
+Config do banco de dados:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+Tem a linha de configuracao de email tambem.
+
+=====================================================================
+
+Diretorios:
+
+
+Eh a configuracao que sobe para o servidor.
+
+
+/config/app.php
+
+Nome da aplicacao:
+	'name' => env('APP_NAME', 'Laravel'),
+
+
+
+Vai verificar se existe algum valor na ".env" na linha "APP_ENV=local", se nao tiver, ele assume a config do "production". Quando vc sobe para o servidor, ele nao vai encontrar a linha do "APP_ENV" dentro do ".env", vai assumor o "production".
+	'env' => env('APP_ENV', 'production'),
+
+
+
+Vai ficar como False, quando nao tiver nada no debug, ja vai estar valendo, em producao. Ele procura na linha "APP_DEBUG=true" do ".env", como nao vai estar o ".env" em producao, nao vai achar, e vai ser "false".
+	'debug' => (bool) env('APP_DEBUG', false),
+
+
+
+URL voce pode trocar quando tiver um dominio:
+	'url' => env('APP_URL', 'http://localhost'),
+	'asset_url' => env('ASSET_URL', null),
+
+
+
+A chave por default ela pega apenas no ".env" o "APP_KEY=base64:QgpvyWNRDUzFkglcHCroAvuUqbImUSD8Sco8cj29oxA=". 
+	'key' => env('APP_KEY'),
+	'cipher' => 'AES-256-CBC',
+
+Quando subir para o servidor, se nao tiver a chave, nao vai funcionar, como nao vai o ".env", deve-se colocar a chave no lugar. Assim:
+	'key' => env('base64:QgpvyWNRDUzFkglcHCroAvuUqbImUSD8Sco8cj29oxA='),
+	'cipher' => 'AES-256-CBC',
+
+----------------------------------------------------------------------
+
+/config/database.php		(utiliza PDO)
+
+Ele vai deixar por default o "mysql", mas antes ele verifica no ".env" a linha do "DB_CONNECTION".
+	'default' => env('DB_CONNECTION', 'mysql'),
+
+Na linha "connections" voce tem toda a conviguracao que pode ser utilizada para os bancos, configurar o que vai ser usado. 
+	'connections' => [
+
+
+----------------------------------------------------------------------
+=====================================================================
+
+
+Diretorio principal do Laravel:
+
+/app
+
+
+/app/User.php
+Model padrao do Laravel, modelo para autenticar usuarios, login, etc.
+
+
+/app/Http/
+Diretorio onde tem os Middleware, Controller, View.
+
+
+/app/Http/Controllers/Controller.php
+Todo controller vai extender, ser filho, herdar, do Controller principal, que eh esse.
+
+
+/app/Http/Middleware/
+Controlam todas as requisicoes, fazem validacoes.
+
+
+/app/Http/Middleware/VerifyCsrfToken.php
+Verifica a parte de token, faz controle nos formularios, eh obrigatorio a ter para fazer qualquer requisicao POST.
+
+
+/app/Http/Middleware/Kernel.php
+Faz o controle das Middleware.
+
+
+=====================================================================
+
+ROTAS:			//foram divididas.
+
+
+/routes/web.php
+Rota para WEB. Requisicoes WEB. Sistema na WEB, com URLs.
+
+
+/routes/api.php
+Sistema via API, enviando requisicoes para o servidor, como webservice.
+
+
+=====================================================================
+
+
+/app/Providers
+Parte de autenticacao, servicos, rotas.
+
+
+=====================================================================
+
+
+/app/Console
+Ficam os comandos, aqui pode-se criar comandos personalizados para o ARTISAN, ficam salvos aqui.
+
+
+=====================================================================
+
+
+/config
+Vao estar todas as configuracoes, emails, sistemas, arquivos, cache.
+
+
+=====================================================================
+
+
+/database
+Vao ter os diretorios de factory, fabrica de usuarios, fabrica de registros:
+
+
+/database/factories/UserFactory.php
+Metodo Factory para fabrica de usuarios.
+
+Vai criar nomes randomicos, emails, tokens para lembrar a senha. Serve para criar exemplos, pede para a fabrica criar usuarios randomicos e voce testar.
+---------------------------------------------------------------------
+	$factory->define(User::class, function (Faker $faker) {
+    		return [
+        		'name' => $faker->name,
+        		'email' => $faker->unique()->safeEmail,
+        		'email_verified_at' => now(),
+        		'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        		'remember_token' => Str::random(10),
+    		];
+	});
+---------------------------------------------------------------------
+
+
+/database/migrations
+Ferramentas que facilitam criar as tabelas do db.
+Por exemplo:
+
+---------------------------------------------------------------------
+    public function up()
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();			//data de insercao
+        });
+    }
+---------------------------------------------------------------------
+
+/database/seeds
+Criar semeadora, arquivos que podem criar varios registros e produtos.
+
+
+=====================================================================
+
+
+/public
+Eh a pasta publica onde se coloca o CSS, o JS, o doccument_root, aqui que o servidor vai exibir as telas do sistema.
+
+
+=====================================================================
+
+/resource
+Contem as Views.
+
+/resource/views
+Onde colocamos as Views e as blades. Laravel usa blades.
+
+
+=====================================================================
+
+/vendor
+Onde fica todo framework, controlado pelo composer.
+
+=====================================================================
+
+.env.example
+Pode ser usado, renomeado, etc. Para colocar as configuracoes do servidor web.
+
+artisan
+Console de comandos.
+
+Composer.json
+Configuracao do composer.
+
+package.json
+Configuracao do NODEJS.
+
+
+=====================================================================
+
+
+Criando rota:
+
+Entrar em:
+
+/routes/api.php
+Quando voce quer que aplicativos usem ele.
+
+/routes/web.php
+Rotas web.
+
+No web.php ja temos uma rota:
+----------------------------------------------------------------------
+	Route::get('/', function () {
+    		return view('welcome');
+	});
+----------------------------------------------------------------------
+Esta usando o metodo get, caminho da rota, e a funcao retorna a views, que se chama welcome, dentro da pasta /resources/views.
+
+Para criar rota:
+- Route.
+- Metodo: get
+- Caminho '/caminho'
+- Rota, que vai encaminhar para um controller, ou uma funcao ('/', AQUI());
+
+----------------------------------------------------------------------
+	Route::get('/contato', function(){
+    	return "Contato";
+	});
+----------------------------------------------------------------------
+
+Rota para receber um ID:
+----------------------------------------------------------------------
+	Route::get('/contato/{id}', function($id){
+   	return "Contato id = $id";
+	});
+----------------------------------------------------------------------
+Vou receber um (id), e na funcao ela vira uma variavel, que recebe.
+
+
+Valor padrao, nao obrigatorio:
+----------------------------------------------------------------------
+	Route::get('/contato/{id?}', function($id=null){
+    	return "Contato id = $id";
+	});
+----------------------------------------------------------------------
+
+Vou criar agora um contato vazio, e usar um formulario.
+----------------------------------------------------------------------
+	Route::post('/contato', function(){
+  	  return "Contato POST";
+	});
+
+----------------------------------------------------------------------
+
+Crio la dentro da view na "welcome.blade.php" e usar o "{{ csrf_field() }}" ou "@csrf" para usar o token, gerando dentro do form, no form action eu uso a rota definida no web.php como "/contato":
+----------------------------------------------------------------------
+                <div>
+                    <h2>Teste com Rotas:</h2>
+                    <form action="/contato" method="post">
+			{{ csrf_field() }}
+                        <input type="text" name="nome" placeholder="Nome / POST">
+                        <button>Enviar</button>
+                    </form>
+                </div>
+----------------------------------------------------------------------
+
+Verificar dados dentro do POST do contato:
+----------------------------------------------------------------------
+	Route::post('/contato', function(){
+ 	   var_dump($_POST);
+ 	   return "Contato POST";
+	});
+----------------------------------------------------------------------
+
+Mas o laravel possui um metodo chamado DD. Eh um varDump diferente, que da um exit, parando a aplicacao.
+----------------------------------------------------------------------
+	Route::post('/contato', function(){
+    	dd($_POST);
+    	return "Contato POST";
+	});
+----------------------------------------------------------------------
+
+E se eu quiser fazer uma rota com PUT, normalmente usado para dar update em registros, vou recriar o form primeiro, e eu vou ter que colocar um campo input hidden, com o method put, assim eu engano o laravel:
+----------------------------------------------------------------------
+                <div>
+                    <h2>Teste com Rotas:</h2>
+                    <form action="/contato" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="PUT">
+                        <input type="text" name="nome" placeholder="Nome / PUT">
+                        <button>Enviar</button>
+                    </form>
+                </div>
+----------------------------------------------------------------------
+
+No route do PUT:
+----------------------------------------------------------------------
+	Route::put('/contato', function(){
+    	return "Contato PUT";
+	});
+----------------------------------------------------------------------
+======================================================================
+
+Controller:
+
+Para criar o Controller, eles ficam no "/app/Http/Controllers/".
+
+O "/app/Http/Controllers/Controller.php" eh o principal, e serve como modelo para os controllers proprios.
+
+
+- php artisan make:controller NOME_DO_CONTROLLER
+
+- php artisan make:controller ContatoController
+
+Nele, podemos colocar os metodos.
+
+
+Para configurar a rota, para que a rota entregue o controller, ao inves de funcao, envio um array, passando uma chave, e o valor desta chave vai ser o valor do controller, e especifico o metodo dentro do controller com @, no caso metodo index:
+----------------------------------------------------------------------
+	Route::get('/contato/{id?}', ['uses'=>'ContatoController@index']);
+----------------------------------------------------------------------
+
+Dentro do ContatoController.php configuramos o metodo, metodo index:
+----------------------------------------------------------------------
+class ContatoController extends Controller
+{
+    public function index(){
+        return "Esse eh o Index do ContatoController";
+    }
+}
+----------------------------------------------------------------------
+
+Agora eu configuro o POST e o PUT com as rotas, soh mudando o metodo, para criar e editar:
+----------------------------------------------------------------------
+Route::get('/contato/{id?}', ['uses'=>'ContatoController@index']);
+
+Route::post('/contato', ['uses'=>'ContatoController@criar']);
+
+Route::put('/contato', ['uses'=>'ContatoController@editar']);
+----------------------------------------------------------------------
+
+E  no ContatoController.php configuramos os metodos:
+----------------------------------------------------------------------
+class ContatoController extends Controller
+{
+    public function index(){
+        return "Esse eh o Index do ContatoController";
+    }
+
+    public function criar(){
+        return "Esse eh o Criar do ContatoController";
+    }
+
+    public function editar(){
+        return "Esse eh o Editar do ContatoController";
+    }
+
+}
+----------------------------------------------------------------------
+
+Para pegar as informacoes no controller, ele tem os "requests", etc. E declaro uma variavel para ele (pode ser qualquer nome). Tenho que chamar adicionar a biblioteca requests com use. E depois posso usar um dd, chamando a variavel com o campo nome.
+----------------------------------------------------------------------
+ use App\Http\Requests;
+
+    public function criar(Request $req){
+        dd($req['nome']);
+        return "Esse eh o Criar do ContatoController";
+    }
+----------------------------------------------------------------------
+
+Se eu quiser trazer todos os dados, eu simplesmente uso o metodo "all", ao inves de chamar soh um campo, lista todos os registros:
+----------------------------------------------------------------------
+    public function criar(Request $req){
+        dd($req->all());
+        return "Esse eh o Criar do ContatoController";
+    }
+----------------------------------------------------------------------
+======================================================================
+
+Views:
+
+Retornando Views, ao inves de texto, devo utilizar o metodo view(), ao qual ele recebe alguns parametros, o primeiro eh dizer onde esta a view, eu posso dizer tambem se ela esta dentro de algum diretorio, o primeiro diretorio que ela vai olhar eh o "/resources/views/";
+Esta view estara dentro da pasta "/contato/" e tera o nome "index", entao ficara "/resources/views/contato/index.blade.php", e na funcao, eu vou retornar a views com o caminho, soh que ao inves de "/" eu uso ".", como abaixo.
+----------------------------------------------------------------------
+    public function index(){
+        return view('contato.index');
+    }
+----------------------------------------------------------------------
+Posso acessar o codigo acima atravez da rota "http://127.0.0.1:8000/contato" acessando a view.
+
+Para mandar uma lista para a view. Podemos utilizar o metodo compact mandando soh o nome do parametro(contatos):
+"('contato.index',compact('contatos'))", 
+
+Se eu tivesse mais de uma lista, soh precisaria colocar uma ",":
+"('contato.index',compact('contatos','outralista'))", 
+
+ou utilizar um array "('contato.index', ["dados"=>])";
+----------------------------------------------------------------------
+    public function index(){
+        $contatos = [
+        ["nome"=>"Maria","tel"=>"6564773"],
+        ["nome"=>"Pedro","tel"=>"6444444"]
+        ];
+        
+        return view ('contato.index', compact('contatos'));
+    }
+----------------------------------------------------------------------
+
+E para acessar na index os valores, vou utilizar o blade, que o mesmo que o smarty. Podendo usar um foreach, "@foreach ($collection as $item)
+@endforeach", exibindo as variaveis dentro com chaves duplas {{$variavel['campo']}}.
+----------------------------------------------------------------------
+	<h3>Essa eh a view index.</h3>
+
+	@foreach ($contatos as $contato)
+	<p>{{$contato['nome']}}</p>
+	<p>{{$contato['telefone']}}</p>
+	@endforeach
+----------------------------------------------------------------------
+
+Se ao inves de usar lista, quiser usar um objeto (object):
+----------------------------------------------------------------------
+    public function index(){
+        $contatos = [
+        (object) ["nome"=>"Maria","tel"=>"6564773"],
+        (object) ["nome"=>"Pedro","tel"=>"6444444"]
+        ];
+        
+        return view ('contato.index', compact('contatos'));
+    }
+----------------------------------------------------------------------
+
+E ao inves de acessar via array, vou usar a expressao de instancia:
+----------------------------------------------------------------------
+	<h3>Essa eh a view index.</h3>
+
+	@foreach ($contatos as $contato)
+	<p>{{ $contato->nome }}</p>
+	<p>{{ $contato->tel }}</p>
+	@endforeach
+----------------------------------------------------------------------
+
+Blade eh o sistema de template do Laravel.
+Vamos criar dentro das views uma pasta layout: "/resources/views/layout/". La dentro eu crio as minhas blades: "/resources/views/layout/site.blade.php". E dentro dele ja meto o html padrao.
+Se eu quiser que em cada views eu queira alterar o titulo, assim como no smarty, soh que com metodo do blade, cliando ela com "@yield".
+----------------------------------------------------------------------
+<html>
+<head>
+    <title>@yield('titulo')</title>
+</head>
+<body>
+</body>
+</html>
+----------------------------------------------------------------------
+
+E para modificar o titulo, temos que extender, o "site.blade.php", e dizer qual o tema que ele extende.
+Como a "index.blade.php" esta dentro da "/resources/views/contato/index.blade.php", vamos usar o seguinte comando e caminho:
+----------------------------------------------------------------------
+	@extends('layout.site')
+
+	    <h3>Essa eh a view index.</h3>
+
+	    @foreach ($contatos as $contato)
+	    <p>{{ $contato->nome }}</p>
+	    <p>{{ $contato->tel }}</p>
+	    @endforeach
+----------------------------------------------------------------------
+
+E para alterar o valor do titulo, eu vou criar uma sessao "@session".
+Dentro dela eu vou colocar a variavel $titulo e virgula o valor que eu quero passar para ela, tal como no smarty.
+----------------------------------------------------------------------
+	@extends('layout.site')
+
+	@section('titulo', 'Contatos')
+    
+	@endsection
+
+	    <h3>Essa eh a view index.</h3>
+
+	    @foreach ($contatos as $contato)
+	    <p>{{ $contato->nome }}</p>
+	    <p>{{ $contato->tel }}</p>
+	    @endforeach
+----------------------------------------------------------------------
+
+E para ver na outra blade, temos que dizer que esta dentro do body, e chamar ela pela sessao. Abro a sessao em cima e fecho la embaixo. Tudo que tiver dentro, deste section, eu estou colocando o conteudo dentro.
+----------------------------------------------------------------------
+@extends('layout.site')
+
+@section('titulo', 'Contatos')
+    
+@section('conteudo')
+
+    <h3>Essa eh a view index.</h3>
+
+    @foreach ($contatos as $contato)
+    <p>{{ $contato->nome }}</p>
+    <p>{{ $contato->tel }}</p>
+    @endforeach
+
+@endsection
+----------------------------------------------------------------------
+
+Na blade ou view, que fica dentro de layout, temos que chamar ela, chamamos com a "@yield" e a variavel. Onde vai ser impresso tudo que tiver na views; Pode testar usando o: "http://127.0.0.1:8000/contato".
+----------------------------------------------------------------------
+	<html>
+	<head>
+	    <title>@yield('titulo')</title>
+	</head>
+	<body>
+    
+		@yield('conteudo')
+
+	</body>
+	</html>
+----------------------------------------------------------------------
+
+
+
+################################################################	INCLUDES:
+
+@includes('variavel_ou_caminho')
+
+Vou criar uma pasta "_includes" dentro de "/resources/views/layout/_includes".
+E dentro dela vou criar um "topo.blade.php" e um "footer.blade.php".
+
+E para chamar eles da "/resources/views/layout/site.blade.php", eu vou passar o caminho no include do topo e do rodape, entre o conteudo:
+----------------------------------------------------------------------
+	<html>
+	<head>
+	    <title>@yield('titulo')</title>
+	</head>
+	<body>
+   
+	@include('layout._includes.topo')
+
+	@yield('conteudo')
+
+	@include('layout._includes.footer')
+
+	</body>
+	</html>
+----------------------------------------------------------------------
+
+- E agora posso separar todos e acessar pelo "http://127.0.0.1:8000/contato":
+
+
+"/resources/views/layout/_includes/topo.blade.php"
+----------------------------------------------------------------------
+	<html>
+	<head>
+	    <title>@yield('titulo')</title>
+	</head>
+	<body>
+----------------------------------------------------------------------
+
+"/resources/views/layout/site.blade.php"
+----------------------------------------------------------------------
+  
+	@include('layout._includes.topo')
+
+	@yield('conteudo')
+
+	@include('layout._includes.footer')
+
+----------------------------------------------------------------------
+
+"/resources/views/layout/_includes/footer.blade.php"
+----------------------------------------------------------------------
+	</body>
+	</html>
+----------------------------------------------------------------------
+======================================================================
+
+
+##############################################################		MODEL/MODELOS:
+
+- Eh aqui que criamos os modelos para cada tabela do banco de dados.
+
+"/app/"
+
+"/app/User.php" = modelo padrao do laravel como exemplo.
+
+
+Para criar um Modelo, vamos criar agora um modelo de contato pelo terminal:
+
+#> php artisan make:model NomeDoModelo
+
+#> php artisan make:model Contato
+
+#> php artisan make:model Contato -m	(-m manda ele fazer uma migracao no banco de dados)
+
+Todos os modelos tem que ser em singular, pois este projeto representa um contato apenas, e quando der o migration, ele vai criar a tabela no banco de dados de apenas um contato. Se vc der o -m para ele migrar para o banco, la no banco ele vai colocar/migrar como "contatos" no plural, por isso nao se usa.
+
+No Prompt vamos entao:
+----------------------------------------------------------------------
+$ php artisan make:model Contato -m
+Model created successfully.
+Created Migration: 2020_05_12_001630_create_contatos_table
+----------------------------------------------------------------------
+
+Dentro do "/app/Contato.php" que ele criou, vamos ter o modelo pronto:
+----------------------------------------------------------------------
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Contato extends Model
+{
+    //
+}
+----------------------------------------------------------------------
+
+E dentro de "/database/migrations/2020_05_12_001630_create_contatos_table.php" ele criou o modelo tb:
+----------------------------------------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateContatosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('contatos', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('contatos');
+    }
+}
+----------------------------------------------------------------------
+
+Agora, dentro do "/app/Http/Controller/ContatoController.php" eu quero acessar o meu "/app/Contato.php". Vou criar um metodo basico no Contato.php para retornar alguns dados e receber la no ContatoController.php . Vou criar um array list que retorna um objeto.
+----------------------------------------------------------------------
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Contato extends Model
+{
+    public function lista(){
+        return (object)[
+            'nome'=>'Joao',
+            'tel'=>'4654164964'
+        ];
+    }
+}
+----------------------------------------------------------------------
+
+E dentro do ContatoController.php eu vou criar uma variavel, que vai receber esse Model Contato.php:
+"$contato = new \App\Contato();";
+----------------------------------------------------------------------
+    public function index(){
+        $contatos = [
+        (object) ["nome"=>"Maria","tel"=>"6564773"],
+        (object) ["nome"=>"Pedro","tel"=>"6444444"]
+        ];
+       
+        $contato = new \App\Contato();
+        dd($contato->lista());
+        
+        return view ('contato.index', compact('contatos'));
+    }
+----------------------------------------------------------------------
+
+E ja podemos testar no controller "http://127.0.0.1:8000/contato":
+----------------------------------------------------------------------
+{#257 
+  +"nome": "Joao"
+  +"tel": "4654164964"
+}
+----------------------------------------------------------------------
+
+Para melhorar a chamada da instancia do objeto, ao inves de digitar "new \App\Contato()", vamos add ele no "use" la em cima, e soh chamar ali pelo basico.
+(Esse nao eh todo o codigo, eh soh para mostrar como fica a partir de add o "use App\Contato" e depois soh usar um "new Contato();" para instanciar o objeto):
+----------------------------------------------------------------------
+	use App\Http\Requests;
+	use App\Contato;
+
+	class ContatoController extends Controller
+	{
+	    public function index(){
+ 	       $contatos = [
+ 	       (object) ["nome"=>"Maria","tel"=>"6564773"],
+ 	       (object) ["nome"=>"Pedro","tel"=>"6444444"]
+ 	       ];
+       
+  	      $contato = new Contato();
+  	      dd($contato->lista());
+        
+ 	       return view ('contato.index', compact('contatos'));
+ 	   }
+----------------------------------------------------------------------
+
+Para exibir apenas o nome, e nao tudo como ali em cima, vamos usar a seguinte variavel "$con = $contato->lista();", e no dd chamar apenas a variavel e o atributo "dd($con->nome);":
+----------------------------------------------------------------------
+        $contato = new Contato();
+        $con = $contato->lista();
+        dd($con->nome);
+----------------------------------------------------------------------
+
+
+##############################################################		Migracoes
+
+
+Migracoes sao um controle de versao sobre tudo que for fazer no banco de dados, vamos modelar o banco com o PHP.
+Podemos dar rollback no banco, voltando as migracoes tambem.
+
+"/database/migrations/"
+
+
+Pode verificar as sintaxes no endereco, na parte "Available Column Types":
+"https://laravel.com/docs/7.x/migrations"
+
+
+Criando nova migracao:
+
+#> php artisan make:migration NomeDaMigracao
+
+Para preparar automatico e ele criar com todos os componentes e montar a estrutura de "produtos" por exemplo:
+
+#> php artisan make:migration create_produtos_table --create=produtos
+
+Resultado:
+Created Migration: 2020_05_12_031520_create_produtos_table
+
+Arquivo criado: "/database/migrations/2020_05_12_031520_create_produtos_table";
+----------------------------------------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProdutosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('produtos', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('produtos');
+    }
+}
+----------------------------------------------------------------------
+
+Agora eu vou criar os meus proprios campos ali no "schema".
+----------------------------------------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProdutosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('produtos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('titulo');
+            $table->string('descricao');
+            //ele vai ter 5 numeros antes da "," e 2 numeros depois do ".". E colocamos um valor padrao com default:
+            //$table->decimal('valor', 5,2)->default(0.00);     
+            $table->decimal('valor', 5,2);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('produtos');
+    }
+}
+----------------------------------------------------------------------
+
+Agora vamos fazer o mesmo com "2020_05_12_001630_create_contatos_table", ajustar as tabelas conforme queremos:
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateContatosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('contatos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nome');
+            $table->string('telefone');
+            $table->string('email');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('contatos');
+    }
+}
+
+----------------------------------------------------------------------
+
+Vamos configurar o banco de dados para o sqlite.
+
+- Acessar o arquivo ".env"
+
+- Modificar a linha: "DB_CONNECTION=sqlite"
+
+- No arquivo "/config/database.php" tem a linha " 'default' => env('DB_CONNECTION', 'mysql'), " onde que se nao tiver banco configurado na linha acima "DB_CONNECTION", ele parte para o mysql, se tiver ele acessa a configuracao indicada a linha acima do "DB_CONNECTION".
+
+- Para configurar o SQLITE, devemos criar exatamente como diz na linha:
+	'database' => env('DB_DATABASE', database_path('database.sqlite')),
+
+- Deletar no ".env" a linha:	"DB_DATABASE=laravel";
+
+- Agora preciso criar o arquivo "database.sqlite", que indica na linha acima do "database";
+
+- Vou criar o "database dentro da raiz do "/database", criando um arquivo vazio "database.sqlite".
+
+- No momento que eu rodar minhas migracoes, ele vai criar as tabelas no "database.sqlite".
+
+- Rodar o comando:
+
+#> php artisan migrate
+
+- Ele vai gerar no banco de dados todas as tabelas que foram criadas no arquivo php.
+
+- Resultado:
+----------------------------------------------------------------------
+$ php artisan migrate
+Migration table created successfully.
+Migrating: 2014_10_12_000000_create_users_table
+Migrated:  2014_10_12_000000_create_users_table (0.01 seconds)
+Migrating: 2019_08_19_000000_create_failed_jobs_table
+Migrated:  2019_08_19_000000_create_failed_jobs_table (0 seconds)
+Migrating: 2020_05_12_001630_create_contatos_table
+Migrated:  2020_05_12_001630_create_contatos_table (0 seconds)
+Migrating: 2020_05_12_031520_create_produtos_table
+Migrated:  2020_05_12_031520_create_produtos_table (0.05 seconds)
+----------------------------------------------------------------------
+
+
+Configurando Laravel com MYSQL:
+
+- Dentro de ".env" devo configurar na linha:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=curso_intro_laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+
+- E criar o novo banco pelo "phpmyadmin": "curso_intro_laravel".
+
+- E rodar o comando para migrar:
+
+#> php artisan migrate
+
+- Resultado:
+----------------------------------------------------------------------
+$ php artisan migrate
+Migration table created successfully.
+Migrating: 2014_10_12_000000_create_users_table
+Migrated:  2014_10_12_000000_create_users_table (0.11 seconds)
+Migrating: 2019_08_19_000000_create_failed_jobs_table
+Migrated:  2019_08_19_000000_create_failed_jobs_table (0.04 seconds)
+Migrating: 2020_05_12_001630_create_contatos_table
+Migrated:  2020_05_12_001630_create_contatos_table (0.01 seconds)
+Migrating: 2020_05_12_031520_create_produtos_table
+Migrated:  2020_05_12_031520_create_produtos_table (0.01 seconds)
+----------------------------------------------------------------------
+
+- Resetar as tabelas (dar Rollback):
+
+#> php artisan migrate:reset
+
+Vai ficar soh a migrations no banco de dados.
+----------------------------------------------------------------------
+$ php artisan migrate:reset
+Rolling back: 2020_05_12_031520_create_produtos_table
+Rolled back:  2020_05_12_031520_create_produtos_table (0.08 seconds)
+Rolling back: 2020_05_12_001630_create_contatos_table
+Rolled back:  2020_05_12_001630_create_contatos_table (0.01 seconds)
+Rolling back: 2019_08_19_000000_create_failed_jobs_table
+Rolled back:  2019_08_19_000000_create_failed_jobs_table (0 seconds)
+Rolling back: 2014_10_12_000000_create_users_table
+Rolled back:  2014_10_12_000000_create_users_table (0 seconds)
+----------------------------------------------------------------------
+======================================================================
+
+##############################################################	Criar registros no banco (TINKER).
+
+- Vou usar o Eloquent com Ferramenta Tinker.
+
+- Vamos acessar o "/Providers/Contato.php".
+
+Para criar o novo contato, eu vou utilizar apenas o terminal.
+
+Acessar a ferramenta "tinker" pelo terminal.
+
+#> php artisan tinker
+
+Ele vai abrir a ferramenta pelo terminal, e eu tenho acesso as classes do projeto.
+Vou dar o caminho e usar o ::metodo eloquente.
+
+>>> App\Contato::all();
+
+Resultado:
+----------------------------------------------------------------------
+=> Illuminate\Database\Eloquent\Collection {#3024
+     all: [],
+----------------------------------------------------------------------
+
+Como nao tem nenhum registro dentro de contato, vamos criar um novo contato (instanciar).
+
+>>> $contato1 = new App\Contato();
+=> App\Contato {#3963}
+
+>>> $contato1->nome = "Jack";
+=> "Jack"
+
+>>> $contato1->telefone = "5454545454";
+=> "5454545454"
+
+>>> $contato1->email = "teste@jackbravo.com";
+=> "teste@jackbravo.com"
+
+>>> $contato1;
+=> App\Contato {#3963
+     nome: "Jack",
+     telefone: "5454545454",
+     email: "teste@jackbravo.com",
+   }
+
+
+
+Como pode ver, a variavel $contato recebeu um array associativo (objeto), com os dados, no final ao exibir o objeto, ele continha ja todos os dados, exceto, o fato de que ainda nao enviou para o banco.
+
+- Para salvar no banco:
+
+>>> $contato1->save();
+=> true
+
+Ao verificar no banco, esta salvo.
+
+- Listar todos os dados do banco:
+
+>>> App\Contato::all();
+=> Illuminate\Database\Eloquent\Collection {#3968
+     all: [
+       App\Contato {#3815
+         id: 1,
+         nome: "Jack",
+         telefone: "5454545454",
+         email: "teste@jackbravo.com",
+         created_at: "2020-05-12 05:00:57",
+         updated_at: "2020-05-12 05:00:57",
+       },
+     ],
+   }
+
+- Deletar o registro, sabendo que o id dele eh 1.
+- Verificar primeiro exibindo:
+
+>>> $con = App\Contato::find(1);
+=> App\Contato {#3975
+     id: 1,
+     nome: "Jack",
+     telefone: "5454545454",
+     email: "teste@jackbravo.com",
+     created_at: "2020-05-12 05:00:57",
+     updated_at: "2020-05-12 05:00:57",
+   }
+
+- Deletando:
+
+>>> $con->delete();
+=> true
+
+- Verificando novamente:
+
+>>> $con = App\Contato::find(1);
+=> null
+
+----------------------------------------------------------------------
+
+
+################################################################	CRUD DO 0;
+
+- Primeira coisa no Laravel para criar um crud:
+
+- Criar o Modelo (ja existe o modelo de "app/Contato.php" e o "app/User.php" que vem junto com o Laravel).
+
+- Sempre criar no singular.
+
+- Criar modelo "Curso", cria e configura primeiro "/database/migrations/" e depois o modelo;
+
+#> php artisan make:model Curso -m;
+Model created successfully.
+Created Migration: 2020_05_12_055108_create_cursos_table
+
+- Foi criado na pasta "/database/migrations/2020_05_12_055108_create_cursos_table.php".
+
+- Agora pode alterar no arquivo os campos, conforme quisermos:
+----------------------------------------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCursosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('cursos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('titulo');
+            $table->string('descricao');
+            $table->string('imagem');
+            $table->decimal('valor', 5,2);
+            $table->enum('publicado',['sim','nao'])->default('nao');
+                
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('cursos');
+    }
+}
+----------------------------------------------------------------------
+
+- Rodar o comando para criar a tebela no banco de dados:
+
+#> php artisan migrate
+Migrating: 2020_05_12_055108_create_cursos_table
+Migrated:  2020_05_12_055108_create_cursos_table (0.03 seconds)
+
+- Apos podemos ja criar o Controler, aproveitando o terminal, dentro de "/app/Http/Admin/CursoController", vai criar com namespace corretamente;
+
+#> php artisan make:controller Admin/CursoController
+Controller created successfully.
+
+----------------------------------------------------------------------
+
+#################################################################	ROTAS DO CRUD:
+
+- Definindo minha primeira rota, com o metodo GET no "/router/web.php".
+
+----------------------------------------------------------------------
+/*
+Vou listar todos os cursos cadastrados, definindo um apelido para a rota com o "as". 
+O apelido impede de vc ter que alterar as rotas na mao, caso mude as pastas.
+Depois vamos colocar o Controller com o 'uses' e usar o metodo @index.
+A rota pega por padrao dentro do caminho: "/app/Http/Controllers/", entao nao precisa colocar todo o caminho fisico.
+Resumindo: 
+Rota::Metodo('URL', ['metodo_apelido'=>Caminho_Fisico, 'metodo_a_ser_usado'=>'caminho_do_metodo_Controller@metodo']);
+*/
+Route::get('/admin/cursos', ['as'=>'admin.cursos', 'uses'=>'Admin\CursoController@index']);
+
+//Adicionar;
+Route::get('/admin/cursos/adicionar', ['as'=>'admin.cursos.adicionar', 'uses'=>'Admin\CursoController@adicionar']);
+
+//Salvar os dados.
+Route::post('/admin/cursos/salvar', ['as'=>'admin.cursos.salvar', 'uses'=>'Admin\CursoController@salvar']);
+
+//Editar, para editar vou precisar do ID, entao vou colocar {id} para ele receber este ID.
+Route::get('/admin/cursos/editar/{id}', ['as'=>'admin.cursos.editar', 'uses'=>'Admin\CursoController@editar']);
+
+//para atualizar o que foi editado, vamos usar outro metodo, com o metodo PUT.
+Route::put('/admin/cursos/atualizar/{id}', ['as'=>'admin.cursos.atualizar', 'uses'=>'Admin\CursoController@atualizar']);
+
+//Deletar;
+Route::get('/admin/cursos/deletar/{id}', ['as'=>'admin.cursos.deletar', 'uses'=>'Admin\CursoController@deletar']);
+----------------------------------------------------------------------
+
+- Agora vamos personalizar o Sistema, com o Materialize.
+
+Dados para para usar online CDN:
+----------------------------------------------------------------------
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+----------------------------------------------------------------------
+
+Modelo Padrao:
+----------------------------------------------------------------------
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+
+      <!--JavaScript at end of body for optimized loading-->
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+    </body>
+  </html>
+----------------------------------------------------------------------
+
+Colocar o modelo dentro de "/resources/views/layout/_includes/topo.blade.php"
+----------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@yield('titulo')</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <div class="nav-wrapper deep-orange">
+              <a href="#!" class="brand-logo">Curso de Laravel</a>
+              <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+              <ul class="right hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li><a href="{{route('admin.cursos')}}">Cursos</a></li>
+              </ul>
+            </div>
+          </nav>
+        
+          <ul class="sidenav" id="mobile">
+            <li><a href="/">Home</a></li>
+          <li><a href="{{route('admin.cursos')}}">Cursos</a></li>
+          </ul>    
+    </header>
+----------------------------------------------------------------------
+
+Para colocar o apelido da rota no menu navbar, e ela funcionar quando clickar no menu e ir para o link, como esta acima:
+----------------------------------------------------------------------
+<li><a href="{{route('admin.cursos')}}">Cursos</a></li>
+----------------------------------------------------------------------
+
+
+Colocar o modelo dentro de "/resources/views/layout/_includes/footer.blade.php"
+----------------------------------------------------------------------
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- verificar se o Jcarry carregou, e o que tiver dentro, ele vai carregar -->
+    <script type="text/javascript">
+       $(document).ready(function(){
+           Materialize.updateTextFields();
+           /* inicializa a navbar */
+           $(".button-collapse").sideNav();
+       });
+    </script>
+</body>
+</html>
+----------------------------------------------------------------------
+
+Agora vamos criar um diretorio de admin para criar a rota index e trazer o usuario para uma view:
+
+"/resources/admin/cursos/index.blade.php"
+
+----------------------------------------------------------------------
+
+Agora vamos verificar o "CursoController.php" e criar os metodos, nosso index, vai retornar para nossa view, pelo caminho descrito:
+----------------------------------------------------------------------
+class CursoController extends Controller
+{
+    public function index(){
+        return view('admin.cursos.index');
+    }
+}
+----------------------------------------------------------------------
+
+Agora dentro de "/resources/views/admin/curso/index.blade.php", vamos criar fazer igual o do contato.
+E visualizar no "http://127.0.0.1:8000/admin/cursos".
+----------------------------------------------------------------------
+@extends('layout.site')
+
+@section('titulo', 'Contatos')
+    
+@section('conteudo')
+    <div class="container">
+    <h3 class="center">Lista de cursos</h3>
+    </div>
+@endsection
+----------------------------------------------------------------------
+
+Agora precisamos enviar os nosso cursos, abrindo o CursoController.php, que vai listar os cursos;
+----------------------------------------------------------------------
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class CursoController extends Controller
+{
+    public function index(){
+        $registros = Curso::all();
+        return view('admin.cursos.index', compact('registros'));
+    }
+}
+----------------------------------------------------------------------
+
+Para exibir as imagems no laravel da pasta public, vamos usar um helper dele: "asset".
+Na "resources/views/admin/cursos/index.blade.php"
+----------------------------------------------------------------------
+@extends('layout.site')
+
+@section('titulo', 'Contatos')
+    
+@section('conteudo')
+    <div class="container">
+    <h3 class="center">Lista de cursos</h3>
+        
+    <div class="row">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Imagem</th>
+                    <th>Publicado</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                @@foreach ($registros as $registro)
+                <tr>
+                <td>{{$registro->id}}</td>
+                <td>{{$registro->titulo}}</td>
+                <td>{{$registro->descricao}}</td>
+                <!-- Para exibir as imagems no laravel da pasta public, vamos usar um helper dele: asset -->
+                <td><img width="120" src="{{asset($registro->imagem)}}" alt="{{$registro->titulo}}"></td>
+                <td>{{$registro->publicado}}</td>
+                <td>
+                <!-- Para mandar o ID como parametro, coloca a rota com o caminho/apelido, depois coloca uma "," e coloca o parametro -->
+                <a class="btn deep-danger" href="{{ route('admin.cursos.editar', $registro->id) }}">Editar</a>
+                <a class="btn red" href="{{ route('admin.cursos.deletar', $registro->id) }}">Deletar</a>
+                </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+        <div class="row">
+        <a class="btn blue" href="{{ route('admin.cursos.adicionar') }}">Adicionar</a>
+        </div>
+</div>
+@endsection
+----------------------------------------------------------------------
+
+Agora vamos criar o metodo adicionar.
+
+vamos entrar em "/app/Http/Controllers/Admin/CursoController.php", que vai retornar uma views que esta dentro do "/resources/views/admin/cursos/adicionar/index.blade.php";
+----------------------------------------------------------------------
+class CursoController extends Controller
+{
+    public function index(){
+        $registros = Curso::all();
+        return view('admin.cursos.index', compact('registros'));
+    }
+
+    public function adicionar(){
+        return view('admin.cursos.adicionar');
+    }
+
+}
+----------------------------------------------------------------------
+
+E vou colar todo o codigo da index da mesma pasta, no adicionar, soh excluindo alguns itens que nao vai precisar.
+
+Agora vamos no "adicionar.blade.php" tambem o @csrf, e o @include:
+----------------------------------------------------------------------
+@extends('layout.site')
+
+@section('titulo', 'Cursos')
+
+@section('conteudo')  
+    
+<div class="container">  
+    <h3 class="center">Adicionar Curso</h3>
+    <div class="row">
+    <form class="" action="{{ route('admin.cursos.salvar') }}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+
+        @include('admin.cursos._form')
+        <button class="btn deep-orange">Salvar</button>
+    </form>
+    </div>
+</div>
+@endsection
+----------------------------------------------------------------------
+
+E na _form.blade.php, vamos fazer o formulario de adicionar:
+----------------------------------------------------------------------
+<div class="input-field">
+    <!-- Se existir a variavel registro com campo titulo setado, se nao por padrao eh vazio e o teste em linha "?" do php -->
+    <!-- o campo NAME recebe o atributo do mesmo valor que esta no banco de dados -->
+    <input type="text" name="titulo" value="{{isset($registro->titulo) ? $registro->titulo:''}}">
+    <label>Título</label>
+</div>
+
+<div class="input-field">
+    <input type="text" name="descricao" value="{{isset($registro->descricao) ? $registro->descricao:''}}">
+    <label>Descrição</label>
+</div>
+
+<div class="input-field">
+    <input type="text" name="valor" value="{{isset($registro->valor) ? $registro->valor:''}}">
+    <label>Valor</label>
+</div>
+    
+    <!-- para trabalhar com imagens, devemos usar a classe file-field -->
+<div class="file-field input-field">
+    <div class="btn blue">
+    <span>Imagem</span>
+    <input type="file" name="imagem">
+    </div>
+    <div class="file-path-wrapper">
+        <input class="file-path validate" type="text">
+</div>
+
+<!-- verifica se a imagem existe -->
+@if(isset($registro->imagem))
+<div class="input-field">
+    <img width="150" src="{{ asset($registro->imagem) }}" />
+</div>
+@endif
+
+<div class="input-field">
+    <p>
+        <!-- Se existir a opcao de selecionado, ele coloca valor sim, se nao ele coloca vazio -->
+        <input type="checkbox" id="test5"  name="publicado" {{ isset($registro->publicado) && $registro->publicado == "sim" ? 'checked' : '' }} value="true" />
+        <label for="test5">Publicar?</label>
+    </p>
+    <br><br>
+</div>
+</div>
+----------------------------------------------------------------------
+
+- Metodo para salvar.
+
+- Temos que ir no nosso "/app/Http/Controllers/Admin/CursoController.php" e vamos criar/adicionar a funcao salvar, recebendo a requisicao no Salvar, pegando essa requisicao com Request, criando uma variavel para receber esta requisicao. E dar um metodo "all()" para ele trazer todos os dados.
+----------------------------------------------------------------------
+    public function salvar(Request $req){
+        $dados = $req->all();
+        dd($dados);
+    }
+----------------------------------------------------------------------
+
+Apos adicionar no "http://127.0.0.1:8000/admin/cursos/adicionar", retornara:
+----------------------------------------------------------------------
+array:5 [
+  "_token" => "0CS7qkNLWtgxxJDtyTzXxMrAyf6XjDTt6ISKOQ1H"
+  "titulo" => "Teste"
+  "descricao" => "Descrição 2"
+  "valor" => "4343"
+  "imagem" => Illuminate\Http\UploadedFile {#254 
+    -test: false
+    -originalName: "rato.png"
+    -mimeType: "image/png"
+    -error: 0
+    #hashName: null
+    path: "C:\xampp\tmp"
+    filename: "php1F25.tmp"
+    basename: "php1F25.tmp"
+    pathname: "C:\xampp\tmp\php1F25.tmp"
+    extension: "tmp"
+    realPath: "C:\xampp\tmp\php1F25.tmp"
+    aTime: 2020-05-12 23:27:45
+    mTime: 2020-05-12 23:27:45
+    cTime: 2020-05-12 23:27:45
+    inode: 0
+    size: 3972
+    perms: 0100666
+    owner: 0
+    group: 0
+    type: "file"
+    writable: true
+    readable: true
+    executable: false
+    file: true
+    dir: false
+    link: false
+    linkTarget: "C:\xampp\tmp\php1F25.tmp"
+  }
+]
+----------------------------------------------------------------------
+
+Teste sem a imagem, agora corrigido, "publicado" = true.
+----------------------------------------------------------------------
+array:5 [
+  "_token" => "0CS7qkNLWtgxxJDtyTzXxMrAyf6XjDTt6ISKOQ1H"
+  "titulo" => "Teste"
+  "descricao" => "Descrição 2"
+  "valor" => "4343"
+  "publicado" => "true"
+]
+----------------------------------------------------------------------
+
+Dentro do "/app/Http/Controller/Admin/CursoController.php" eu vou criar um recurso super importante, que eh adicionar uma imagem e renomear ela, colocando extensao, e o caminho com nome no banco de dados:
+----------------------------------------------------------------------
+    public function salvar(Request $req){
+        
+        $dados = $req->all();
+        
+        //teste para ver se foi clicado em publicado. Campo obrigatorio.
+        if(isset($dados['publicado'])){
+            $dados['publicado'] = 'sim';
+        }else{
+            $dados['publicado'] = 'nao';
+        }
+                
+        //vou tratar a imagem e adicionar no banco, para tratar vou pegar a $req e vou usar um metodo que verifica se existe arquivos "hasFile", que vai verificar se existe alguma imagem.
+        if ($req->hasFile('imagem')){
+            $imagem = $req->file('imagem');
+            //vou criar uma variavel para colocar um numero randomico para ser colocado o nome da imagem, com rand;
+            $num = rand(1111,9999);
+            //Diretorio que eu vou salvar a imagem:
+            $dir = "img/cursos/";
+            //defino a extensao do arquivo com um metodo do Laravel guessClientExtension();
+            $ex = $imagem->guessClientExtension();
+            //crio o nome do arquivo juntando os recursos.
+            $nomeImagem = "imagem_".$num.".".$ex;
+            //agora vou usar o metodo "move" que vai mover a imagem para o diretorio, parametro: "diretorio, nome_da_imagem);
+            $imagem->move($dir,$nomeImagem);
+            //preciso atribui o nome e o caminho desta imagem para salvar no banco. Pegando das variaveis.
+            $dados['imagem'] = $dir."/".$nomeImagem;
+        }
+        //agora vou salvar estes dados, utilizando o metodo create e mandando todos os dados, para salvar no banco de dados.
+        Curso::create($dados);
+
+        return redirect()->route('admin.cursos');
+
+    }
+----------------------------------------------------------------------
+
+Dentro de "/app/Http/Curso.php" tenho que definir os campos "$fillable", para que o Laravel saiba, quais os campos que ele pode atribuir em massa:
+----------------------------------------------------------------------
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Curso extends Model
+{
+    protected $fillable = [
+        'titulo', 'descricao', 'valor', 'imagem', 'publicado'
+    ];
+}
+----------------------------------------------------------------------
+
+Agora podemos testar na "http://127.0.0.1:8000/admin/cursos/adicionar"
+
+----------------------------------------------------------------------
+
+Vamos criar o metodo para editar no "/app/Http/Controller/Admin/CursoController.php" e vamos colocar ao fim do codigo anterior:
+----------------------------------------------------------------------
+    //como o editar envia um ID, vamos receber um ID no editar, e vamos criar um registro, que recebe o Curso, e da um find do registro pelo ID, e retornar a view. E vamos enviar as informacoes pelo compact registro.
+    public function editar($id){
+        $registro = Curso::find($id);
+        return view('admin.cursos.editar',compact('registro'));
+    }
+
+----------------------------------------------------------------------
+
+Na view dele, vamos copiar o "/resources/views/admin/cursos/adicionar.blade.php" para a mesma pasta e reaproveitar o codigo, criando o "editar.blade.php" e alterar.
+No atualizar vamos enviar um ID, segundo consta no arquivo de rotas, portanto vai ter um segundo parametro, o "$registro->id".
+
+----------------------------------------------------------------------
+@extends('layout.site')
+
+@section('titulo', 'Cursos')
+
+@section('conteudo')  
+    
+<div class="container">  
+    <h3 class="center">Editando Curso</h3>
+    <div class="row">
+    <!-- A rota editar, vai esperar um ID, entao devemos criar um campo a mais com uma variavel que recebe o ID -->
+    <form class="" action="{{route('admin.cursos.atualizar', $registro->id)}}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <!-- Aqui precisamos de um metodo PUT, e precisamos configurar ele com esta proxima linha -->
+        <input type="hidden" name="_method" value="put">
+        @include('admin.cursos._form')
+        <button class="btn deep-orange">Atualizar</button>
+    </form>
+    </div>
+</div>
+@endsection
+----------------------------------------------------------------------
+
+Agora podemos verificar em "127.0.0.1:8000/admin/cursos/"
+
+Agora vou criar o metodo para atualizar, dentro do proprio "App\Http\Controllers\Admin\CursoController.php", adicionando ao final.
+----------------------------------------------------------------------
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Curso;
+
+class CursoController extends Controller
+{
+    public function index(){
+        $registros = Curso::all();
+        return view('admin.cursos.index', compact('registros'));
+    }
+
+    public function adicionar(){
+        return view('admin.cursos.adicionar');
+    }
+
+    public function salvar(Request $req){
+        
+        $dados = $req->all();
+        
+        //teste para ver se foi clicado em publicado. Campo obrigatorio.
+        if(isset($dados['publicado'])){
+            $dados['publicado'] = 'sim';
+        }else{
+            $dados['publicado'] = 'nao';
+        }
+                
+        //vou tratar a imagem e adicionar no banco, para tratar vou pegar a $req e vou usar um metodo que verifica se existe arquivos "hasFile", que vai verificar se existe alguma imagem.
+        if ($req->hasFile('imagem')){
+            $imagem = $req->file('imagem');
+            //vou criar uma variavel para colocar um numero randomico para ser colocado o nome da imagem, com rand;
+            $num = rand(1111,9999);
+            //Diretorio que eu vou salvar a imagem:
+            $dir = "img/cursos/";
+            //defino a extensao do arquivo com um metodo do Laravel guessClientExtension();
+            $ex = $imagem->guessClientExtension();
+            //crio o nome do arquivo juntando os recursos.
+            $nomeImagem = "imagem_".$num.".".$ex;
+            //agora vou usar o metodo "move" que vai mover a imagem para o diretorio, parametro: "diretorio, nome_da_imagem);
+            $imagem->move($dir,$nomeImagem);
+            //preciso atribui o nome e o caminho desta imagem para salvar no banco. Pegando das variaveis.
+            $dados['imagem'] = $dir."/".$nomeImagem;
+        }
+        //agora vou salvar estes dados, utilizando o metodo create e mandando todos os dados, para salvar no banco de dados.
+        Curso::create($dados);
+
+        return redirect()->route('admin.cursos');
+
+    }
+
+    //como o editar envia um ID, vamos receber um ID no editar, e vamos criar um registro, que recebe o Curso, e da um find do registro pelo ID, e retornar a view. E vamos enviar as informacoes pelo compact registro.
+    public function editar($id){
+        $registro = Curso::find($id);
+        return view('admin.cursos.editar',compact('registro'));
+    }
+
+    //o atualizar vai receber uma requisicao, e tambem vai receber um ID;
+    public function atualizar(Request $req, $id){
+        
+        $dados = $req->all();
+        
+        //teste para ver se foi clicado em publicado. Campo obrigatorio.
+        if(isset($dados['publicado'])){
+            $dados['publicado'] = 'sim';
+        }else{
+            $dados['publicado'] = 'nao';
+        }
+                
+        //vou tratar a imagem e adicionar no banco, para tratar vou pegar a $req e vou usar um metodo que verifica se existe arquivos "hasFile", que vai verificar se existe alguma imagem.
+        if ($req->hasFile('imagem')){
+            $imagem = $req->file('imagem');
+            //vou criar uma variavel para colocar um numero randomico para ser colocado o nome da imagem, com rand;
+            $num = rand(1111,9999);
+            //Diretorio que eu vou salvar a imagem:
+            $dir = "img/cursos/";
+            //defino a extensao do arquivo com um metodo do Laravel guessClientExtension();
+            $ex = $imagem->guessClientExtension();
+            //crio o nome do arquivo juntando os recursos.
+            $nomeImagem = "imagem_".$num.".".$ex;
+            //agora vou usar o metodo "move" que vai mover a imagem para o diretorio, parametro: "diretorio, nome_da_imagem);
+            $imagem->move($dir,$nomeImagem);
+            //preciso atribui o nome e o caminho desta imagem para salvar no banco. Pegando das variaveis.
+            $dados['imagem'] = $dir."/".$nomeImagem;
+        }
+        //agora vou salvar estes dados, utilizando o metodo "find" para buscar no banco de dados pelo ID, create e mandando todos os dados, para salvar no banco de dados com update.
+        Curso::find($id)->update($dados);
+
+        return redirect()->route('admin.cursos');
+
+    }
+
+
+}
+----------------------------------------------------------------------
+
+Para modificar o tamanho da imagem, devemos alterar no "\resources\views\admin\cursos\index.blade.php" a linha:
+----------------------------------------------------------------------
+<td><img width="90" height="90" src="{{asset($registro->imagem)}}" alt="{{$registro->titulo}}"></td>
+----------------------------------------------------------------------
+
+Agora vamos criar o DELETAR, dentro de "App\Http\Controllers\Admin\CursoController.php", adicionando ao final.
+(pode ser colocado um javascript, perguntando se vc quer mesmo deletar).
+----------------------------------------------------------------------
+    //vai receber tambem o ID, e pegar o curso que quero deletar, dando um find com id tambem, e dar um delete.
+    public function deletar($id){
+        Curso::find($id)->delete();
+        return redirect()->route('admin,cursos');
+    }
+----------------------------------------------------------------------
+
+Lengrando que o "/app/Http/Curso.php" eh para criar os registros em massa. Pois eh ele que da o modelo apenas com uma linha.
+
+- Configurando sistema de Login.
+
+- Vamos renomear o "/resource/views/welcome.blade.php" para "/resource/views/home.blade.php".
+
+- Vamos alterar no diretorio de rotas a rota "/routes/web.php".
+----------------------------------------------------------------------
+Route::get('/', function () {
+    return view('welcome');
+});
+
+para home:
+
+Route::get('/', function () {
+    return view('home');
+});
+
+----------------------------------------------------------------------
+
+E agora modificar o arquivo "/resource/views/home.blade.php".
+----------------------------------------------------------------------
+@extends('layout.site')
+
+@section('titulo', 'Cursos')
+
+@section('conteudo')  
+    
+<div class="container">  
+    <h3 class="center">Lista de Cursos</h3>
+        
+    <div class="row">
+        <!-- "m = para desktop", "s = movile" -->
+        <div class="col s4 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="images/sample-1.jpg">
+              <span class="card-title">Card Title</span>
+            </div>
+            <div class="card-content">
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+@endsection
+
+----------------------------------------------------------------------
+
+Vamos criar agora um controller para poder pegar as informações do banco de dados, como ele cria ja dentro da pasta Controllers, vamos criar uma outra pasta dentro, e dar o nome do controller:
+
+#> php artisan make:controller Site/HomeController
+
+
+Em "/app/Http/Controllers/Admin/
+----------------------------------------------------------------------
+<?php
+
+namespace App\Http\Controllers\Site;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+//adiciono para pegar as variaveis de "App\Curso";
+use App\Curso;
+
+class HomeController extends Controller
+{
+    public function index(){
+	//pegando todos os curso com all, e retornar para a view;
+        $cursos = Curso::all();
+        return view('home', caompact('cursos');
+    }
+
+}
+----------------------------------------------------------------------
+
+E na rota vamos alterar para enviar o controller na "/router/web.php":
+----------------------------------------------------------------------
+Route::get('/', function () {
+    return view('home');
+});
+
+//vamos colocar como raiz "/", apelido "site.home", e vai para a pasta site, e o metodo index. 
+Route::get('/', ['as'=>'site.home', 'uses'=>'Site\HomeController@index']);
+----------------------------------------------------------------------
+
+Agora vamos criar um login com os sitema de Sementes do Laravel.
+
+O Seeds, SU, vai ficar dentro do diretorio "/Database" (o "/Database/factories" cria usuarios fake para vc automatico).
+
+No momento que vc vai usar o artisan, deve configurar neste arquivo para ele.
+No "/Database/seeds/DatabaseSeeder.php"
+----------------------------------------------------------------------
+    public function run()
+    {
+        //classe criada sera UsuarioSeeder:
+        $this->call(UsuarioSeeder::class);
+    }
+----------------------------------------------------------------------
+
+E no artisan sera criado o usuario:
+
+=> php artisan make:seed UsuarioSeeder
+Seeder created successfully.
+
+Agora ele criou no "/Database/seeds/UsuarioSeeders.php".
+
+Dentro deste arquivo ele vai ter um metodo Run, que vai rodar sempre que rodar o "Seeds", podendo criar os registros como vc quiser.
+
+----------------------------------------------------------------------
+<?php
+
+use Illuminate\Database\Seeder;
+//vou pegar o modelo de usuario
+use App\User;
+
+class UsuarioSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+
+     //run vai rodar sempre que eu rodar meu seeder
+    public function run()
+    {
+        //posso criar agora o usuario, e assim por diante.
+        $usuario = new User;
+        $usuario->name = "usuario1";
+    }
+}
+----------------------------------------------------------------------
+
+Mas para criar em massa:
+----------------------------------------------------------------------
+    public function run()
+    {
+     /*  posso criar agora o usuario, e assim por diante.
+        $usuario = new User;
+        $usuario->name = "usuario1";
+    }
+    
+    Mas para criar em massa, vamos fazer o seguinte, criar um array, e para criptografar a senha, vamos usar o "bcrypt" do laravel.
+    */
+    $dados = [
+        'name'=>"administrador",
+	//estou buscando pelo email, ele que vai dizer se o usuario vai ser alterado ou criado.
+        'email'=>"admin@mail.com",
+        'password' =>bcrypt("123456")
+    ];
+    //vou buscar o usuario, para ver se ja existe, se for maior que 0:
+    if(User::where('email','=',$dados['email'])->count()){
+        $usuario = User::where('email','=',$dados['email'])->first();
+        $usuario->update($dados);
+        echo "Usuario Alterado! ";
+    }else{
+        User::create($dados);
+        echo "Usuario Criado! ";
+    }
+
+    }
+----------------------------------------------------------------------
+
+Vamos agora criar pelo artisan, tudo de uma vez, fazer ele rodar com o comando, rodando todos os que estao no DatabaseSeeders:
+
+=> php artisan db:seed
+
+Se eu quiser rodar apenas uma Seeder:
+
+=> php artisan db:seed --class=NomeDaSeeder.php
+
+Entao:
+
+$=> php artisan db:seed
+Seeding: UsuarioSeeder
+Usuario Criado!Seeded:  UsuarioSeeder (0.24 seconds)
+Database seeding completed successfully.
+
+----------------------------------------------------------------------
+
+
+Configurar o sistema de login:
+
+Voce pode dar o comando, mas tem que estar usando bootrap, pois ele cria usando o Bootstrap.
+
+=> php artisan make:auth
+
+Como estamos usando o Materialize, vamos fazer manual.
+
+Vamos criar um controller para o login:
+
+=> php artisan make:controller Site/LoginController
+Controller created successfully.
+
+E vamos configurar a rota do login no Web.php:
+----------------------------------------------------------------------
+//Rota do Login
+Route::get('/login', ['as'=>'site.login', 'uses'=>'Site\LoginController@index']);
+//Para validar o Login:
+Route::post('/login/entrar', ['as'=>'site.login.entrar', 'uses'=>'Site\LoginController@entrar']);
+----------------------------------------------------------------------
+
+E abriremos o "app/Http/Controllers/Site/LoginController.php";
+----------------------------------------------------------------------
+<?php
+
+namespace App\Http\Controllers\Site;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+//vamos estipular o Auth, que eh o sistema que faz a autenticacao;
+use Auth;
+
+class LoginController extends Controller
+{
+    //listar o formulario de login
+    public function index(){
+        return view('login.index');
+    }
+    //metodo para entrar, onde redireciona para o login com mensagem de erro, caso nao de certo, vamos validar com uma Requesicao, e validar com um metodo attemp.
+    public function entrar(Request $req){
+        //vamos verificar no banco, o email que esta pegando pelo $dados, que esta chamando all (todos os atributos);
+        $dados = $req->all();
+        if(Auth::attempt(['email'=>$dados['email'], 'password'=>$dados['senha']])){
+           return redirect()->route('admin.cursos');
+        }
+        return redirect()->route('login.index');
+    }
+    public function sair(){
+        //executa o metodo Auth, e ele possui outro metodo logout, executa o metodo e redireciona.
+        Auth::logout();
+        return redirect()->route('site.home');
+    }
+}
+----------------------------------------------------------------------
+
+E no Web.php vamos criar as rotas:
+----------------------------------------------------------------------
+//Rota do Login
+Route::get('/login', ['as'=>'site.login', 'uses'=>'Site\LoginController@index']);
+//Para validar o Login:
+Route::post('/login/entrar', ['as'=>'site.login.entrar', 'uses'=>'Site\LoginController@entrar']);
+//Sair
+Route::get('/login/sair', ['as'=>'site.login.sair', 'uses'=>'Site\LoginController@sair']);
+----------------------------------------------------------------------
+
+Para criar area restrita, vamos criar um grupo de rotas, e usar um Middleware Auth, o Middleware controla, tem uma funcionalidade que vai controlar todas as requisicoes. Voce pode criar middlewares.
+
+Em Kernel.php tem os middlewares.
+
+Vamos criar o grupo de rotas no web.php:
+
+----------------------------------------------------------------------
+//grupo de rotas middleware, vou mandar um array, dizendo que vou utilizar um middleware e vou dizer qual eh o middleware que vou utilizar, o Auth, posso passar varios, mas vou usar soh um, e o que estiver dentro do "});" eh o que esta protegido pela autenticacao:
+Route::group(['middleware'=>'auth'],function(){
+
+
+
+
+/*
+Vou listar todos os cursos cadastrados, definindo um apelido para a rota com o "as". 
+O apelido impede de vc ter que alterar as rotas na mao, caso mude as pastas.
+Depois vamos colocar o Controller com o 'uses' e usar o metodo @index.
+A rota pega por padrao dentro do caminho: "/app/Http/Controllers/", entao nao precisa colocar todo o caminho fisico.
+Resumindo: 
+Rota::Metodo('URL', ['metodo_apelido'=>Caminho_Fisico, 'metodo_a_ser_usado'=>'caminho_do_metodo_Controller@metodo']);
+*/
+Route::get('/admin/cursos', ['as'=>'admin.cursos', 'uses'=>'Admin\CursoController@index']);
+
+//Adicionar;
+Route::get('/admin/cursos/adicionar', ['as'=>'admin.cursos.adicionar', 'uses'=>'Admin\CursoController@adicionar']);
+
+//Salvar os dados.
+Route::post('/admin/cursos/salvar', ['as'=>'admin.cursos.salvar', 'uses'=>'Admin\CursoController@salvar']);
+
+//Editar, para editar vou precisar do ID, entao vou colocar {id} para ele receber este ID.
+Route::get('/admin/cursos/editar/{id}', ['as'=>'admin.cursos.editar', 'uses'=>'Admin\CursoController@editar']);
+
+//para atualizar o que foi editado, vamos usar outro metodo, com o metodo PUT.
+Route::put('/admin/cursos/atualizar/{id}', ['as'=>'admin.cursos.atualizar', 'uses'=>'Admin\CursoController@atualizar']);
+
+//Deletar;
+Route::get('/admin/cursos/deletar/{id}', ['as'=>'admin.cursos.deletar', 'uses'=>'Admin\CursoController@deletar']);
+
+
+//fim do auth group
+});
+----------------------------------------------------------------------
+
+Vamos criar uma pasta login no "/resources/views/login/index.blade.php
+----------------------------------------------------------------------
+@extends('layout.site')
+
+@section('titulo', 'Cursos')
+
+@section('conteudo')  
+    
+<div class="container">  
+    <h3 class="center">Entrar no Sistema</h3>
+    <div class="row">
+    <form class="" action="{{route('site.login.entrar')}}" method="post">
+        {{ csrf_field() }}
+
+        <div class="input-field">
+            <input type="text" name="email">
+            <label>Email</label>
+        </div>
+
+        <div class="input-field">
+            <input type="password" name="senha">
+            <label>Senha</label>
+        </div>
+
+        <button class="btn deep-orange">Entrar</button>
+    </form>
+    </div>
+</div>
+@endsection
+
+----------------------------------------------------------------------
+
+Depois que eu arrumar estes erros de login.
+
+Tem que ir no topo e colocar aquele script la para login.
+
+----------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+  <title>@yield('titulo')</title>
+  <!--Import Google Icon Font-->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<header>
+  <nav>
+   <div class="nav-wrapper deep-orange">
+     <div class="container">
+       <a href="#!" class="brand-logo">Curso de Laravel</a>
+       <a href="#" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+       <ul class="right hide-on-med-and-down">
+         <li><a href="/">Home</a></li>
+         <!-- Vamos fazer um teste com if do blade, e utilizar o metodo guest, que retorna true quando o user nao ta logado -->
+         @if(Auth::guest())
+           <li><a href="{{route('site.login')}}">Login</a></li>
+         @else
+           <li><a href="{{route('admin.cursos')}}">Cursos</a></li>
+            <!-- eh simples de exibir o nome do usuario, eh soh colocar assim: -->
+           <li><a href="#">{{Auth::user()->name}}</a></li>
+           <li><a href="{{ route('site.login.sair') }}">Sair</a></li>
+         @endif
+
+       </ul>
+       <ul class="side-nav" id="mobile">
+         <li><a href="/">Home</a></li>
+         @if(Auth::guest())
+           <li><a href="{{route('site.login')}}">Login</a></li>
+         @else
+           <li><a href="{{route('admin.cursos')}}">Cursos</a></li>
+           <li><a href="#">{{Auth::user()->name}}</a></li>
+           <li><a href="{{ route('site.login.sair') }}">Sair</a></li>
+         @endif
+       </ul>
+     </div>
+   </div>
+ </nav>
+</header>
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+

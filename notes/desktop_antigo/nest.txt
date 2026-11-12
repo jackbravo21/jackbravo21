@@ -1,0 +1,401 @@
+
+$ npm run start:dev
+
+$ npm i -g @nestjs/cli
+$ nest new project-name
+
+- Dependencias de microservicos:
+$ npm install @nestjs/microservices
+
+- Criar um crud automatico:
+nest g resource [name]
+
+- Criar um controllador:
+$ nest g controller cats
+
+==============================================
+
+- Criar modulo: (para manter o código organizado e estabelecer limites claros (agrupando componentes relacionados));
+$ nest g mo [nome]
+
+- Criar controller: (para definir rotas CRUD (ou consultas/mutações para aplicativos GraphQL));
+$ nest g co [nome]
+
+- Criar Servico: (para implementar e isolar a lógica de negócios);
+$ nest g s
+$ nest g service [nome]
+
+- Gerando novo recurso CRUD: (O comando não apenas gera todos os blocos de construção do NestJS (módulo, serviço, classes de controlador), mas também uma classe de entidade, classes DTO, bem como os .specarquivos de teste ( ));
+$ nest g resource [nome]
+
+==============================================
+
+
+- src
+app.controller.spec.ts
+app.controller.ts
+app.module.ts
+app.service.ts
+app.dto.ts
+main.ts
+
+- Aqui está uma breve visão geral desses arquivos principais:
+app.controller.ts                   //Um controlador básico com uma única rota.
+app.controller.spec.ts	            //Os testes de unidade para o controlador.
+app.module.ts	                    //O módulo raiz do aplicativo.
+app.service.ts	                    //Um serviço básico com um único método.
+app.dto.ts			    //Data Access Object, serve para conectar diretamente no banco;
+main.ts	                            //O arquivo de entrada do aplicativo que usa a função principal NestFactorypara criar uma instância do aplicativo Nest.
+
+- main.tsJS
+========================================================
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';                           //busca na pasta o export dos modulos;
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);                 //chama o AppModule declarado no import;
+  await app.listen(3000);
+}
+bootstrap();
+========================================================
+
+- app.module.ts
+========================================================
+@Module({
+  imports: [],
+  controllers: [AppController, CatsController],           //adiciona os controllers criados;
+  providers: [AppService, CatsService],                   //adiciona os services criados;
+})
+export class AppModule {}
+========================================================
+
+- Decorators de requisicao:
+
+@Request(), @Req()	req
+@Response(), @Res()*	res
+@Next()	next
+@Session()	req.session
+@Param(key?: string)	req.params/req.params[key]
+@Body(key?: string)	req.body/req.body[key]
+@Query(key?: string)	req.query/req.query[key]
+@Headers(name?: string)	req.headers/req.headers[name]
+@Ip()	req.ip
+@HostParam()	req.hosts
+
+========================================================
+
+- Recursos:
+@Get(), @Post(), @Put(), @Delete(), @Patch(), @Options(), @Head(), @All();
+
+========================================================
+
+- Codigos de status:
+@HttpCode(...)
+@HttpCode(204)
+
+- DICA:
+Importe HttpCodedo @nestjs/common.
+import { HttpCodedo } from '@nestjs/common';
+
+========================================================
+
+findAll(@Res() response)
+
+- Express exemplo:
+response.status(200).send()
+
+========================================================
+
+- Para especificar um cabeçalho de resposta personalizado, você pode usar um @Header() decorador ou um objeto de resposta específico da biblioteca (e chamar res.header()diretamente).
+---------------------------------------
+@Post()
+@Header('Cache-Control', 'none')
+create() {
+  return 'This action adds a new cat';
+}
+---------------------------------------
+DICA
+Importe Headerdo @nestjs/common.
+import { Headerdo } from '@nestjs/common';
+
+========================================================
+
+- Redirecionamento:
+@Redirect() recebe dois argumentos urle statusCode, ambos são opcionais. O valor padrão de statusCodeé 302( Found) se omitido.
+
+@Get()
+@Redirect('https://nestjs.com', 301)
+
+DICA
+Importe Redirect @nestjs/common.
+import { Redirect } from '@nestjs/common';
+
+========================================================
+
+@Get(':id')
+findOne(@Param() params): string {
+  console.log(params.id);
+  return `This action returns a #${params.id} cat`;
+}
+
+@Get(':id')
+findOne(@Param('id') id: string): string {
+  return `This action returns a #${id} cat`;
+}
+
+//PARAM BODY
+@Post("param")
+findOnePost( 
+@Body() 
+params): string
+{
+    return `This action returns a ${params.id}`;
+}
+
+========================================================
+
+- Subdominio:
+
+@Controller({ host: 'admin.example.com' })
+export class AdminController {
+  @Get()
+  index(): string {
+    return 'Admin page';
+  }
+}
+
+========================================================
+
+- Assincrona:
+
+@Get()
+async findAll(): Promise<any[]> {
+  return [];
+}
+
+@Get()
+findAll(): Observable<any[]> {
+  return of([]);
+}
+
+========================================================
+
+- DTO (Data Transfer Object). 
+Um DTO é um objeto que define como os dados serão enviados pela rede. Poderíamos determinar o esquema DTO usando interfaces TypeScript ou por classes simples. 
+
+//create-cat.dto.ts
+
+export class CreateCatDto {
+  name: string;
+  age: number;
+  breed: string;
+}
+
+- Ele tem apenas três propriedades básicas. 
+- Depois disso, podemos usar o DTO recém-criado dentro do CatsController:
+
+@Post()
+async create(@Body() createCatDto: CreateCatDto) {
+  return 'This action adds a new cat';
+}
+
+========================================================
+
+- Exemplo de recursos completos no controllador:
+
+import { Controller, Get, Query, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { CreateCatDto, UpdateCatDto, ListAllEntities } from './dto';
+
+@Controller('cats')
+export class CatsController {
+  @Post()
+  create(@Body() createCatDto: CreateCatDto) {
+    return 'This action adds a new cat';
+  }
+
+  @Get()
+  findAll(@Query() query: ListAllEntities) {
+    return `This action returns all cats (limit: ${query.limit} items)`;
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return `This action returns a #${id} cat`;
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {
+    return `This action updates a #${id} cat`;
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return `This action removes a #${id} cat`;
+  }
+}
+
+========================================================
+
+
+
+========================================================
+
+========================================================
+
+========================================================
+
+
+
+========================================================
+
+==============================================================================
+
+npm i -g @nestjs/cli
+
+nest new project-name
+nest new teste 
+
+nest g module tasks		//tasks eh o nome do modulo a ser criado
+
+npm run start:dev
+nest start --watch
+
+npm i -g @nestjs/cli
+
+nest new project1
+
+- Se der erro, usar o NPX
+npx new project1
+
+npm run start
+npm run start:dev
+nest start --watch
+
+@ antes de algo, sao os decorators. 
+
+src/main.ts     = eh o index.html do sistema praticamente;
+controller      = temos que colocar o @Controller() que eh um decorator, colocamos as rotas dentro do @Get;
+app.service     = contem a funcao AppService que contem o "Hellow Word"
+
+npx @nestjs/cli generate module courses
+npx @nestjs/cli generate controller courses
+
+controller interage com a rota e o service (model) com os dados, o service (model) recebe a requisicao do controle e o controller interage diretamente com os dados.
+
+npx @nestjs/cli generate service courses
+
+controller interage com a rota e o service com os dados, o mock eh os dados, o spect eh os testes;
+
+@Swagger:
+npm install @nestjs/swagger swagger-ui-express
+- nestjs/swagger	= biblioteca
+- swagger-ui-express	= interface grafica
+
+
+
+
+===========================================================================
+
+- Mostrar todos os generate:
+nest generate --help
+
+
+- Gerador de crud:
+nest g resource [name]
+
+
+===================================================
+
+- Criando controllador:
+
+gatos.controlador.ts
+--------------------
+
+import { Controller, Get } from '@nestjs/common';
+
+@Controller('cats')
+export class CatsController {
+  @Get()
+  findAll(): string {
+    return 'This action returns all cats';
+  }
+}
+
+===================================================
+
+- Novo projeto:
+$ nest new api-smartranking
+
+- Rodar watch:
+$ npm run start:dev
+
+- Criar modulo:
+$ nest g module jogadores
+
+- Criar controller:
+$ nest g controller jogadores
+
+- Criar service: (service eh onde ficam as regras de negocio)
+$ nest g service jogadores
+
+- Para gerar id automatico nas interfaces
+$ npm install uuid
+
+- mongo:
+$ npm install @nestjs/mongoose mongoose
+$ npm install --save-dev @types/mongoose
+$ npm uninstall @types/mongoose
+
+- mongoose.connect('mongodb://localhost:27017/test');
+MongooseModule.forRoot("mongodb://localhost:27017/cursonestmicroservicos", {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false}),
+
+- Tipos de Pipes do Nest:
+ValidationPipe
+ParseIntPipe
+ParseBoolPipe
+ParseArrayPipe
+ParseUUIDPipe
+DefaultValuePipe
+
+- Classes de validacao Pipes: (github.com/typestack/class-validator)
+$ npm install class-validator class-transformer
+
+- Decorators mais usados de validacao:
+@UsePipes(ValidationPipe)                               //abilita pipes de validacao;
+@IsNotEmpty()
+@IsEmail()
+@IsArray()                                              //obriga a ser array;
+@ArrayMinSize(1)                                        //minimo que o array pode receber, no caso 1;
+
+
+- "implements": eh a heranca de alguma classe, seria um extends;
+- "extends": eh a a heranca do js;
+
+- Microservicos:
+$ npm install @nestjs/microservices
+
+- Dependencias do broker:
+$ npm install amqplib amqp-connection-manager
+
+- Datas:
+$ npm install moment-timezone
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+
+
+
+
+abstract function calcularJuros();
+//obriga a todas as classes filhas a implementarem este metodo(funcao).
+
+metodo final
+nao pode ser 
+
+interface - todas as classes filhas devem ser obrigadas a implementar todos os metodos declarados na interface.
+implements eh o termo usado para implementar a classe da interface como filha.
+
+
+static
+atributo estatico, eu soh posso acessar dentro da propria classe com self.
+
+static function situacaoAluno() {
+        if (self::$Media >= 7):
+            return "Média " . self::$Media . ".<hr>";
+        else:
+            return "Média " . self::$Media . ".<hr>";
+        endif;
+    }
+
+
+is_numeric		aceita soh numerico
+ if (is_numeric($Salario) and ( $Salario > 0)):
+            return $this->Salario = number_format($Salario, '2', ',', '.');
+
+
+
+
+NUMBER_FORMAT		Configura um numero, onde ficara o ponto e virgula.
+function real($Valor){return number_format($Valor, '2',',','.');}
+//a virgula sera usada a cada duas casas, e a cada milhar, usa um '.';
+
+PARENT::	Se usa para chamar o metodo real, que eh pai abstrato dele.
+$this->Valor = parent::real($this->Valor);

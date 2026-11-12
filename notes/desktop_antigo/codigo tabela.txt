@@ -1,0 +1,340 @@
+
+USE dbphp7;
+
+CREATE TABLE tb_usuarios(
+idusuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+);
+
+//dtcadastro recebe os valores para receber o dia e hora atuais, usando TIMESTAMP;
+
+SELECT * FROM tb_usuarios;
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root','!@#$%');
+
+SELECT * FROM tb_usuarios;
+
+UPDATE tb_usuarios SET dessenha = '12345' WHERE idusuario = 1;
+
+SELECT * FROM tb_usuarios;
+
+DELETE FROM tb_usuarios WHERE idusuario = 1;
+
+SELECT * FROM tb_usuarios;
+
+//limpa a tabela recriando ela inteira;
+
+TRUNCATE TABLE tb_usuarios;
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root','123456');
+
+UPDATE tb_usuarios SET dessenha = '12345' WHERE idusuario = 1;
+
+TRUNCATE TABLE tb_usuarios;
+
+============================================;
+
+SQL SERVER:;
+
+CREATE TABLE tb_usuarios(
+idusuario INT NOT NULL IDENTITY PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro DATETIME NOT NULL DEFAULT SETDATE()
+);
+
+IDENTITY EH O NOT NULL DO MYSQL.
+DATETIME EH O TIMESTAMP.
+SETDATE EH O CURRENT_TIMESTAMP.
+
+=============================================;
+
+=============================================;
+
+USE db_ecommerce;
+
+SELECT * FROM tb_users;
+
+SELECT * FROM tb_ordersstatus;
+
+=============================================;
+
+USE pdocrudyoutube1;
+
+SELECT * FROM produtos;
+
+=============================================;
+
+USE pegasus;
+
+SELECT * FROM 'cadastro';
+SELECT * FROM empresateste;
+SELECT * FROM funcionario;`test`
+SELECT * FROM cadastro, empresateste, funcionario;
+
+=============================================;
+
+CREATE DATABASE teste2;
+
+USE test2;
+
+SELECT * FROM funcionarios;
+SELECT * FROM msg;
+SELECT * FROM funcionarios WHERE nome = "Maria";
+SELECT * FROM funcionarios WHERE nome = ("Maria");
+
+
+=============================================;
+
+CREATE DATABASE phpfundamental2;
+
+USE phpfundamental2;
+
+//SELECT campo FROM tabela WHERE valor;
+//SELECT campo1, campo2, campo3 FROM tabela WHERE valor;
+
+SELECT * FROM produtos;
+
+SELECT * FROM produtos WHERE produtoID = 1;
+
+SELECT * FROM produtos WHERE nomeproduto = "Sugar" OR nomeproduto = "Thermometer";
+
+SELECT * FROM produtos WHERE nomeproduto IN ("Sugar", "Thermometer");
+
+SELECT * FROM produtos WHERE produtoID = 1 OR produtoID = 5;
+
+SELECT * FROM pedidos;
+
+SELECT data_pedido, transportadoraID, clienteID FROM pedidos;
+
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos;
+
+SELECT DISTINCT tempoentrega FROM produtos;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos LIMIT 10;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY nomeproduto LIMIT 10;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID DESC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID ASC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID ASC, tempoentrega ASC LIMIT 10;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos ORDER BY produtoID DESC LIMIT 10;
+
+//Consulta;
+
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario = 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario < 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 AND precounitario <= 12;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE precounitario BETWEEN 5 AND 12 ORDER BY precounitario ASC;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega = 5 OR tempoentrega = 30;
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega IN (5,15,30);
+SELECT nomeproduto, precounitario, tempoentrega FROM produtos WHERE tempoentrega NOT IN (5,15,30);
+SELECT nomeproduto FROM produtos WHERE nomeproduto LIKE "%mug";
+SELECT nomeproduto FROM produtos WHERE nomeproduto LIKE "%BLEND%";
+SELECT MIN(precounitario) AS menorpreco FROM produtos;
+SELECT MAX(precounitario) AS menorpreco FROM produtos;
+SELECT AVG(precounitario) AS precomedio FROM produtos;
+SELECT * FROM pedidos;
+SELECT SUM(valor_pedido) FROM pedidos;
+SELECT SUM(valor_pedido) FROM pedidos WHERE YEAR(data_pedido) = '2006';
+SELECT SUM(valor_pedido), COUNT(pedidoID) AS num_pedidos FROM pedidos WHERE YEAR(data_pedido) = '2006';
+
+//Relatorio;
+
+SELECT * FROM produtos WHERE tempoentrega = 5;
+SELECT COUNT(produtoID) AS total FROM produtos WHERE tempoentrega = 5;
+SELECT COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega <= 5;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega HAVING total >= 5;
+SELECT tempoentrega, COUNT(produtoID) AS total FROM produtos GROUP BY tempoentrega HAVING total >= 5 ORDER BY total ASC;
+
+//Realcionar duas tabelas;
+
+SELECT nomeproduto, fornecedorID FROM produtos, fornecedores WHERE produtos.fornecedorID = fornecedores.fornecedorID;
+SELECT nomeproduto, fornecedorID FROM produtos INNER JOIN fornecedores ON produtos.fornecedorID = fornecedores.fornecedoresID;
+
+
+
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM usuarios;
+
+USE forum;
+SHOW TABLES;
+SELECT * FROM usuarios;
+SELECT * FROM mural;
+SELECT * FROM comentarios;
+
+
+USE db-ecomemerce;
+SHOW TABLES;
+SELECT * FROM tb_users;
+SELECT * FROM tb_products;
+SELECT * FROM tb_userspasswordsrecoveries;
+
+USE sistemasmartycrud1;
+SHOW TABLES;
+SELECT * FROM tb_usuarios;
+SELECT * FROM tb_funcionarios;
+
+
+
+SELECT * FROM tb_usuarios WHERE id_usuario LIKE "%8%";
+
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM postagem;
+SELECT * FROM produtos;
+
+USE sistemasmartycrud1;
+
+DROP DATABASE sistemacrud1;
+DROP DATABASE sistema;
+
+USE phpfundamentalcomtcc;
+SHOW TABLES;
+SELECT * FROM clientes;
+SELECT * FROM tbclientes;
+SELECT * FROM fornecedores_contatos;
+SELECT * FROM usuarios;
+SELECT * FROM postagens;
+SELECT * FROM postagem;
+
+USE aula-rede-social;
+SHOW TABLES;
+SELECT * FROM amizades;
+SELECT * FROM comentarios;
+SELECT * FROM loves;
+SELECT * FROM mensagens;
+SELECT * FROM notificacoes;
+SELECT * FROM pubs;
+SELECT * FROM users;
+
+TRUNCATE TABLE users;
+
+USE teste2;
+SELECT * FROM funcionarios
+
+CREATE DATABASE ;
+
+USE testedb1;
+SHOW TABLES;
+SELECT * FROM funcionarios;
+
+USE laravelvue;
+SHOW TABLES;
+
+USE curso_intro_laravel;
+SHOW TABLES;
+SELECT * FROM contatos;
+SELECT * FROM cursos;
+//seleciona o ultimo registro da tabela;
+SELECT MAX(id) AS id FROM cursos;
+
+
+USE estudosphp;
+SHOW TABLES;
+SELECT * FROM tb_usuarios;
+
+USE pegasus;
+SHOW TABLES;
+SELECT * FROM cadastro;
+SELECT * FROM empresateste;
+SELECT * FROM funcionario;
+SELECT * FROM funcionarios;
+
+USE phpoomvc;
+SHOW TABLES;
+SELECT * FROM users;
+
+USE aula-rede-social;
+SHOW TABLES;
+SELECT * FROM amizades;
+SELECT * FROM comentarios;
+SELECT * FROM loves;
+SELECT * FROM mensagens;
+SELECT * FROM notificacoes;
+SELECT * FROM pubs;
+SELECT * FROM users;
+
+USE oes;
+SHOW TABLES;
+SELECT * FROM ADMIN;
+UPDATE ADMIN SET PASSWORD = MD5("123456") WHERE id = 2;
+INSERT INTO ADMIN (username, PASSWORD) VALUES ("jack","123456");
+SELECT * FROM users;
+
+
+SELECT * FROM tb_funcionarios;
+SELECT * FROM tb_usuarios;
+USE pegasus;
+SHOW TABLES;
+SELECT * FROM cadastro;
+SELECT * FROM funcionario;
+SELECT * FROM funcionarios;
+
+
+USE teste2;
+SHOW TABLES;
+SELECT * FROM cadastro;
+SELECT * FROM empresateste;
+SELECT * FROM funcionarios;
+SELECT * FROM funcionario;
+SELECT * FROM msg;
+
+USE testedb1;
+SHOW TABLES;
+SELECT * FROM funcionarios;
+SELECT * FROM msg;
+//Contar o numero de resultados DO banco de dados;
+SELECT COUNT(id) AS num_result FROM funcionarios;
+SELECT COUNT(id) AS total FROM funcionarios;
+
+USE `aula-rede-social`;
+SHOW TABLES;
+SELECT * FROM amizades;
+SELECT * FROM comentarios;
+SELECT * FROM mensagens;
+SELECT * FROM notificacoes;
+SELECT * FROM pubs;
+SELECT * FROM users;
+
+USE pegasus;
+SHOW TABLES;
+SELECT * FROM funcionario;
+SELECT * FROM teste;
+
+USE testedb1;
+
+USE formulariobtoo;
+SHOW TABLES;
+SELECT * FROM portal;
+SELECT * FROM teste;
+DELETE FROM portal WHERE nome = 'teste2';
+SELECT * FROM portal WHERE idportal = '7';
+SELECT * FROM portal WHERE idportal = '7';
+DELETE FROM portal WHERE idportal = '9';
+//excluir tabela:;
+DROP TABLE portal;
+//exclui e limpar todos os dados resetando os ids:;
+TRUNCATE TABLE portal;
+
+
+USE pegasus;
+SHOW TABLES;
+SELECT * FROM cadastro;
+SELECT * FROM empresateste;
+SELECT * FROM funcionario;
+SELECT * FROM funcionarios;
+
+//alterar tabela, ou ADD:;
+ALTER TABLE `funcionario` ADD `email` VARCHAR(255) NOT NULL , ADD `senha` VARCHAR(80) NOT NULL , ADD `data_cadastro` VARCHAR(50) NOT NULL ;

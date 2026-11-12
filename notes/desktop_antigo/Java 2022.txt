@@ -1,0 +1,11 @@
+syso control+espaco
+
+rodar:
+Control+Shift+F11;
+
+Organizacao em arquivos, pacotes, classes, dentro do projeto.
+
+8 Tipos java;
+4 tipos numericos: Byte, short, int, long;
+2 tipos de pontos flutuante: float, double;
+2 tipos: char, boolean;

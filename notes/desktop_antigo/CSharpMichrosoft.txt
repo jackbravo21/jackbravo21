@@ -1,0 +1,81 @@
+C#
+
+
+Console.WriteLine("Hello " + aFriend);
+Selecione executar novamente para ver os resultados.
+
+Você usou + para criar cadeias de caracteres com base em cadeias de caracteres de variáveis e de constantes. Há uma maneira melhor. Você pode colocar uma variável entre caracteres { e } para informar ao C# para substituir esse texto com o valor da variável.
+
+Isso é chamado de Interpolação de cadeia de caracteres.
+
+Se adicionar um $ antes da abertura de aspas da cadeia de caracteres, você poderá incluir variáveis, tais como aFriend, dentro da cadeia de caracteres, entre chaves. Experimente:
+
+C#
+
+
+Console.WriteLine($"Hello {aFriend}");
+Selecione executar novamente para ver os resultados. Em vez de "Olá {aFriend}", a mensagem deve ser "Olá, Maira".
+
+
+Sua última edição foi nossa primeira análise do que você pode fazer com cadeias de caracteres. Vamos explorar mais.
+
+Você não está limitado a uma única variável entre as chaves. Tente o seguinte:
+
+C#
+
+
+string firstFriend = "Maria";
+string secondFriend = "Sage";
+Console.WriteLine($"My friends are {firstFriend} and {secondFriend}");
+
+Conforme explorar mais as cadeias de caracteres, você descobrirá que cadeias de caracteres são mais do que uma coleção de letras. Você pode encontrar o tamanho de uma cadeia de caracteres usando Length. Length é uma propriedade de uma cadeia de caracteres e retorna o número de caracteres na cadeia. Adicione o seguinte código na parte inferior da janela interativa:
+
+C#
+
+
+Console.WriteLine($"The name {firstFriend} has {firstFriend.Length} letters.");
+Console.WriteLine($"The name {secondFriend} has {secondFriend.Length} letters.");
+
+
+
+Faça mais com as cadeias de caractere
+
+
+
+Você está usando um método, Console.WriteLine, para imprimir mensagens. Um método é um bloco de código que implementa alguma ação. Ele tem um nome, portanto você pode acessá-lo.
+
+Suponha que suas cadeias de caracteres têm espaços à esquerda ou à direita que você não deseja exibir. Você deseja cortar os espaços das cadeias de caracteres. O método Trim e os métodos relacionados TrimStart e TrimEnd fazem isso funcionar. Você pode apenas usar esses métodos para remover espaços à esquerda e à direita. Experimente o código a seguir:
+
+C#
+
+
+string greeting = "      Hello World!       ";
+Console.WriteLine($"[{greeting}]");
+
+string trimmedGreeting = greeting.TrimStart();
+Console.WriteLine($"[{trimmedGreeting}]");
+
+trimmedGreeting = greeting.TrimEnd();
+Console.WriteLine($"[{trimmedGreeting}]");
+
+trimmedGreeting = greeting.Trim();
+Console.WriteLine($"[{trimmedGreeting}]");
+Os colchetes [ e ] ajudar a visualizar o que Trimo TrimStart e TrimEnd os métodos fazem. Os colchetes mostram onde o espaço em branco começa e termina.
+
+Este exemplo reforça alguns conceitos importantes do trabalho com cadeias de caracteres. Os métodos que manipulam cadeias de caracteres retornam novos objetos de cadeia de caracteres, em vez de fazer modificações no local. Veja que cada chamada para qualquer um dos métodos Trim retorna uma nova cadeia de caracteres, mas não altera a mensagem original.
+
+Há outros métodos disponíveis para trabalhar com uma cadeia de caracteres. Por exemplo, você provavelmente já usou um comando de pesquisa e substituição em um editor ou processador de textos. O método Replace faz algo semelhante em uma cadeia de caracteres. Ele procura uma subcadeia de caracteres e a substitui por outro texto. O Replace método usa dois parâmetros. Essas são as cadeias de caracteres entre parênteses. A primeira cadeia de caracteres é o texto a ser pesquisado. A segunda cadeia de caracteres é o texto para substituição. Experimente. Adicione este código. Digite-o para ver as dicas conforme você começa a digitar .Re depois da variável sayHello:
+
+C#
+
+
+string sayHello = "Hello World!";
+Console.WriteLine(sayHello);
+sayHello = sayHello.Replace("Hello", "Greetings");
+Console.WriteLine(sayHello);
+Outros dois métodos úteis colocam uma cadeia de caracteres TODA EM MAIÚSCULAS ou toda em minúsculas. Experimente o código a seguir. Digite-o para ver como o IntelliSense fornece dicas conforme você começa a digitar To:
+
+C#
+
+Console.WriteLine(sayHello.ToUpper());
+Console.WriteLine(sayHello.ToLower());

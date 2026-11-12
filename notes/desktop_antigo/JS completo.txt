@@ -1,0 +1,45 @@
+console.log();
+
+const(){};
+
+
+- Sempre temos o alvo, e o que vai acontecer com ele:
+
+window.addEventListener('focus', event => {
+	console.log("focus");
+});
+
+document.addEventListener('click', event => {
+	console.log('click');
+});
+
+
+let agora = Date.now();			//formato em timestamp (segundos)
+
+let agora = new Date();			//vem formatado
+
+console.log(agora.getDate());		//dia
+console.log(agora.getFullYear());	//ano
+console.log(agora.getMounth());		//mes (vai aparecer com um numero a mais)
+console.log(agora.toLocaleDateString("pt-BR"));	//regiao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

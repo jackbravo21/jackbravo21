@@ -1,0 +1,33 @@
+Aplica modificacoes do pubspec:
+flutter pub get
+
+depois de cada parenteses, usar uma virgula;
+
+control alt L para organizar;
+
+@override sobreescreve todo o codigo da classe padrao pela que vc esta criando;
+
+remover flutter_lints no pubspect para ele parar de sublinhar os erros;
+
+control P
+
+imagens:
+pubspec.yaml
+linha assets 64;
+
+selecionar itens, e dar control X pra ele marcar toda
+
+selecionar e clicar alt enter;
+
+stfull
+
+pubget = funciona para atualizar o app com o pubspec
+
+Executa o projeto:
+flutter run
+
+flutter build apk
+flutter build appbundle
+
+alt enter
+abre o menu de widgets

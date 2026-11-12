@@ -1,0 +1,243 @@
+2.2 Definição de Sistemas
+
+========================================
+
+O que é um sistema?
+
+Define-se sistema como um “conjunto de elementos interrelacionados que possuem características comuns e que podem ser entendidos como um todo”.
+
+========================================
+
+Como sao divididos os sistemas?
+
+Podem ser Naturais e feitos pelo homem.
+
+========================================
+
+A razao da existencia de um sistema, eh a funcao/proposito.
+
+Em qualquer sistema pode-se encontrar elementos característicos vinculados ao seu fim. No caso do sistema de trânsito, temos veículos, motoristas, pedestres, ruas, guardas, placas, semáforos, etc.
+
+========================================
+
+Todo e qualquer sistema está inserido em um meio ambiente que o contém, ou seja, tudo o que é externo a um sistema é chamado de seu meio ambiente.
+
+========================================
+
+Todos os elementos do sistema interagem entre si, se complementam para chegar ao objetivo.
+Sistema educacional, tem professores, salas, alunos, livros, etc. Todo querem chegar a educacao.
+Dentro do sistema educacional tem outros sistemas, como de havaliacao. Subsistemas sao considerados elementos dos sistemas onde se encontram.
+
+========================================
+
+Sistemas naturais:
+
+sistemas não é feitos pelo homem, e sim encontrados na natureza e com propósito próprio. São basicamente:
+• Sistemas físicos: sistemas estrelares, geológicos, etc.
+• Sistemas vivos: sistema reprodutor, ingestor, etc.
+
+========================================
+
+Sistemas feitos pelo Homem
+
+Alguns são construídos, organizados e mantidos por seres humanos. Entre eles podemos considerar:
+• Sistemas sociais, organização de leis, etc.
+• Sistemas de transporte: redes rodoviárias, linhas aéreas, etc.
+• Sistemas de comunicação: telefone, telex, etc.
+• Sistemas de manufatura: fábricas, linhas de montagem, etc.
+• Sistemas financeiros: contabilidade, controle de estoques, etc.
+
+========================================
+
+3.2 Sistemas AutomatiUTOMATIzados
+Hoje em dia, muitos desses sistemas não funcionariam sem computadores, mesmo que eles já existiam muito antes do computador. Existem outros que utilizam o computador como componente, mas possui outros componentes não-computadorizados ou manuais. Os sistemas feitos pelo homem, que interagem com ou são controlados por um ou mais computadores são denominados sistemas automatizados.
+Embora haja muitos tipos diferentes de sistemas automatizados, todos tem componentes em comum:
+• Hardware – UCP, Periféricos, Memória, etc.
+• Software – Sistemas Operacionais, Programas de Sistemas, Banco de Dados,
+• Programas de Controle de Telecomunicação, etc.
+• Pessoas – operadores do sistema, que fornecem as entradas e utilizam as saídas.
+• Dados – informações que o sistema conserva por um período de tempo.
+
+========================================
+
+3.2.1 Tipos de Sistemas AutomatiUTOMATIzados
+a) Sistemas on-line
+Usuários interagem com o computador (fornece e recebe dados) por terminais.
+b) Sistemas de tempo real
+Variações dos sistemas on-line. Controlam um ambiente pelo recebimento de dados, seu processamento e apresentação dos resultados com rapidez suficiente para afetar o ambiente naquele momento. Além da velocidade, este sistema interage tanto com pessoas quanto com o ambiente.
+c) Sistemas de apoio à decisão
+São sistemas tipicamente passivos no sentido de que não funcionam de uma forma regular, em vez disso, são utilizados quando isso se faz necessário. São utilizados pelos diretores para avaliar a missão da empresa, fornecendo informações mais amplas e gerais sobre clientes, comportamento dos competidores, etc.
+d) Sistemas baseados no conhecimento
+Também conhecidos como sistemas especialistas, são construídos habitualmente para terem a capacidade de explicar as linhas de raciocínio que conduzem a suas decisões.
+Alguns podem até mesmo explicar porque rejeitaram certas linhas de raciocínio e escolheram outras. Neste tipo de sistema se armazena dados e regras. Ex.: Sistemas de aprovação de créditos bancários – a decisão é do gerente do banco.
+e) Sistemas Artificiais
+Normalmente são chamados de Sistemas de Informação, justamente porque seu maior objetivo é fornecer, controlar, prover, pesquisar, analisar informações.
+Estes sistemas são criados dentro ou para organizações sociais (empresas), considerando dois aspectos: os componentes da empresa e o nível de decisão da empresa.
+a) Componentes da empresa: correspondem aos diversos setores que executam as diferentes funções necessárias ao seu funcionamento ( RH, Vendas,Marketing).
+b) Níveis de Decisão: obedecem a hierarquia existente na empresa e são conhecidos como: nível estratégico, tático e operacional.
+
+========================================
+
+Fases do desenvolvimento de um sistema.
+
+Analise: definir e modelos o que fará o sistema, requisitos, orçamento, calculos.
+
+Projeto: definir a melhor tecnologia relacionado as caracteristicas.
+
+Implementacao: integra os modulos e cria o banco de dados.
+
+Implantacao: implantar o sistema nas intalacoes do usuario.
+
+Manutencao: Corretiva ou evolutiva. Corretiva corrige, evolutiva eh novas funcoes.
+
+========================================
+
+Dia grama de Fluxo de Dados – DFD:
+
+Representa o modelo funciona do sistema. Escrever graficamente e demonstrar como as coisas acontecem.
+
+========================================
+
+Classes e Objetos.
+
+1. Qualquer coisa é um objeto;
+2. Objetos realizam tarefas através da requisição de serviços a outros objetos;
+3. Cada objeto pertence a uma determinada classe. Uma classe agrupa objetos similares;
+4. A classe é um repositório para comportamento associado ao objeto;
+5. Classes são organizadas em hierarquias.
+Uma classe é um modelo para objetos. Normalmente você não usaria as classes diretamente em seu programa. Ao invés disso, você as usaria apenas para instanciar novos objetos.
+Imagine uma classe como uma planta de uma cada: você não pode morar na planta da casa, mas pode usá-la para criar quantas casas quiser.
+
+========================================
+
+UML:
+
+A UML é uma tentativa de padronizar a modelagem orientada a objetos de uma forma que qualquer sistema, seja qual for o tipo, possa ser modelado corretamente, com consistência, fácil de se comunicar com outras aplicações, simples de ser atualizado e compreensível.
+A UML é uma linguagem visual para modelar sistemas orientados a objetos. Isso quer dizer que a UML é uma linguagem constituída de elementos gráficos (visuais) utilizados na modelagem que permitem representar os conceitos do paradigma da orientação a objetos. Através de elementos gráficos definidos nesta linguagem pode-se construir diagramas que representam diversas perspectivas de um sistema.
+
+========================================
+
+Fases do Desenvo de um Sistema em UML:
+
+Analise de requisitos: Caso de uso.
+Analise: Classes e objetos.
+Design: infra tecnica, interface, db.
+Programacao: Codigo e linguagem. Modelos de UML.
+Testes: teste de codigo e uso.
+
+========================================
+
+Visoes de um sistema:
+
+Visão de Casos de Uso: descreve o sistema de um ponto de vista externo como um conjunto de interações entre o sistema e os agentes externos ao sistema.
+• Visão de Projeto: enfatiza as características do sistema que dão suporte, tanto estrutural quanto comportamental, às funcionalidades externamente visíveis do sistema.
+• Visão de Implementação: abrange o gerenciamento de versões do sistema, construídas através do agrupamento de módulos ( componentes) e subsistemas.
+• Visão de Implantação: corresponde à distribuição física do sistema em seus subsistemas e à conexão entre essas partes.
+• Visão de Processo: enfatiza as características de concorrência (paralelismo), sincronização e desempenho do sistema.
+
+
+========================================
+
+Dia gramas da UML:
+
+um conjunto de diagramas que podem ser examinados e modificados a fim de compreender e desenvolver um sistema de software.
+
+
+Estáticos:
+• Diagramas de Use Cases
+• Diagramas de Classes
+• Diagramas de Pacotes
+Dinâmicos:
+• Diagramas de Interação
+• Diagramas de Sequência
+• Diagramas de Colaboração
+• Diagramas de Estado (Statechart)
+• Diagramas de Atividade
+
+
+========================================
+
+Dia grama Use -Case (Caso de Uso ):
+
+tem o objetivo de auxiliar a comunicação entre os analistas e o cliente. Ele descreve um cenário que mostra as funcionalidades do sistema do ponto de vista do usuário, ou seja, é uma técnica usada para descrever e definir os requisitos funcionais do sistema.
+
+
+O diagrama de Use Cases é representado por:
+• atores;
+• use cases;
+• relacionamentos entre estes elementos.
+
+Estes relacionamentos podem ser:
+> associações entre atores e use cases;
+> generalizações entre os atores;
+> generalizações, extends e includes entre os use cases.
+
+========================================
+
+Sistema
+
+Limites do sistema: representado por um retângulo envolvendo os use cases que compõem o sistema.
+
+========================================
+
+Diagrama de Classes
+
+O diagrama de classes demonstra a estrutura estática das classes de um sistema onde estas representam as “coisas” que são gerenciadas pela aplicação modelada. Classes podem se relacionar com outras através de diversas maneiras: associação (conectadas entre si), dependência (uma classe depende ou usa outra classe), especialização (uma classe é uma especialização de outra classe), ou em pacotes (classes agrupadas por características similares).
+
+========================================
+
+Dia grama de SeqUência
+
+Diagramas de Seqüência mostram a troca de mensagens (isto é chamada de método) entre diversos Objetos, numa situação específica e delimitada no tempo. Objetos são instâncias de classes. Diagramas de Seqüência colocam ênfase especial na ordem e nos momentos nos quais mensagens para os objetos são enviadas.
+
+========================================
+
+Mode lagem de Dados
+O modelo de entidade-relacionamento (MER) é baseado na percepção do mundo real que consiste em um conjunto de objetos básicos chamados entidades e nos relacionamentos entre estes objetos.
+
+========================================
+
+A MODELAGEM DE DADOS
+
+Trata-se de parte do trabalho do analista de sistemas, cujo propósito é buscar especificar, a partir dos fatos essenciais que estejam associados ao domínio de conhecimento analisado, a perspectiva dos dados, permitindo organizá-los em estruturas bem definidas, estabelecer as regras de dependência e restrições entre eles, produzindo um modelo expresso por uma representação, ao mesmo tempo, descritiva e diagramática.
+
+Os dados podem ser vistos como uma coleção de símbolos organizados intencionalmente para representar uma parte da realidade de que estivemos tratando.
+Podemos definir informação como sendo “conhecimento novo”. Por ser conhecimento, a informação existe apenas na mente das pessoas, ou seja, a informação só pode ser assim chamada se representar acréscimo de conhecimento para alguém. Os dados podem ser usados para representar informações, aumentando, desta forma, o conhecimento de alguém a respeito de algum assunto ou situação.
+A modelagem de dados, começa no momento em que um analista de sistemas define algum depósito de dados no DFD particionado por evento.
+
+========================================
+
+O Mode lo con ceitual de dados
+
+Podemos, então, estabelecer que o método de modelagem conceitual de dados satisfaça, entre outros, aos seguintes requisitos:
+a) Expandir a habilidade do analista no reconhecimento dos requisitos de informação;
+b) Capacidade de capturar ao máximo os conceitos do mundo real durante o próprio processo de modelagem;
+c) Facilidade de entendimento, através de uma representação pragmática, que possa, inclusive, ser entendida por usuários não-técnicos de Informática.
+
+========================================
+
+Com ponentes do mode lo con ceitua l de dados
+
+10.1.1
+
+========================================
+
+
+========================================
+
+
+========================================
+
+
+========================================
+
+
+========================================
+
+
+========================================
+
+
+========================================
+
+

@@ -1,0 +1,1515 @@
+
+
+Clicando sobre qualquer coisa no C#, vc pode clicar f12 que ele vai ate a documentacao;
+
+Para criar um array, basta usar assim = "String[] linhas", igual o php;
+
+
+Quando vc coloca uma classe dentro de uma pasta, mudando ela, tem que renomear o namespace, por exemplo, tirei da biblioteca e coloquei na pasta Model:
+namespace Biblioteca.Model
+
+int.Parse(varivael); 	= o parse sempre vai converter alguma coisa do tipo que vem antes;
+
+
+string.replace = para substituir um caractere.
+
+minhaStr.length = Pega o tamanho da string.
+
+
+========================================================================================
+
+
+Pegar o tipo de objeto:
+typeoff(obj)
+obj.GetType
+
+
+DateTime.Now
+
+
+//Required torna obrigatorio um campo:
+        [Required(ErrorMessage ="O campo 'Nome' é de preenchimento obrigatório!")]
+        public string Nome { get; set; }
+
+//voce pode usar a validacao na mesma linha ou em duas linhas com "[]";
+//no ResourceType eu vou chamar a traducao, o copilador pedira o tipo, e a mensagem la;
+        [Required(ErrorMessageResourceType = typeof(Idiomas.Linguagem), ErrorMessageResourceName = "MSG_OBRIGATORIO")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+//E coloco o tamano maximo de 10 e o minimo de 6:
+        [Required, StringLength(10, MinimumLength = 6)]
+        public string Senha { get; set; }
+
+
+// Executar programa: Ctrl + F5 ou Menu Depurar > Iniciar Sem Depuração
+// Depurar programa: F5 ou menu Depurar > Iniciar Depuração
+
+// Dicas para Começar: 
+//   1. Use a janela do Gerenciador de Soluções para adicionar/gerenciar arquivos
+//   2. Use a janela do Team Explorer para conectar-se ao controle do código-fonte
+//   3. Use a janela de Saída para ver mensagens de saída do build e outras mensagens
+//   4. Use a janela Lista de Erros para exibir erros
+//   5. Ir Para o Projeto > Adicionar Novo Item para criar novos arquivos de código, ou Projeto > Adicionar Item Existente para adicionar arquivos de código existentes ao projeto
+//   6. No futuro, para abrir este projeto novamente, vá para Arquivo > Abrir > Projeto e selecione o arquivo. sln
+
+
+
+
+//IsValid verifica se algo eh valido, com if else;
+        public override bool IsValid(object value)
+        {
+//estou obrigando a senha a ter 10 digitos;
+            if( ((string)value).Length == 10)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+
+
+cw atalho
+
+Tipo NomeDaVariavel;
+
+Console.ReadKey();
+
+
+
+    Console.Write(string textoAqui): Escreve um texto na tela.
+    Console.WriteLine(string textoAqui): Escreve um texto na tela e após apresenta-lo salta uma linha (quebra de linha).
+
+Comandos de entrada de dados:
+
+    Console.Read(): Ler o próximo caractere que o usuário, mas retorna um inteiro (Inteiro do número ASCII do caractere informado).
+    Console.ReadKey(): Ler a próxima tecla pressionada e retorna uma estrutura ConsoleKeyInfo (que pode facilmente fornecer a tecla pressionada acessando as propriedades Key e/ou KeyChar).
+    Console.ReadLine(): Ler tudo o que o usuário digitar até que seja pressionado a tecla "Enter". Este método recebe uma string(texto digitado pelo usuário) e retorna uma string. (Use ele no exercício seguinte)
+
+
+
+DateTime.Now.Year
+
+
+
+            Conta minhaConta;
+            minhaConta = new Conta();
+
+
+
+        {
+            Carro carro1 = new Carro();
+            Carro carro2 = new Carro();
+
+            Console.WriteLine("Marca: " + carro1.Marca);
+
+            //.metodos
+            carro1.Marca = "Ford";
+
+            Console.WriteLine("Marca: " + carro1.Marca);
+
+
+            Console.WriteLine("Estado das luzes internas: " + carro1.LuzesInternas);
+            carro1.AbrirPorta();
+            Console.WriteLine("Estado das luzes internas: " + carro1.LuzesInternas);
+
+
+            string statusFarol = carro1.AcenderFarolAutomaticamente();
+
+            Console.WriteLine("Status do Farol: " + statusFarol);
+
+            Console.ReadKey();
+        }
+
+
+==============================================================================================
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using _01_Classe.Veiculo;           //chamo o namespace da classe para poder usar sem precisar chamar o caminho completo ao invocar a classe.
+
+namespace _01_Classe
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Veiculo.Carro carro1 = new Carro();             //caminho relativo;
+            _01_Classe.Veiculo.Carro carro2 = new Carro();  //caminho absoluto;
+            Carro carro3 = new Carro();                     //caminho importado (quando importo do namespace, eh como se ele tivesse na mesma pasta;
+
+            Console.WriteLine("Marca: " + carro1.Marca);
+
+            //.metodos
+            carro1.Marca = "Ford";
+
+            Console.WriteLine("Marca: " + carro1.Marca);
+
+
+            Console.WriteLine("Estado das luzes internas: " + carro1.LuzesInternas);
+            carro1.AbrirPorta();
+            Console.WriteLine("Estado das luzes internas: " + carro1.LuzesInternas);
+
+
+            string statusFarol = carro1.AcenderFarolAutomaticamente();
+
+            Console.WriteLine("Status do Farol: " + statusFarol);
+
+            Console.ReadKey();
+        }
+    }
+}
+
+
+================================================================================================
+
+Estatico pode ser usado apenas pela propria classe;
+
+
+base eh igual o parent do php... chama os atributos ou metodos da classe pai.
+
+
+================================================================================================
+
+
+        //se eu colocar o metodo como "virtual", significa que ele pode ser sobreescrito.
+        public virtual void Mover(){
+            Console.WriteLine("Mover chamado dentro de: ObjetoVeiculo.Mover");
+        }
+
+================================================================================================
+
+       //se eu usar o override significa que eu quero sobreescrever o metodo mover dentro de veiculo que eh pai.
+        public override void Mover()
+        {
+            Console.WriteLine("Mover chamado dentro de: ObjetoMoto.Mover");
+
+            //quando uso o base. eu chamo/referencio a classe pai.
+            base.Mover();
+        }
+
+
+================================================================================================
+
+
+Sobrecarga o metodo pode ter o mesmo nome... porem tem que receber entradas diferentes:
+
+
+        public int Andar()
+        {
+            return 1;
+        }
+
+        public int Andar(int lvl)
+        {
+            return Andar() * lvl;
+        }
+
+        public int Correr()
+        {
+            return Andar() + 2;
+        }
+
+        public int Pedalar()
+        {
+            return Andar() + 4;
+
+        }
+
+================================================================================================
+
+
+Modificadores de acesso: Public, Private, Protected, Internal, Protected internal;
+
+
+Os 4 pilares da Programação Orientada a Objetos. ...
+Abstração. ...
+Encapsulamento. ...
+Herança. ...
+Polimorfismo. ...
+
+================================================================================================
+
+
+   //esse valor de referencia eh o que altera na memoria, ref eh igual o & do php.
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double valor = 25;
+
+            Console.WriteLine("Main > var valor: " + valor);
+
+            AlterarValor(ref valor);                //chama o metodo para alterar o valor;
+
+            Console.WriteLine("Main > var valor: " + valor);
+
+            Console.ReadKey();
+        }
+
+        static void AlterarValor(ref double valor)
+        {
+            Console.WriteLine("AlterarValor > var valor: " + valor);
+
+            valor += 10;
+
+            Console.WriteLine("AlterarValor > var valor: " + valor);
+
+
+        }
+
+    }
+
+
+================================================================================================
+
+    //out significa saida, entao eu posso alterar o valor, mas nao posso ler, entao eu posso soh atribuir, soh posso alterar, mas nao ler.
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double valor = 25;
+
+            Console.WriteLine("Main > var valor: " + valor);
+
+            AlterarValor(out valor);                //chama o metodo para alterar o valor;
+
+            Console.WriteLine("Main > var valor: " + valor);
+
+            Console.ReadKey();
+        }
+
+        static void AlterarValor(out double valor)
+        {
+            valor = 10;
+        }
+
+    }
+
+
+
+================================================================================================
+
+params
+
+
+//o uso do params faz com que vc possa ser posto quantos elementos eu quiser, soh que ele deve ser o ultimo parametro do metodo.
+            
+static void VariasEntradas03(int idade, params string[] nomes)
+            {
+
+            }
+
+================================================================================================
+
+classe parcial:
+
+partial
+
+
+
+
+    partial class Carro
+    {
+        /* Assinatura inicial para ele;
+		 * Regras para metodos parciais: 
+		 * - Vc nao pode ter modificadores de acesso para metodos parciais, ele sempre sera privado;
+		 * - Nao retorna informacoes, entao ele sempre sera void;
+		 */
+
+        partial void FacaAlgo(String andar);
+
+
+    }
+
+
+
+
+        partial void FacaAlgo(string andar)
+        {
+            throw new NotImplementedException();
+        }
+
+================================================================================================
+
+Classe abstrata, pode ser herdada e nao pode ser instanciada. Ea 
+
+================================================================================================
+
+
+Metodos abstratos eh tipo interface.
+
+        //se eu quiser na classe carro tenha algum metodo, eh tipo interface do PHP;
+
+        // faz assim, implementando com abstract e final ";".
+        abstract public void MudarMarcha(Byte NumeroMarcha);
+        
+
+
+
+
+
+    class Carro : Veiculo
+    {
+        public override void MudarMarcha(byte NumeroMarcha)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+
+================================================================================================
+
+
+nunca esquecer de dar using no projeto.pasta;
+
+================================================================================================
+
+Classe Sealed eh tipo a final do PHP e java. Nao pode ser herdada.
+
+================================================================================================
+
+Interface no C# deve ter o I maiusculo. I+nome = ITransporte.cs;
+
+    //como ela ja herda de veiculo, eu posso dizer que ela implementa de transporte, podendo receber outras interfaces;
+    class Carro : Veiculo, ITransporte
+    {
+    }
+
+================================================================================================
+
+//enum sao lista finitas, saiba quantos valores tem, vai guardar todos os estados que tem que receber;
+
+
+================================================================================================
+
+            //mudar a cor da letra atraves dos enumeradores, e as cores sao enumeradores;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+
+================================================================================================
+
+throw new Exception("O Valor digitado nao é valido!");
+
+
+
+tryparse
+
+ int resultado;
+            int.TryParse(CEP, out resultado);
+
+================================================================================================
+
+Nas exceptions eu posso gerar diversos erros, a classe pura exception, pega todos os erros e exibi aquilo, mas posso pegar as outras em particular, lembrando de usar as messages.
+
+Se eu pegar este codigo "int.Parse(cep);" e colocar o mouse em cima do Parse, eu vou ver que ele possui 3 exceptions diferentes para serem usadas.
+
+Lembrando que a ordem dos exceptions importa, por exemplo, o ultimo deve o ser o exception puro
+
+
+
+            string gerarcodigo;
+            try
+            {
+                //Codigo que pode gerar erro;
+                Pessoa pessoa = new Pessoa();
+                pessoa.SetCEP("ABCD");
+            }
+
+            catch (FormatException e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro " + e.Message);
+            }
+
+            //serve para definir um bloco que sempre será executado, nao importa o erro, se a informacao vai ficar pendente;
+            //muito usada em conexao com banco, se der erro de conexao, ele fecha a conexao, porque ele sempre sera executado.
+            finally
+            {
+                gerarcodigo = null;
+            }
+
+
+
+
+Personalizando minha exception:
+
+        {
+            try {
+                throw new MinhaException("10");
+            }
+
+            catch(Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+            }
+            /*
+            catch(MinhaException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            */
+            Console.ReadKey();
+
+        }
+
+
+
+================================================================================================
+
+this.atributo
+
+    {
+        string Marca;
+        string Modelo;
+        string AnoFabricacao;
+        string AnoModelo;
+
+
+        public void SetMarca(string Marca, string Modelo)
+        {
+            this.Marca = Marca;                         //chama o atributo local;
+            //this.SetModelo = Modelo;                   //chama o metodo local;
+        }
+
+
+        public void SetModelo(string modelo)
+        {
+
+        }
+
+    }
+
+================================================================================================
+
+Virtual eh no pai:
+
+        public virtual void Andar()
+        {
+            Console.WriteLine("Veiculo Andando...");
+        }
+
+
+Overrhide no filho, e no metodo ou propriedade base, para subescrever:
+(base serve para referenciar a classe pai, seja no metodo ou pripriedade.
+
+
+        public override void Andar()
+        {
+            base.Andar();
+        }
+
+
+
+
+================================================================================================
+
+Conversao casting:
+
+
+        {
+            double preco = 3125.04;
+            int a = (int)preco;
+
+            //podemos usar a classe convert;
+            a = Convert.ToInt32(preco);
+
+
+        }
+
+
+
+
+================================================================================================
+
+
+interface eh soh a linha e ";".
+
+ void Andar();
+
+================================================================================================
+
+
+Mais de uma herenca com interface:
+
+class Carro : Veiculo, ITransporte
+
+================================================================================================
+
+Serializacao: pega um objeto e transforma em texto.
+des-serializacao: o outro eh o inverso, pega um texto e transforma dentro da linguagem.
+
+Serializer, pega um objeto e converte para um arquivo.
+Deserializar, pega um arquivo e transforma em objeto.
+
+================================================================================================
+
+            //o @ diz que tudo na aspas sao caracteres literias:
+            StreamWriter stream = new StreamWriter(@"C:\jack\programacao\Csharp\CsharpAvancado\01_Serializar_Deserializar\save\01_SerializarXML.xml");
+
+
+================================================================================================
+
+
+generics
+
+
+================================================================================================
+
+Var Dinamica:
+
+ object t1 = "";
+            object t2 = 123456;
+            t2 = "";
+            
+
+            var v1 = "";
+            var v2 = 1234567;
+            //var v3;
+            //ERRO: var v3;
+            //ERRO: v2 = "";
+
+            dynamic d1 = new Usuario { Nome="Maria" };
+
+            Console.WriteLine(d1.Nome);
+            //ERRO: Console.WriteLine(d1.Senha);
+
+            d1 = "";
+
+            Console.ReadKey();
+
+
+
+
+        }
+
+        class Usuario
+        {
+            public string Nome { get; set; }
+        }
+
+================================================================================================
+
+Banco de dados:
+LINQ e LAMBDA;
+
+================================================================================================
+
+
+Listas:
+
+            List<Autor> listaAutor = new List<Autor>();
+            listaAutor.Add(new Autor() { Id = 1, Nome = "Leonardo" });
+            listaAutor.Add(new Autor() { Id = 2, Nome = "Maria Maria" });
+            listaAutor.Add(new Autor() { Id = 3, Nome = "Joseph" });
+
+            List<Livro> listaLivro = new List<Livro>();
+            listaLivro.Add(new Livro() { Id = 1, AutorID = 2, Titulo = "Amor Amado"});
+            listaLivro.Add(new Livro() { Id = 2, AutorID = 2, Titulo = "Bem Amado" });
+            listaLivro.Add(new Livro() { Id = 3, AutorID = 3, Titulo = "Um espião em Washigton" });
+            listaLivro.Add(new Livro() { Id = 4, AutorID = 1, Titulo = "A vida na terra" });
+
+================================================================================================
+
+Thread.Sleep(2000); = sleep eh a parada por 2 mili segundos, 2s no caso, eh o sleep, que da um tempo.
+
+================================================================================================
+
+
+delegate eh quando vc usa uma funcao estilo anonima e chama ela atraves de uma variavel que recebe ela soh que dentro vai a funcao original.
+
+
+Varivaeis vc chama valores, atribui a eles.
+
+No DELEGATE vc chama metodos, atribui ao delegate um metodo;
+
+O delegate esta para os metodos, assim como a variavel esta para seus valores.
+
+
+------------------------------------
+
+VARIAVEL:
+
+NomeDaVariavel //"Valor da Variavel"
+
+NomeDaVariavel += " 10" //Valor da variavel 10
+
+
+DELEGATE:
+
+delegate Referencia = Metodo1();
+
+Referencia += Metodo2();
+
+Referencia();
+
+-------------------------------------
+
+================================================================================================
+
+
+Classe Botao{
+
+//tem
+	Propriedades (Icones, Texto, Tamanho, Localizacao)
+	Delegate Eventos (clicar, 2Clicks).
+
+}
+
+Clicar(Source, EventArgs);
+
+O source eh de onde veio o click, no caso o botao local, seria o "this", e o evento, o "Click";
+
+Cliclar(this, new ClickEventArgs(Cursor.Posicao.X, Cursor.Posicao.Y));
+
+-----------------------------------------------
+
+
+Botao btn = new Botao("Salvar");
+
+//meu evento click vai receber meu metodo clicar para salvar, vai capturar o evento click do botao e acionar o metodo;
+
+btn.Clicar = MetodoClicarParaSalvar();
+
+
+================================================================================================
+
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Thread t1 = new Thread(ThreadRepeticao);
+                t1.Start();
+            }
+
+            Console.WriteLine("Programa finalizado!");
+            Console.ReadKey();
+        }
+        //IO - Tela(Monitor), Rede e Armazenamento.
+        static void ThreadRepeticao()
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                Console.WriteLine("Num: " + i);
+            }
+        }
+
+================================================================================================
+
+//instancia a thread e chama o que ela quer executar, no caso a funcao.
+
+
+        //sao como um semaforo, eles vao liberar ou barrar a thread.
+        static ManualResetEvent manual01;
+	//o auto reset event, faz automatico essa parada de parar o semaforo ou liberar;
+        static AutoResetEvent auto01;        
+
+        static void Main(string[] args)
+        {
+            //o false representa o vermelho do semaforo, ele vai ficar pausado.
+            manual01 = new ManualResetEvent(false);
+            auto01 = new AutoResetEvent(false);
+
+
+            Thread t1 = new Thread(Executa01);
+            t1.Start();
+
+            Thread t2 = new Thread(Executa02);
+            t2.Start();
+
+            Thread.Sleep(5000);
+            //quando eu uso o set, eh como se eu disse pro semaforo que esta verde.
+            manual01.Set();
+            //para revogar e deixar vermelho o semaforo novamente, eu uso o reset, que vai da esse efeito de espera, das demais threads.
+            manual01.Reset();
+
+            auto01.Set();
+
+            Thread.Sleep(5000);
+            manual01.Set();
+            auto01.Set();
+
+            Console.ReadKey();
+	}
+
+
+//As duas funcoes que vao ser chamadas na thread (executadas);
+
+
+        static void Executa01()
+        {
+            Console.WriteLine("01 - Iniciado Executa01.");
+            manual01.WaitOne();
+            Console.WriteLine("02 - Em execução 01 Executa01.");
+            Console.WriteLine("03 - Em execução 02 Executa01.");
+            manual01.WaitOne();
+            Console.WriteLine("04 - Finalizado Executa01.");
+        }
+        static void Executa02()
+        {
+            Console.WriteLine("01 - Iniciado Executa02.");
+            auto01.WaitOne();
+            Console.WriteLine("02 - Em execução 01 Executa02.");
+
+            auto01.WaitOne();
+            Console.WriteLine("03 - Em execução 02 Executa02.");
+            Console.WriteLine("04 - Finalizado Executa02.");
+        }
+
+
+
+================================================================================================
+
+
+
+
+        //REDE, ARMAZENAMENTO, TELA/DISPLAY.
+        private async void btnBaixar_Click(object sender, EventArgs e)
+        {
+            //TASK - Asynchrono (Thread).
+            string endereco = txtSite.Text;
+
+            //com a classe webcliente, do system.net, eu posso fazer download de qualquer coisa da internet;
+            WebClient web = new WebClient();
+            //string html = web.DownloadString(endereco);
+
+            string html = await web.DownloadStringTaskAsync(new Uri(endereco));
+
+            txtResultado.Text = html;
+        }
+
+
+================================================================================================
+
+Vc tem variaveis pessoaX, e quer chamar cada uma delas.
+Entao vc vai dar um print na tela com console.log e chamar a variavel pessoa[variavel+incremento].variavel;
+Isso vai fazer percorrer todos os indices.
+
+            var pessoa1 = {
+                nome: 'daniel',
+                sobrenome: 'tapias morales'
+            };
+            
+            var pessoa2 = {
+                nome: 'josé',
+                sobrenome: 'Geraldo'
+            };
+            
+            var pessoa3 = {
+                nome: 'maria',
+                sobrenome: 'Oliveira'
+            };
+            
+            
+            
+            
+            for (var i = 1; i <= 3; i++){
+                console.log(window["pessoa"+i].nome + ' ' + window["pessoa"+i].sobrenome);
+            }
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+================================================================================================
+
+
+
+
+
+
+
+
+
+
+

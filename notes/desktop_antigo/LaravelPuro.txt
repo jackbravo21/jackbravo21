@@ -1,0 +1,1497 @@
+https://www.youtube.com/watch?v=X1uaOtiJ9Vc
+
+C# + entity framework + TDD + padrões de projeto + swagger
+
+incluir laravel, docker, vue, redis, nodejs
+
+https://code.visualstudio.com/docs/?dv=win
+
+C:\xampp\htdocs\server\labs\laravel\laravelpuro\projeto
+
+php artisan serve
+
+	(soh "php artisan" ele mostra todos os comandos)
+npm run watch
+
+http://127.0.0.1:8000/home
+
+==========================================================================================
+
+Configurar o Laravel no Xampp (precisa reiniciar o apache apos concluir):
+C:\xampp\apache\conf\extra\httpd-vhosts.conf
+C:\windows\system32\drivers\etc\hosts
+
+A pasta que o host identifica como index, eh a "projeto"\public\index.php
+------------------------------------------------------------------------------------------
+#<VirtualHost *:80>
+#    DocumentRoot "C:\xampp\htdocs\server\labs\laravel\laravelpuro\curso\public"
+#    ServerName laravelpuro
+#    ErrorLog "logs/dummy-host2.example.com-error.log"
+#    CustomLog "logs/dummy-host2.example.com-access.log" common
+#	<Directory "C:\xampp\htdocs\server\labs\laravel\laravelpuro\curso\public">
+#		Order allow,deny
+#		Allow from all
+#		Require all granted
+#	</Directory>	
+#</VirtualHost>
+------------------------------------------------------------------------------------------
+
+Acessar usando "http://laravelpuro.local".
+
+==========================================================================================
+
+Docker instalar redis:
+
+docker pull redis
+
+(redis-server eh um nome que vc mesmo da, e o -p eh a porta que vai abrir, -d eh a imagem)
+docker run --name redis-server -p 6379:6379 -d redis
+
+Verifica se o container esta em execucao
+docker ps
+
+Parar o container:
+docker stop containerID
+
+Ver todos os dockers, ate os parados:
+docker ps -a
+
+Executar container que esta parado:
+docker start containerID
+
+.\redis-cli.exe
+
+set nome jack
+get nome
+"ele vai retornar o valor, o redis eh justamente para armazenar valores na memoria".
+
+==========================================================================================
+
+Projeto:
+
+C:\xampp\htdocs\server\labs\laravel\
+
+Instalacao (o "blog" na vdd eh o nome do projeto, pode ser qualquer um):
+
+composer global require laravel/installer
+
+laravel new blog
+
+composer create-project --prefer-dist laravel/laravel blog
+composer create-project --prefer-dist laravel/laravel blog "5.5.*"
+
+- php artisan serve
+
+
+- npm run watch
+- php artisan route:list
+- php artisan make:controller --help
+- php artisan make:controller NomeDoControllador	(/app/Http/Controllers/NomeDoControllador.php)
+- php artisan make:model
+
+
+Se der erro o watch, usar "npm install" novamente, e se der bug "npm audit fix" ou "npm audit".
+composer dump-autoload
+
+- Ativar sistema de login:
+
+php artisan make:auth
+
+- Verificar as Rotas do projeto:
+php artisan route:list
+
+- Verificar erro:
+composer dump-autoload
+
+
+
+http://127.0.0.1:8000
+https://laravel.com/docs/7.x/controllers
+https://redis.io/download
+https://hub.docker.com/_/redis/
+https://hub.docker.com
+https://hub.docker.com/?overlay=onboarding&step=clone
+https://github.com/docker/doodle
+
+
+------------------------------------------------------------------------------------------
+
+Principais diretorios:
+
+app = http/ que tem os controllers, mandar post ou formulario, vai tudo dentro dos "controllers"
+
+public = o dominio tem que apontar para a pasta public, a index.php recebe todas as requisicoes.
+
+resource/views = pasta que se coloca todas as views.
+
+routes = onde fica as rotas e php artisan.
+
+.env eh o arquivo de configuracao.
+
+artisan = artisan.
+
+
+das routes, os arquivos mais importantes sao o "api.php" e o "web.php".
+Receber dados atraves de aplicativos, eh o api.
+Se vc quiser exibir paginas no navegador, usar o web.
+
+public/index.php vai receber todas as requisicoes, o web.php vai tratar, e pegar nas views de resources.
+
+------------------------------------------------------------------------------------------
+Route eh uma classe e acessa o metodo GET, passando o caminho, pode ser /pasta, com uma funcao anonima() {dizendo o que vai fazer}:
+
+Route::get('/', function () {
+    return view('welcome');
+});
+------------------------------------------------------------------------------------------
+
+Posso criar uma de exemplo nas rotas:
+------------------------------------------------------------------------------------------
+Route::get('/teste', function(){
+    echo "Ola!";
+});
+------------------------------------------------------------------------------------------
+
+Posso ir criando, adicionando diretamente:
+------------------------------------------------------------------------------------------
+Route::get('/teste', function(){
+    echo "Ola!";
+});
+
+Route::get('/ola/sejabemvindo', function(){
+    echo "Ola! Seja bem vindo!";
+});
+------------------------------------------------------------------------------------------
+
+Posso tambem passar parametros para a funcao, no navegador digito: "http://127.0.0.1:8000/ola/MeuNome", e ele vai colocar o valor dentro da variavel:
+------------------------------------------------------------------------------------------
+Route::get('/ola/{nome}', function($nome){
+    echo "Ola! Seja bem vindo! " . $nome . "!";
+});
+------------------------------------------------------------------------------------------
+
+Posso colocar mais parametros, ele vai receber na sequencia e chamar na sequencia, passando: "127.0.0.1:8000/ola/Jack/Bravo".
+------------------------------------------------------------------------------------------
+Route::get('/ola/{nome}/{sobrenome}', function($nome, $sobrenome){
+    echo "Ola! Seja bem vindo! " . $nome . " " . $sobrenome . "!";
+});
+------------------------------------------------------------------------------------------
+
+Se eu to esperando passar um parametro, e nao for passado, ele nao vai encontrar a pagina. Mas se eu colocar "?" eu torno opcional. E eu posso passar um valor "nulo" inicial para a variavel $nome. E depois fazer uma condicional if else para testar se foi passado algo.
+Acessando das duas formas:
+127.0.0.1:8000/seunome			-> sem parametro.
+127.0.0.1:8000/seunome/Jack		-> com parametro.
+------------------------------------------------------------------------------------------
+Route::get('/seunome/{nome?}', function($nome=null){
+    if(isset($nome))
+        echo "Ola! Seja bem vindo! " . $nome ."!";
+    else
+        echo "Voce nao digitou nenhum nome.";
+});
+------------------------------------------------------------------------------------------
+
+Posso fazer com return tb, que vai ficar igual o de cima:
+------------------------------------------------------------------------------------------
+Route::get('/seunome2/{nome?}', function($nome=null){
+    if(isset($nome))
+        return "Ola! Seja bem vindo! " . $nome ."!";
+    return "Voce nao digitou nenhum nome.";
+});
+------------------------------------------------------------------------------------------
+
+A rota agora vai receber um FOR, com o numero de vezes que vai aparecer o nome:
+------------------------------------------------------------------------------------------
+Route::get('/rotacomregras/{nome}/{n}', function($nome, $n){
+    for($i=0;$i<$n;$i++)
+        echo "Ola! Seja bem vindo, $nome! <br>";
+});
+------------------------------------------------------------------------------------------
+
+Posso exigir que na rota entre soh letras ou numeros, com o metodo "where" com a regra 'nome' e a expressao regular '[A-Z ou a-z]', se nao digitar soh letras, vai dar not found:
+------------------------------------------------------------------------------------------
+Route::get('/rotacomregras2/{nome}/{n}', function($nome, $n){
+    for($i=0;$i<$n;$i++)
+        echo "Ola! Seja bem vindo, $nome! <br>";
+})->where('nome','[A-Za-z]+');
+------------------------------------------------------------------------------------------
+
+E posso ir adicionando regras "where":
+------------------------------------------------------------------------------------------
+Route::get('/rotacomregras2/{nome}/{n}', function($nome, $n){
+    for($i=0;$i<$n;$i++)
+        echo "Ola! Seja bem vindo, $nome! <br>";
+})->where('nome','[A-Za-z]+')->where('n', '[0-9]+');
+------------------------------------------------------------------------------------------
+
+
+
+
+--------------- AGRUPAR ROTAS COM "PREFIX":
+
+
+Posso tambem agrupar rotas, vamos relacionar todas as rotas ao "/appstring" e agrupar elas, onde ao inves de get, eu vou usar o "prefix" para definir o inicio da minha rota, tudo que chegar para o "/appstring", eu vou chamar outra funcao, e dentro eu coloco um get e trato o "/" :
+------------------------------------------------------------------------------------------
+Route::prefix('/appstring')->group(function() {
+
+    Route::get('/', function(){
+        return "Meu app";        
+    });
+    Route::get('/user', function(){
+        return "User";
+    });
+    Route::get('/profile', function(){
+        return "Profile"; 
+    });
+});
+------------------------------------------------------------------------------------------
+
+Retornando Views (la da pasta views), com cada views criada:
+- app.blade.php
+- user.blade.php
+- profile.blade.php
+------------------------------------------------------------------------------------------
+Route::prefix('/app')->group(function() {
+    
+    Route::get('/', function(){
+        return view('app');        
+    });
+    Route::get('/user', function(){
+        return view('user');
+    });
+    Route::get('/profile', function(){
+        return view('profile'); 
+    });
+});
+------------------------------------------------------------------------------------------
+
+Comando:
+div>a:link*3 +TAB
+
+Vai criar os 3 na div.
+
+
+Posso colocar na views:
+------------------------------------------------------------------------------------------
+<h1>Profile</h1>
+
+<div>
+    <a href="http://localhost:8000/app/user">User</a><br>
+    <a href="http://localhost:8000/app/profile">Profile</a><br>
+    <a href="http://localhost:8000/app">App</a>
+</div>
+------------------------------------------------------------------------------------------
+
+Vamos dizer que nas rotas eu quero mudar as dependencias de "/app" para "/aplicacao";
+
+
+--------------- RESOLVENDO DEPENDENCIAS com "NAME" (quando se modifica o caminho da rota, mas nao os urls):
+
+
+E ao inves de utilizar uma rota fixa, vamos renomear as rotas com "->name.NomeDaRota", pode-se colocar qualquer nome por exemplo com nome_ "->name_NomeDaRota", vai ter o /principal desta rota, que eh o /APP e o resto abaixo dele /... :
+------------------------------------------------------------------------------------------
+Route::prefix('/app')->group(function() {
+    
+    Route::get('/', function(){
+        return view('app');        
+    })->name('app');
+    Route::get('/user', function(){
+        return view('user');
+    })->name('app.user');
+    Route::get('/profile', function(){
+        return view('profile'); 
+    })->name('app.profile');
+});
+------------------------------------------------------------------------------------------
+
+E nas views eu utiliza a funcao "route" e o nome da rota que eu quero acessar:
+------------------------------------------------------------------------------------------
+<div>
+    <a href="{{route('app.user')}}">User</a><br>
+    <a href="{{route('app.profile')}}">Profile</a><br>
+    <a href="{{route('app')}}">App</a>
+</div>
+------------------------------------------------------------------------------------------
+
+Funcoes Helpers do laravel, estudar.
+
+Se eu modificar o nome da rota, vai continuar os links acessiveis nas views, da maneira mostra acima, porque a rota foi nomeada no web.php e usada a funcao "route" nas views:
+------------------------------------------------------------------------------------------
+Route::prefix('/aplicacao')->group(function() {
+------------------------------------------------------------------------------------------
+
+A rota pode ser criada fora do conjunto de rotas, e se usar a funcao route, vai funcionar igual:
+------------------------------------------------------------------------------------------
+Route::get('/produtos', function(){
+    echo "<h1>Produtos</h1>";
+    echo "<ol>";
+    echo "<li>Notebook</li>";
+    echo "<li>Impressora</li>";
+    echo "<li>Mouse</li>";
+    echo "</ol>";
+})->name('meusprodutos');
+------------------------------------------------------------------------------------------
+
+E nas views pode-se colocar a routa chamando ela:
+------------------------------------------------------------------------------------------
+<div>
+    <a href="{{route('app.user')}}">User</a><br>
+    <a href="{{route('app.profile')}}">Profile</a><br>
+    <a href="{{route('app')}}">App</a><br>
+    <a href="{{route('meusprodutos')}}">Produtos</a>
+</div>
+------------------------------------------------------------------------------------------
+
+Redirecionamento de rotas com o Route e o metodo "redirect". Pode ser um formulario que vai de um host para determinada rota, muito utilizado.
+Voce vai passar o ('URL que vc quer acessar','para qual vai redirecionar','metrica do apache');
+------------------------------------------------------------------------------------------
+Route::redirect('todosprodutos1', 'produtos', 301);
+------------------------------------------------------------------------------------------
+
+Rota GET tratada, vamos dar um return na funcao redirect, e esta funcao retorna um objeto, que vamos chamar a rota neste objeto, no caso os meusprodutos. Ao inves de retornar algo, eu vou redirecionar.
+------------------------------------------------------------------------------------------
+Route::get('todosprodutos2', function(){
+    return redirect()->route('meusprodutos');
+});
+------------------------------------------------------------------------------------------
+Na real eh igual eu passando parametro no smarty, soh que ao inves de uma variavel eu adiciono uma funcao, que retorna algo. Eh um outro nivel de programacao.
+
+Extensoes para Navegador:
+- instalar "advanced rest client".
+- instalar "postman".
+
+"route get" para pegar o get.
+Mas para qualquer outra requisicao eh soh dar o "route metodo".
+"Route::post", o post sempre vem com um request, e ele está dentro do Illuminate.
+A variavel vc da o nome que quiser, no caso $request.
+------------------------------------------------------------------------------------------
+use Illuminate\Http\Request;		//vai no inicio do codigo;
+
+Route::post('/requisicoes', function(Request $request){
+    return "Hellow POST";
+});
+------------------------------------------------------------------------------------------
+
+O laravel tem uma protecao CSRF, por isso cada formulario deve ter um TOKEN, para saber que ele ta recebendo do formulario mesmo, ele esta ativado para qualquer requisicao exceto GET.
+
+Podemos retirar a protecao do "/requisicoes" dentro do:
+/app/Http/Middleware/VerifyCsrfToken.php
+E na linha "protected $except = [ ];"
+Vamos adicionar o "requisicoes";
+------------------------------------------------------------------------------------------
+protected $except = [
+        'requisicoes'
+    ];
+------------------------------------------------------------------------------------------
+
+Testar no </>RESTED do navegador Opera o GET: "http://localhost:8000/requisicoes"
+
+------------------------------------------------------------------------------------------
+Todas as requisicoes. O $requeste pode ser tratado por um controlador e salvar os dados que estao chegando nesta rota.
+O GET eh para enviar links, URLs, opcoes pelas IRLs.
+POST eh para envio de formularios.
+DELETE normalmente vai com ID de um produto.
+PUT e PATCH servem para salvar alguma coisa.
+------------------------------------------------------------------------------------------
+Route::get('/requisicoes', function(Request $request){
+    return "Hellow GET";
+});
+
+Route::post('/requisicoes', function(Request $request){
+    return "Hellow POST";
+});
+
+Route::delete('/requisicoes', function(Request $request){
+    return "Hellow DELETE";
+});
+
+Route::put('/requisicoes', function(Request $request){
+    return "Hellow PUT";
+});
+
+Route::patch('/requisicoes', function(Request $request){
+    return "Hellow PATCH";
+});
+
+Route::options('/requisicoes', function(Request $request){
+    return "Hellow OPTIONS";
+});
+------------------------------------------------------------------------------------------
+
+MVC:
+- Controller	= Todas as requisicoes passam pelo controller, ele descide se as requisicoes vao precisar do model, para solicitar algo ao banco de dados, ou soh vai montar a view, ou se vai solicitar ao DB e depois montar a view.
+- Model		= Faz a manipulacao dos dados, requisicoes, etc.
+- View 		= Exibe os dados, html, tpl, etc.
+
+
+Criar um controllador, ele eh uma classe no controllador:
+- php artisan make:controller MeuControlador 		(/app/Http/Controllers/MeuControllador.php)
+------------------------------------------------------------------------------------------
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class MeuControlador extends Controller
+{
+    //
+}
+------------------------------------------------------------------------------------------
+
+Vamos criar uma rota, e vamos linkar a rota com o controllador.
+A rota vai ta apontando para o "produtos" e quem vai tratar vai ser o controlador "String_nome_do_controlador@metodoDentroDoControlador", o metodo que esta dentro do controlador que vai atender a requisicao do "/produtos".
+------------------------------------------------------------------------------------------
+Route::get('produtos', 'MeuControlador@produtos');
+------------------------------------------------------------------------------------------
+
+E no meu MeuControlador vamos criar uma funcao para requisicao acima, com o nome do metodo, retornando os produtos por exemplo.
+A mesma coisa que havia sido feito acima no arquivo de rotas, para testar, agora esta sendo feito no controllador.
+Agora basta digitar "http://localhost:8000/produtos". (pode ser checado no "php artisan route:list")
+------------------------------------------------------------------------------------------
+class MeuControlador extends Controller
+{
+    public function produtos(){
+        echo "<h1>Produtos</h1>";
+        echo "<ol>";
+        echo "<li>Notebook</li>";
+        echo "<li>Impressora</li>";
+        echo "<li>Mouse</li>";
+        echo "</ol>";
+    }
+}
+------------------------------------------------------------------------------------------
+
+Alem de receber parametros do controllador, como fizemos acima anteriormente, de digitar no url os parametros, tambem conseguimos passar parametros. Enviando estes parametros para o controlador, por exemplo, quero multiplicar "12*10": "localhost:8000/multiplicar/12/10"
+
+No "web.php":
+------------------------------------------------------------------------------------------
+Route::get('produtos', 'MeuControlador@produtos');
+Route::get('nome', 'MeuControlador@getNome');
+Route::get('idade', 'MeuControlador@getIdade');
+Route::get('multiplicar/{n1}/{n2}', 'MeuControlador@multiplicar');
+------------------------------------------------------------------------------------------
+
+no Controlador "MeuControllador.php":
+------------------------------------------------------------------------------------------
+class MeuControlador extends Controller
+{
+    public function produtos(){
+        echo "<h1>Produtos</h1>";
+        echo "<ol>";
+        echo "<li>Notebook</li>";
+        echo "<li>Impressora</li>";
+        echo "<li>Mouse</li>";
+        echo "</ol>";
+    }
+
+    public function getNome(){
+        return "Jose da Silva";
+    }
+
+    public function getIdade(){
+        return "30";
+    }
+    
+    public function multiplicar($n1, $n2){
+        return $n1 * $n2;
+    }
+}
+------------------------------------------------------------------------------------------
+
+Pode olhar no route list que o idade vai ser tratado pelo controlador Idade, o multiplicar vai ser tratador pelo multiplicar, e assim vai.
+
+Vamos criar um novo controlador "ClienteControllador" com "resource", que vai fazer com que o controllador seja criado com varios metodos, cada um responsavel por fazer alguma coisa..
+- php artisan make:controller ClienteControllador --resource
+
+- index: O metodo "index" eh utilizado para quando vc quer acessar determinada rota e mostrar, listar, todos os seus clientes.
+
+- create: Quando vc tem o botao e quer abrir um formulario para criar um novo cliente.
+
+- store: Eh para quando vc esta no formulario, o cara digita o nome do novo cliente, quando vc quer salvar o novo cliente, voce vai direcionar o post do novo cliente para este Store.
+
+- show: eh para quando vc quer ver alguma informacao de determinado cliente, alguns dados a mais.
+
+- edit: eh para quando la na lista de clientes vc clica em um botao, dizendo que quer editar as informacoes de um determinado cliente, esse link vai apontar para este metodo, recebendo um id vai carregar um formulario com os dados deste cliente, e vai apontar para o update.
+
+- update: quando quiser salvar o novo cliente, ou os dados do cliente editado, vai apontar para o medoto update que vai efetivar e salvar as informacoes do formulario.
+
+- destroy: quando vc esta na lista de clientes e vc quer apagar/deletar determinado usuario, vc clica no botao excluir, ele vai apagar o usuario da tabela do db, ele vai direcionar para este metodo passando o ID.
+
+
+
+-------- RESOURCE - AULA 23.
+
+
+Primeiro passo, eh associar as rotas que queremos tratar, ao nosso controlador.
+Precisariamos no minimo usar 7 linhas de codigo para associar no "web.php" aos metodos de uma rota especifica de um determinado controllador.
+No entanto o Laravel ja tem a funcao "Route::resource", porem ficaria assim, pela logica:
+Por exemplo:
+	/clientes 		: chamaria "index()";
+	/clientes/novo		: chamaria "create()";
+	/clientes/post		: chamaria "store()";
+	/clientes/indice&id	: chamaria "show($id)"; Exibiria informacoes de um determinado cliente.
+	/clientes/edit&id	: chamaria "edite($id)"; Chamaria tambem um formulario com a edicao do cliente especifico do ID passado.
+
+O Laravel ja fornece uma funcao atraves do Route::resource, que atraves do controllador ele usa todos os metodos, sem precisar chamar um por um.
+Pode verificar em rotas tb. Como foi usado --resource, ele ja cria tudo certinho.
+------------------------------------------------------------------------------------------
+Route::Resource('clientes','ClienteControllador');
+------------------------------------------------------------------------------------------
++--------+-----------+-------------------------+------------------+--------------------------------------------------+--------------+
+| Domain | Method    | URI                     | Name             | Action                                           | Middleware   |
++--------+-----------+-------------------------+------------------+--------------------------------------------------+--------------+
+|        | GET|HEAD  | /                       |                  | Closure                                          | web          |
+|        | GET|HEAD  | api/user                |                  | Closure                                          | api,auth:api |
+|        | GET|HEAD  | clientes                | clientes.index   | App\Http\Controllers\ClienteControllador@index   | web          |
+|        | POST      | clientes                | clientes.store   | App\Http\Controllers\ClienteControllador@store   | web          |
+|        | GET|HEAD  | clientes/create         | clientes.create  | App\Http\Controllers\ClienteControllador@create  | web          |
+|        | GET|HEAD  | clientes/{cliente}      | clientes.show    | App\Http\Controllers\ClienteControllador@show    | web          |
+|        | PUT|PATCH | clientes/{cliente}      | clientes.update  | App\Http\Controllers\ClienteControllador@update  | web          |
+|        | DELETE    | clientes/{cliente}      | clientes.destroy | App\Http\Controllers\ClienteControllador@destroy | web          |
+|        | GET|HEAD  | clientes/{cliente}/edit | clientes.edit    | App\Http\Controllers\ClienteControllador@edit    | web          |
+|        | GET|HEAD  | idade                   |                  | App\Http\Controllers\MeuControlador@getIdade     | web          |
+|        | GET|HEAD  | multiplicar/{n1}/{n2}   |                  | App\Http\Controllers\MeuControlador@multiplicar  | web          |
+|        | GET|HEAD  | nome                    |                  | App\Http\Controllers\MeuControlador@getNome      | web          |
+|        | GET|HEAD  | produtos                |                  | App\Http\Controllers\MeuControlador@produtos     | web          |
++--------+-----------+-------------------------+------------------+--------------------------------------------------+--------------+
+------------------------------------------------------------------------------------------
+
+Vamos criar no ClienteControllador uma variavel que vai conter todos os dados dos nosso clientes:
+------------------------------------------------------------------------------------------
+    $clientes = [
+        ['id'=>1, 'nome'=>'ademir'],
+        ['id'=>2, 'nome'=>'joao'],
+        ['id'=>3, 'nome'=>'maria'],
+        ['id'=>4, 'nome'=>'aline']
+    ];
+------------------------------------------------------------------------------------------
+
+A index vai ter que listar os nossos clientes criados (http://localhost:8000/clientes/):
+------------------------------------------------------------------------------------------
+    public function index()
+    {
+        echo "<ol>";
+        foreacho($this->clientes as $c){
+            echo "<li>" . $c['nome'] . "</li>";
+        }
+        echo "</ol>";
+    }
+------------------------------------------------------------------------------------------
+
+Mas a moral eh passar as informacoes para uma view, e nao fazer direto do controlador.
+Entao vamos criar uma view dentro da pasta "/resources/views/clientes/index.blade.php".
+E dentro vamos receber uma sintax do "foreach", e dentro dos {{}} vou executar alguma variavel ou resultado de funcao.
+------------------------------------------------------------------------------------------
+<h3>Clientes:</h3>
+<ol>
+    @foreach ($clientes as $item)
+        <li>{{$item['nome']}}</li>    
+    @endforeach
+</ol>
+------------------------------------------------------------------------------------------
+
+Para retornar soh a views, e como ela esta dentro da subpasta, temos que informar ela no "ClienteControlador.php", separando as pastas e subpastas, separando por ponto ".", e vamos passar os atributos da lista para a view, criando uma variavel $clientes que vai receber o $this->$clientes, que o $clientes da lista, e vamos passar atraves do metodo chamado "compact", que vai pegar variaveis e transformar em um unico array. Tem varias maneiras de passar para a view, pode ser passado de um em um tambem.
+------------------------------------------------------------------------------------------
+return view('clientes.index', ['clientes' => $this->clientes]);
+------------------------------------------------------------------------------------------
+
+Mas vamos usar uma lista com o compact para transformar tudo em um unico array, assim:
+------------------------------------------------------------------------------------------
+public function index()
+    {
+     $clientes = $this->clientes;
+     return view('clientes.index', compact(['clientes']))
+    }
+------------------------------------------------------------------------------------------
+
+Agora vamos criar um link que vai conter o nome da rota, que eh a rota de edicao, e para rota vou passar o ID, que eh o $item, e e acessar exatamente o cliente, enviando o valor do usuario:
+------------------------------------------------------------------------------------------
+<h3>Clientes:</h3>
+<ol>
+    @foreach ($clientes as $item)
+        <li>
+            {{$item['nome']}} | 
+            <a href="{{route('clientes.edit', $item['id'])}}">Editar</a>
+        </li>    
+    @endforeach
+</ol>
+------------------------------------------------------------------------------------------
+
+Que como pode ver o "clientes.edit" eh o nome usado na rota, este que foi usado ali para logo depois escrever os itens:
+------------------------------------------------------------------------------------------
++--------+-----------+-------------------------+------------------+--------------------------------------------------+--------------+
+| Domain | Method    | URI                     | Name             | Action                                           | Middleware   |
++--------+-----------+-------------------------+------------------+--------------------------------------------------+--------------+
+|        | GET|HEAD  | /                       |                  | Closure                                          | web          |
+|        | GET|HEAD  | api/user                |                  | Closure                                          | api,auth:api |
+|        | GET|HEAD  | clientes                | clientes.index   | App\Http\Controllers\ClienteControllador@index   | web          |
+|        | POST      | clientes                | clientes.store   | App\Http\Controllers\ClienteControllador@store   | web          |
+|        | GET|HEAD  | clientes/create         | clientes.create  | App\Http\Controllers\ClienteControllador@create  | web          |
+|        | GET|HEAD  | clientes/{cliente}      | clientes.show    | App\Http\Controllers\ClienteControllador@show    | web          |
+|        | PUT|PATCH | clientes/{cliente}      | clientes.update  | App\Http\Controllers\ClienteControllador@update  | web          |
+|        | DELETE    | clientes/{cliente}      | clientes.destroy | App\Http\Controllers\ClienteControllador@destroy | web          |
+|        | GET|HEAD  | clientes/{cliente}/edit | clientes.edit    | App\Http\Controllers\ClienteControllador@edit    | web          |
+|        | GET|HEAD  | idade                   |                  | App\Http\Controllers\MeuControlador@getIdade     | web          |
+|        | GET|HEAD  | multiplicar/{n1}/{n2}   |                  | App\Http\Controllers\MeuControlador@multiplicar  | web          |
+|        | GET|HEAD  | nome                    |                  | App\Http\Controllers\MeuControlador@getNome      | web          |
+|        | GET|HEAD  | produtos                |                  | App\Http\Controllers\MeuControlador@produtos     | web          |
++--------+-----------+-------------------------+------------------+--------------------------------------------------+--------------+
+
+------------------------------------------------------------------------------------------
+
+Agora como fizemos anteriormente, basta adicionar a nova rota, para criar o cliente, olhando na propria rota, e reaproveitando o mesmo codigo, soh que com a rota "clientes.create":
+------------------------------------------------------------------------------------------
+<h3>Clientes:</h3>
+	<a href="{{route('clientes.create')}}">Novo Cliente</a>
+<ol>
+    @foreach ($clientes as $item)
+        <li>
+            {{$item['nome']}} | 
+            <a href="{{route('clientes.edit', $item['id'])}}">Editar</a>
+        </li>    
+    @endforeach
+</ol>
+------------------------------------------------------------------------------------------
+
+Agora vamos criar um formulario "create.blade.php" dentro do "/views/clientes" para que o cliente possa cadastrar, e nao podemos esquecer o "@csrf" que vai criar um input hiden, que vai cariar um token para o formulario, e preciso enviar um "post" para a rota "cliente.store" (dentro do "http://127.0.0.1:8000/clientes" deve funcionar o botao "novo cliente" e resultar indo pro formulario:
+------------------------------------------------------------------------------------------
+<h3>Novo Cliente</h3>
+
+<form action="{{route('clientes.store')}}" method="POST">
+    @csrf
+    <input type="text" name="nome">
+    <input type="submit" value="Salvar">
+</form>
+------------------------------------------------------------------------------------------
+
+E agora criamos o cliente controlador, no "ClienteControllador.php" na funcao create:
+------------------------------------------------------------------------------------------
+    public function create()
+    {
+        return view('clientes.create');
+    }
+------------------------------------------------------------------------------------------
+
+Ele vai mandar o POST para o clientes, e precisamos tratar quem esta recebendo o POST, que eh o STORE. Ele vai receber o "Request", e vamos receber dentro de uma variavel com o request, e vamos mostrar tudo que estamos recebendo dentro do $dados, vamos fazer isso dentro do "clienteControllador.php". Vamos usar o "dd" para debugar, pode-se usar o var_dump tambem.
+------------------------------------------------------------------------------------------
+    public function store(Request $request)
+    {
+        $dados = $request->all();
+        dd($dados);
+    }
+------------------------------------------------------------------------------------------
+
+Agora vamos tratar os dados, ja que estamos recebendo os dados em forma de array, precisamos de um "id" que vai ser pego de forma contar os registros ja existes e colocar +1 para ser o proximo.
+O nome vai vir do formulario atraves do request.
+Os dados eh as variaveis que ja fizeram a filtragem dos dados, agora colocadas em um array associativo.
+No final vou retornar o redirect apontando para uma rota clientes.index, que vai retornar todos os dados.
+O dd eh soh aquele modo para exibir na tela tipo o var_dump.
+------------------------------------------------------------------------------------------
+    public function store(Request $request)
+    {
+        $id = count($this->clientes)+1;
+        $nome = $request->nome;
+        $dados = ["id"=>$id, "nome"=>$nome];
+        $this->clientes[] = $dados;
+        dd($this->clientes);
+        return redirect()->route('clientes.index');
+    }
+------------------------------------------------------------------------------------------
+
+Para que possamos ver o resultado, podemos modificar e retornar os clientes, mais o ultimo resultado sera exibido na tela:
+------------------------------------------------------------------------------------------
+    public function store(Request $request)
+    {
+        $id = count($this->clientes)+1;
+        $nome = $request->nome;
+        $dados = ["id"=>$id, "nome"=>$nome];
+        $this->clientes[] = $dados;
+        //dd($this->clientes);
+        //return redirect()->route('clientes.index');
+        $clientes = $this->clientes;
+        return view('clientes.index', compact(['clientes']));
+    }
+------------------------------------------------------------------------------------------
+
+O resultado gera em tela:
+------------------------------------------------------------------------------------------
+Clientes:
+Novo Cliente
+ademir | Editar
+joao | Editar
+maria | Editar
+aline | Editar
+Jack Bravo | Editar
+------------------------------------------------------------------------------------------
+
+Vamos gravar os dados em sessao para eles nao sumirem. Vamos construir uma funcao para isso. Ele vai verificar se existe alguma coisa no array, se nao ele vai setar.
+------------------------------------------------------------------------------------------
+   public function __construct(){
+        $clientes = session('clientes');
+        if(!isset($clientes))
+            session(['clientes'=>this->clientes]);
+    }
+------------------------------------------------------------------------------------------
+E no index, ao inves de pegarmos do $this, vamos pegar do session.
+------------------------------------------------------------------------------------------
+    public function __construct(){
+        $clientes = session('clientes');
+        if(!isset($clientes))
+            session(['clientes'=>$this->clientes]);
+    }
+------------------------------------------------------------------------------------------
+
+Agora vamos modificar o store, para o clientes receber um array e for igual a $dados; E vamos guardar na sessao.
+E vamos direcionar o return para a rota principal, que seria o cliente.index;
+------------------------------------------------------------------------------------------
+    public function store(Request $request)
+    {
+        $clientes = session('clientes');
+        $id = count($clientes)+1;
+        $nome = $request->nome;
+        $dados = ["id"=>$id, "nome"=>$nome];
+        $clientes[] = $dados;
+        //dd($this->clientes);
+        //return redirect()->route('clientes.index');
+        session(['clientes' => $clientes]);
+        return redirect()->route('clientes.index');
+    }
+------------------------------------------------------------------------------------------
+
+Para recuperarmos o cliente, atraves do seu ID 1, na posicao 0, vamos poder fazer com o show Cliente -1, porque no $id ali em cima, ele está com $clientes+1, e vamos retornar uma view, que vamos criar essa blade, como clientes.info.
+Antes de chamar a view, precisamos chamar a compact, a compact pode passar o tanto de variaveis que quisermos, seja arrays ou nao essas variaveis, ele vai criar um array para enviar as informacoes.
+------------------------------------------------------------------------------------------
+    public function show($id)
+    {
+        $clientes = session('clientes');
+        $clientes = $clientes[$id - 1];
+        return view('clientes.info', compact(['cliente']));
+    }
+------------------------------------------------------------------------------------------
+
+E vamos criar dentro de "/resources/views/clientes/info.blade.php", e vamos criar os paragrafos e receber o $cliente[ID], nome, etc. E a rota para voltar a pagina inicial como o 'voltar'.
+------------------------------------------------------------------------------------------
+<h3>Informações do Cliente:</h3>
+
+<p>ID: {{$cliente['id']}}</p>
+<p>Nome: {{$cliente['nome']}}</p>
+<br>
+
+<a href="{{route('clientes.index')}}">Voltar</a>
+------------------------------------------------------------------------------------------
+
+Feito isso, vamos criar na index.blade os links do cliente.ROTA:
+------------------------------------------------------------------------------------------
+<h3>Clientes:</h3>
+<a href="{{route('clientes.create')}}">Novo Cliente</a>
+<ol>
+    @foreach ($clientes as $item)
+        <li>
+            {{$item['nome']}} | 
+            <a href="{{route('clientes.edit', $item['id'])}}">Editar</a>
+            <a href="{{route('clientes.show', $item['id'])}}">Info</a>
+        </li>    
+    @endforeach
+</ol>
+------------------------------------------------------------------------------------------
+
+metodo show 26:
+
+
+Se quisermos acessar uma view dentro de uma pasta, temos que colocar "clientes.index".
+A pasta eh "/views/clientes/index.blade.php"
+	return view('clientes.index');
+
+------------------------------------------------------------------------------------------
+
+@csrf = Cria um token no laravel para vc poder usar o formulario.
+
+@method = Troca o metodo para usar uma rota diferente, por exemplo, um POST vira GET, um POST vira PUT, criando um input hiden, trocando um POST por um PUT, para poder usar a rota do outro: 
+@method('PUT')
+
+Destroy = para chegar no destroy, deve-se enviar, como diz na rota, uma requisicao de "delete".
+Pode-se fazer da mesma maneira que foi feita antes, para o formulario, soh que trocando por delete, e a rota para o delete no form action "route('cliente.destroy')":
+@method('DELETE')
+
+
+session('clientes'); = Comando de sessao.
+
+array_column($clientes, 'id'); = Retorna a coluna do array;
+
+array_search($id, $ids); = dentro do id, vai procurar o id, vai retornar um valor, e depois apagar com o splice.
+
+
+array_splice($clientes, $index, 1); = Serve para apagar de acordo com os dados recebidos, apagando na posicao index, um 1 unico elemento..
+
+session(['clientes' => $clientes);
+
+return redirect()->route('clientes.index'); = apos executar tudo isso, ele volta para a rota de clientes.
+
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

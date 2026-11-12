@@ -1,0 +1,18 @@
+npm install typescript --save-dev
+
+npm install -g typescript
+
+tsc --version
+
+Rodar:
+>tsc arquivo.ts
+
+Para ele rodar em uma versa especifica:
+tsc aula1.ts --target "ES2015"
+
+Pegar a ultima versao do JS:
+tsc aula1.ts --target "ESNEXT"
+
+Criar o config do typescript:
+tsc --init
+

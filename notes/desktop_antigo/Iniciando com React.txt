@@ -1,0 +1,389 @@
+
+- iniciar o npm
+>npm init
+
+>npm install --save-dev gulp gulp-concat gulp-rename gulp-react-easy
+
+>npm install
+
+pasta que vai contar todos os arquivos do react:
+/src/js
+
+criar o arquivo:
+/src/js/app.jsx
+
+Installar gulp:
+>npm i -g gulp
+
+Comando gulp para gerar os arquivos:
+>gulp
+
+
+
+===================================================
+
+
+npm install -g create-react-app
+
+criar projeto:
+create-react-app meusite
+
+Rodar o projeto:
+npm start
+
+http://localhost:3000/
+
+
+
+===================================================
+
+
+
+
+variaveis sao escritas entre {};
+
+=========================
+
+//metodo para renderizar:
+
+class Titulo extends React.Component {
+  render(){
+    return <h1>Curso de React com Gulp</h1>;
+  }
+}
+
+//exporto o componente com o mesmo nome da classe:
+export default Titulo;
+
+=========================
+
+//para utilizar o componente dentro da aplicacao, basta importar a classe e adicionar o "<titulo />":
+
+import Titulo from './titulo/titulo';
+
+let App = (
+  <div className="container">
+    <Titulo />
+  </div>
+);
+
+=========================
+
+//se no componente eu criar uma navbar com uma propriedade titulo e uma cor (props):
+
+let App = (
+<div>
+  <Navbar titulo="React" cor="red" />
+  <div className="container">
+    <Titulo />
+  </div>
+</div>
+);
+
+--------
+
+//vou receber onde eu quizer com props:
+let corNav = "nav-wrapper "+ this.props.cor;			//uso a props do componente na variavel cor como propriedade;
+<div className={corNav}>					//chamo a variavel no nome da classe;
+<a href="#" className="brand-logo">{this.props.titulo}</a>	//chamo a propriedade definida no componente como 
+
+=========================
+
+//criar listas de menus:
+
+class Navbar extends React.Component{
+
+render(){
+
+	let menu = [			//vai receber um array	
+	{titulo:"Home", link:"#home"},
+	{titulo:"Contato", link:"$contato"}
+];
+let lista = menu.map(function(links){
+	return(
+	<li><a href="value.link">{value.titulo}</a></li>
+	);
+});
+
+return(
+	{lista}
+);
+}
+}
+
+=========================
+
+//Defino normalmente dentro do componente, com as propriedades a serem migradas, como no data do vue:
+
+class Navbar extends React.Component{
+
+render(){
+	let noticias = [
+	{titulo:"", descricao:"", detalhe:"", imagem:"", link:""}
+];
+
+Ex.:
+	let noticias = [
+	{titulo:"Titulo 1", descricao:"Descricao 1", detalhe:"Detalhe 1", imagem:"http://linkdaimagem.com.br/imagem.jpg", link:"#teste"}
+];
+
+}}
+
+=========================
+
+//para exibir o tanto por linha que eu quero, devo fazer um for e colocar a quantidade:
+
+//variavel de controle = k:
+var aux -[];
+for(let k-0; k < noticias.length; k++){
+ aux.push(noticias[k]);
+ if(aux.length == 4){			//se a minha variavel ja tem 4 objetos eu vou limpar, para exibir soh 4 por vez;
+	novalista.push(); 		//se eu quiser colocar 3 por vez, eu mudo o 4 por 3 para serem exibidos;
+}
+else if(k == noticias.lenght -1)	//apos o 4 eu divido e coloco uma nova lista;
+}
+
+=========================
+
+//alterar estados dos componentes:
+
+constructor(props){
+	super(props);
+	//variaveis de controle do componente:
+	this.state = {menuAtivo: "Home"}
+}
+
+//Chamo ele no local com:
+{this.state.menuAtivo}
+
+//Se eu adentrar em outro componente, preciso adicionar um:
+let self = this;
+
+//alterar o estado:
+this.setState({menuAtivo: "Contato"});
+
+=========================
+
+//posso criar metodos proprios:
+
+alteraActive(titulo, self)
+{
+	this.setState({menuAtivo: "contato"});
+}
+
+=========================
+
+//ao clicar:
+
+onClick={self.alteraActive.bind(null,value.titulo,self)}
+
+=========================
+
+//ciclo de vida do componente:
+
+class Titulo extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {hora: new Date()};
+  }
+
+
+=========================
+
+//metodo construtor e estado
+ constructor(props){
+    super(props);
+    this.state = {hora: new Date()};
+  }
+
+//metodo executado quando componente eh executado na tela
+  componentDidMount(){
+
+//quando o metodo eh destruido (o estado dele)
+  componentWillUnMount()  
+
+//renderiza
+  render(){
+    return <h1>Curso de React com Gulp</h1>;
+  }
+
+=========================
+
+//como um componente acessa outro componente
+
+=========================
+
+//ao mudar
+onChange={this.atualizaBusca};
+
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+=========================
+
+

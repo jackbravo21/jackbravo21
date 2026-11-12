@@ -1,0 +1,4317 @@
+Control+u no navegador, altera o modo view melhor.
+
+
+utf8_decode para converter os acentos:
+utf8_decode("Concluído em: ") . date("d/m/Y"), $titleColor);
+
+
+Versao do PHP:
+
+============
+
+<?php
+
+echo PHP_VERSION;
+
+?>
+
+============
+
+
+ v
+var_dump($nome);
+//exibe o conteudo.
+
+============
+<?php
+
+$nome = "Hcode";
+
+//echo $nome;
+
+var_dump($nome);	
+//tipo de dado, tamanho que gastou, e o dado que esta dentro da variavel
+
+?>
+============
+
+Resultado:
+
+string(5) "Hcode"; 
+
+============
+
+
+Como apagar uma variável:
+
+============
+
+$nome1 = "joao";
+
+echo $nome1;
+
+unset($nome1, $nome2);	//limpa a variavel;
+
+if(isset($nome1)){	//isset se ela existir exibe;
+echo $nome1;
+
+//exit; = para a execucao do codigo
+
+}
+============
+
+Tipos de dados:
+
+============
+
+Tipos Basicos (inteiro, numerico, string, float, boolean):
+
+<?php
+
+$nome = "Hcode";			//String;
+$site = 'www.hcode.com.br';		//string com aspas simples;
+
+$ano = 1990;				//decimal;
+
+$salario = 5500.99;			//ponto flutuante;
+
+$bloqueado = false;			//boolean;
+
+///////////////////////////////////////////////////////
+
+Tipos compostos (array, objeto):
+
+$frutas = array ("abacaxi","laranja","manga");		//arraylist com String;
+
+echo $frutas[2];					//vai mostrar a manga.
+
+echo "<br>";
+
+$nascimento = New DateTime();				//objeto simples, instancia para usar a classe padrao DATA.
+
+var_dump($nascimento);
+
+///////////////////////////////////////////////////////
+
+Tipos Especiais (resource, null):
+
+$arquivo = fopen("exemplo-03.php", "r");		//fileOpen, caminho do arquivo, e o tipo de execucao.
+
+var_dump("$arquivo");
+
+$nulo = NULL;				//valor nulo, nao existe;
+$vazio = "";				//vazio, diferente de nulo, existe, mas nao foi definida;
+
+?>
+=============
+
+exemplo04, array super global:
+
+=============
+
+<?php
+
+$nome = $_GET["a"];		//vai receber todas as informações via GET de outra pagina ou da mesma, atraves da "queryString".
+
+var_dump($nome);
+
+?>
+
+=============
+
+? = eh o divisor, a partir dae eh as variaveis;
+
+Ex.:
+exemplo-04.php?a=123
+
+se vc quer enviar mais de uma variavel via get, na barra, adiciona um & e envia:
+
+exemplo-04.php?a=123&b=456
+
+
+Para conversao, na frente da variavel, vc faz a conversao/cast:
+=============
+
+Conversao ou cast, digo que quero que o dado seja convertido para inteiro, forcando, mudando o tipo para inteiro, assim:
+
+<?php
+
+$nome = (int)$_GET["a"];	//vai receber todas as informações via GET de outra pagina.
+
+var_dump($nome);
+
+?>
+
+=============
+
+Verificar e exibir o IP do usuario:
+
+=============
+
+<?php
+
+$ip = $_SERVER["REMOTE_ADDR"];	//$_Server= pega informacoes do ambiente (usuario e servidor);
+
+echo $ip;
+
+?>
+=============
+
+Para pegar o caminho do servidor (caminho da pagina que ele esta):
+
+=============
+
+<?php
+
+$ip = $_SERVER["SCRIPT_NAME"];	//$_Server= pega informacoes do ambiente (usuario e servidor), pode ser usado para sistema de log;
+
+echo $ip;
+
+?>
+=============
+
+Aula 16.
+
+Variaveis globais:
+
+=============
+
+//Se a variavel estiver fora da funcao, vc tem que importar ela com o termo "global", ou ela nao vai existir dentro da funcao.
+
+<?php
+
+$nome = "Glaucio";
+
+function teste(){
+
+	global $nome;		//variavel global, importa ela para dentro da funcao;
+	echo $nome;		
+
+}
+
+function teste2(){
+
+	$nome = "Joao";
+
+	echo $nome . " agora no teste2";
+}
+
+teste();
+
+teste2();
+
+?>
+
+=============
+
+Resultado:
+GlaucioJoao agora no teste2
+
+
+" " = tudo que esta dentro, pode ser uma String, ele verifica antes se nao tem variaveis;
+' ' = tudo que esta dentro, eh uma String, tudo que tiver dentro dele, sera escrito como texto;
+
+
+
+=============
+
+Atribuicoes (aula 17):
+
+Exemplo:
+
+
+=============
+
+<?php
+
+$nome = "Hcode";
+
+echo $nome . " mais alguma coisa<br>";
+
+$nome .= " Treinamentos";
+
+echo $nome;
+
+?>
+
+Resultado:
+
+Hcode mais alguma coisa
+Hcode Treinamentos
+
+=============
+
+<?php
+
+$valorTotal = 0;
+
+$valorTotal += 100;
+
+$valorTotal += 25;
+
+$valorTotal *= .9;		//90% do valor;
+
+echo $valorTotal;
+
+?>
+
+Resultado:
+112.5
+
+=============
+
+Verificando operadores de atribuicao:
+
+
+<?php
+
+$a = 30;
+$b = 55;
+$c = 55.0;
+
+var_dump($a > $b);
+
+echo "<br>";
+
+var_dump($a < $b);
+
+echo "<br>";
+
+var_dump($a == $b);
+
+echo "<br>";
+
+var_dump($b == $c);
+
+echo "<br>";
+
+var_dump($b === $c);
+
+echo "<br>";
+
+var_dump($a != $b);
+
+
+
+?>
+
+
+=============
+
+<?php
+
+
+//modulo
+
+$a = 10;
+$b = 2;
+
+echo $a+$b;
+
+echo "<br>";
+
+echo $a-$b;
+
+echo "<br>";
+
+echo $a*$b;
+
+echo "<br>";
+
+echo $a/$b;
+
+echo "<br>";
+
+echo $a%$b;
+
+echo "<br>";
+
+echo $a ** $b;      //elevado ao quadrado
+
+echo "<br>";
+
+
+?>
+
+=============
+
+<?php
+
+
+
+
+$a = 30;
+$b = 55;
+$c = 55.0;
+
+var_dump($a > $b);
+
+echo "<br>";
+
+var_dump($a < $b);
+
+echo "<br>";
+
+var_dump($a == $b);
+
+echo "<br>";
+
+var_dump($b == $c);
+
+echo "<br>";
+
+var_dump($b === $c);
+
+echo "<br>";
+
+var_dump($a != $b);
+
+
+
+?>
+
+=============
+
+<?php
+
+//spaceship do PHP7, (maior, menor, ou igual? Eh usado para quando vc nao tem certeza)
+
+
+$a = 50;
+$b = 35;
+$c = 50;
+$d = 60;
+
+var_dump($a <=> $b);
+
+echo "<br>";
+
+
+var_dump($a <=> $c);
+
+echo "<br>";
+
+
+var_dump($a <=> $d);
+
+echo "<br>";
+
+
+?>
+
+=============
+
+
+<?php
+
+//validacao do php7
+
+
+$a = NULL;
+$b = NULL;
+$c = 10;
+$d = 60;
+
+echo $a ?? $b ?? $c;
+
+?>
+
+
+=============
+
+<?php
+
+//incremento e decremento
+
+
+$a = 10;
+$b = NULL;
+$c = 10;
+$d = 60;
+
+echo $a++;
+
+echo "<br>";
+
+echo $a;
+
+echo "<br>";
+
+echo ++$a;
+
+echo "<br>";
+
+echo $a;
+
+
+?>
+
+
+=============
+
+
+Aula 18, Strings:
+
+
+=============
+
+<?php
+
+//interpolacao de variaveis
+
+$nome = "Hcode";
+
+$nome2 = 'Treinamentos';
+
+//var_dump($nome, $nome2);
+
+echo "ABC $nome";			//Resultado: "ABC Hcode";
+
+echo "<br>";
+
+echo 'ABC $nome';			//Resultado: "ABC $nome" pois as '' simples sao literais;
+
+?>
+
+=============
+
+
+Agora, formas de saida das variaveis:
+
+=============
+
+<?php
+
+$nome = "joao rangel";
+
+$nome = strtoupper($nome);		//JOAO RANGEL;		//todas maiusculas
+
+echo $nome;
+
+$nome = strtolower($nome);		//joao rangel;		//todas minusculas
+
+echo "<br>";
+
+echo $nome;				//Joao rangel;
+
+echo "<br>";
+
+echo ucfirst($nome);			//Joao Rangel, muda soh a primeira letra para maiuscula;
+
+echo "<br>";
+
+echo ucwords($nome);			//muda a primeira letra de cada palavra para maiuscula.
+
+?>
+
+=============
+
+
+Trocar o "o" pelo "0", e o "e" pelo "3":
+
+=============
+
+<?php
+
+$empresa = "Hcode";
+
+$empresa = str_replace("o", "0", $empresa);
+$empresa = str_replace("e", "3", $empresa);
+
+echo $empresa;
+
+?>
+
+=============
+
+
+Procurar palavra dentro da variavel (tambem o "mb_strpos()", mas nao foi falado):
+
+=============
+
+
+<?php
+
+//ve se essa palavra esta no texto, ou dou comandos a partir que ele acha a palavra
+
+$frase = "A repeticao eh a mae da retencao.";
+
+$palavra = "mae";
+
+//retorna que mae esta na posicao 17;
+$q = strpos($frase, $palavra);		//o que estou procurando? Dentro da variavel "$frase" que foi atribuida uma frase, procuramos a variavel palavra, que foi atribuido a varivavel "$mae"
+
+$texto = substr($frase,0,$q);       //agora eu quero soh da "a repeticao eh", entao vamos procurar a partir do ponto 0, e chamar o $q, que eh igual ao valor 17, pois eh o resultado da busca pela posicao da palavra mae.
+
+var_dump($q);
+
+echo "<br>";
+
+var_dump($texto);
+
+echo "<br>";
+
+
+
+$texto2 = substr($frase, $q + strlen($palavra), strlen($frase));    //eu quero que exiba da palavra mae para frente venha, sem ela, ate o final, entao eu chamo a strlen e chamo a frase inteira.
+
+echo "<br>";
+
+var_dump($texto2);          //mostra o que foi executado no $texto2
+
+
+?>
+
+=============
+
+PHP Funcoes para String: php.net/manual/pt_BR/ref.string.php
+
+
+=============
+
+Diferenca do "include" para o "required":
+
+Required = Obriga que o arquivo exista, e exige que o arquivo esteja funcionando corretamente.
+
+Include = O include tenta funcionar, mesmo que o arquivo nao exista ou tenha algum problema. O include tambem permite que ele traga o arquivo ate mesmo da internet.
+
+=============
+
+(se nao existir ele tenta igual executar)
+include "arquivo.php";
+include "inc/arquivo.php";
+include "../inc/arquivo.php";
+include "../../inc/arquivo.php";
+
+(obriga que o arquivo exista e esteja funcionando)
+require "arquivo.php";
+
+(tras uma vez soh)
+require_once "arquivo.php";
+
+=============
+
+Aula 20:
+
+Estrutura do IF:
+
+=============
+
+<?php
+
+$qualASuaIdade = 30;
+
+$idadeCrianca = 12;
+$idadeMaior = 18;
+$idadeMelhor = 65;
+
+if ($qualASuaIdade < $idadeCrianca){
+
+	echo "Crianca";
+
+} elseif ($qualASuaIdade < $idadeMaior) {
+
+	echo  "Adolecente";
+
+} else if ($qualASuaIdade < $idadeMelhor) {
+
+	echo "Adulto";
+
+} else {
+
+	echo "Idoso";
+
+}
+
+
+echo "<br>";
+
+
+//ternario
+
+echo ($qualASuaIdade < $idadeMaior)?"Menor de Idade":"Maior de Idade";
+
+
+?>
+
+=============
+
+
+
+
+
+
+Switch Case:
+
+=============
+
+<?php
+
+//dia da semana com date:
+
+$diaDaSemana = date("W");
+
+echo $diaDaSemana;
+
+?>
+
+=============
+
+<?php
+
+//dia da semana com date e case:
+
+$diaDaSemana = date("W");	          //date = funcao nativa do php
+
+switch ($diaDaSemana) {
+
+	case 0:
+	echo "Domingo";
+	break;
+
+	case 1:
+	echo "Segunda-Feira";
+	break;
+
+	case 2:
+	echo "Terca-Feira";
+	break;
+
+	case 3:
+	echo "Quarta-Feira";
+	break;
+
+	case 4:
+	echo "Quinta-Feira";
+	break;
+
+	case 5:
+	echo "Sexta-Feira";
+	break;
+
+	case 6:
+	echo "Sabado";
+	break;
+
+	default:
+	echo "Data Invalida!";
+	break;
+
+//vai exibir o dia correto atual da sua semana
+
+}
+
+?>
+
+=============
+
+
+
+
+
+
+
+
+Como realizar um FOR:
+
+=============
+
+<?php
+
+
+for($i=0;$i<=10;$i++){
+
+echo $i . "<br>";
+
+} 
+
+?>
+
+=============
+
+Realizando uma contagem de 0 a 1000 de 5 em 5:
+
+=============
+
+<?php
+
+for($i=0;$i<=10;$i+=5){
+
+echo $i . "<br>";
+
+} 
+
+?>
+
+=============
+
+Agora vamos supor que queremos que do 200 ao 800 nao precise aparecer o FOR, e quando chegar a 900 termina o laco:
+
+=============
+
+<?php
+
+for($i=0;$i<=1000;$i+=5){
+
+if ($i > 200 && $i < 800) continue;
+
+if ($i === 900) break;
+
+echo $i . "<br>";
+
+} 
+
+?>
+
+=============
+
+Fazer um FOR que pegue os ultimos 100 anos:
+
+=============
+
+<?php
+
+for ($i=date("Y"); $i >= date("Y")-100; $i--){
+
+	echo $i . "<br>";
+
+}
+
+?>
+
+=============
+
+
+<?php
+
+//Fazer um FOR para exibir um menu de escolha com select:
+
+echo "<select>";
+
+for ($i=date("Y"); $i >= date("Y")-100; $i--){
+
+	echo '<option value="' . $i . '">' . $i . '</option>';
+
+}
+
+echo "</select>";
+
+?>
+
+=============
+
+
+
+
+FOR EACH (para cada item que exista, execute tal acao):
+
+=============
+
+<?php
+
+
+$meses = array("Janeiro", "Fevereiro", "Marco","Abril", "Maio", "Junho","Julho", "Agosto", "Setembro","outubro", "Novembro", "Dezembro");
+
+//foreach ($variable as $key => $value){
+//
+
+//soh trazer o valor
+
+foreach ($meses as $mes){		//vai percorer todos os $meses (deste array), crio uma variavel $mes.
+
+	echo "O mes eh: " . $mes . "<br><br>";         //chama o valor dentro do array.
+}
+
+
+echo "<br> ======================================================= <br>" . "<br><br>";
+
+
+//trazer o indice junto
+
+foreach ($meses as $index => $mes){		//vai percorer todos os $meses (deste array), crio uma variavel $mes.
+
+	echo "Indice: " . $index . "<br>";             //chama o proprio index, que eh o numero da posicao do array;
+	echo "O mes eh: " . $mes . "<br><br>";         //chama o valor dentro do array.
+}
+
+
+?>
+
+=============
+
+FORMULARIO LEGAL PARA FOREACH:
+
+<!-- como eu nao coloquei method, o padrao eh GET. -->
+
+<form>
+
+	<input type="text" name="nome">
+	<input type="date" name="nascimento">
+	<input type="submit" name="OK">
+
+</form>
+
+<?php
+
+//se vier do GET, exibe:
+
+if(isset($_GET)) {
+
+    foreach ($_GET as $key => $value){
+
+
+       echo "Nome do campo: " . $key . "<BR>";
+
+       echo "Valor do campo: " . $value;
+
+       echo "<hr>";
+
+    }
+
+}
+
+
+?>
+
+=============
+
+<form>
+
+ <input type="text" name="nome">
+ <input type="date" name="nascimento">
+ <input type="submit" value="ok">
+
+</form>		
+
+<?php
+
+
+if(isset($_GET)){
+
+//$variavel vai pegar o _GET enviado pela pagina e percorrer este array superglobal.
+//$key eh a chave do array, no caso o valor do "name".
+//$value eh o valor que foi digitado em cada campo do input(nome/nascimento).
+
+//foreach ($variable as $key => $value) {}
+
+foreach ($_GET as $key => $value){
+
+ echo "Nome do campo: " . $key . "<br>";
+ echo "Valor do campo: " . $value . "<br>";
+ echo "<hr> <br>";
+
+
+}
+
+}
+
+?>
+
+
+=============
+
+Aula 24:
+
+WHILE:
+
+=============
+
+<?php
+
+$condicao = true;
+
+while ($condicao){
+
+	$numero = rand (1,10);
+
+	if ($numero === 3) {
+
+	echo "TRES!!! ";
+	$condicao = false;
+
+}
+
+	echo $numero . " <br>";
+
+}
+
+?>
+
+=============
+
+Aula 24:
+
+Do While:
+
+=============
+
+<?php
+
+$total = 100;
+$desconto = 0.9;
+
+do {
+
+    //qualquer compra acima de 100 ganha um desconto
+	$total *= $desconto;
+
+} while ($total > 100);
+
+echo $total;
+
+?>
+
+=============
+
+Aula 25:
+
+Array e array_push:
+
+=============
+
+<?php
+
+$frutas = array("laranja", "abacaxi", "melancia");
+
+print_r($frutas);	//print_r exibi o array e sua estrutura.
+
+?>
+
+=============
+
+Aula 25:
+
+Array bi-dimensional (o anterior como soh tinha uma linha, eh um vetor):
+
+=============
+
+<?php
+
+$carros[0][0] = "GM";
+$carros[0][1] = "Cobalt";
+$carros[0][2] = "Onix";
+$carros[0][3] = "Camaro";
+
+$carros[1][0] = "Ford";
+$carros[1][1] = "Fiest";
+$carros[1][2] = "Fusion";
+$carros[1][3] = "Eco Sport";
+
+echo $carros[0][3];
+
+echo "<br>";
+
+echo end($carros[1]); 		//a funcao end, pede para trazer o ultimo carro desta posicao;
+
+echo "<br>";
+
+echo "<br><br>";
+
+?>
+
+=============
+
+=============
+
+<?php
+
+$pessoas = array();
+
+array_push($pessoas, array(		//array_push — Adiciona um ou mais elementos no final de um array
+	'nome'=>'Joao',
+	'idade'=>20
+));
+
+array_push($pessoas, array(
+	'nome'=>'Glaucio',
+	'idade'=>25
+));
+
+print_r($pessoas);		//tras todo o array pessoas;
+
+?>
+
+=============
+
+<?php
+
+$pessoas = array();
+
+array_push($pessoas, array(	//array_push — Adiciona um ou mais elementos no final de um array
+	'nome'=>'Joao',
+	'idade'=>20
+));
+
+array_push($pessoas, array(
+	'nome'=>'Glaucio',
+	'idade'=>25
+));
+
+print_r($pessoas[0]);		//tras apenas o index 0;
+
+?>
+
+=============
+
+<?php
+
+$pessoas = array();
+
+array_push($pessoas, array	//array_push — Adiciona um ou mais elementos no final de um array
+	'nome'=>'Joao',
+	'idade'=>20
+));
+
+array_push($pessoas, array(	//array_push — Adiciona um ou mais elementos no final de um array
+	'nome'=>'Glaucio',
+	'idade'=>25
+));
+
+print_r($pessoas[0]['nome']);		//tras apenas o nome;
+
+?>
+
+=============
+
+Aula 26:
+
+JSON Encode: (transforma em array)
+
+=============
+
+<?php
+
+//json encode pega o array e transforma em JSON
+//json decode pega um JSON e transforma em array
+
+$pessoas = array();
+	
+array_push($pessoas, array(	//array_push — Adiciona um ou mais elementos no final de um array
+	'nome'=>'Joao',
+	'idade'=>20
+));
+
+array_push($pessoas, array(	//array_push — Adiciona um ou mais elementos no final de um array
+	'nome'=>'Glaucio',
+	'idade'=>25
+));
+
+print_r($pessoas[0]['nome']);		//tras apenas o nome;
+
+echo json_encode($pessoas);         //ele espera que vc passe um array
+
+?>
+
+=============
+
+Aula 26:
+
+JSON Decode: (voce ja tem o json formatado, ele converte)
+
+=============
+<?php
+
+
+//json encode pega o array e transforma em JSON
+//json decode pega um JSON e transforma em array
+
+
+$json = '[{"nome":"jo\u00e3o","idade":20},{"nome":"Glaucio","idade":25}]';
+
+$data = json_decode($json, true);
+
+
+var_dump($data);
+?>
+
+=============
+
+Aula 27:
+
+Constantes:
+
+=============
+
+<?php
+
+//usa-se como converncao letras maiusculas, e chama-se ela sem o $
+
+define("SERVIDOR", "127.0.0.1");        //primeiro valor eh a constante, e o segundo eh o valor dela.
+
+echo SERVIDOR;
+
+?>
+
+
+=============
+
+<?php
+
+//nao pode usar espacos dentro do valor da constante
+
+define("BANCO_DE_DADOS", ['127.0.0.1','root','password','test']);
+
+/*
+Para CaseInsensitive você define o ultimo valor do array como "true" (mas nao se usa):
+define("BANCO_DE_DADOS", ['127.0.0.1','root','password','test'], true);
+*/
+
+print_r(BANCO_DE_DADOS);
+
+//se vc quiser que a constante vire case insensitive, defini-se um parametro "], true);" antes de fechar.
+
+?>
+
+
+
+
+
+=============
+
+Array
+{
+
+	[0] => 127.0.0.1
+	[1] => root
+	[2] => password
+	[3] => test
+
+}
+
+=============
+
+<?php
+
+echo PHP_VERSION;
+
+echo "<br>";
+
+echo DIRECTORY_SEPARATOR;
+
+?>
+
+=============
+=============
+
+Aula 28:
+
+SESSOES:
+
+=============
+
+Config.php :
+
+=============
+
+<?php
+
+session_start();
+
+?>
+
+=============
+
+exemplo1:
+=============
+
+<?php
+
+require_once("config.php");
+
+//vai criar uma chave para guardar um valor que vc queira
+
+$_SESSION["nome"] = "Hcode";		//Aqui vc define que nome recebe HCODE.
+
+?>
+
+=============
+
+exemplo2:
+=============
+
+<?php
+
+require_once("config.php");		//arquivo com todas as configuracoes da sessao, como session_start, conf de regiao.
+
+echo $_SESSION["nome"];			//apenas exibe.
+
+
+?>
+
+=============
+
+Podemos criar um config.php com os comandos de inicializacao de sessao por exemplo. E entao chamar em todos, eh uma boa pratica.
+
+exemplo3:
+=============
+
+<?php
+
+require_once("config.php");	
+
+unset($_SESSION['nome']);	//elimina apenas a variavel "nome" da vriavel de sessao;	
+
+$_SESSION["nome"] = "Hcode";
+
+session_destroy();			//Destroi todas as variaveis de sessao;
+
+?>
+
+=============
+
+exemplo4 (mostrando a session_ID):
+=============
+
+<?php
+
+require_once("config.php");	
+
+echo session_id();
+
+?>
+
+=============
+
+exemplo5 (Gerando novamente o ID de sessao):
+=============
+
+<?php
+
+require_once("config.php");	
+
+session_regenerate_id();
+
+echo session_id();
+
+echo "<BR>";
+
+var_dump($_SESSION);			//mostra o que tem dentro da variavel naquele momento;
+
+?>
+
+=============
+
+
+exemplo6 (Se eu quiser recuperar uma sessao anterior, sabendo o ID):
+=============
+
+<?php
+
+session_id('077566sd514fd65f4');	//gero uma sessao, para eu mesmo, usando a mesma sessao de alguem.
+
+require_once("config.php");	
+
+session_regenerate_id();
+
+echo session_id();
+
+echo "<BR>";
+
+var_dump($_SESSION);			//mostra o que tem dentro da variavel naquele momento;
+
+?>
+
+=============
+
+<?php
+
+require_once("28_sessao_config.php");	
+
+//executar agora o "session save path", que eh onde o servidor guarda o arquivo de sessao.
+
+echo session_save_path();
+
+//O resultado eh: "C:\xampp\tmp"
+
+//Dentro do arquivo no caminho especificado, tem isso: nome|s:5:"Hcode";
+
+
+?>
+
+
+=============
+=============
+
+FUNCOES PARA SESSOES:
+
+php.net/manual/pt_BR/book.session.php
+
+=============
+
+Exemplo7:
+=============
+
+<?php
+
+require_once("28_sessao_config.php");	
+
+//executar agora o "session save path", que eh onde o servidor guarda o arquivo de sessao.
+
+echo session_save_path();
+
+//O resultado eh: "C:\xampp\tmp"
+
+//Dentro do arquivo no caminho especificado, tem isso: nome|s:5:"Hcode";
+
+echo "<br>";
+
+//session status:
+
+var_dump(session_status());
+
+echo "<br>";
+
+switch(session_status()){
+
+    case 1: //PHP_SESSION_DISABLE:
+	echo " as sessoes estiverem desabilitadas";
+	break;
+
+    case 2: //PHP_SESSION_NONE:
+	echo " as sessoes estiverem habilitadas, mas nenhuma existir";
+	break;
+
+    case 3: //PHP_SESSION_DISABLE:
+	echo " as sessoes estiverem habilitadas, e uma existir";
+	break;
+
+}
+
+?>
+
+=============
+
+FUNCOES:
+
+Se uma função não tem return, ela eh apenas uma "sub-rotina", para ser funcao, seve retornar algo.
+
+-------------
+function user(){			//user = nome da funcao;
+	return null;
+}
+-------------
+=============
+
+Exemplo1:
+=============
+
+<?php
+
+function ola(){
+
+	echo "Ola Mundo! <br>";
+
+}
+
+
+ola();					//chama a funcao
+ola();
+
+?>
+
+=============
+
+Exemplo1.2:
+=============
+
+<?php
+
+function ola(){
+
+	return "Ola Mundo! <br>";
+
+}
+
+
+echo ola();					//chama a funcao
+echo ola();
+
+?>
+
+
+=============
+
+Exemplo1.3:
+=============
+
+<?php
+
+function ola(){
+
+	return "Ola Mundo! <br>";
+
+}
+
+
+echo ola();					//chama a funcao
+$frase = ola();
+
+echo strlen($frase);
+
+//guarda na variavel $frase o ola();
+
+?>
+
+=============
+
+Exemplo1.4:
+=============
+
+<?php
+
+function salario(){
+
+	return 946.00;
+
+}
+
+
+echo "Jose recebeu 3 salarios: " . (salario()*3);					//chama a funcao
+
+?>
+
+=============
+=============
+
+Parametros de funcao:
+
+=============
+
+<?php
+
+function ola($texto){
+
+	return "Ola $texto !<br>";
+
+}
+
+
+echo ola("mundo");					//chama a funcao, ela faz a mesma coisa, mas muda um parametro.
+echo ola("Glaucio");
+echo ola("Joao");
+
+?> 
+
+=============
+
+
+=============
+
+<?php
+
+function ola($texto = "mundo", $periodo="Bom dia"){	//valores a esquerda sao obrigatorios, pois nao chega ao segundo
+
+	return "Ola $texto! $periodo!<br>";
+
+}
+
+echo ola();				//se o $texto nao tiver nenhum parametro, da erro.
+echo ola("Bom dia");			//isso da erro, pois ele vai entender como argumento 1 e o 2 como "nao passado".
+echo ola("","Boa noite");
+echo ola("Glaucio", "Boa tarde");
+echo ola("Joao", "");
+
+?> 
+
+=============
+
+
+=============
+
+//Passagem de parametro por valor
+
+<?php
+
+function ola(){
+
+	$argumentos = func_get_args();	//vai te retornar como array, todos os argumentos que forem passados como parametro pra função.
+
+	return $argumentos;
+
+}
+
+var_dump(ola("Bom dia, 10"));
+
+?> 
+
+=============
+=============
+
+
+//Passagem de parametro por referencia de memoria:
+
+
+=============
+=============
+
+//passagem de parametro por 
+
+<?php
+
+$a = 10;
+
+function trocaValor($b){
+
+	$b += 50;
+	
+	return $b;
+
+}
+
+echo trocaValor($a);
+
+echo "<br>";
+
+echo ($a);
+
+?>
+
+=============
+
+=============
+
+//passagem de parametro por referencia tem o & (o que acontece dentro da funcao, muda o valor na variavel)
+
+
+<?php
+
+$a = 10;
+
+// & = eh a referencia, se tiver um "&" comercial eh passagem de parametro por referencia de memoria.
+// ou seja, quando tiver um & comercial, vai alterar o valor da variavel na fonte, a funcao, altera a origem. 
+
+    //funcao 1:
+    function trocaValor(&$a){
+        
+        $a = 50;
+        
+        return $a;
+        
+    }
+
+    //funcao 2:
+    function trocaValor2($b){
+        
+        $b += 50;
+        
+        return $b;
+        
+    }
+
+echo $a;
+
+echo "<br>";
+
+echo trocaValor($a);
+
+echo "<br>";
+
+echo trocaValor2($a);
+
+echo "<br>";
+
+echo $a;        //a funcao nao altera a variavel externa da funcao
+
+?> 
+
+=============
+=============
+
+Exemplo 06:
+
+
+<?php
+
+$pessoa = array(
+	'nome' => 'Joao',
+	'idade' => 20
+);
+
+foreach ($pessoa as &$value) {		//eu estou dizendo que o valor $value esta sendo passado por referencia '&'.
+
+	if(gettype($value) === 'integer') $value +=10;	//gettype = retorna o tipo da variavel, integer eh inteiro.
+
+	echo $value. '<br>';
+
+}
+
+print_r($pessoa);
+
+//se nao usar o &, o array original vai continuar 20, e vai alterar apenas dentro do for para 30, pois nao altera na memoria
+
+?>
+
+=============
+=============
+
+Exemplo 07:
+
+<?php
+
+//(declaracao de tipos escalares)
+
+function soma(int ...$valores){		//pega todos os parametro, e todos os parametros que vao vir serao inteiros
+
+	return array_sum($valores);
+}
+
+echo soma(2, 2);
+echo "<br>";
+echo soma(25, 33);
+echo "<br>";
+echo soma(1.5, 3.2);
+echo "<br>";
+
+?>
+
+=============
+=============
+
+=============
+=============
+
+Exemplo 08:
+
+(declaracao de tipos escalares)
+
+<?php
+
+function soma(int ...$valores):string{		//declara o tipo de retorno como :string. 
+
+	return array_sum($vamores);
+}
+
+echo var_dump(soma(2, 2)); 		//var_dump mostra o tipo de dado
+echo "<br>";
+echo(25, 33);
+echo "<br>";
+echo(1.5, 3.2);
+echo "<br>";
+
+?>
+
+
+=============
+
+=============
+
+Exemplo 08.2:
+
+<?php
+
+//(declaracao de tipos escalares)
+
+// ":string" converte a saida  
+
+function soma(int ...$valores):string{		//pega todos os parametro, e todos os parametros que vao vir serao inteiros
+
+	return array_sum($valores);
+}
+
+echo soma(2, 2);
+echo "<br>";
+echo soma(25, 33);
+echo "<br>";
+echo soma(1.5, 3.2);
+echo "<br>";
+
+echo var_dump(soma(2,2));
+
+?>
+=============
+=============
+
+Aula 35:
+
+Funcao Recursiva:
+
+Quando a funcao chama ela mesma.
+
+=============
+=============
+
+Exemplo 09:
+
+<?php
+
+$hierarquia = array(
+
+	array(
+		'nome_cargo'=>'CEO',
+		'subordinados'=>array(
+			//Inicio: Diretor Comercial
+			array(
+				'nome_cargo'=>'Diretor Comercial',
+				'subordinados'=>array(
+			//Inicio: Gerente de vendas
+			),
+			array(
+				'nome_cargo'=>'Gerente de Vendas'
+			)
+			//Termino: Gerente de Vendas
+		)
+	),
+	//Termino: Diretor Comercial
+	//Inicio: Diretor Financeiro
+	array(
+		'nome_cargo'=>'Diretor Financeiro',
+		'subordinados' => array(
+			//Inicio: Gerente de Contas a pagar
+			array(
+				'nome_cargo'=> 'Gerente de Contas a pagar',
+				'subordinados'=> array(
+					//Inicio: Supervisor de Pagamentos
+					array(
+						'nome_cargo'=>'Supervisor de Pagamentos'
+						'subordinados'=>array(
+							//Inicio: Supervisor de Pagamentos
+							array(
+								'nome_cargo'=>'Supervisor de Pagamentos'
+							)
+							//Termino: Supervisor de Pagamentos
+				)
+			),
+			//Termino: Gerente de Contas a Pagar
+			//Inicio: Gerente de Compas
+			array(
+				'nome_cargo'=>'Gerente de Compas',
+				'subordinados' => array(
+				//Inicio: Supervisor de Suprimentos
+				array(
+					'nome_cargo' => 'Supervisor de Suprimentos'
+		)
+	)
+	//Termino: Diretor Financeiro
+	)
+)
+
+);
+
+function exibe($cargos){
+
+	$html = '<ul>';
+
+	foreach ($cargos as $cargo){
+
+	$html .= "<li>";
+
+	$html .= $cargo['nome_cargo'];
+
+	$html .= "</li>";
+
+	}
+
+	$html .= "</ul>";
+
+	return $html;
+}
+
+echo exibe($hierarquia);
+
+
+?>
+
+
+
+sessao 7 aula 7? 17min
+
+
+=============
+
+CORRETO:
+
+
+
+
+<?php
+
+$hierarquia = array(
+	array('nome_cargo'=>'CEO',
+		'subordinados'=>array(
+    //Inicio: Diretor Comercial      
+        array('nome_cargo'=>'Diretor Comercial','subordinados'=>array(array('nome_cargo'=>'Gerente de Vendas'))),
+	//Termino: Diretor Comercial
+	
+    //Inicio: Diretor Financeiro
+	array('nome_cargo'=>'Diretor Financeiro','subordinados' => array(array
+            ('nome_cargo'=> 'Gerente de Contas a pagar','subordinados'=> array(
+				array('nome_cargo'=>'Supervisor de Pagamentos','subordinados'=>array(
+							array('nome_cargo'=>'Supervisor de Pagamentos'))))))),
+                
+			
+			//Inicio: Gerente de Compas
+			array('nome_cargo'=>'Gerente de Compas','subordinados' => array(array('nome_cargo' => 'Supervisor de Suprimentos')))
+                            )
+         )
+);
+
+function exibe($cargos){
+
+	$html = '<ul>';
+
+	foreach ($cargos as $cargo){
+
+	   $html .= "<li>";
+
+	   $html .= $cargo['nome_cargo'];
+        
+        if (isset($cargo['subordinados']) && count($cargo['subordinados']) > 0){
+        
+        $html .= exibe($cargo['subordinados']);
+        
+        }
+
+	$html .= "</li>";
+
+	}
+
+	$html .= "</ul>";
+
+	return $html;
+}
+
+echo exibe($hierarquia);
+
+
+?>
+
+
+
+=============
+
+Aula 36:
+
+Funcao anonima.
+
+=============
+
+Aula 37:
+
+Date : Timestamp - time, setlocale,
+
+
+=============
+
+<?php
+
+//funcao date
+
+echo date("d/m/Y H:i:s");
+
+?>
+
+=============
+
+<?php
+
+//converte uma string para o timestamp
+
+echo strtotime("2001-09-11");
+
+?>
+
+=============
+
+<?php
+
+//converte uma string para o timestamp
+
+$ts = strtotime("2001-09-11");
+
+echo date("1, d/m/Y", $ts);
+
+?>
+
+=============
+
+Aula 38:
+
+
+Setlocale:
+
+<?php
+
+//Setlocale: (melhor deixar todos, pois cada um eh de cada sistema operacional)
+
+setlocale(LC_ALL, "pt-BR", "pt_BR.utf-8", "portuguese");
+
+echo ucwords(strftime("%A %B"));        //ucwords: vai deixar a primeira letra maiuscula
+
+//Manual: PHP strftime.
+
+?>
+
+=============
+
+//Date:
+
+$ts1 = strtotime("now");
+$ts2 = strtotime("+1 day");
+
+echo date("1, d/m/Y", $ts1);
+echo date("1, d/m/Y", $ts2);
+
+==============
+
+
+Classes:
+
+Instanciar para DateTime:
+
+<?php
+
+$dt = new DateTime();		//instancia um objeto.
+
+$periodo = new DateInterval("P15D");
+
+echo $dt -> format("d/m/y H:i:s");
+
+$dt -> add($periodo);			//metodo add.
+
+echo "<br>";
+
+echo $dt -> format("d/m/y H:i:s");
+
+?>
+
+=============
+
+Classes e objetos:
+
+Classes possuem caracteristicas e objetos com atributos dentro delas.
+
+Classes, encontra-se dentro dela variaveis e funcoes que ganham recursos a mais, atributos e metodos, conjunto de tudo isso.
+
+O USO DE ";" NO FINAL DA CLASSE EH OPCIONAL!
+
+O que eu preciso armazenar, eu coloco em atributos.
+
+E o que eu preciso armazenar, eu coloco nos metodos.
+
+Encapsulamento vc faz o controle de acesso a quem pode e tem acesso a essas classes e atributos.
+
+Variaveis = atributos;
+
+Funcoes = Metodo.
+
+Objeto = eh uma variavel que representa ou tira uma copia da classe. Uma variavel que representa uma classe. E esse processo eh uma instancia.
+
+Instancia = eh quando efetivamente eu vou usar esta classe.
+
+//"->" acessa metodos normais;
+//"::" acessa metodos estaticos;
+
+O "->" tem a função de acessar atributos e métodos na Orientação a Objetos
+
+Exemplo: sala de aula, vc bate na porta e quer falar com um aluno pedrinho, vc nao pode abrir a porta e chamar o pedrinho, deve-se chamar o professor que representa aquela classe e pedir para falar com o pedrinho, entao o professor chama o pedrinho, e ae ele está autorizado a falar comigo.
+O professor eh a classe, e o pedrinho eh o objeto.
+Instanciar eh criar um objeto, por exemplo um professor.
+Objeto tal, instancia em tal classe.
+
+
+$sql = new sql;
+
+
+O "->" no PHP tem a mesma função do "." no Java que é utilizado por uma instância (objeto) para acessar um método ou uma propriedade de uma classe.
+
+Exatamente! Tanto pelas instâncias para acessar métodos ou propriedades públicas como pelo comando interno$this para acessar atributos e métodos dentro de outros métodos.
+
+    //Java
+    this.nome
+     
+    //PHP
+    $this->nome
+
+=============
+
+Vamos usar a classe Pessoa como exemplo
+
+    class Pessoa {
+        public $nome;
+     
+        public function falar() {
+            return $this->nome;
+        }
+    }
+
+Dentro da classe realmente usamos o $this 
+
+Fora da classe, é necessário instanciar um novo objeto. Desta maneira:
+
+    $pessoa = new Pessoa();
+    echo $pessoa->nome;
+
+Chamamos a variável agora usando a instância do objeto
+
+
+=============
+
+Criar uma classe:
+
+<?php
+
+Class Pessoa {
+
+	public $nome;		//atributo
+
+	public function falar(){		//metodo
+
+		return "O meu nome eh " . $this->nome;	//variavel $this eh nossa classe ja instanciada, o objeto
+							//$this eh uma variavel interna
+				}
+
+}
+
+
+$glaucio = new Pessoa();
+$glaucio -> nome = "Glaucio Daniel";		// "->" referencia um atributo; o "nome" eh um atributo;
+echo $glaucio -> falar();			//Mesma coisa para a funcao;
+
+
+?>
+
+//Atributo fora do metodo, escreve normal, soh dentro de um metodo, vc usa o $this.
+//$this = serve para referenciar atributos e metodos, dentro de outros metodos.
+//"->" acessa metodos normais;
+//"::" acessa metodos estaticos;
+//"=>" acessa itens de arrays;
+
+=============
+
+Sintase basica de uma classe:
+
+
+
+<?php 
+
+class Pessoa{
+
+
+	public nome;
+
+	public function falar(){
+
+	return;
+
+}
+
+}
+
+?>
+
+
+"->" acessa metodos normais;
+"::" acessa metodos estaticos;
+
+--------
+ou 
+--------
+
+<?php 
+
+
+class Carro {
+
+	public String nome;
+	public String cor;
+	public String modelo;
+	public String fabricante;
+	public double preco;
+
+public function exibir(){
+
+	return;
+
+}
+
+
+}
+
+
+
+?>
+
+=============
+
+Aula 42 atributos e metrodos:
+
+
+
+
+
+
+<?php
+
+    class Carro{
+
+    	//atributos
+    	private $modelo;
+    	private $motor;
+    	private $ano;
+
+    	//metodos:
+    	//getters and setters:
+
+    	//==========================================
+
+    	public function getModelo():String{
+
+    		return $this->modelo;
+    	}
+
+    	public function setModelo($modelo){
+
+    		$this->modelo = $modelo;
+
+    	}
+
+    	//==========================================
+
+    	public function getMotor():float{
+
+    		return $this->motor;
+
+    	}
+
+    	public function setMotor($motor){
+
+    		$this->motor = $motor;
+
+    	}
+
+		//==========================================
+
+    	public function getAno():int{
+
+    		return $this->ano;
+    	}
+
+    	public function setAno($ano){
+
+    		$this->ano = $ano;
+
+    	}
+
+		//==========================================
+
+    	public function exibir(){
+
+    		return array(
+    			"modelo"=>$this->getModelo(),
+    			"motor"=>$this->getMotor(),
+    			"ano"=>$this->getAno()
+    		);
+    	}
+
+    }
+
+//==========================================
+
+$gol = new Carro();			//instanciar
+$gol->setModelo("Gol GT");	//atribuir
+$gol->setMotor("1.6");		//atribuir
+$gol->setAno("2017");		//atribuir
+
+print_r($gol->exibir());
+
+echo "<br>";
+
+var_dump($gol->exibir());
+
+?>
+
+
+
+
+
+
+
+
+=============
+
+
+
+Exemplo 02 video secao 9, aula 42:
+
+<?php
+
+	class Carro{
+
+	//atributos:
+	private $modelo;
+	private $motor;
+	private $ano;
+
+	//para cada um atributo destes, teremos dois metodos (geters and seters), um para pegar o valor, e outro para definir o valor.
+
+	public function getModelo(){		//"get" para pegar e o nome do atributo "Modelo";
+
+	return $this -> modelo;			//referenciando ao $modelo
+						//return soh tem quando eu estou devolvendo o atributo para ser exibido pelo objeto.
+					}
+	
+	public function setModelo($modelo){	//set precisa receber um parametro, no caso $modelo.
+
+	$this->modelo = $modelo;		//o atributo recebe o valor do parametro. $this eh a representacao do seu proprio objeto.
+						//como soh foi criada a variavel $ dentro do metodo, ela soh existe aqui dentro. 
+					}
+
+	public function getMotor():float{	//":float" mesmo que a primaria la em cima eh string, ele converte/cast para o float.
+
+	return $this->motor;
+					}	
+
+
+	public function setMotor($motor){	//set nao precisa retornar (return), soh quando devolve o atributo ao objeto, em get.
+
+	$this->motor = $motor;
+					}
+
+
+	public function getAno(){
+
+	return $this->ano;
+				}
+
+	public function setAno($ano):int {	//":int" faz um cast para converter para int;
+
+	$this->ano = $ano;
+					}
+
+
+
+	//getters = pega valor;
+	//setters = muda valor;
+
+
+	//funcao para exibir todos os atributos:
+
+	public function exibir(){
+
+	return array(
+		"modelo"=>$this->getModelo(),		//no array eh "=>" chave valor.
+		"motor"=>$this->getMotor(),
+		"ano"=>$this->getAno()
+			);				//fechando array		
+
+				}
+}
+
+$gol = new Carro();			//instanciacao
+$gol->setModelo("Gol GT");		//set tem acesso a parte publica da classe.
+$gol->setMotor("1.6");
+$gol->setAno("2017");
+
+print_r($gol->exibir());
+
+?>
+
+//para fazer um "cast", mudar o tipo de dado, vc olha o "getAno", ou o "getMotor";
+
+
+=============
+
+
+Geralmente quando fazemos uma instância de uma Classe, necessitamos tomar o cuidado de destruir a instância da mesma evitando ficar reservado na memória sem apontamento.
+
+Pergunto, isso é necessário no PHP?
+
+você pode usar o método destrutor da classe usando o método mágico __destruct()
+
+Após  executar a linha do "Var_dump" o método destrutor ira destruir o objeto da memória.
+
+Segue exemplo abaixo:
+
+<?php
+
+/*
+
+* Seção 9, aula 41 - Criando uma classe
+
+*/
+
+class pessoa{
+
+public $nome; // Atributo
+
+public function falar(){ // Metodo
+
+return "O meu nome é ".$this->nome;
+
+}
+
+public function __destruct(){ // Método destrutor
+
+echo "<br>"."Classe Destruida"."<br>";
+
+}
+
+}
+
+$assis = new Pessoa(); // Estancia
+
+$assis->nome = "Assis Lima"; // Atribui valor ao Atributo da Classe
+
+echo $assis->falar(); // Executa o Método da Calsse
+
+echo "<br>";
+
+var_dump($assis);
+
+?>
+
+
+
+=============
+
+
+
+Revisar aulas 09-43 por ae...
+
+=============
+
+Metodos estaticos:
+
+<?php
+
+class Documento{
+
+	private $numero;
+
+	//getters
+	public function getNumero(){
+
+		return $this->numero;
+					}
+
+	//setters
+	public function setNumero($numero){
+	
+		$this->numero = $numero;
+					}
+	
+}
+
+$cpf = new Documento();
+$cpf->setNumero("32165498712");
+
+var_dump($cpf->getNumero());
+
+
+?>
+
+=============
+
+<?php
+
+	class Documento{
+
+		private $numero;
+
+	//==========================================
+
+		public function getNumero(){
+			return $this->numero;			
+		}
+
+		public function setNumero($numero){
+			$this->numero = $numero;
+		}
+
+	//==========================================
+
+	}
+
+//==========================================
+
+$cpf = new Documento();
+$cpf->setNumero("32165498712");
+
+var_dump($cpf->getNumero());
+
+?>
+
+
+=============
+
+Validacao de CPF, do exercicio de constante acima:
+
+------------------------------
+
+ //Verifica se um numero foi informado;
+ if(empty($cpf)) {
+        return false;
+    }
+
+ 
+    //Elimina possivel mascara;
+    $cpf = preg_match('/[0-9]/', $cpf)?$cpf:0;
+    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+	//Se nao estiver retirando a mascara, usar este: $cpf = str_replace('-', '', $cpf);
+
+    
+    //Verifica se o numero de digitos informados eh igual a 11;  
+    if (strlen($cpf) != 11) {
+        echo "length";
+        return false;
+    }
+
+
+    //Verifica se nenhuma das sequencias invalidas abaixo foi digitada. Caso afirmativo, retorna falso;    
+    else if ($cpf == '00000000000' || 
+        $cpf == '11111111111' || 
+        $cpf == '22222222222' || 
+        $cpf == '33333333333' || 
+        $cpf == '44444444444' || 
+        $cpf == '55555555555' || 
+        $cpf == '66666666666' || 
+        $cpf == '77777777777' || 
+        $cpf == '88888888888' || 
+        $cpf == '99999999999') {
+        return false;
+
+
+     //Calcula os digitos verificadores para verificar se o CPF eh valido;
+     } else {   
+         
+        for ($t = 9; $t < 11; $t++) {
+             
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf{$c} * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf{$c} != $d) {
+                return false;
+            }
+        }
+ 
+        return true;
+    }
+
+------------------------------
+
+
+=============
+
+Unindo os dois:
+------------------------------
+
+<?php
+
+class Documento{
+
+	private $numero;
+
+	//getters
+	public function getNumero(){
+
+		return $this->numero;
+					}
+
+	//setters
+	public function setNumero($numero){
+	
+		//Quando alguem defini um novo numero, vc vai testar, usa o nome da Classe "Documento", com o metodo.
+		$resultado = Documento::validarCPF($numero);				//acessar metodo estatico com "::"
+	
+		if($resultado === false){
+			throw new Exception("CPF informado nao eh valido",1);
+					}
+		
+		$this->numero = $numero;
+					   }
+
+
+
+
+	public static function validarCPF($cpf):bool{		//para validar true, pois soh da true no final se todos validare.
+
+
+
+ //Verifica se um numero foi informado;
+ if(empty($cpf)) {
+        return false;
+    }
+
+ 
+    //Elimina possivel mascara;
+    $cpf = preg_match('/[0-9]/', $cpf)?$cpf:0;
+    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+
+    
+    //Verifica se o numero de digitos informados eh igual a 11;  
+    if (strlen($cpf) != 11) {
+        echo "length";
+        return false;
+    }
+
+
+    //Verifica se nenhuma das sequencias invalidas abaixo foi digitada. Caso afirmativo, retorna falso;    
+    else if ($cpf == '00000000000' || 
+        $cpf == '11111111111' || 
+        $cpf == '22222222222' || 
+        $cpf == '33333333333' || 
+        $cpf == '44444444444' || 
+        $cpf == '55555555555' || 
+        $cpf == '66666666666' || 
+        $cpf == '77777777777' || 
+        $cpf == '88888888888' || 
+        $cpf == '99999999999') {
+        return false;
+
+
+     //Calcula os digitos verificadores para verificar se o CPF eh valido;
+     } else {   
+         
+        for ($t = 9; $t < 11; $t++) {
+             
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf{$c} * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf{$c} != $d) {
+                return false;
+            }
+        }
+ 
+        return true;
+    }
+
+
+
+
+
+						}
+
+
+
+
+	
+}
+
+$cpf = new Documento();
+$cpf->setNumero("87867147241");			//cpf vdd de teste;
+//$cpf->setNumero("32165498712");		//cpf de teste falso;
+
+var_dump($cpf->getNumero());
+
+//var_dump(Documento::validarCPF("87867147241"));		//usa apenas o metodo estatico e verifica, "teste sem instanciar".
+
+
+?>
+
+=============
+
+Unindo os dois, validado no server:
+
+
+<?php
+
+	class Documento{
+
+		private $numero;
+
+	//==========================================
+
+		public function getNumero(){
+			return $this->numero;			
+		}
+
+		public function setNumero($numero){
+			$resultado = Documento::validarCPF($numero);			//metodo estatico;
+
+			if($resultado === false){
+
+				throw new Exception("CPF informado não é valido.",1);
+
+			}
+
+			$this->numero = $numero;
+		}
+
+	//==========================================
+	//==========================================
+
+		public static function validarCPF($cpf):bool{
+
+
+		 //Verifica se um numero foi informado;
+		 if(empty($cpf)) {
+		        return false;
+		    }
+
+		 
+		    //Elimina possivel mascara;
+		    $cpf = preg_match('/[0-9]/', $cpf)?$cpf:0;
+		    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+			//Se nao estiver retirando a mascara, usar este: $cpf = str_replace('-', '', $cpf);
+
+		    
+		    //Verifica se o numero de digitos informados eh igual a 11;  
+		    if (strlen($cpf) != 11) {
+		        echo "length";
+		        return false;
+		    }
+
+
+		    //Verifica se nenhuma das sequencias invalidas abaixo foi digitada. Caso afirmativo, retorna falso;    
+		    else if ($cpf == '00000000000' || 
+		        $cpf == '11111111111' || 
+		        $cpf == '22222222222' || 
+		        $cpf == '33333333333' || 
+		        $cpf == '44444444444' || 
+		        $cpf == '55555555555' || 
+		        $cpf == '66666666666' || 
+		        $cpf == '77777777777' || 
+		        $cpf == '88888888888' || 
+		        $cpf == '99999999999') {
+		        return false;
+
+
+		     //Calcula os digitos verificadores para verificar se o CPF eh valido;
+		     } else {   
+		         
+		        for ($t = 9; $t < 11; $t++) {
+		             
+		            for ($d = 0, $c = 0; $c < $t; $c++) {
+		                $d += $cpf{$c} * (($t + 1) - $c);
+		            }
+		            $d = ((10 * $d) % 11) % 10;
+		            if ($cpf{$c} != $d) {
+		                return false;
+		            }
+		        }
+		 
+		        return true;
+		    }
+
+				}
+
+			}
+
+//==========================================
+//==========================================
+
+$cpf = new Documento();
+$cpf->setNumero("87867147241");
+
+var_dump($cpf->getNumero());
+
+?>
+
+
+
+
+=============
+=============
+
+Metodo magico Construtor: ("__construct")
+
+<?php
+
+class Endereco {
+
+	private $logradouro;
+	private $numero;
+	private $cidade;
+
+	//Metodo construtor
+	public function __construct($a, $b, $c){
+
+	$this->logradouro = $a;
+	$this->numero = $b;
+	$this->cidade = $c;
+	
+						}
+
+	//Metodo destrutor
+	public function __destruct(){
+
+		var_dump("DESTRUIR");	
+
+					}
+	
+	public function __toString(){
+
+	return $this->logradouro.", ".$this->numero." - ".$this->cidade;
+			
+					}
+
+
+
+}
+
+//criar objeto para instanciar esta classe __construct:
+
+$meuEndereco = New Endereco("Rua Ademar Saraiva Leao", "123", "Santos");
+
+echo $meuEndereco;			//echo para mostrar a String;
+
+var_dump($meuEnderco);
+
+unset($meuEndereco);			//retira da memoria
+
+?>
+
+
+=============
+
+Aula 44 (metodos magicos):
+
+<?php
+
+//quando tem __ pode ser um construct.
+
+	class Endereco{
+
+		private $logradouro;
+		private $numero;
+		private $cidade;
+
+		public function __construct($a,$b,$c){
+
+			$this->logradouro = $a;
+			$this->numero = $b;
+			$this->cidade = $c;
+
+		}
+
+		public function __destruct(){
+
+			var_dump("DESTRUIR");
+
+		}
+
+		public function __toString(){
+
+			return $this->logradouro.", ".$this->numero." - ".$this->cidade;
+
+		}
+		
+	}
+
+$meuEndereco = new Endereco("Rua Ademar Saraiva Leão","123","Santos");
+
+/*
+var_dump($meuEndereco);
+
+unset($meuEndereco);
+
+echo "<br>";
+*/
+
+echo $meuEndereco;
+
+?>
+
+=============
+
+Aula09-45
+
+Encapsulamento: (controla quem pode ou nao acessar uma classe, atributo ou metodo, com public, private, protect)
+
+<?php
+
+class Pessoa {
+
+
+	public $nome = "Rasmus Lerdorf";
+	protected $idade = 48;
+	private $senha = "123456";
+
+	public function verDados(){
+
+		echo $this->nome . "<br/>";
+		echo $this->idade . "<br/>";
+		echo $this->senha . "<br/>";
+
+	}
+
+		}
+
+$objeto = new Pessoa();
+
+echo $objeto->nome . "</br">;		//vai funcionar;
+echo $objeto->idade . "</br">;		//vai dar erro;
+echo $objeto->senha . "</br">;		//vai dar erro;
+
+$objeto->verDados();
+
+
+
+
+//public vc acessa mesmo de fora do objeto;
+//protected soh quem ta dentro da propria classe, ou quem herda vai conseguir enchergar.
+//private (acima do nivel de protecao do protect) o privado, nem mesmo os herdeiros, ou as classes que herdam, vao ter acesso, soh a propria classe.
+
+
+//para nao dar erro, vc vai chamar o metodo "verDados", pois ele eh publico, e dentro da propria classe, ele chama e tem acesso aos dados que queremos acessar;
+
+?>
+
+------------------------------------------------------------------------------
+
+Tipos de Metodos de acesso (que podem acessar atributos e metodos):
+- Mesma classe, classe extendida, mesmo objeto.
+
+Quando eh Publico: Todo mundo ve, mesma classe, classe extendida, mesmo objeto.
+Quando eh Protegido: Mesma classe, classe extendida.
+Quando eh privado: Soh na mesma classe.
+
+O metodo "verDados" esta na mesma classe, vai enchergar tudo que eh publico, protegido ou privado.
+
+------------------------------------------------------------------------------
+
+=============
+
+Exemplo com outra classe:
+
+<?php
+
+class Pessoa {
+
+
+	public $nome = "Rasmus Lerdorf";
+	protected $idade = 48;
+	private $senha = "123456";
+
+	public function verDados(){
+
+		echo $this->nome . "<br/>";
+		echo $this->idade . "<br/>";
+		echo $this->senha . "<br/>";
+
+	}
+
+
+
+
+
+
+
+		}
+
+//classe extendida (vai ter acesso menos a classe privada, privado ele nao herda)
+
+class Programdor extends Pessoa{
+
+		
+	public function verDados(){
+
+		echo get_class($this) . "<br/>";		//verifica de qual classe vem os dados, ela espera um objeto e qual 										//classe ela vem, como esta sendo usado o $this.
+
+		echo $this->nome . "<br/>";	//vai acessar porque herda;
+		echo $this->idade . "<br/>";	//vai acessar porque herda;
+		echo $this->senha . "<br/>";	//nao vai ter acesso por ser private la.
+
+	}
+
+}
+
+
+
+
+$objeto = new Pessoa();
+
+$objeto2 = new Programador();
+
+//echo $objeto->nome . "</br">;			//vai funcionar;
+//echo $objeto->idade . "</br">;		//vai dar erro;
+//echo $objeto->senha . "</br">;		//vai dar erro;
+
+
+$objeto->verDados();		//invoca o "verDados", que eh publico, e consigo ver os dados.
+
+$objeto2->verDados();
+
+?>
+
+
+
+=============
+
+
+
+
+<?php
+
+	class Pessoa{
+
+		public $nome = "Rasmus Lerdorf";
+		protected $idade = 48;
+		private $senha = "123456";
+
+		public function verDados(){
+
+			echo $this->nome . "<br/>";
+			echo $this->idade . "<br/>";
+			echo $this->senha . "<br/>";
+
+		}
+
+
+	}
+
+class Programador extends Pessoa{
+
+	public function verDados(){
+
+			echo get_class($this) . "<br/>";			//visualizar qual a classe que esta sendo usada, com getclass(OBJETO);
+
+			echo $this->nome . "<br/>";
+			echo $this->idade . "<br/>";
+			echo $this->senha . "<br/>";
+
+		}
+
+}
+
+
+$objeto = new Programador();			//apenas o metodo privado da classe, nao podera ser visto, pois soh a propria classe ve.
+
+//vou tentar acessar este objeto que ja existe com os dados:
+/*
+echo $objeto->nome . "<br/>";		//public = todo mundo ve classe "publica";
+echo $objeto->idade . "<br/>";		//protegido = mesma classe, e classe extendida;
+echo $objeto->senha . "<br/>";		//private = soh a mesma class.
+*/
+$objeto->verDados();
+
+?>
+
+
+
+=============
+
+Herança:
+
+Fazer o UML.
+
+Classe principal/primaria "Transporte", o que eh comum entre eles: (motor, peso, combustivel, etc).
+Classe extendida de "transporte" (terrestre, maritimo, aereo).
+Classe extendida "terrestre", vai especificar os detalhes de cada um: (trator, carro, moto, etc).
+Classe extendida "maritimo", detalhes: (lancha, jetski, navio, etc).
+Classe extendida "aereo", detahles: (helicoptero, aviao, balao, etc).
+
+=============
+
+<?php
+
+class Documento{
+
+	private $numero;
+
+	public function getNumero(){
+	
+		return $this->numero;
+
+					}
+
+	public function setNumero($n){
+
+		$this->numero = $n;			
+
+					}	
+				
+
+			}
+
+class CPF extends Documento {
+
+	public function validar():bool
+	{
+
+		$numeroCPF = $this->getNumero();		//acessa o metodo get, que eh publico;
+
+		//validacao do CPF
+
+		return true;
+
+	}
+				}
+
+
+$doc = new CPF();
+
+$doc->setNumero("111222333-44");
+
+$doc->validar();
+
+echo "<br/>";
+
+echo $doc->getNumero();
+
+
+?>
+
+
+=============
+
+Interface:
+
+Interface são os códigos com funções determinadas pela empresa e o programador tem que seguir para desenvolver um sistema, é tipo um template.
+Isso mesmo, a interface define padrões de métodos que o programador precisa seguir
+É como um template, um modelo, ótima comparação :)
+
+=============
+
+Interfaces (implements):
+
+<?php
+
+interface Veiculo{	//o que o veiculo precisa ter? O que todo veiculo tem?
+
+	public function acelerar($velocidade);
+	public function frenar($velocidade);
+	public function trocarMarcha($marcha);
+
+}
+
+class Civic implements Veiculo{
+
+	public function acelerar($velocidade){		//nome da variavel nao precisa ser o memso, mas o metodo precisa;
+
+	echo "O veiculo acelerou ate " . $velocidade . " km/h";	
+						
+						}
+	public function frenar($velocidade){
+	
+	echo "O veiculo frenou ate " . $velocidade . " km/h";
+						}
+
+	public function trocarMarcha($marcha){
+
+	echo "O veiculo engatou a marcha " . $marcha . " km/h";
+
+						}
+
+}
+
+
+$carro = new Civic();
+
+$carro->trocarMarcha(1);
+
+?>
+
+
+//Se eu quiser implementar varias eu coloco "," assim: "class Civic implements Veiculo, ".
+
+
+=============
+
+Classes abstratas:
+
+
+
+
+<?php
+
+interface Veiculo{	//o que o veiculo precisa ter? O que todo veiculo tem?
+
+	public function acelerar($velocidade);
+	public function frenar($velocidade);
+	public function trocarMarcha($marcha);
+
+}
+
+abstract class Automovel implements Veiculo{		//qualquer automovel implementa a interface veiculo, mas nao pode instanciar sem 							//falar qual automovel que eh
+
+	public function acelerar($velocidade){		//nome da variavel nao precisa ser o memso, mas o metodo precisa;
+
+	echo "O veiculo acelerou ate " . $velocidade . " km/h";	
+						
+						}
+	public function frenar($velocidade){
+	
+	echo "O veiculo frenou ate " . $velocidade . " km/h";
+						}
+
+	public function trocarMarcha($marcha){
+
+	echo "O veiculo engatou a marcha " . $marcha . " km/h";
+
+						}
+
+}
+
+class DelRey extends Automovel{
+
+	public function empurrar(){
+
+	}
+
+}
+
+$carro = new DelRey();
+
+//$carro = new Automovel();		//errado, ele nao vai deixar implementar direto, para isso se criou outra.
+
+$carro->acelerar(200);
+
+
+?>
+
+
+=============
+
+Polimorfismo:
+
+
+9-49
+
+
+=============
+9-50
+
+Autoload:
+
+<?php
+
+function __autoload($nomedaClasse){
+
+	require_once("DelRey.php");
+	var_dump($nomeClasse);
+
+}
+
+$carro = new DelRey();
+
+?>
+
+=============
+
+<?php
+
+spl_autoload_reguister("");
+
+
+
+=============
+
+Exemplo 02 (autoload):
+
+<?php
+
+function incluirClasses($nomeClasse){
+
+	if(file_exists($nomeClasse.".php") === true){
+		require_once($nomeClasse.".php");
+	}
+
+}
+
+spl_autoload_register("incluirClasses");
+spl_autoload_register(function($nomeClasse){
+
+	if(file_exists("Abstratas" . DIRECTORY_SEPARATOR . $nomeClasse.".php") === true){
+		require_once("Abstratas" . DIRECTORY_SEPARATOR . $nomeClasse.".php");
+	}
+
+});
+
+$carro = new DelRey();
+
+$carro->acelerar(80);
+
+?>
+	
+
+
+
+=============
+
+Aula9-51.
+
+Namespace: (permite organizar as classes dentro de diretorios)
+
+=============
+
+Config.php
+
+<?php
+
+spl_autoload_register(function($nameClass){		//funcao anonima(recebe nome da classe chamada).
+
+
+	var_dump($nameClass);				//verificar de onde vem o namespace;
+
+	$dirClass = "class";				//class eh a pasta que vamos colocar.
+	$filename = $dirClass . DIRECTORY_SEPARATOR . $nameClass . ".php";	//filename eh todo o nome do arquivo e pastas, 
+										//concatena com a barra do SO.
+
+	if(file_exists($filename)){
+
+		require_once($filename);
+
+	}
+
+});
+
+?>
+
+
+=============
+
+Cadastro.php
+
+<?php
+
+class Cadastro{
+
+	private $nome;
+	private $email;
+	private $senha;
+
+	public function getNome():string
+	{
+		return $this->nome;
+	}
+
+	public function getEmail():string
+	{
+		return $this->email;
+	}
+
+	public function getSenha():string
+	{
+		return $this->senha;
+	}
+
+	public function setNome($nome){
+		$this->nome = $nome;
+	}	
+
+	public function setEmail($email){
+		$this->email = $email;
+	}	
+
+	public function setSenha($senha){
+		$this->senha = $senha;
+	}	
+
+	public function toString __toString(){
+	
+	return json_encode(array(		//json eh um array que conseguimos ver.
+	"nome"=>$this->getNome(),
+	"email"=>$this->getEmail(),
+	"senha"=>$this->getSenha()		//estamos mandando trazer a senha;
+
+	));
+	}
+
+
+}
+
+?>
+
+=============
+
+index.php
+
+<?php
+
+require_once("config.php");		//incluir o arquivo de config
+
+//para usar namespace se usa "use";
+use Cliente\Cadastro;			//usa o namespace "Cliente\Cadastro", vai ser o namespace dentro de Cliente;
+
+
+$cad = new Cadastro();
+
+$cad->setNome("Djalma Sindeaux");
+$cad->setEmail("djalma@hcode.com.br");
+$cad->setSenha("123456");
+
+echo $cad;
+
+$cad->registrarVenda();
+
+?>
+
+
+=============
+
+Cadastro.php
+
+<?
+
+namespace Cliente;				//tem que seguir o nome da pasta
+
+class Cadastro extends \Cadastro {		//extende de uma classe principal, que foi denifinida a pasta no extends
+
+	public function registrarVenda(){
+
+		echo "Foi registrada uma venda para o cliente " .$this->getNome();
+
+
+					}
+
+}
+
+
+?>
+
+=============
+=============
+
+Nesta aula, no exemplo-01.php, os professores apresentam a função __autoload(), muito usada para configurar o autoload de classes. Entretanto, essa função foi depreciada na versão 7.2 do PHP, o que pode gerar um erro em seu código
+O mais recomendado é que usemos a função spl_autoload_register(), que é explicada pelos professores no exemplo-02.php
+
+Segue alguns links para consulta:
+https://secure.php.net/manual/pt_BR/function.autoload.php
+https://secure.php.net/manual/pt_BR/function.spl-autoload-register.php
+
+
+
+Se você estiver utilizando Linux ou Mac, pode se deparar com um erro ao reproduzir o exemplo da aula
+
+Para resolver esse problema, deixe a sua variável $filename no arquivo config.php assim:
+
+$filename = str_replace ("\\", "/", $dirClass . DIRECTORY_SEPARATOR . $nameClass . ".php");
+
+
+=============
+
+Buscando em múltiplos diretórios com apenas um spl_autoload
+· Aula 50
+
+
+Para o caso de termos múltiplos diretórios com as classes da para buscar em todos diretórios com apenas um spl_autoload_register usando uma array e foreach.
+
+    spl_autoload_register(function($class) {
+      
+      $paths = ['models', 'controllers', 'libraries'];
+      
+      foreach ($paths as $path) {
+        if (file_exists($path . DIRECTORY_SEPARATOR . $class . ".php")) {
+          require_once($path . DIRECTORY_SEPARATOR . $class . ".php");
+        }
+      }
+    });
+
+=============
+=============
+
+recrutamento.sapbr@gmail.com
+
+=============
+=============
+=============
+
+Mysql 10-53:
+
+USE NomeDoBranco;							//acessa o banco;
+
+CREATE TABLE tb_usuarios (						//criar tabela;
+idusuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()		//data eh o TIMESTAMP
+
+);
+	
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root','senha');	//insert declarativo de usuario;
+
+SELECT * FROM tb_usuarios;						//mostrar os usuarios;
+
+UPDATE tb_usuarios SET dessenha = '123456' WHERE idusuario = 1;		//trocar a senha;
+
+DELETE FROM tb_usuarios WHERE idusuario = 1;				//deletar usuario;
+
+TRUNCATE TABLE tb_usuarios;						//nao usar, pois ele apaga e formata a tabela para auto increment;
+
+=============
+
+USE jackbravo2109;
+
+CREATE TABLE tb_usuarios(
+idusuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+deslogin VARCHAR(64) NOT NULL,
+dessenha VARCHAR(256) NOT NULL,
+dtcadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+);
+
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('root', '!@#$%');	//insere dado, usuario e senha;
+
+SELECT * FROM tb_usuarios;						//visualiza, faz consulta;
+
+UPDATE tb_usuarios SET dessenha = '123456' WHERE idusuario=1;		//atualiza, troca senha;
+
+DELETE FROM tb_usuarios WHERE idusuario = 1;				//deleta usuario 1;
+
+TRUNCATE TABLE tb_usuarios;						//apaga todos os dados da tabela, reformata ela para 0;
+
+
+=============
+
+11-54:
+
+MYSQLI: (conexao com mysql)
+
+<?php
+
+$conn = new mysqli("localhost","root", "root", "dbphp7");		//(ip,usuario,senha,banco);
+
+if($conn->connect_error){
+
+	echo "Error: " . $conn->connect_error;
+			}
+
+//acessar metodo "prepare" (prepara comando que vai enviar para DB), com comando que vc quer dar no banco ("INSERT..."), e no VALUES vai os parametros do banco.
+
+$stmt = $conn->prepare("INSERT INTO tb_usuarios (deslogin, dessenha) VALUES(?, ?)");
+
+//chamar o metodo bind, que espera os tipos de dados dessas "?", tanto a primeira "?" quando a segunda "?" sao textos, entao coloca-se apenas o tipo de dado dessas "?", como eles vao ser varchar(texto), basta colocar a primeira letra do tipo de dado "s" de "String", se fosse inteiro colocaria "i", se fosse "double" = "d", fica mais seguro que passar a variavel no comando.
+//apos colocar o tipo de dado "ss", os proximos 2 parametros, precisam ser os valores, com variaveis, porque o bind nao aceita puro/direto.
+
+$stmt->bind_param("ss", $login, $pass);
+
+//variaveis que receberao os valores atribuindo as variaveis;
+
+$login = "user";
+$pass = "12345";
+
+//comando preparado soh vai executar apos o comando/metodo "execute()";
+
+$stmt-> execute();
+
+$login = "root";
+$pass = "31345";
+
+$stmt-> execute();
+
+?>
+
+=============
+
+Exemplo 2:
+
+<?php
+
+$conn = new mysqli("localhost","root", "root", "dbphp7");		//(ip,usuario,senha,banco);
+
+if($conn->connect_error){
+
+	echo "Error: " . $conn->connect_error;
+			}
+
+$result = $conn->query("SELECT * FROM tb_usuarios ORDER BY deslogin");	//comando de conexao "conn" mais o metodo query, que eh o comando de banco de dados, sendo guardado numa variavel result
+
+while ($row = $result->fetch_array(MYSQLI_ASSOC)) {		//while para enquanto tiver resultado no banco, traga para tela. usando um "fetch_array" para mostrar os resultados em forma de arrays, com array associativo.
+
+	var_dump($row);
+	
+
+}
+
+?>
+
+
+=============
+
+<?php
+
+//endereco do banco, usuario, senha, nome do banco.
+$conn = new mysqli ("mysql07-farm60.kinghost.net", "jackbravo2109", "m123456m", "jackbravo2109");
+
+if($conn->connect_error){
+	echo "Error: " . $conn->connect_error;
+	exit;
+}
+
+//inserir no banco de dados:
+
+//pega a variavel da conexao "$conn" e acessa o metodo "prepare" (que prepara um comando que sera enviado para o banco de dados), e o comando, os "?" serao trocados a seguir por valores;
+$stmt = $conn->prepare("INSERT INTO tb_usuarios (deslogin, dessenha) VALUES(?, ?)");
+
+//$stmt acessa o parametro "bind", setando os tipos de dados "ss" ('s' de string, dois strings no caso);
+//$stmt->bind_param("ss", "user", "12345");		//desativado, pois precisa ser passado com uma variavel por referencia;
+$stmt->bind_param("ss", $login, $pass);	//correto
+
+$login = "user";
+$pass = "12345";
+
+//precisamos executar, ja que ate agora ainda nao foi enviado o comando para o BD;
+//chamando metodo "execute";
+$stmt->execute();
+
+?>
+
+
+=============
+
+Se eu quiser converter para um Json, para levar os dados para outra aplicacao.
+
+
+<?php
+
+$conn = new mysqli("localhost","root", "root", "dbphp7");		//(ip,usuario,senha,banco);
+
+if($conn->connect_error){
+
+	echo "Error: " . $conn->connect_error;
+			}
+
+$result = $conn->query("SELECT * FROM tb_usuarios ORDER BY deslogin");	//comando de conexao "conn" mais o metodo query, que eh o comando de banco de dados, sendo guardado numa variavel result
+
+$data = array();				//para converter para um Json, cria uma variavel para armazenar e digo que eh um array.
+
+while ($row = $result->fetch_assoc()) {		//while para enquanto tiver resultado no banco, traga para tela. usando um "fetch_array" para mostrar os resultados em forma de arrays, com array associativo.
+
+	array_push($data, $row);		//converter em associativo, nome, dados, valor. Faz um push em cada linha que ele for encontrando.
+	
+
+}
+
+echo json_encode($data);			//por fim fazer um echo com json_encode;
+
+?>
+
+
+=============
+
+Ultimo ex de consulta:
+
+<?php
+
+//endereco do banco, usuario, senha, nome do banco.
+$conn = new mysqli ("mysql07-farm60.kinghost.net", "jackbravo2109", "m123456m", "jackbravo2109");
+
+if($conn->connect_error){
+	echo "Error: " . $conn->connect_error;
+	exit;
+}
+
+//executar comando direto no banco de dados;
+
+$result = $conn->query("SELECT * FROM tb_usuarios ORDER BY deslogin");
+
+//transformar em json para enviar para fora:
+$data = array();	//digo que eh um array;
+
+
+//vai jogar dentro de uma variavel row a linha, e vai atribuindo, enquanto tiver linhas, no final vai mostrar todas.
+//while ($row = $result->fetch_array()){		//original
+//ou associative array:
+//while ($row = $result->fetch_array(MYSQLI_ASSOC)){
+//ou associative array:
+while ($row = $result->fetch_assoc()){
+
+	array_push($data, $row);		//json fazendo um array de array, fazendo push em cada linha;
+	
+}
+
+echo json_encode($data);		//dar um echo para mostrar o jason
+
+
+?>
+
+=============
+
+12-55
+
+PDO:
+
+
+<?php
+
+$conn = new PDO("mysql:dbname:nome_do_banco;host=localhost", "login", "senha")			//primeiro quero conversar com mysql (padrao de conexao), da maneira como foi feita.
+
+$stmt = $conn->prepare("SELECT * FROM tb_usuarios ORDER BY deslogin");
+
+$stmt = execute();
+
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($results as $row){
+
+	foreach ($roe as $key => $value){
+
+	echo "<strong>".$key.":</strong>".$value."<br/>";
+
+
+		}
+
+	echo "======================================================<br/>";
+	
+	}
+
+
+var_dump($results);
+
+
+?>
+
+
+=============
+
+-Inserindo dados no banco:
+
+
+<?php
+
+$conn = new PDO("mysql:host=localhost;dbname=dbphp7", "usuario", "senha");
+
+$stmt = $conn->prepare("INSERT INTO tb_usuarios (deslogin, dessenha) VALUES(:LOGIN, :PASSWORD)");
+
+$login = "jose";
+$password = "1234567890";
+
+$stmt->bindParam(":LOGIN", $login);
+$stmt->lindParam(":PASSWORD", $password);
+
+$stmt->execute();
+
+echo "Inserido OK!";
+
+?>
+
+
+=============
+
+- Alterando dados no banco:
+
+
+<?php
+
+$conn = new PDO("mysql:host=localhost;dbname=dbphp7", "usuario", "senha");
+
+$stmt = $conn->prepare("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE idusuario = :ID");		//update tem que ter WHERE, nunca esquecer!
+
+$login = "joao";
+$password = "qwerty";
+$id = 2;
+
+$stmt->bindParam(":LOGIN", $login);
+$stmt->lindParam(":PASSWORD", $password);
+$stmt->lindParam(":ID, $id);					//cria a chave de identificacao do parametro que o ID e cria uma variavel para ele $id;
+
+$stmt->execute();
+
+echo "Alterado OK!";
+
+?>
+
+
+=============
+
+- Deletando dados no banco.
+
+<?php
+
+$conn = new PDO("mysql:host=localhost;dbname=dbphp7", "usuario", "senha");
+
+$stmt = $conn->prepare("DELETE FROM tb_usuarios WHERE idusuario = :ID");		
+
+$id = 1;
+
+$stmt->lindParam(":ID, $id);					//cria a chave de identificacao do parametro que o ID e cria uma variavel para ele $id;
+
+$stmt->execute();
+
+echo "Delete OK!";
+
+?>
+
+=============
+
+- Transacao: Eh quando a transacao da certo, caso nao de, cancela e executa um rollback, no caso se duas transcoes precisam dar certo, e uma nao da, a primeira que deu certo eh feito um rollback.
+
+aula12-61
+
+Exemplo06:
+
+
+<?php
+
+$conn = new PDO("mysql:host=localhost;dbname=dbphp7", "usuario", "senha");
+
+$conn->beginTransaction();							//abre uma transacao, que eh ligada a conexao, por isso a mesma variavel.
+
+$stmt = $conn->prepare("DELETE FROM tb_usuarios WHERE idusuario = ?");		//"?" eh um item de array.	
+
+$id = 2;
+
+$stmt->execute(array($id));					
+
+//$stmt->roolback();				//se der errado, usa roolback para cancelar;
+$conn->commit();				//se der certo, confirma;
+
+echo "Delete OK!";
+
+?>
+
+=============
+
+PDO - DAO:
+
+Classe do banco "Sql.php:
+
+<?php
+
+class Sql extends PDO {			//classe extende de PDO que eh nativa do sistema, tudo que o PDO faz essa classe ja importa os metodos: execute, prepare, etc... e consegue fazer.
+
+	private $conn;			//variavel para conectar no banco
+
+	public function __construct(){			//metodo construtor para conectar ao banco, quando eu der um new, ele vai conectar diretamente.
+	
+		$this->conn = new PDO("mysql:host=localhost;dbname=dbphp7, "user", "senha");		//
+
+	}
+
+
+	private function setParams($statment, $parameters = array()){			//precisa receber o Statment e os meus dados (parametros)
+
+	foreach($parameters as $key => $value){
+
+		$this->setParam($key, $value);
+	
+
+	}
+
+
+	private function setParam($statment, $key, $value){				//um bind de parametros, a chave e o valor.
+
+		$statment->blindParam($key, $value);
+
+	}
+
+
+	public function query($rawQuery, $params = array()){					//Criar metodo para preparar, fazer a preparacao dos parametros.
+
+		$stmt = $this->conn->prepare($RawQuery);					//soh funciona dentro da variavel mesmo.
+
+		$this->setParams($stmt, $params);
+
+		$stmt->execute();
+
+		return $stmt;
+
+	}
+
+
+
+	
+	public function select($rawQuery, $params = array()):array{
+
+		$stmt = $this->query($rawQuery, $params);
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);		
+
+	}
+
+}
+
+
+
+?>
+
+
+==============
+
+
+<?php
+
+//vamos comecar com a variavel e instanciar no PDO, e dentro do parentes vamos passar uma string informando com quem queremos conversar, no caso o mysql.
+
+//colocar o servidor(nome do servidor), em seguida host, login, senha;
+//("mysql:dbname= ; host= ", "usuario", "senha");
+$conn = new PDO("mysql:dbname=jackbravo2109; host=mysql07-farm60.kinghost.net", "jackbravo2109", "m123456m");
+
+$stmt = $conn->prepare("SELECT * FROM tb_usuarios ORDER BY deslogin");
+
+$stmt->execute();
+
+//$results = $stmt->fetchAll();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//	foreach ($variable as $key => $value) {
+//		# code...
+//	}
+
+foreach ($results as $row) {
+
+	foreach ($row as $key => $value) {
+
+		echo "<strong>".$key.":"."</strong>"." ".$value."<br/>";
+					
+                                           }
+
+		echo "=====================================================<br/>";
+
+							}
+
+?>
+
+=============
+
+Usando mysql Server, diferencas:
+
+//MYSQL SERVER nao tem "_"
+
+CREATE TABLE tb_usuarios(
+	idusuario INT NOT NULL IDENTITY	PRIMARY KEY,		//IDENTITY eh o autoincrement do mysql;
+	deslogin VARCHAR (64) NOT NULL,
+	dessenha VARCHAR (256) NOT NULL,
+	dtcadastro DATETIME NOT NULL DEFAULT GETDATE()		//DATETIME eh igual o timestamp do mysql;
+);
+
+SELECT * FROM tb_usuarios;			//consulta a tabela;
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES('user','!@#$');	//inserir dado/usuario;
+
+=============
+
+Sessao 12 Aula 57:
+
+Conectando PHP 7 com SQL Server:
+
+<?php
+
+$conn = new PDO("sqlsrv:Database=jackbravo2109; server=mysql07-farm60.kinghost.net, ConnectionPooling=0", "jackbravo2109", "m123456m");
+
+?>
+
+=============
+
+Insert via PDO:
+
+<?php
+
+//INSERINDO DADOS:
+
+//vamos comecar com a variavel e instanciar no PDO, e dentro do parentes vamos passar uma string informando com quem queremos conversar, no caso o mysql.
+
+//colocar o servidor(nome do servidor), em seguida host, login, senha;
+//("mysql:dbname= ; host= ", "usuario", "senha");
+$conn = new PDO("mysql:dbname=jackbravo2109; host=mysql07-farm60.kinghost.net", "jackbravo2109", "m123456m");
+//a ordem nao importa, o importante eh o nome;
+
+//STATMENT PREPARE (nao precisa login e password serem maiusculos):
+$stmt = $conn->prepare("INSERT INTO tb_usuarios (deslogin, dessenha) VALUES(:LOGIN, :PASSWORD)");
+
+$login = "jose";
+$password = "1234567890";
+
+$stmt->bindParam(":LOGIN", $login);			//bind quer dizer: ligue este LOGIN com este parametro, por exemplo.
+$stmt->bindParam(":PASSWORD", $password);
+
+$stmt->execute();
+
+echo "Inserido, OK!";
+
+?>
+
+=============
+
+<?php
+
+//ALTERANDO DADOS:
+
+//("mysql:dbname= ; host= ", "usuario", "senha");
+$conn = new PDO("mysql:dbname=jackbravo2109; host=mysql07-farm60.kinghost.net", "jackbravo2109", "m123456m");
+//a ordem nao importa, o importante eh o nome;
+
+$stmt = $conn->prepare("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE idusuario = :ID");
+
+$login = "joao";
+$password = "qwerty";
+$id = 2;
+
+$stmt->bindParam(":LOGIN", $login);			//bind quer dizer: ligue este LOGIN com este parametro, por exemplo.
+$stmt->bindParam(":PASSWORD", $password);
+$stmt->bindParam(":ID", $id);
+
+$stmt->execute();
+
+echo "Alterado, OK!";
+
+?>
+
+=============
+
+<?php
+
+//COMANDO DELETE, EXCLUIR INFORMACAO:
+
+$conn = new PDO("mysql:dbname=jackbravo2109; host=mysql07-farm60.kinghost.net", "jackbravo2109", "m123456m");
+
+//ALTERACAO SEMPRE COM WHERE:
+$stmt = $conn->prepare("DELETE FROM tb_usuarios WHERE idusuario = :ID");
+
+$id = 1;
+
+//bind quer dizer: ligue este LOGIN com este parametro, por exemplo.
+$stmt->bindParam(":ID", $id);
+
+$stmt->execute();
+
+echo "DELETADO, OK!";
+
+?>
+
+=============
+
+<?php
+
+//TRANSACAO (ROLLBACK):
+
+$conn = new PDO("mysql:dbname=jackbravo2109; host=mysql07-farm60.kinghost.net", "jackbravo2109", "m123456m");
+
+//TRANSACAO ESTA SEMPRE LIGADA COM A CONEXAO, usando este metodo;
+$conn->beginTransaction();
+
+//ALTERACAO SEMPRE COM WHERE:
+//ao inves de usar ID, vamos usar agora ?, se fossem 2 parametros de array era ? ?;
+$stmt = $conn->prepare("DELETE FROM tb_usuarios WHERE idusuario = ?");
+
+$id = 2;
+
+//vamos usar um array ao inves do BIND, e o primeiro item do array vai ser o primeiro "?", que no caso soh tem um;
+$stmt->execute(array($id));
+
+//agora definimos se sera feito um commit(confirmar), ou um rollback(cancelar);
+$conn->rollback();
+
+echo "DELETADO, OK!";
+
+?>
+
+=============
+
+<?php
+
+//TRANSACAO (COMMIT):
+
+$conn = new PDO("mysql:dbname=jackbravo2109; host=mysql07-farm60.kinghost.net", "jackbravo2109", "m123456m");
+
+//TRANSACAO ESTA SEMPRE LIGADA COM A CONEXAO, usando este metodo;
+$conn->beginTransaction();
+
+//ALTERACAO SEMPRE COM WHERE:
+//ao inves de usar ID, vamos usar agora ?, se fossem 2 parametros de array era ? ?;
+$stmt = $conn->prepare("DELETE FROM tb_usuarios WHERE idusuario = ?");
+
+$id = 2;
+
+//vamos usar um array ao inves do BIND, e o primeiro item do array vai ser o primeiro "?", que no caso soh tem um;
+$stmt->execute(array($id));
+
+//agora definimos se sera feito um commit(confirmar), ou um rollback(cancelar);
+$conn->commit();
+
+echo "DELETADO, OK!";
+
+?>
+
+=============
+
+DAO:
+-------------
+
+Sql.php
+-------
+
+ <?php
+
+//classe vai extender de PDO e pode usar todos os metodos publicos (bind, parametro, tudo);
+class Sql extends PDO{
+
+	private $conn;
+
+	public function __construct(){
+
+		$this->conn = new PDO("mysql:dbname=jackbravo2109; host=mysql07-farm60.kinghost.net", "jackbravo2109", "m123456m");
+	}
+
+	
+	//criado depois da funcao query
+	private function setParams($statment, $parameters = array()){
+	
+		//vamos percorres os parametros
+		foreach ($parameters as $key => $value) {
+			
+			$this->setParam($key, $value);
+		}
+
+	}
+
+	//criado depois do setParams acima
+	private function setParam($statment, $key, $value){
+
+		$statment->bindParam($key, $value);
+	}
+
+	//para executar comandos la, para isso usa o metodo; rawQuery = query bruta (que sera tratada depois), e receber parametros em array;
+	public function query($rawQuery, $params = array()){
+
+		$stmt = $this->conn->prepare($rawQuery);
+
+		//passo os dados da variavel stmt, e os parametros que ela espera;
+		$this->setParams($stmt, $params);
+
+		$stmt->execute();
+
+		return $stmt;
+	}
+
+	//select para retornar consulta do banco, retorna como array;
+	public function select($rawQuery, $params = array()):array{
+
+		$stmt = $this->query($rawQuery, $params);
+
+		//para ver soh os dados associativos, sem os numeros;
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	}
+
+}
+
+?>
+
+----------------------------------------------------------
+
+config.php
+-----------
+
+<?php
+
+spl_autoload_register(function($class_name){
+
+	$filename = $class_name.".php";
+
+	if(file_exists($filename)){
+		require_once($filename);
+	}
+
+
+});
+
+?>
+
+-----------------------------------------------------------
+
+index.php
+----------
+
+<?php
+
+require_once("config.php");
+
+$sql = new Sql();
+
+$usuarios = $sql->select("SELECT * FROM tb_usuarios");
+
+echo json_encode($usuarios);
+
+?>
+
+=============
+
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+=============
+
+=============
+
+
+=============
+
+
+=============
+
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+=============
+
+
+=============
+
+
+=============
+
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+=============
+
+
+
+=============
+
+public class Pessoa{
+
+
+	private String $nome;
+	private int $cpf;
+
+	public function getNome():String{
+
+	return $this->nome;
+
+				}
+
+	public function setNome($nome){
+
+	$this->nome = $nome;
+
+				}
+
+	public function exibir(){
+
+		return array(
+
+		"nome"=>$this->getNome(),	//array usa-se "=>"
+		"cpf"=>$this->getCpf()
+		);
+				}
+
+
+}
+
+$pessoa1 = new Pessoa();
+$pessoa1->setNome("Joao");
+$pessoa1->setCpf("984964149");
+
+print_r($pessoa1->exibir());
+
+
+?>
+
+
+=============
+
+<meta charset="UTF-8">
+
+<?php
+
+public class Pessoa{
+
+
+	protect String $name;
+	protect int $idade;
+	protect int $cpf;
+
+
+	public function getName():String{
+
+		return $this->name;
+					}
+
+	public function setName($name){
+
+		$this->name = $name;	
+					}
+
+
+	public function getIdade():int{
+
+		return $this->idade;
+				}
+
+	public function setIdade($idade){
+
+		$this->idade = $idade;
+					}
+
+	public function exibir(){
+
+		return array(
+			"modelo"=>$this->getName(),
+			"modelo"=>$this->getIdade(),
+			"modelo"=>$this->getCpf()
+			);
+					}
+}
+
+$pessoa1 = new Pessoa();
+$pessoa1->setNome("Joao");
+$pessoa1->setIdade("28");
+$pessoa1->setCpf("8995656546");
+
+print_r($pessoa1->exibir());
+
+?>
+
+
+=============
+
+Conexao com banco de dados:
+
+<?php
+
+//Passo 1 - Abrir conexao:
+
+$servidor = "mysql07-farm60.kinghost.net";
+$usuario  = "jackbravo2107";
+$senha    = "m123456m";
+$banco    = "jackbravo2107";
+
+$conecta = mysqli_connect($servidor,$usuario,$senha,$banco);
+
+//Passo 2 - Testar conexao:
+
+if(mysqli_connect_errno()){
+   die("Conexao falhou: " . mysqli_connect_errno());
+}
+
+?>

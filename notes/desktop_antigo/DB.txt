@@ -1,0 +1,323 @@
+UTF8_general_ci
+
+
+Comandos SQL:
+
+Funcao:		Comando:		Exemplo:
+INCLUSAO	INSERT			INSERT INTO cadastro (nome, telefone) VALUES ("Victor","3326.2836");
+CONSULTA	SELECT			SELECT nome, telefone, email FROM cadastro;
+ALTERACAO	UPDATE			UPDATE cadastro SET nome = "Matheus" WHERE id = 2;
+EXCLUSAO	DELETE			DELETE FROM cadastro WHERE id = 5;
+
+Clausulas de consulta:
+
+SELECT:		Seleciona as colunas que participarao da consulta.
+FROM:		Seleciona as tabelas que selecionarao as colunas.
+WHERE:		Utilizada para especificar filtros e condicoes.
+GROUP BY :	Utilizada para agrupar conjuntos de dados.
+HAVING :	Utilizada para expressar a condicao que deve satisfazer cada grupo.
+ORDER BY :	Utilizada para ordenar os registros selecionados com uma ordem.
+DISTINCT :	Utilizada para selecionar dados sem repeticao.
+
+
+- SEGUIR DEMPRE A MESMA ORDEM:
+
+EX. consulta:
+
+SELECT 	nomeproduto, precounitario, tempoentrega	(colunas)
+FROM	produtos					(tabela)
+
+
+Retornar quantos tempos de entrega eu tenho dentro do banco com "DISTINCT":
+
+SELECT 	DISTINCT tempoentrega				(colunas)
+FROM	produtos					(tabela)
+
+
+Pegar um numero limite de resultados:
+
+SELECT 	nomeproduto, precounitario, tempoentrega	(colunas)
+FROM	produtos					(tabela)
+LIMIT	10						(limita o numero de registros que vc quer que apareca)
+
+
+Ordenacao em ordem crescente:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	produtoID					(ordena)
+LIMIT	10							(limita o numero de registros que vc quer que apareca)
+
+Ordenacao em ordem decrescente:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	produtoID	DESC				(ordena em decrecente)
+LIMIT	10							(limita o numero de registros que vc quer que apareca)
+
+Ordenacao em ordem alfabetica:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	produtoID	ASC				(ordena alfaberico)
+LIMIT	10							(limita o numero de registros que vc quer que apareca)
+
+Ordenacao em ordem alfabetica:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	precounitario	ASC, tempoentrega ASC		(se houver embate em produtos de mesmo preco, ele usa o criterio tempo de 												entrega mais baixo)
+
+Ordenacao em ordem alfabetica:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	precounitario	ASC, tempoentrega ASC		(se houver embate em produtos de mesmo preco, ele usa o criterio tempo de 												entrega)
+
+FILTROS (WHERE):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega = 5				(exibe produtos que sao entregues apenas com a data de 5 dias)
+
+
+FILTROS (WHERE) com outra selecao (AND):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega = 5 AND precounitario = 12		(exibe produtos que sao entregues apenas com a data de 5 dias e preco=12)
+
+FILTROS com preco unitario menor que 12:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		precounitario < 12				(mostra produtos que tem preco unitario menor que 12)
+
+FILTROS com preco unitario menor ou igual que 12:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		precounitario <= 12				(mostra produtos que tem preco unitario menor ou igual a 12)
+
+FILTROS com preco unitario entre 5 e 12 (BETWEEN, AND):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		precounitario BETWEEN 5 AND 12			(mostra produtos que tem preco entre 5 e 12)
+ORDER BY	precounitario ASC				(mostra em ordem crescente)
+
+
+FILTROS com tempo de entrega igual a 5 ou 30 (OR):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega = 5 OR tempoentrega = 30		(vai mostrar produtos com tempo de entrega igual a 5 e 30)
+
+FILTROS com tempo de entrega igual a 5, 15 e 30 (IN):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega IN	(5,15,30)			(vai mostrar produtos com tempo de entrega igual a 5, 15 e 30)
+
+FILTROS EXCLUINDO com tempo de entrega igual a 5, 15 e 30 (NOT IN):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega NOT IN	(5,15,30)		(vai mostrar produtos excluindo o tempo de entrega igual a 5, 15 e 30)
+
+FILTROS que terminem com letras mug (LIKE "%mug") [% eh igual a *]:
+
+SELECT 		nomeproduto					(colunas)
+FROM		produtos					(tabela)
+WHERE		nomeproduto LIKE "%mug"				(vai exibir todos os produtos que terminem com "mug").
+
+FILTROS que contenha letras BLEND (LIKE "%BLEND%") [% eh igual a *]:
+
+SELECT 		nomeproduto					(colunas)
+FROM		produtos					(tabela)
+WHERE		nomeproduto LIKE "%BLEND%"			(vai exibir todos os produtos que contenham em algum lugar da palavra "BLEND").
+
+Mostrar produto com menor preco (Min) e chamar ele de um nome (as):
+
+SELECT 		Min(precounitario) as menorpreco		(colunas)
+FROM		produtos					(tabela)
+ 
+
+Mostrar produto com maior preco (Max) e chamar ele de um nome (as):
+
+SELECT 		Max(precounitario) as maiorpreco		(colunas)
+FROM		produtos					(tabela)
+
+Mostrar produto com preco MEDIO (AVG) e chamar ele de um nome (as):
+
+SELECT 		AVG(precounitario) as precomedio		(colunas)
+FROM		produtos					(tabela)
+
+Chamar todos os pedidos:
+
+SELECT 		*						(colunas)
+FROM		pedidos						(tabela)
+
+Chamar todos os pedidos:
+
+SELECT 		*						(colunas)
+FROM		pedidos						(tabela)
+
+Somar todos os pedidos (sum):
+
+SELECT 		sum(valor_pedido)				(colunas)
+FROM		pedidos						(tabela)
+
+Somar todos os pedidos de 2006 (sum):
+
+SELECT 		sum(valor_pedido)				(colunas)
+FROM		pedidos						(tabela)
+WHERE		year(data_pedido) = '2006' 			(Exibi a soma de todos os pedidos de 2006)
+
+Somar todos os pedidos de 2006 e conta o numero de pedidos (sum):
+
+SELECT 		sum(valor_pedido), count(pedidoID) as num_pedidos	(colunas)
+FROM		pedidos							(tabela)
+WHERE		year(data_pedido) = '2006' 				(Exibi a soma de todos os pedidos de 2006, e conta o numero de pedidos)
+
+Relatorio:
+
+Quantos produtos eu tenho para cada tempo de entrega diferente (vai aparecer todos):
+
+SELECT 	*								(colunas)
+FROM	produtos							(tabela)
+WHERE	tempoentrega = 5						
+
+Quantos produtos eu tenho para cada tempo de entrega diferente (vai contar e exibir o total):
+
+SELECT 	count(produtoID) as total					(colunas)
+FROM	produtos							(tabela)
+WHERE	tempoentrega = 5						(exibe a soma dos produtos com tempo de entrega 5)					
+Quantos produtos eu tenho para cada tempo de entrega diferente (vai contar e exibir o total):
+
+SELECT 		count(produtoID) as total					(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega							()
+
+Quantos produtos eu tenho para cada tempo de entrega diferente (vai exibir produtos e o tempo):
+
+SELECT 		tempoentrega, count(produtoID) as total				(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega							
+
+Digamos que queremos visualizar apenas os acima de 5:
+
+SELECT 		tempoentrega, count(produtoID) as total				(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega <= 5						(exibe a soma dos produtos com tempo de entrega 5)
+
+Queremos exibir apenas os que tenham apenas o tempo de entrega maiores que 5:
+
+SELECT 		tempoentrega, count(produtoID) as total				(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega							
+HAVING 		total >= 5
+
+Queremos exibir apenas os que tenham apenas o tempo de entrega maiores que 5 e ordenar em ordem crescente:
+
+SELECT 		tempoentrega, count(produtoID) as total				(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega							
+HAVING 		total >= 5
+ORDER BY	total ASC
+
+
+Relacionar 2 tabelas:
+
+SELECT 		nomeproduto, fornecedorID
+FROM 		produtos, fornecedores
+WHERE 		produtos.fornecedorID = fornecedores.fornecedorID	(campo ".fornecedorID" tem que igual ao segundo ".fornecedorID")
+
+
+Relacionar 2 tableas juntando elas (INNER JOIN):
+
+SELECT 		nomeproduto, nomefornecedor
+FROM 		produtos 						(Ele aceita tambem soh o: nomeproduto, nomefornecedor)
+		INNER JOIN fornecedores					(Ele aceita tambem soh o: INNER JOIN fornecedores)
+		ON produtos.fornecedorID = fornecedores.fornecedoresID	(Ele aceita tambem soh o: ON p.fornecedorID = f.fornecedoresID)
+
+Relacionar 2 tableas juntando elas (criando um alias):
+
+SELECT 		nomeproduto, nomefornecedor
+FROM 		produtos AS p 						(Ele aceita tambem soh o: nomeproduto, nomefornecedor)
+		INNER JOIN fornecedores	as f				(Ele aceita tambem soh o: INNER JOIN fornecedores)
+		ON p.fornecedorID = f.fornecedoresID			(Ele aceita tambem soh o: ON p.fornecedorID = f.fornecedoresID)
+
+Relacionar 2 tableas juntando elas (criando um alias, em alguns bancos nao precisa o AS):
+
+SELECT 		nomeproduto, nomefornecedor
+FROM 		produtos p 						
+		INNER JOIN fornecedores	f				
+		ON p.fornecedorID = f.fornecedoresID			
+
+
+Relacionar 2 tableas juntando elas (entre mais tabelas):
+
+SELECT 		nomeproduto, nomefornecedor
+FROM 		produtos p 						
+		INNER JOIN fornecedores	f ON p.fornecedorID = f.fornecedoresID
+		INNER JOIN categorias	c ON p.fornecedorID = c.fornecedoresID
+
+Agrupar informacoes com grupo BY (Quantos produtos eu tenho por categorias):
+
+SELECT 		categoriaID, COUNT(produtoID) AS total
+FROM		produtos p
+		INNER JOIN categorias c ON p.categoriaID = c.categoriaID
+GROUP BY 	p.categoriaID
+
+Agrupar informacoes com grupo BY (Quantos produtos eu tenho por categorias e mostrar quantos eu tenho do maior pro menor):
+
+SELECT 		categoriaID, COUNT(produtoID) AS total
+FROM		produtos p
+		INNER JOIN categorias c ON p.categoriaID = c.categoriaID
+GROUP BY 	p.categoriaID
+ORDER BY	total DESC
+
+
+
+Insercao de um novo campo de dados, na tabela estados:
+
+INSERT INTO	estados(nome,sigla) VALUES('Jack','JB');		(aspas porque eh char, se nao nao precisa)
+									*inserir dentro da tabela estado nos campos() os valores()
+
+
+Atualizar informacao que ja foi adicionada no banco de dados (alteracao):
+
+UPDATE 		estados		SET nome = 'Bravo'
+WHERE estadoID = 32;				
+
+*Update/atualize + o nome da tabela que vc quer alterar + SET/colocando + campo a ser alterado=valor do campo + WHERE/onde + o Nome do campo + tiver valor do campo = 32;
+
+
+Atualizar informacao que ja foi adicionada no banco de dados (alteracao de duas colunas):
+
+UPDATE 		estados		
+SET 		
+nome = 'Bravo',
+sigla = 'FT' 
+WHERE estadoID = 32;				
+
+
+Apagar um registro:
+
+DELETE 
+FROM		estado
+WHERE		estadoID=31;					*caso seja mais de um registro "estadoID IN (31, 32, 33);"
+
+
+Apagar mais de um registro:
+
+DELETE 
+FROM		estado
+WHERE		estadoID IN (31, 32, 33);			
+
+
+LAST_INSERT_ID:
+Retorna o ultimo id inserido.
+
+==================================================================================================

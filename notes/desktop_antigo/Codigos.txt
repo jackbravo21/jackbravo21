@@ -1,0 +1,401 @@
+&nbsp;
+
+
+
+Nota: Construtores pais não são chamados implicitamente se a classe filha define um construtor. Para executar o construtor da classe pai, uma chamada a parent::__construct() dentro do construtor da classe filha é necessária. Se a classe filha não definir um construtor, será herdado da classe pai como um método normal (se não foi declarado como privado).
+
+====================================================================
+
+(`nome` LIKE '%".$query."%')")
+
+====================================================================
+
+
+if(!isset($_SESSION["usuario"])){
+	location.replace('index.php');	
+	}
+
+
+====================================================================
+
+
+if(isset($_POST) && ($_POST["password"]) == ($_POST["confirmpassword"])){
+
+====================================================================
+
+
+<form action="../model/classes/Cadastrar.class.php" name="registrar_usuario" method="post">
+
+
+====================================================================
+
+Se você quer abrir em uma nova guia, pode fazer assim:
+
+<button type="button" onclick="window.open('/cadastrar_empresa');" class="btn btn-primary" id="cad_empresa">Cadastrar empresa</button>
+Ou então, mude o botão para um link ():
+
+<a class="btn btn-primary" id="cad_empresa" href="/cada=_empresa">Cadastrar empresa</a>
+
+
+====================================================================
+
+$_SESSION["usuario"] = $usuario;
+
+====================================================================
+
+else if(!isset($_SESSION["usuario"])){
+	include("login.php");
+}
+
+====================================================================
+
+}else if(isset($_GET["ac"]) && $_GET["ac"]=="rel_usuario"){
+	include("rel_usuario.php");
+
+====================================================================
+
+<a href="index.php?ac=rel_usuario"></a>
+
+====================================================================
+
+<a href="index.php?ac=rel_usuario" class="list-group-item"><i class="fas fa-paste"></i>&nbsp Relatório Usuário &nbsp<i class="fas fa-desktop"></i></a>
+
+====================================================================
+
+<a href="index.php?ac=editar_usuario_mobile"></a>
+
+====================================================================
+
+<a href="index.php?ac=editar_usuario_mobile" class="list-group-item {$botao}"><i class="fas fa-address-book"></i>&nbsp Editar Usuário Mobile &nbsp<i class="fas fa-mobile-alt"></i></a>
+
+====================================================================
+
+if($_POST){
+	$usuario = $_POST["usuario"];
+	$senha = $_POST["senha"];
+}
+
+====================================================================
+
+if(!isset($_SESSION["usuario"])){
+	include("login.php");
+}else{
+
+if($_GET["id"]!="" && isset($_GET["opc"]) && $_GET["opc"]=="del"){
+	$id_usuario=$_GET["id"];
+
+
+====================================================================
+
+Editar_usuario: (botao editar, excluir)
+
+<div class="panel-body fluid" width="95%">
+			<table id="tb_usuario" class="table table-striped table-bordered" cellspacing="0" width="100%">
+				<thead>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>Usuário</th>
+					<th>Opções</th>
+				</thead>
+				{foreach from=$array_usuarios item=tb_usuario}
+				<tr>
+					<td>{$tb_usuario.id_usuario}</td>
+					<td>{$tb_usuario.nome_completo}</td>
+					<td>{$tb_usuario.usuario}</td>
+					<td>
+						<a href="index.php?ac=editar&id={$tb_usuario.id_usuario}" class="btn btn-primary"><i class="fas fa-user-edit  mr-1"></i>Editar</a>
+
+						<a href="index.php?ac=excluir&id={$tb_usuario.id_usuario}" class="btn btn-danger"><i class="far fa-trash-alt mr-1"></i>Excluir</a>
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+		</div>
+
+====================================================================
+
+$conecta = new PDO("mysql:dbname=estudosphp; host=localhost", "root", "");
+
+====================================================================
+
+Insert.php
+
+if(isset($_POST["usuario"]) && ($_POST["senha"])){
+
+include "Conexao.php";
+
+$usuario_post = $_POST["usuario"];
+$senha_post = $_POST["senha"];
+
+$login = $usuario_post;
+$senha = md5($senha_post);
+
+====================================================================
+
+Update.php
+
+if(isset($_POST["usuario"]) && ($_POST["senha"]) && ($_POST["id"])){
+
+include "Conexao.php";
+
+$usuario_post = $_POST["usuario"];
+$senha_post = $_POST["senha"];
+$id_post = $_POST["id"];
+
+$login = $usuario_post;
+$senha = md5($senha_post);
+$id = $id_post;
+
+====================================================================
+
+Excluir.php
+
+if(isset($_POST["id"])){
+
+include "Conexao.php";
+
+$id_post = $_POST["id"];
+
+$id = $id_post;
+
+====================================================================
+
+
+if(mysqli_num_rows($result) > 0){
+		$alerta = "<div class='alert-danger mb-3' role='alert'> 
+		<span class='fas fa-exclamation-triangle mr-2'></span>O funcionário já existe no banco!</div>";
+	}else{
+		$sql_cadastra = "INSERT INTO tb_funcionarios (nome_completo, cpf, endereco, telefone) VALUES ('$nome_completo', '$cpf', '$endereco', '$telefone')";
+
+
+====================================================================
+
+
+//somar a quantidade de usuarios/resultados:
+
+$comando2 = "SELECT count(id) as total FROM funcionarios";
+//executar a variavel e atribuir a variavel
+$resultado = $conexao->query($comando2) or die($conexao->error);
+ 
+ // primeira opção
+$total = $resultado->fetch_object()->total;
+echo "Resultado: {$total} linhas";
+
+// segunda opção
+//$total = $r->fetch_row();
+//echo "Resultado: {$total[0]} linhas";
+
+
+====================================================================
+
+//se tiver resultados de tal dados, mais de uma linha
+if(isset($results))
+
+//podemos fazer com count tb se for maior que 0...
+if(count($results)>0)
+
+=====================================================================
+=====================================================================
+
+
+
+/*
+
+Consulta:
+
+
+----------
+
+if(isset($_GET["ac"]) && $_GET["ac"]=="registrar_usuario"){
+	include("registrar_usuario.php");
+
+}else if(isset($_GET["ac"]) && $_GET["ac"]=="excluir_func"){
+	include("excluir_func.php");
+
+if($_GET["id"]!="" && isset($_GET["opc"]) && $_GET["opc"]=="del"){
+	$id_usuario=$_GET["id"];
+
+----------
+
+Menu:
+
+<a href="index.php?ac=registrar_usuario" class="list-group-item {$botao}"><i class="fas fa-user-plus"></i>&nbsp Inserir Usuário</a>
+
+<a href="index.php?ac=editar_usuario" class="list-group-item {$botao}"><i class="fas fa-address-book"></i>&nbsp Editar Usuário &nbsp<i class="fas fa-desktop"></i></a>
+
+<a href="index.php?ac=rel_usuario" class="list-group-item"><i class="fas fa-paste"></i>&nbsp Relatório Usuário &nbsp<i class="fas fa-desktop"></i></a>
+
+----------
+
+<thead>
+	<th>ID</th>
+	<th>Nome</th>
+	<th>Usuário</th>
+	<th>Opções</th>
+</thead>
+	{foreach from=$array_usuarios item=tb_usuario}
+<tr>
+	<td>{$tb_usuario.id_usuario}</td>
+	<td>{$tb_usuario.nome_completo}</td>
+	<td>{$tb_usuario.usuario}</td>
+<td>
+
+<a href="index.php?ac=editar&id={$tb_usuario.id_usuario}" class="btn btn-primary"><i class="fas fa-user-edit  mr-1"></i>Editar</a>
+
+<a href="index.php?ac=excluir&id={$tb_usuario.id_usuario}" class="btn btn-danger"><i class="far fa-trash-alt mr-1"></i>Excluir</a>
+
+</td>
+</tr>
+	{/foreach}
+
+----------
+
+Deseja excluir o funcionário <font color="red"><b>"{$nome_completo}"</font> ?</b>
+
+Ao excluir o funcionário, ele será excluído permanentemente e todas as suas informações serão excluidas da base de dados!
+
+<br><br>
+<center>
+
+<a href="index.php?ac=excluir_func&id={$id_funcionario}&opc=del" class="btn btn-primary mt-2"><span class="glyphicon glyphicon-trash"></span>
+			 
+<i class="far fa-thumbs-up"></i> Excluir Definitivamente </a>
+			             
+<a href="index.php?ac=editar_funcionario" class="btn btn-danger mt-2">
+<i class="fas fa-ban"></i> Cancelar </a>
+ 
+----------
+
+*/
+
+
+
+
+
+
+
+
+
+Claro que a leitura do RFC 3986 é algo um pouco difícil, até mesmo para quem já tem alguma experiencia, alguns dos exemplos efetuei com testes, para resumir o .. seria para subir um nível de pasta (se não estiver no prefixo) e o ./ seria para apontar o próprio local.
+
+Imagine que tenhamos uma pasta com esta estrutura:
+
+./teste.html
+./pasta
++-- index.html
++-- ./paginas
+    +-- a.html
+    +-- b.html
+Se no /pasta/paginas/a.html clicar no link:
+
+<a href="../index.html">teste</a>
+Ele irá direcionar para /pasta/index.html
+
+Mas se o link for:
+
+<a href="./index.html">teste</a>
+Então ele irá tentar procurar /pasta/paginas/index.html, o que no exemplo não existe.
+
+E se em /pasta/paginas/b.html tiver:
+
+<a href="../a.html">teste</a>
+Vai procurar algo como /pasta/a.html, o que seria errado no exemplo, deveria ser:
+
+<a href="./a.html">teste</a>
+Para ficar no mesmo nível de /pasta/paginas/a.html
+
+Se tiver um link como /teste.html ou /../teste.html ou /./teste.html ele vai procurar algo na raiz definida, no caso do exemplo vai procurar algo como /a.html para todos os links citados, porque o / no prefixo move para a raiz.
+
+Claro que isto tudo depende de lugar como foi descrito, o mesmo vale para CSS e até para quando se usa include no PHP.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PDO — The PDO class
+DOP :: beginTransaction - Inicia uma transação
+DOP :: commit - Envia uma transação
+Construção PDO :: __ - Cria uma instância PDO representando uma conexão com um banco de dados
+PDO :: errorCode - obtém o SQLSTATE associado à última operação no identificador de banco de dados
+PDO :: errorInfo - busca informações de erro estendidas associadas à última operação no identificador de banco de dados
+PDO :: exec - Executa uma instrução SQL e retorna o número de linhas afetadas
+PDO :: getAttribute - Recuperar um atributo de conexão com o banco de dados
+PDO :: getAvailableDrivers - Retorna um array com os drivers PDO disponíveis
+PDO :: inTransaction - Verifica se está dentro de uma transação
+PDO :: lastInsertId - Retorna o ID do último valor de linha ou sequência inserido
+PDO :: prepare - Prepara uma instrução para execução e retorna um objeto de instrução
+PDO :: query - Executa uma instrução SQL, retornando um conjunto de resultados como um objeto PDOStatement
+PDO :: quote - aspas uma string para uso em uma consulta
+PDO :: rollBack - reverte uma transação
+PDO :: setAttribute - Define um atributo
+
+
+
+PDOStatement - A classe PDOStatement
+PDOStatement :: bindColumn - Vincula uma coluna a uma variável PHP
+PDOStatement :: bindParam - Vincula um parâmetro ao nome da variável especificada
+PDOStatement :: bindValue - Vincula um valor a um parâmetro
+PDOStatement :: closeCursor - Fecha o cursor, permitindo que a instrução seja executada novamente
+PDOStatement :: columnCount - Retorna o número de colunas no conjunto de resultados
+PDOStatement :: debugDumpParams - Despejar um comando preparado para SQL
+PDOStatement :: errorCode - busca o SQLSTATE associado à última operação no identificador da instrução
+PDOStatement :: errorInfo - busca informações de erro estendidas associadas à última operação no identificador de instrução
+PDOStatement :: execute - Executa uma instrução preparada
+PDOStatement :: fetch - busca a próxima linha de um conjunto de resultados
+PDOStatement :: fetchAll - Retorna uma matriz contendo todas as linhas do conjunto de resultados
+PDOStatement :: fetchColumn - Retorna uma única coluna da próxima linha de um conjunto de resultados
+PDOStatement :: fetchObject - busca a próxima linha e a retorna como um objeto
+PDOStatement :: getAttribute - Recupera um atributo de instrução
+PDOStatement :: getColumnMeta - Retorna metadados para uma coluna em um conjunto de resultados
+PDOStatement :: nextRowset - Avança para o próximo conjunto de linhas em um identificador de instrução com vários conjuntos de linhas
+PDOStatement :: rowCount - Retorna o número de linhas afetadas pela última instrução SQL
+PDOStatement :: setAttribute - Definir um atributo na instrução
+PDOStatement :: setFetchMode - Definir o modo de carga de dados para esta instrução
+
+
+PDOException - A classe PDOException
+Drivers DOP
+CUBRID (DOP) - Funções CUBRID (PDO_CUBRID)
+MS SQL Server (PDO) - Microsoft SQL Server e Sybase Funções (PDO_DBLIB)
+Firebird (PDO) - Funções do Firebird (PDO_FIREBIRD)
+IBM (PDO) - Funções IBM (PDO_IBM)
+Informix (PDO) - Funções do Informix (PDO_INFORMIX)
+MySQL (PDO) - Funções do MySQL (PDO_MYSQL)
+MS SQL Server (PDO) - Funções do Microsoft SQL Server (PDO_SQLSRV)
+Oracle (PDO) - Funções do Oracle (PDO_OCI)
+ODBC e DB2 (PDO) - Funções ODBC e DB2 (PDO_ODBC)
+PostgreSQL (PDO) - Funções do PostgreSQL (PDO_PGSQL)
+SQLite (PDO) - Funções SQLite (PDO_SQLITE)
+4D (DOP) - Funções 4D (DOP_4D)
+
+
+
+
+
+DOP :: FETCH_ASSOC (inteiro)
+Especifica que o método de busca retornará cada linha como uma matriz indexada pelo nome da coluna, conforme retornado no conjunto de resultados correspondente. Se o conjunto de resultados contiver várias colunas com o mesmo nome, PDO :: FETCH_ASSOC retornará apenas um valor único por nome da coluna.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Já rodei em entrevista pra trampar na Alemanha pq quis fazer no teste o melhor teste do mundo pra impressionar e mostrar tudo que sabia e eu tinha 3h pra fazer, acabou que deu 3h, o código apesar de funcionar, não era funcional (o swagger abrindo, model tudo bonitinha, documentado, usando CQRS, DDD, TDD, SOLID, mas não deu tempo de fazer a parte de salvar no banco de fato e chamar as filas do Rabbit, ou seja, não fazia o que tinha que fazer), e ai o feedback que tomei foi que não soube gerenciar o meu tempo e fazer o que tinha que ser feito naquele tempo, mesmo não sendo a melhor solução...

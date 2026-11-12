@@ -1,0 +1,33 @@
+<?php
+
+/*
+
+is_array($array) = verificar se uma determinada variavel eh um array;
+in_array($valor, $array) = verificar se um determinado valor existe em alguma posicao do array;
+array_keys($array) = retorna um novo array com as chaves do array passado como parametro;
+array_values($array) = retorna um novo array com os valores do array passado como parametro;
+array_merge($array1, $array2) = agrega o conteudo dos dois arrays;
+array_pop($array) = exclui a ultima posicao do array;
+array_shift($array) = exclui a primeira posicao do array;
+array_unshift($arr, "valor") = adiciona um ou mais elementos no final de um array;
+array_push($array, "valor", "valor") = adiciona um ou mais elementos no final de um array;
+array_combine($keys, $values) = mescla os dois arrays passados;
+array_sum() = calcula a soma dos elementos de um array;
+explode("/", "20/01/2001") = transforma o string em um array;
+implode("-", $arr) = transforma array em string;
+
+*/
+
+
+
+
+?>
+
+
+Operadores logicos:
+
+e (&& - and);
+ou (|| - or);
+ou exclusivo (xor), soh retorna verdadeiro quando apenas uma for verdadeira, se as duas forem, retorna falso.
+negacao (!);
+spaceship (<=>), compara 2 numeros, se o  da direita for maior, da -1, se os dois forem iguais da 0, se o da esquerda for maior, da 1.

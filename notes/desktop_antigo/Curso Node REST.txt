@@ -1,0 +1,54 @@
+Requisicoes:
+
+GET, POST, PUT, DELETE;
+
+GET: Criar uma rota que lista informacoes (de usuarios, listas, etc);
+
+POST: Criar um novo usuario, criar uma nova informacao;
+
+PUT: Editar uma informacao ja existente;
+
+DELETE: Para deletar alguma coisa;
+
+GET http://minhaapi.com/usuarios
+GET http://minhaapi.com/usuarios/1
+
+POST http://minhaapi.com/usuarios/usuarios
+
+Body(Request body)
+{
+	"nome": "Sujeito Programador",
+	"email": "sujeito@teste.com"
+}
+
+Headers
+{
+	"token": "123123"
+}
+
+
+HTTP Codes:
+
+> 1xx: Information
+
+> 2xx: Sucess
+- 200: Sucess
+- 201: Created
+
+> 3xx: Redirection
+- 301: Moved Permanently
+- 302: Moved
+
+> 4xx: Client Error
+- 400: Bad Request
+- 401: Unauthorized
+- 404: Not found
+
+> 5xx: Server Error
+- 500: Server Error
+
+
+
+
+
+

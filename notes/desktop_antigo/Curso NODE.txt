@@ -1,0 +1,841 @@
+
+- Node precisa ter um arquivo "app.js" como arquivo principal "entrypoint".
+- Para rodar um projeto no console, basta usar: >node app.js
+
+- node app.js			//rodar projeto com server node, package manager - npm.
+- npm init			//inicia um projeto node. (entry point = arquivo que inicia o projeto)
+- npm i				//installa todas as dependencias do arquivo package.json.
+- npm init -y			//installa tudo padrao.
+- yarn				//para instalar as dependencias do projeto pelo yarn.
+- npm audit fix --force		//forca corrigir algum erro ou problema.
+- npm fund			//mostra onde esta ocorrendo o erro.
+- npm install express --save	//instala o express framework.
+- npm install nodemon -g	//insta o nodemon, para nao precisar reiniciar a cada modificacao. "-g" = global.
+- yarn add express		//
+- yarn global add nodemon	//
+- package.json			//arquivo do projeto que contem as informacoes dele.
+- entry point = arquivo inicial do projeto: index.js.
+- npm install ejs --save	//EJS = motor draw html.
+- nodemon index.js		//rodar projeto com server nodemon = nao precisa reiniciar a cada modificacao do codigo.
+- npm install body-parser --save	//biblioteca para receber dados de formulario.
+- npm install --save sequelize		//instala o gerenciador de conexao com banco de dados do JS.
+- npm install --save mysql2		//add a biblioteca do mysql no sequelize, para poder trabalhar com ele.
+- npm install mongoose --save	//installar moongoose;
+- npm install axios		//instala o Axios (npm) para consumir API externa.
+- yarn add axios		//instala o Axios (yarn) para consumir API externa.
+- npm install cors		//instal o CORS: "var cors = require('cors');" | "app.use(cors());"
+- npx lite-server		//cria um server para servir o html.
+- npm install bcrypt --save	//Criptografia (bcrypt).
+- npm install jsonwebtoken --save	//webtoken para gerar token;
+- yarn add graphql-yoga		//servidor para rodar graphql.
+- npm install express express-graphql graphql --save		//bibliotecas graphQL
+- npm add graphql-request graphql	//requests do graphql
+- npm install knex -g		//global, gerenciar o banco de dados.
+- npm install knex --save	//instalar o knex para gerenciar banco de dados.
+- knex init			//cria o arquivo knexfile.js
+- npm knex --version		//versao do knex.
+- node --trace-warnings ...	//exibe no console os erros.
+- npm i autentique-v2-nodejs	//dependencia do autentique;
+- npm install -g typescript	//instalar o typescript global;
+- npm install typescript --save-dev	//vai ser uma dependencia de desenvolvimento;
+- npm install @types/node --save-dev	//pacote de tipagem para node;
+- tsc -help				//abre o help do tsc;
+- tsc --init				//cria um arquivo de configuracao ts.config;
+- npm install ts-node -g --save		//instala o ts-node;
+
+- npm install express-generator -g	//gerador de aplicativos, com estrutura pronta;
+- express -h				//opcoes do gerador;
+- express --view=pug nomeDoMeuApp	//instala/gera a estrutura;
+
+- JSON: 				//app.use(express.json());
+
+$ npm install knex --save
+# Then add one of the following (adding a --save) flag:
+$ npm install pg
+$ npm install sqlite3
+$ npm install mysql
+$ npm install mysql2
+$ npm install oracledb
+$ npm install tedious
+
+- Get-ExecutionPolicy		//verifica a politica do windows para rodar scripts como nodemon.
+- Set-ExecutionPolicy RemoteSigned	//seta para poder executar scripts e rodar nodemon.
+
+============================================
+============================================
+
+bodyParser está descontinuada.
+
+Ao invés disso pode ser usado o proprio express.
+
+app.use(express.json()) // antigo body-parser library
+
+app.use(express.urlencoded({extended:true}))
+
+=============================================
+
+Express:
+
+- const express = require("express"); // Importando o express
+- const app = express(); // Iniciando o express (instanciando ela)
+
+- Em toda a rota que eu tiver, eu devo devolver uma resposta.
+
+//na rota, tem que usar o app instanciado no express
+- app.get("/canal/youtube", function(req, res){
+
+---------
+
+//rota obrigatoria
+- app.get("/blog/:artigo", function(req, res){
+
+//rota nao obrigatoria
+- app.get("/blog/:artigo?", function(req, res){
+
+    // REQ => DADOS ENVIADOS PELO USUÁRIO
+    // RES => RESPOSTA QUE VAI SER ENVIADA PARA O USUÁRIO
+
+- app.get("/ola/:nome/:empresa", function(req, res){
+    var nome = req.params.nome;
+    var empresa = req.params.empresa;
+    res.send("<h1>Oi " + nome +  " do " + empresa + " </h1>");
+});
+
+---------
+
+//Query params, posso passar com "?canal=guiadoprogramador", parametro "canal" e valor "guiadoprogramador":
+localhost:4000/canal/youtube?canal=guiadoprogramador
+
+//acessar query param com "?parametro=valor" depois da url: "localhost:4000/canal/youtube?canal=guiadoprogramador"
+app.get("/canal/youtube", function(req, res){
+    var canal = req.query["canal"];             //pego ela com req.query["parametro"]
+
+============================================
+============================================
+
+var mostrarSite = false /* ou */ true;
+const site = "www.jackbravo21.com.br";
+
+console.log("Hellow World!");
+console.log("Meu nome eh Jack");
+console.log("e eu estou aprendendo Node.js!");
+
+if(mostrarSite){	//se mostrar site
+	console.log(site);	//Printe o site
+}
+
+============================================
+
+- Modulos sao pedacos do seu programa, para separar o codigo em varios arquivos, tambem para utilizar bibliotecas.
+
+- Exportar e resgatar modulos.
+
+- Primeira coisa que devemos fazer eh exportar "module.exports = funcao/variavel";
+
+============================================
+
+============================================
+
+Http (criar server):
+-------------
+
+//fazendo isso, estou carregando o modulo http do node, atribuindo ele a variavel. (esse modulo ja vem  no node)
+var http = require("http");
+
+//onde ele vai rodar, precisa definir o protocolo http, criar o servidor, ter uma require e response (requisicao e resposta),
+//falar a porta especifica que ele ira rodar. A resposta pode ser chamada no corpo.
+http.createServer(function(requisicao,resposta){
+    resposta.end("<h1>Bem vindo ao meu site!</h1><h4>guiadoprogramador.com</h4>");
+}).listen(3000);
+
+//ele criou um servidor na porta 3000.
+
+console.log("Meu servidor está rodando!");
+
+============================================
+
+-------------------------------------
+
+"calculadora.js"
+
+var nome = "Minha Calculadora V1";
+
+function soma(a, b)
+{
+	return a+b;
+}
+
+function mult(a, b)
+{
+	return a*b;
+}
+
+function soma(a, b)
+{
+	return a-b;
+}
+
+function soma(a, b)
+{
+	return a/b;
+}
+
+//exportar as funcoes e variaveis como modulos:
+module.exports = {
+	soma,
+	mult,
+	sub,
+	div,
+	nome
+}
+
+-------------------------------------
+
+No "app.js":
+
+var calculadora = require("./calculadora");
+
+console.log(calculadora.mult(10,20));
+console.log(calculadora.soma(20,40));
+console.log(calculadora.nome);
+
+//mudar o nome da calculadora, acessando a variavel, como se fosse um atributo da classe.
+calculadora.nome = "Calculadora do Jack!";
+console.log(calculadora.nome);
+
+============================================
+-------------------------------------
+
+- var calculadora = require("./calculadora");	//recupera/usa uma exportacao.
+
+- module.exports = funcao/variavel;		//exporta funcao ou variavel.
+
+- module.exports = {				//exportar varias funcoes e variaveis como modulos.
+	soma,
+	mult,
+	sub,
+	div,
+	nome
+	}
+
+- http.createServer(function(requisicao,resposta){					//cria o servidor, com require e response, recebe requisicao e da uma resposta.
+    resposta.end("<h1>Bem vindo ao meu site!</h1><h4>guiadoprogramador.com</h4>");	//resposta do servidor, termina a resposta.
+}).listen(3000);									//porta que o servidor esta rodando.
+console.log("Meu servidor está rodando!");						//mensagem de console para avisar que esta rodando.
+
+-------------------------------------
+============================================
+
+Express:
+----------
+
+const express = require("express"); // Importando o express (carrega ele)
+const app = express(); // Iniciando o express (instanciando ele)
+
+//Em toda a rota que eu tiver, eu devo devolver uma resposta.
+
+//rota
+app.get("/",function(req,res){
+    //enviando uma resposta com res.send
+    res.send("<h1>Bem vindo ao guia do programador</h1>");
+});
+
+//rota
+//o artigo nao eh parametro obrigatorio.
+app.get("/blog/:artigo?", function(req, res){
+
+    var artigo = req.params.artigo;
+
+    //checa se o usuario digitou um parametro
+    if(artigo){
+        res.send("<h2>Artigo: " + artigo + " </h2>");
+    }else{
+        res.send("<h3>Bem vindo ao meu blog!: www.guiadoprogramador.com</h3>");
+    }
+});
+
+//rota
+//acessar query param com "?parametro=valor" depois da url: "localhost:4000/canal/youtube?canal=guiadoprogramador"
+app.get("/canal/youtube", function(req, res){
+    var canal = req.query["canal"];             //pego ela com req.query["parametro"]
+
+    if(canal){
+        res.send(canal); 
+    }else{
+        res.send("Nenhum canal fornecido!");
+    }
+});
+
+//rota
+//parametros obrigatorios
+app.get("/ola/:nome/:empresa", function(req, res){
+    // REQ => DADOS ENVIADOS PELO USUÁRIO
+    // RES => RESPOSTA QUE VAI SER ENVIADA PARA O USUÁRIO
+    var nome = req.params.nome;
+    var empresa = req.params.empresa;
+    res.send("<h1>Oi " + nome +  " do " + empresa + " </h1>");
+});
+
+
+//iniciar o servidor com "app.listen", porta onde o servidor vai rodar
+app.listen(4000,function(erro){
+    if(erro){
+        console.log("Ocorreu um erro!");
+    }else{
+        console.log("Servidor iniciado com sucesso!");
+    }
+});
+
+
+============================================
+============================================
+
+- Passar variaveis com o EJS:
+
+- No EJS vc usa:
+- <%= variavel %>		//quando vc quer resgatar uma variavel.
+- <%  %>			//sem o "=" quando vc quer usar uma expressao ou condicional.
+- <% if(condicao){ %>		//usando if(condicao).
+
+//usando 3 tecnologias: express, mysql, ejs.co = motor draw html.
+
+//importar o modulo do express.
+const express = require("express");
+//criar uma instancia do express, copiando ele pra variavel.
+const app = express();
+
+//configurar o EJS, vou dizer para o Express usar o EJS como View Engine. Tenho que criar uma pasta obrigatoriamente chamada "views" e salvar todos os html la.
+app.set('view engine', 'ejs');
+
+    //res.send("Bem vindo ao meu site!");
+        
+    //ao inves de trabalhar com app.send, vamos trabalhar com res.render:
+    app.get("/", (req,res) => {
+        res.render("home");        
+    });    
+
+    //ao inves de trabalhar com app.send, vamos trabalhar com res.render:
+    app.get("/index", (req, res) => {
+        
+        var nome = "Jack";                  //defino variaveis para serem exibidas na index.html
+        var lang = "Javascript";
+        
+        res.render("index", {               //devo colocar virgula e passar os parametros.
+        nome: nome,             //dado nome, vai receber a variavel nome.
+        lang: lang,             //dado lang, vai receber a variavel lang.
+        empresa : "CNPJ do Programador",            //posso passar um dado e ja dar um valor a ele.
+        inscritos: 8000         //assim como na empresa, passo um dado e defino o valor.
+
+        });
+    });
+
+    //vou receber parametros, como nome e linguagem.
+    //estou pegando a variavel pela url, estou jogando na variavel nome, e renderizando ela.
+    app.get("/param/:nome/:lang", (req, res) => {
+        
+        var nome = req.params.nome;
+        var lang = req.params.lang;
+
+        res.render("index", {
+            nome: nome,
+            lang: lang,
+            empresa : "CNPJ do Programador",
+            inscritos: 8000
+        });    
+    });
+
+app.listen(8080, () => {
+    console.log("App rodando!");
+});
+
+--------
+
+- Na index.ejs:
+
+        <!-- tags para receber variaveis: "<%= valor %>" -->
+        <%= nome %>
+        <%= lang %>
+        <%= empresa %>
+        <%= inscritos %>
+
+=======================================
+=======================================
+
+//usando 3 tecnologias: express, mysql, ejs.co = motor draw html.
+
+//importar o modulo do express.
+const express = require("express");
+//criar uma instancia do express, copiando ele pra variavel.
+const app = express();
+
+//configurar o EJS, vou dizer para o Express usar o EJS como View Engine. Tenho que criar uma pasta obrigatoriamente chamada "views" e salvar todos os html la.
+app.set('view engine', 'ejs');
+
+    //res.send("Bem vindo ao meu site!");
+        
+    //ao inves de trabalhar com app.send, vamos trabalhar com res.render:
+    app.get("/", (req,res) => {
+        res.render("home");        
+    });    
+
+    //ao inves de trabalhar com app.send, vamos trabalhar com res.render:
+    app.get("/index", (req, res) => {
+        
+        var nome = "Jack";                  //defino variaveis para serem exibidas na index.html
+        var lang = "Javascript";
+        
+        res.render("index", {               //devo colocar virgula e passar os parametros.
+        nome: nome,             //dado nome, vai receber a variavel nome.
+        lang: lang,             //dado lang, vai receber a variavel lang.
+        empresa : "CNPJ do Programador",            //posso passar um dado e ja dar um valor a ele.
+        inscritos: 8000         //assim como na empresa, passo um dado e defino o valor.
+
+        });
+    });
+
+    //vou receber parametros, como nome e linguagem.
+    //estou pegando a variavel pela url, estou jogando na variavel nome, e renderizando ela.
+    app.get("/param/:nome/:lang", (req, res) => {
+        
+        var nome = req.params.nome;
+        var lang = req.params.lang;
+        var exibirMsg = true;
+
+        res.render("index", {
+            nome: nome,
+            lang: lang,
+            empresa : "CNPJ do Programador",
+            inscritos: 8000,
+            msg: exibirMsg
+        });    
+    });
+
+app.listen(8080, () => {
+    console.log("App rodando!");
+});
+
+---------------------------------------
+
+        <h1>Guia Perguntas!</h1>
+        <hr>
+        <h3>Lista de Perguntas</h3>
+
+        <!-- tags para receber variaveis: -->
+        <p>Nome: <%= nome %></p>
+        <p>Linguagem: <%= lang %></p>
+        <p>Empresa: <%= empresa %></p>
+        <p>Inscritos: <%= inscritos %></p>
+
+        <% if(msg == true){ %>
+        <h3>Isso é uma mensagem de erro!</h3>
+        <% }else{ %>
+        <h3>Sem erro!</h3>
+        <% } %>
+
+=======================================
+
+//usando 3 tecnologias: express, mysql, ejs.co = motor draw html.
+
+//importar o modulo do express.
+const express = require("express");
+//criar uma instancia do express, copiando ele pra variavel.
+const app = express();
+
+//configurar o EJS, vou dizer para o Express usar o EJS como View Engine. Tenho que criar uma pasta obrigatoriamente chamada "views" e salvar todos os html la.
+app.set('view engine', 'ejs');
+
+    //res.send("Bem vindo ao meu site!");
+        
+    //ao inves de trabalhar com app.send, vamos trabalhar com res.render:
+    app.get("/", (req,res) => {
+        res.render("home");        
+    });    
+
+    //ao inves de trabalhar com app.send, vamos trabalhar com res.render:
+    app.get("/index", (req, res) => {
+        
+        var nome = "Jack";                  //defino variaveis para serem exibidas na index.html
+        var lang = "Javascript";
+        
+        res.render("index", {               //devo colocar virgula e passar os parametros.
+        nome: nome,             //dado nome, vai receber a variavel nome.
+        lang: lang,             //dado lang, vai receber a variavel lang.
+        empresa : "CNPJ do Programador",            //posso passar um dado e ja dar um valor a ele.
+        inscritos: 8000         //assim como na empresa, passo um dado e defino o valor.
+
+        });
+    });
+
+    //vou receber parametros, como nome e linguagem.
+    //estou pegando a variavel pela url, estou jogando na variavel nome, e renderizando ela.
+    app.get("/param/:nome/:lang", (req, res) => {
+        
+        var nome = req.params.nome;
+        var lang = req.params.lang;
+        var exibirMsg = true;
+
+        //variavel que vai receber um array de objetos.
+        var produtos = [
+            {nome: "Doritos", preco: 3.14},
+            {nome: "Coca-cola", preco: 5},
+            {nome: "Leite", preco: 1.45},
+            {nome: "Carne", preco: 15},
+            {nome: "RedBull", preco: 6},
+            {nome: "Nescau", preco: 9}
+        ]
+
+        res.render("index", {
+            nome: nome,
+            lang: lang,
+            empresa : "CNPJ do Programador",
+            inscritos: 8000,
+            msg: exibirMsg,
+            produtos: produtos              //produtos recebe produtos;
+        });    
+    });
+
+app.listen(8080, () => {
+    console.log("App rodando!");
+});
+
+------------------------
+
+        <!-- tags para receber variaveis: -->
+        <p>Nome: <%= nome %></p>
+        <p>Linguagem: <%= lang %></p>
+        <p>Empresa: <%= empresa %></p>
+        <p>Inscritos: <%= inscritos %></p>
+
+        <% if(msg == true){ %>
+        <h3>Isso é uma mensagem de erro!</h3>
+        <% }else{ %>
+        <h3>Sem erro!</h3>
+        <% } %>
+
+        <!-- para cada elemento do foreach eu vou receber um produto e abro a funcao -->
+        <% produtos.forEach(function(produto){ %>
+
+            <hr>
+            <!-- para cada elemento dentro do meu array, ele executa -->
+            <p><b>Nome:</b> <%= produto.nome %>
+            <br>
+            <b>Preço:</b> <%= produto.preco %></p>
+            
+        <%}) %>
+        <hr>
+
+=======================================
+
+EJS Partials:
+
+<%- include("partials/header.ejs") %>
+
+=======================================
+
+BBODYPARSE:
+
+//configurar o EJS, vou dizer para o Express usar o EJS como View Engine. Tenho que criar uma pasta obrigatoriamente chamada "views" e salvar todos os html la.
+app.set('view engine', 'ejs');
+//adiciono arquivos estaticos: arquivos que nao sao processados no backend, como imagens, dados, css, etc.
+//aqui eu defino que vou usar arquivos estaticos. Digo para o express que quero usar alguma coisa, definindo ela. E a pasta deve existir.
+//para capturar dados de formulario.
+app.use(express.static('public'));
+//configurar bodyparse.
+app.use(bodyParser.urlencoded({extended: false}));
+//permite ler dados jason(api).
+app.use(bodyParser.json());
+
+//configurar bodyparse.
+app.use(bodyParser.urlencoded({extended:false}));
+//permite ler dados jason(api).
+app.use(bodyParser.json());
+
+//correto:
+"app.use(express.urlencoded({ extended: true }));"
+"app.use(express.json());"
+
+    app.use (express.urlencoded ({ extended: true }))
+    app.use (express.json())
+
+--------------------------
+    app.post("/salvarpergunta", (req, res) => {
+        //crio variaveis para receber os names dos forms.
+        var titulo = req.body.titulo;
+        var descricao = req.body.descricao;
+        res.send("Formulário recebido! <br>Titulo: " + titulo + "<br>Descrição: " + descricao);
+    });
+--------------------------
+
+=======================================
+=======================================
+
+Database:
+---------
+
+//importar o modulo sequelize.
+const Sequelize = require("sequelize");
+
+//construir conexao: banco, usuario, senha, servidor, qual tipo de banco.
+const connection = new Sequelize("guiaperguntas", "root", "", {
+    host: "localhost",
+    dialect: "mysql"
+});
+
+module.exports = connection;
+
+---------------------------------------
+
+Index.js
+--------
+
+//carregar conexao.
+const connection = require("./database/database");
+//Database (estrutura promisse)
+connection
+    .authenticate()
+    .then(() => {                                               //se autenticacao ocorrer com sucesso, executa o then.
+        console.log("Conexão feita com o banco de dados!");
+    })
+    .catch((msgErro) => {                                       //se aconteceu erro, vai executar o catch.
+        console.log("msgErro");
+    });
+
+
+=======================================
+
+Criar uma migration no Expresse/Sequelize:
+------------------------------------------
+
+//model = migrations;
+
+const Sequelize = require("sequelize");                 //importar o sequelize;
+const connection = require("./database");               //importar conexao com o banco (esta na mesma pasta, soh usar "./");
+
+//definir o model;
+
+//Crio uma variavel que recebe o model
+const Pergunta = connection.define('perguntas', {        //devo definir o nome que irei chamar a minha tabela (chamei de "pergunta"), e depois definir os campos da tabela;
+    //abro um json e defino os campos: nome do campo, titulo, e o tipo dele (texto = String no caso);
+    titulo:{
+        type: Sequelize.STRING,
+        allowNull: false                                //nunca nulo;
+    },
+    descricao:{
+        type: Sequelize.TEXT,                           //text para textos longos;
+        allowNull: false                                //nao pode ser nulo;
+    }
+});
+
+//para criar esta tabela no banco, vamos sincronizar com o banco de dados;
+
+//criar tabela Perguntas
+//opcao false, faz com que ele nao recrie a tabela se ja existir, nao recria, cria uma vez soh. O then eh uma resposta caso de certo, mas nao vai ter nada;
+Pergunta.sync({force: false}).then(() =>{});            //vai ser executado quando rodar o index.js;
+
+
+-------------------------------------------
+
+Index.js
+--------
+
+//importar o model/migrations;
+const perguntaModel = require("./database/Pergunta");
+
+=======================================
+=======================================
+
+Index.js
+--------
+
+//usando 3 tecnologias: express, mysql, ejs.co = motor draw html;
+
+//importar o modulo do express;
+const express = require("express");
+//criar uma instancia do express, copiando ele pra variavel;
+const app = express();
+//carregar conexao.
+const connection = require("./database/database");
+//importar o model/migrations;
+const Pergunta = require("./database/Pergunta");
+//Database (estrutura promisse);
+connection
+    .authenticate()
+    .then(() => {                                               //se autenticacao ocorrer com sucesso, executa o then;
+        console.log("Conexão feita com o banco de dados!");
+    })
+    .catch((msgErro) => {                                       //se aconteceu erro, vai executar o catch;
+        console.log("msgErro");
+    });
+
+//configurar o EJS, vou dizer para o Express usar o EJS como View Engine. Tenho que criar uma pasta obrigatoriamente chamada "views" e salvar todos os html la;
+app.set('view engine', 'ejs');
+//adiciono arquivos estaticos: arquivos que nao sao processados no backend, como imagens, dados, css, etc;
+//aqui eu defino que vou usar arquivos estaticos. Digo para o express que quero usar alguma coisa, definindo ela. E a pasta deve existir;
+//para capturar dados de formulario;
+app.use(express.static('public'));
+//configurar bodyparse;
+app.use (express.urlencoded ({ extended: true }));
+//permite ler dados jason(api);
+app.use(express.json());
+
+
+/*
+//assim ele exibe tudo bonitinho como se fosse o elouquente.
+    app.get("/", (req,res) => {
+            //vou chamar o model "Pergunta.findAll()" que equivale a um "select * from Pergunta", o "then" vai receber a lista de perguntas.
+            //Pergunta.findAll().then(perguntas => {            //assim ele tras todos os dados.
+            Pergunta.findAll({raw: true}).then(perguntas => {              //assim ele faz uma pesquisa crua e passa para "perguntas" que recebe com "then".
+                console.log(perguntas);
+            });
+        res.render("index");        
+    });    
+*/  
+    app.get("/", (req,res) => {
+        //vou chamar o model "Pergunta.findAll()" que equivale a um "select * from Pergunta", o "then" vai receber a lista de perguntas.
+        //Pergunta.findAll().then(perguntas => {            //assim ele tras todos os dados.
+        Pergunta.findAll({raw: true}).then(perguntas => {              //assim ele faz uma pesquisa crua e passa para "perguntas" que recebe com "then".
+            res.render("index",{
+                perguntas: perguntas                        //vou poder utilizar a variavel agora na viewindex.
+            });        
+        });
+    }); 
+
+
+
+    //pagina de cadastro de perguntas;
+    app.get("/perguntar", (req, res) => {
+            res.render("perguntar");
+    });
+    
+    app.post("/salvarpergunta", (req, res) => {
+        //crio variaveis para receber os names dos forms;
+        var titulo = req.body.titulo;
+        var descricao = req.body.descricao;
+        //res.send("Formulário recebido! <br>Titulo: " + titulo + "<br>Descrição: " + descricao);
+        Pergunta.create({               //importo model e aplico metodo create é responsavel por salvar no banco de dados, tipo o "$variavel->Save();" do laravel.
+            titulo: titulo,             //vou receber do model o a variavel titulo e atribuir ao campo titulo.
+            descricao: descricao
+        }).then(() => {                 //quando der certo, e ele salvar.
+            res.redirect("/");          //eu rediciono para outra pagina com redirect.
+        });
+    });
+
+app.listen(8080, () => {
+    console.log("App rodando!");
+});
+
+---------------------------------------
+
+Pergunta.js
+-----------
+
+//model = migrations;
+
+const Sequelize = require("sequelize");                 //importar o sequelize;
+const connection = require("./database");               //importar conexao com o banco (esta na mesma pasta, soh usar "./");
+
+//definir o model;
+
+//Crio uma variavel que recebe o model
+const Pergunta = connection.define('perguntas', {        //devo definir o nome que irei chamar a minha tabela (chamei de "pergunta"), e depois definir os campos da tabela;
+    //abro um json e defino os campos: nome do campo, titulo, e o tipo dele (texto = String no caso);
+    titulo:{
+        type: Sequelize.STRING,
+        allowNull: false                                //nunca nulo;
+    },
+    descricao:{
+        type: Sequelize.TEXT,                           //text para textos longos;
+        allowNull: false                                //nao pode ser nulo;
+    }
+});
+
+//para criar esta tabela no banco, vamos sincronizar com o banco de dados;
+
+//criar tabela Perguntas
+//opcao false, faz com que ele nao recrie a tabela se ja existir, nao recria, cria uma vez soh. O then eh uma resposta caso de certo, mas nao vai ter nada;
+Pergunta.sync({force: false}).then(() =>{});            //vai ser executado quando rodar o index.js;
+
+module.exports = Pergunta;
+
+
+=======================================
+=======================================
+
+- Para salvar no banco:
+
+//importar o model/migrations;
+const Pergunta = require("./database/Pergunta");
+
+
+    app.post("/salvarpergunta", (req, res) => {
+        //crio variaveis para receber os names dos forms;
+        var titulo = req.body.titulo;
+        var descricao = req.body.descricao;
+        //res.send("Formulário recebido! <br>Titulo: " + titulo + "<br>Descrição: " + descricao);
+        Pergunta.create({               //importo model e aplico metodo create é responsavel por salvar no banco de dados, tipo o "$variavel->Save();" do laravel.
+            titulo: titulo,             //vou receber do model o a variavel titulo e atribuir ao campo titulo.
+            descricao: descricao
+        }).then(() => {                 //quando der certo, e ele salvar.
+            res.redirect("/");          //eu rediciono para outra pagina com redirect.
+        });
+    });
+
+=======================================
+=======================================
+
+
+
+    if(isNaN(page) || page <= 1){
+     offset = 0;
+    }else{
+     offset = (parseInt(page) - 1) * 4;
+    } 
+
+a minha logica de paginacao eu fiz do seguinte jeito: 
+
+
+
+    try{
+            const categories = await model2.findAll()
+            const articlesModel = await Model.findAll({ include:[{ model:model2 }] })
+     
+            let offset = req.params.num
+            const limit = 3
+     
+            if(offset == undefined || isNaN(offset)){offset = 0}else{
+                const start_index = (offset - 1) * limit, end_index = offset * limit
+     
+                if(!articlesModel[start_index]){res.redirect('/')}else{
+                    const articles = articlesModel.slice(start_index, end_index)
+                    res.render('user/page',{categories,articles})
+                }
+            }
+        } catch(err){console.error(err)}
+
+=======================================
+=======================================
+
+Banco de dados:
+
+SHOW DATABASES;
+
+CREATE DATABASE sistemaDeCadastro;
+
+USE sistemadecadastro;
+
+CREATE TABLE usuarios(
+ nome VARCHAR(50),
+ email VARCHAR(100),
+ idade INT
+);
+
+DESCRIBE usuarios;
+
+INSERT INTO usuarios(nome, email, idade) VALUES("Joao Maria", "email@teste.com", 18);
+
+SHOW TABLES;
+
+SELECT * FROM usuarios WHERE idade >= 18;
+
+=======================================
+=======================================

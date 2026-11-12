@@ -1,0 +1,22 @@
+Atom Material Theme
+Atom One Dark Theme
+Auto Rename Tag
+Auto Close Tag
+Font Awesome Auto-complete & Preview
+Markdown Preview Github Styling
+JavaScript (ES6) code snippets
+JS Snippet
+js snippets
+ES7 React/Redux/GraphQL/React-Native snippets
+Laravel Artisan
+Laravel Blade Snippets
+Laravel Snippets
+Material Icon Theme
+PHP IntelliSense
+React-Native/React/Redux snippets for es6/es7
+Reactjs code snippets
+Sublime Text Keymap and Settings Importer
+Terminal
+vscode-icons
+ejs
+Docker

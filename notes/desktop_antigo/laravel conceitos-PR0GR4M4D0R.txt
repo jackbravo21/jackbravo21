@@ -1,0 +1,704 @@
+https://www.udemy.com/course/laravel-8-quick-start/learn/lecture/24320962#overview
+https://www.udemy.com/course/laravel-8/learn/lecture/25091094#overview
+
+https://www.udemy.com/course/curso-completo-do-desenvolvedor-laravel/
+
+Primeiro vc cria o model, e depois da um migrate, apos construir a tabela.
+
+composer create-project --prefer-dist laravel/laravel blog "5.5.*"
+$ php artisan make:auth						//cria authenticacao.
+$ php artisan make:model Curso -m
+$ php artisan make:migration nome
+(assim que se faz para criar uma nova migracao com a estrutura pronta para criar os campos/parametros dos produtos)
+$ php artisan make:migration produtos_table --create=produtos	//digo para ele criar e o nome da tabela que eu quero com --create.
+$ php artisan migrate
+$ php artisan migrate:rollback					//volta o ultimo passo executado da migracao.
+$ php artisan migrate:fresh					//apaga dando drop em todas as tabelas, o conteudo.
+$ php artisan migrate:refresh					//(migranovamente) da rollback em tudo, mas nao apaga os dados, e migra novamente.
+$ php artisan migrate:refresh --step=2				// volta apenas 2 passos.
+$ php artisan make:controller nome
+$ php artisan make:controller CommentsController -r		//o R ja cria o controller com as funcoes basicas.
+$ php artisan make:seeder NomedoSeeder				//cria as semeadoras.
+$ php artisan migrate:seed
+$ php artisan migrate:refresh --seed
+$ php artisan migrate:reset					//reverte as configuracoes.
+$ php artisan key:generate 					//gera nova chave de seguranca.
+
+Laravel docs migrations vc consegue ver os tipos de dados.
+
+https://www.udemy.com/course/introducao-ao-laravel-53/learn/lecture/6718274#overview
+
+====================================
+
+Alterar fuso horario:
+
+config/app.php
+'timezone' => 'America/Sao_Paulo',
+'locale' => 'pt_BR',
+
+---------------------
+
+1. Instale o pacote se for necessario:
+$ composer require lucascudo/laravel-pt-br-localization --dev
+
+2. Publique as traduções
+$ php artisan vendor:publish --tag=laravel-pt-br-localization
+
+3. Configure o Framework para utilizar 'pt_BR' como linguagem padrão
+// Altere Linha 83 do arquivo config/app.php para:
+'locale' => 'pt_BR',
+
+4. Configure o Framework para utilizar 'America/Sao_Paulo' como data hora padrão
+// Altere Linha 70 do arquivo config/app.php para:
+'timezone' => 'America/Sao_Paulo',
+---------------------
+
+No Apache (php.ini):
+;date.timezone = Brazil/East
+
+====================================
+
+Verbos HTTP:
+
+GET:	Listagem.
+POST:	Salvar Dados.
+PUT:	Atualizar.
+DELETE:	Deletar.
+
+URI - o camihno do endpoint no controller.
+
+
+
+====================================
+
+CRIPTOGRAFIA:
+
+-Usar o bcrypt();
+
+====================================
+
+- Caso o model nao seja o memso nome da tabela migrations, tem que adicionar na primeira linha para ele o migrations:
+
+protected $table = 'usuarios';
+
+====================================
+
+Sempre criar primeiro o modelo, criar no singular e ja criar/configurar a migracao.
+
+====================================
+
+
+
+php artisan -V
+php artisan help
+
+
+
+https://www.treinaweb.com.br/blog/principais-metodos-para-obtencao-de-parametros-da-request-no-laravel/
+
+https://medium.com/@sayhicoelho/laravel-5-4-hospedando-seu-projeto-em-um-servidor-de-hospedagem-compartilhada-sem-acesso-ssh-d373a84e375b
+
+
+
+
+
+Action do post deve ter o token:
+{{@csrf_field()}}
+
+=======================================================
+=======================================================
+
+"Request":
+O Laravel possui uma classe específica para trabalhar com os dados enviados na requisição. Essa classe tem o nome de Request e fica no namespace \Illuminate\Http. Ela possui uma série de métodos que facilitam obtenção das informações enviadas pelo cliente.
+
+
+=======================================================
+
+
+rotas:
+
+Deve-se usar o :
+
+=======================================================
+
+Rota::Metodo('/endereco_da_rota(url)/{valor_nao_obrigatorio_por_causa_do_interrogacao?}', funcao($recebe_o_valor = null)
+{
+	retorno da funcao.
+}
+
+Ex.:
+
+Route::get('/contato/{id?}', function($id = null)
+{
+	return "Contato id = " . $id;	
+}
+
+=======================================================
+
+Para acessar o controlador:
+
+=======================================================
+
+					//vai mandar um array com uma chave
+Rota::Metodo('/endereco_da_rota(URL)', ['chave_do_array' => 'Controller@funcao_ou_metodo']);
+
+Route::post('/contato', ['uses'=>'ContatoController@criar']);
+
+Route::get('/cadastro', ['as'=>'cadastramento', 'uses'=>'CadastroController@cadastro']);
+
+Route::get('/cadastro/resultado', ['as'=>'cadastro.resultado', 'uses'=>'CadastroController@resultado']);
+
+Route::get('logteste', 'App\Http\Controllers\DashboardController@getLogteste')->name('logteste');
+
+Route::get('/hellow-world', [\App\Http\Controllers\HelloWorldController::class, 'hellowWorld']);
+
+=======================================================
+
+ROTAS DO LARAVEL 8:
+
+Rota::metodo('/endereco', [Passo_um_array_com_o_namespace_do_controller::class, 'qual o metodo que eu quero carregar']); 
+
+Route::get('/hellow-word', [\App\Http\Controllers\HelloWordController::class, 'hellowWord']);
+
+=======================================================
+
+=======================================================
+
+No controller, basta criar o metodo que a rota está chamando.
+
+Comando:
+>php artisan make:controller ContatoController
+
+=======================================================
+
+public function criar(Request $req)
+    {
+        return "Esse é o CriarController do ContatoController";
+    }   
+
+=======================================================
+
+- Metodo "Request" recebe os valores do POST e GET, necessita de variavel apos o "Request".
+
+public function criar(Request $req){}
+
+
+dd($req['nome']);	//vai trazer soh o nome do post.
+
+dd($req->all());	//tras todos os valores do metodo post.
+
+=======================================================
+=======================================================
+
+Para retornar uma view no controller (nome.blade.php):
+
+public function index()
+{
+	return view('contato.index');	//pasta contato, arquivo index (nao precisa por o .blade).
+}
+
+=======================================================
+
+Eloquent e Queries:
+
+Retornando valores em uma rota com funcao anonima:
+
+Route::get('/queries', function()
+{
+
+	//$events = \App\Models\Event::all();	//"select * from events";
+	//$events = \App\Models\Event::all(['title', 'description']);	//"select title, description from events", coloco em forma de array soh os 											campos que eu quero.
+	//$events = \App\Models\Event::where('id', 1)->get();	//select * from events where id = 1;
+	//$events = \App\Models\Event::where('id', 1)->first();	//tambem pega o primeiro.
+	$events = \App\Models\Event::find(1);			//posso passar soh um "find", para ele buscar pelo ID.
+
+	return $events;
+}
+
+Com parametro dinamico, posso localizar dinamicamente por um id:
+
+Route::get('/queries/{event}', function($event)
+{
+
+	$events = \App\Models\Event::find($event);
+
+}
+
+=======================================================
+
+Como eu envio lista ou dados de bancos para a index:
+- uso o compact();
+- ou colocar direto um elemento de array.
+
+=======================================================
+
+public function index()
+{
+	return view('contato.index', compact('contatos'));	//contatos eh a var com nome do array: $contatos = ["nome"=>"maria", "tel"=>"99999999"];
+	return view('contato.index', ["dados"=>nome]);
+}
+
+=======================================================
+=======================================================
+
+foreach:
+
+@foreach($contatos as $contato)
+
+	<p>{{ $contato['nome'] }}<p/>
+	<p>{{ $contato['tel'] }}<p/>
+
+@endforeach
+
+=======================================================
+=======================================================
+
+Se eu estudar o blade (sistema de template do laravel), sao as funcoes do laravel com @.
+
+- Variavel alteravel direto na view, ao inves de colocar o titulo, vira dinamico:
+
+<title>@yield('titulo')</title>
+
+- Na outra eu vou adicionar ele com @extends('pasta.arquivo'):
+
+@extends('layout.site')
+
+- Abaixo do extends eu crio uma sessao e altero a o parametro 'titulo' dizendo o valor, como se fosse uma const:
+
+@section('titulo', 'Contatos')
+
+- Eu posso colocar um bloco na view, dentro de uma variavel section:
+
+@section('conteudo')
+	<h3>titulo da view</h3>
+	<p>Frase da view que vai estar na var conteudo</p>
+
+- fechar sessao:
+
+@endsection
+
+ou
+
+@stop
+
+- para chamar do outro lado, em outra view eu uso o yield e chamo a variavel, imprimindo tudo que tiver no bloco da outra view:
+
+@yield('conteudo')
+
+- Se eu quiser criar uma variavel, tambem utilizo o @yield, como por exemplo, criar uma variavel "titulo":
+<title>@yield('titulo')</title>
+
+//E vou ter que usar um @extends(''), onde eu quiser resgatar esta variavel titulo.
+
+
+- usando include de arquivos na blade do layout:
+
+@include('diretorio_da_raiz.diretorio.arquivo')
+@include('layout._includes.topo')
+@include('layout._includes.rodape')
+
+=======================================================
+=======================================================
+
+O model vai ficar na pasta APP, e ja vem com modelo padrao "User.php".
+
+Devo criar um modelo para cada tabela.
+
+Para criar um modelo eu devo dar um comando artisan, e se eu quiser que ele ja venha com a migration, eu adiciono um -m:
+
+>php artisan make:model Contato -m		//Contato eh o modelo novo que ele vai criar o arquivo.
+
+Comando para criar uma nova migracao, e criando automatico, eu coloco --create=nome_da_nova_tabela:
+
+>php artisan make:migration create_produtos_table --create=produtos
+
+Para rodar as migracoes e gerar todas as tabelas:
+
+>php artisan migrate
+
+Para dar rollback no banco basta dar o reset:
+
+>php artisan migrate:reset
+
+=======================================================
+=======================================================
+
+Sistema elouquente do laravel. Com ferramenta tinker.
+
+>php artisan tinker
+
+Vou ter acesso as classes.
+
+>>> App\Contato::all();
+
+Posso criar um objeto.
+
+>>> $contato = new App\Contato();
+
+Eu posso atribuir valores aos atributos.
+
+>>> $contato->nome = "jack";
+>>> $contato->telefone =  "99999999";
+>>> $contato;
+
+Para salvar no banco:
+
+>>> $contato->save();
+
+Trazer todos os registros do banco:
+
+>>> App\Contato::all();
+
+Para deletar, crio a variavel e dou um find para trazer o registro pela chave 1:
+
+>>> $con = App\Contato::find(1);
+
+>>> $con->delete();
+
+
+
+
+=======================================================
+=======================================================
+
+Ciclo:
+
+Cria o modelo, migration, configura migration, rotas, controller, define views (html).
+
+Usar depois para atualizar no banco:
+>php artisan migrate
+
+>php artisan make:controller Admin\CursoController
+
+=======================================================
+=======================================================
+
+@extends('layout.site')
+
+@section('titulo', 'Cursos')
+
+@section('conteudo')
+
+        <h3>Lista de Cursos</h3>
+
+
+
+@endsection
+
+@foreach($registros as $registro)
+
+@endforeach
+
+@if(isset($registro->imagem))
+@endif
+
+=======================================================
+
+Helper "asset":
+
+<img src="{{asset($registro->imagem')}}" alt="">
+
+=======================================================
+
+"Request" é o metodo que pega as requisicoes post e get do laravel.
+ex.:
+	public funtion salvar(Request $req){}
+
+=======================================================
+
+"Create" serve para salvar no banco.
+
+Curso:create($dados);
+
+      
+
+=======================================================
+
+"Redirect" serve para redirecionar para uma rota.
+
+return redirect()->route('admin.cursos');
+
+=======================================================
+
+
+Seeds:
+
+Em database/seeds/DatabaseSeeder.php
+
+Criar o seed:
+$this->call(UsuarioSeeder::class);
+
+Depois no artisan:
+
+php artisan make:: seed UsuarioSeeder
+
+=======================================================
+
+"bcrypt" encripta uma senha:
+
+"password" => bcrypt("123456");
+
+
+"update" atualiza os dados no banco:
+
+$usuario->update($dados);
+
+
+"create" cria no banco de dados:
+
+User::create($dados);
+
+=======================================================
+
+Rodar a seeder:
+
+php artisan db:seed
+
+Se eu quiser rodar apenas uma seeder, eu coloco a classe que eu quero rodar:
+
+php artisan db:seed --class=UsuarioSeeder
+
+=======================================================
+
+"make:auth"
+ cria o sistema de autenticacao.
+
+Metodo para validar a autenticacao:
+
+Auth::attempt
+
+O Auth possuo o metodo proprio de logout:
+
+Auth::logout();
+
+
+=======================================================
+
+middleware controla todas as requisicoes de acesso.
+Tem que ir em "app\Http\Middleware\Kernel.php" por volta da linha 48 tem os principais.
+
+Vamos usar o "auth".
+
+No middleware se nao tiver autenticado, ele automaticamente encaminha para a rota de "/login".
+
+
+=======================================================
+=======================================================
+
+/views/teste2/config.balde.php
+
+<html>
+    <head>
+        <title>@yield('titulo')</title>
+    </head>
+    <body>
+
+    @yield('conteudo')     
+    <br>
+
+    @yield('conteudoblog') 
+    <br>
+    
+    @yield('autorblog') 
+
+
+    </body>
+</html>
+
+=======================================================
+=======================================================
+
+/views/teste2/index.balde.php
+
+@extends('teste2.config')
+
+@section('titulo', 'Teste2')
+
+@section('conteudo')
+
+<h1>View do teste dois 1.0</h1>
+
+@endsection
+
+@section('conteudoblog')
+    <h2>Título da postagem</h2>
+    <p> Lorem ipsum dolor sit amet (...) </p>
+@endsection
+
+@section('autorblog')
+    <h3>Nome do autor</h3>
+    <p>Etiam euismod rhoncus egestas (...)</p>
+@endsection
+
+=======================================================
+=======================================================
+
+/views/teste2/conteudo2.balde.php
+
+@extends('teste2.config')
+
+@section('titulo', 'conteudo2')
+
+@section('conteudo')
+
+<h1>View do Conteudo 2</h1>
+
+@endsection
+
+@section('conteudoblog')
+
+<h1>Titulo do conteudo 2</h1>
+<br>
+<p>Escrita do conteudo 2</p>
+
+@endsection
+
+@section('autorblog')
+
+<h3>Autor desconhecido</h3>
+<p>Nome do autor aqui</p>
+
+@endsection
+
+=======================================================
+=======================================================
+
+
+
+
+Pergunta 1:
+
+Qual é o comando utilizado para criar tabelas no banco de dados?
+php artisan migrate
+
+Pergunta 2:
+
+Qual é o comando utilizado para criar um model?
+php artisan make:model ModeName -m
+
+Pergunta 3:
+
+Qual é o comando utilizado para criar um Controller?
+php artisan make:controller ControllerName
+
+Pergunta 4:
+
+Após atribuir os dados a uma instância do model na função store do controller, qual a função desse model você deve utilizar para salvar os seus dados no banco de dados?
+save()
+
+Pergunta 5:
+
+Qual é a estrutura correta para selecionar apenas os atributos 'name' e 'phone' de uma tabela do banco de dados de nome students ao buscar todos os dados da tabela?
+Strudents::select('name, 'phone')->get();
+
+
+Pergunta 6:
+
+Qual é o verbo HTTP que deve ser utilizado para listar dados em uma rota de uma API REST?
+GET
+
+Pergunta 7:
+
+Qual é o trecho de código que devemos utilizar para retornar um script blade com o nome de 'cars.blade.php' que está no diretório 'house' contendo a lista dos carros retornada do banco de dados?
+
+$cars = Cars::select('id', 'model', 'brand', 'collor')->get();
+return view('house.cars')->withCars($cars);
+
+
+=======================================================
+=======================================================
+
+
+Posso sobreescrever essa propriedade, caso a mesma nao tenha o mesmo nome na tabela no plural, com a propriedade:
+
+	protected $table = 'tb_lojas';
+
+Declarando ela no inicio da classe.
+
+
+/*
+
+\App\User::all();								- retorna todos os usuarios.
+\App\User::find(3);								- retorna um usuario com base no id solicitado.
+\App\User::where('name', 'Madge Dickinson');	- busca por um parametro no campo name com valor especifico descrito.	
+\App\User::where('name', 'Madge Dickinson')->get();		- select * from users where name = "Madge Dickinson".
+\App\User::where('name', 'Madge Dickinson')->first();	- pega apenas o primeiro resultado.
+\App\User::paginate(10);								- retorna 10 resultados por pagina.
+
+$user = \App\User::create 						- esse metodo create espera um array associativo com o nome das colunas e os valores que vc quer salvar em massa.
+([
+	'name' => "Nanderson Castro",
+	'email' => "email100@email.com",
+	'password' => bcrypt('123345566')
+]);
+
+//Mass Update
+$user = \App\User::find(42);
+$user->update
+([
+	'name' => 'Atualizando com Mass Update'
+]);												//true ou false
+	return \App\User::all();
+
+//se eu querer que ele retorne um boolean:
+$user = \App\User::find(42);
+$user = $user->update
+([
+	'name' => 'Atualizando com Mass Update'
+]);												//true ou false
+dd($user);
+	return \App\User::all();
+
+
+*/
+
+
+// 1:1	- Um pra um (usuario e loja) = hasOne e belongsTo
+// 1:N	- Um para muitos (loja e produtos) = hasMany e belongsTo
+// N:N	- Muitos para muitos (Produtos e Categorias) = belongsToMany
+
+
+
+=======================================================
+=======================================================
+
+/*
+componentes: 
+- Laravel presset tools. 
+https://github.com/laravel-frontend-presets/tall
+- Debug Bar.
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,4316 @@
+\O Segredo eh jogar com a ambicao ou o sonho.
+
+
+PHP fundamental:
+
+Esquema fundamenta:
+
+<?php
+
+?>
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="URF8-">
+		<title>PHP</title>
+	</head>
+
+	<body>
+	</body>
+</html>
+
+
+Variaveis:
+
+$variavel1 = "algum string";
+$variavel2 = 95;
+
+Escrever variaveis:
+
+<?php echo $nome . " " . $sobrenome ?>
+
+
+//strlen - Retorna a quantidade de letras;
+echo strlen($_nome);
+echo strlen("Brasil");
+
+//stripos - Retorna primeira ocorrência;
+echo stripos($_nome,"c");
+
+//strripos - Retorna a ultima ocorrencia;
+echo strripos($_nome,"c");
+
+//strlower - converte para letras min.
+echo strlower($_nome);
+
+//strtoupper - converte para letras min.
+echo strtoupper($_nome);
+
+//SUBSTR_COUNT - Conta quantas ocorreram de um texto ou string - Faz diferença maiusculas e minusculas.
+echo SUBSTR_COUNT($_nome,"c","C");
+
+
+Numeros inteiros:
+
+$salario = 800;
+$meses = 3;
+
+//multiplicação e divisão:
+echo "Trimestre: " . $salario * $meses . "</br>";
+echo "Quinzena: " . $salario / 2 . "</br>";
+
+//Exponencial:
+echo "Exponencial: " . pow(6,3) . " </br>";
+
+//Raiz quadrada:
+echo "Raiz quadrada: " . sqrt(36) . "</br>";
+
+//Randomico Generica:
+echo "Numero randomico: " . rand() . "</br>";
+
+//Randomico entre intervalo de numeros:
+echo "Numero randomico entre: " . rand(1,10) . "</br>";
+
+//Valor absoluto:
+ecgi "Absoluto: " . abs(210);
+
+MANUAL de FUNCOES MATEMATICAS:
+php.net/manual/pt_BR/ref.math.php
+
+https://www.udemy.com/curso-completo-de-php-profissional/learn/v4/t/lecture/7812270?start=0
+
+SUPERGLOBAIS:
+php.net/manual/pt_BR/language.variables.superglobals.php
+
+Para capturar um parâmetro do URL, devemos usar a superglobal "$_GET".
+
+Parametro no link fonte:
+<ul>
+<li><a href="destino.php?codigo=0">Laranja</a></li>
+<li><a href="destino.php?codigo=1">Maca</a></li>
+<li><a href="destino.php?codigo=2">Abacate</a></li>
+</ul>
+
+Parametro no destino:
+<?php
+	$fruta = $_GET["codigo"];
+	echo $fruta;
+?>
+
+Podemos acrescentar um array tb:
+
+<?php
+	$salada = array("Laranja","Maca", "Abacate");
+	$fruta = $_GET["codigo"];
+	echo $salada[$fruta];
+?>
+
+E então, adicionamos os links:
+
+<?php
+	$salada = array("imagens/laranja.jpg","imagens/maca.jpg", "imagens/abacate.jpg");
+	$fruta = $_GET["codigo"];
+	echo $salada[$fruta];
+?>
+
+Depois excluo a linha echo e crio um img com o mesmo echo:
+
+<?php
+	$salada = array("imagens/laranja.jpg","imagens/maca.jpg", "imagens/abacate.jpg");
+	$fruta = $_GET["codigo"];
+?>
+<img src="<?php echo $salada[$fruta]; ?>" >
+
+
+https://www.udemy.com/curso-completo-de-php-profissional/learn/v4/t/lecture/7812408?start=0
+
+Metodo GET e POST:
+
+- GET = aparece no URL o valor capturado.
+- POST = nao aparece o valor capturado, usado para sistemas de login, por exemplo.
+
+==============================================================
+==============================================================
+Para passar informações escondidas da url, a sua requisição precisa ser do tipo Post. O problema é que muitas vezes quando vamos fazer um comportamento na tela como um deletar, colocamos aquela tag <a> para fazer um hyperlink que o usuário apenas clica. E por especificação do HTML, o <a href="..."> é sempre do tipo Get, então os parâmetros acabam indo na url.
+Um jeito de contornar isso é você fazer com que o seu hyperlink esteja dentro de um form do tipo Post, os parâmetros que você quer enviar são inputs do tipo hidden e que o form será disparado quando o usuário clica no hyperlink. Tem este link com um exemplo de como isso pode ser feito.
+==============================================================
+==============================================================
+
+Pre-visualizar algo que veio do POST:
+
+<pre>
+	<?php print_r($_POST) ?>
+</pre>
+
+https://www.udemy.com/curso-completo-de-php-profissional/learn/v4/t/lecture/7812420?start=0
+
+
+No destino, deve-se criar uma variavel, e esta receber o post, com o argumento dentro:
+
+$nome = $_POST["nome"];
+
+
+O fomulario inicial fica:
+
+==================================================
+<body>
+<form action="destinoPost.php" method="post">
+
+<br>
+<label for="nome">Nome Completo</label>
+<br>
+<input type="text" name="nome" id="nome">
+
+<br>
+<label for="email">Email</label>
+<br>
+<input type="text" name="email" id="email">
+
+<br><br>
+<input type="submit" value="Enviar Cadastro">
+
+</form>
+
+	</body>
+==================================================
+
+E o destino ficaria:
+
+==================================================
+<?php
+        if (isset($_POST["nome"])){
+                $nome = $_POST["nome"]; //coloco o valor do formulario que eu quero "nome";
+        } else {
+	        $nome = "Sem definicao!";
+        }
+        
+        if (isset($_POST["email"])){
+        $email = $_POST["email"]; //coloco o valor do formulario que eu quero "email";
+        } else {
+	        $email = "Sem definicao!";
+        }
+
+
+        echo "Nome: " . $nome . "<br>";
+        echo "Email: " . $email;
+
+?>
+</pre>
+==================================================
+
+Com ternário:
+
+==================================================
+<?php
+        $nome = isset($_POST["nome"]) ? $_POST["nome"] : "Sem definicao!"; //coloco o valor do formulario que eu quero "nome";
+                
+        $email = isset($_POST["email"]) ? $_POST["email"] : "Sem definicao!"; //coloco o valor do formulario que eu quero "email";
+
+        echo "Nome: " . $nome . "<br>";
+        echo "Email: " . $email;
+
+?>
+</pre>
+==================================================
+
+Para fazer tudo na mesma pagina, voce deve definir o recebimento dos dados na mesma pagina, antes do formulario.
+Apois você coloca um isset negativo "!isset", que indica que veio de la.
+
+==================================================
+<?php 
+
+if(isset($_POST["formulario"])){
+	$nome = isset($_POST["nome"]) ? $_POST["nome"] : "Sem definicao!"; //coloco o valor do formulario que eu quero "nome";
+        $email = isset($_POST["email"]) ? $_POST["email"] : "Sem definicao!"; //coloco o valor do formulario que eu quero "email";
+        echo "Nome: " . $nome . "<br>";
+        echo "Email: " . $email . "<br>";
+}
+?>
+
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="URF8-">
+		<title>PHP</title>
+        <link href="_css/estilo.css" rel="stylesheet">
+	</head>
+
+	<body>
+
+<!-- //se eu quiser que ele nao apareca depois de clicar no POST: -->
+<?php if(!isset($_POST["formulario"])) { //defino um isset negativo, se nao tiver configurado meu post: !isset. ?>     
+	
+<form action="formularioPostNele.php" method="post">       
+
+<br>
+<label for="nome">Nome Completo</label>
+<br>
+<input type="text" name="nome" id="nome">
+
+<br>
+<label for="email">Email</label>
+<br>
+<input type="text" name="email" id="email">
+
+<br><br>
+<input type="submit" name="formulario" value="Enviar Cadastro">
+
+</form>
+
+<?php } ?>
+
+	</body>
+</html>
+==================================================
+
+
+
+
+
+
+
+print_r($_POST);
+
+
+
+Comandos SQL:
+
+Funcao:		Comando:		Exemplo:
+INCLUSAO	INSERT			INSERT INTO cadastro (nome, telefone) VALUES ("Victor","3326.2836");
+CONSULTA	SELECT			SELECT nome, telefone, email FROM cadastro;
+ALTERACAO	UPDATE			UPDATE cadastro SET nome = "Matheus" WHERE id = 2;
+EXCLUSAO	DELETE			DELETE FROM cadastro WHERE id = 5;
+
+Clausulas de consulta:
+
+SELECT:		Seleciona as colunas que participarao da consulta.
+FROM:		Seleciona as tabelas que selecionarao as colunas.
+WHERE:		Utilizada para especificar filtros e condicoes.
+GROUP BY :	Utilizada para agrupar conjuntos de dados.
+HAVING :	Utilizada para expressar a condicao que deve satisfazer cada grupo.
+ORDER BY :	Utilizada para ordenar os registros selecionados com uma ordem.
+DISTINCT :	Utilizada para selecionar dados sem repeticao.
+
+
+- SEGUIR DEMPRE A MESMA ORDEM:
+
+EX. consulta:
+
+SELECT 	nomeproduto, precounitario, tempoentrega	(colunas)
+FROM	produtos					(tabela)
+
+
+Retornar quantos tempos de entrega eu tenho dentro do banco com "DISTINCT":
+
+SELECT 	DISTINCT tempoentrega				(colunas)
+FROM	produtos					(tabela)
+
+
+Pegar um numero limite de resultados:
+
+SELECT 	nomeproduto, precounitario, tempoentrega	(colunas)
+FROM	produtos					(tabela)
+LIMIT	10						(limita o numero de registros que vc quer que apareca)
+
+
+Ordenacao em ordem crescente:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	produtoID					(ordena)
+LIMIT	10							(limita o numero de registros que vc quer que apareca)
+
+Ordenacao em ordem decrescente:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	produtoID	DESC				(ordena em decrecente)
+LIMIT	10							(limita o numero de registros que vc quer que apareca)
+
+Ordenacao em ordem alfabetica:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	produtoID	ASC				(ordena alfaberico)
+LIMIT	10							(limita o numero de registros que vc quer que apareca)
+
+Ordenacao em ordem alfabetica:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	precounitario	ASC, tempoentrega ASC		(se houver embate em produtos de mesmo preco, ele usa o criterio tempo de 												entrega mais baixo)
+
+Ordenacao em ordem alfabetica:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+ORDER BY 	precounitario	ASC, tempoentrega ASC		(se houver embate em produtos de mesmo preco, ele usa o criterio tempo de 												entrega)
+
+FILTROS (WHERE):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega = 5				(exibe produtos que sao entregues apenas com a data de 5 dias)
+
+
+FILTROS (WHERE) com outra selecao (AND):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega = 5 AND precounitario = 12		(exibe produtos que sao entregues apenas com a data de 5 dias e preco=12)
+
+FILTROS com preco unitario menor que 12:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		precounitario < 12				(mostra produtos que tem preco unitario menor que 12)
+
+FILTROS com preco unitario menor ou igual que 12:
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		precounitario <= 12				(mostra produtos que tem preco unitario menor ou igual a 12)
+
+FILTROS com preco unitario entre 5 e 12 (BETWEEN, AND):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		precounitario BETWEEN 5 AND 12			(mostra produtos que tem preco entre 5 e 12)
+ORDER BY	precounitario ASC				(mostra em ordem crescente)
+
+
+FILTROS com tempo de entrega igual a 5 ou 30 (OR):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega = 5 OR tempoentrega = 30		(vai mostrar produtos com tempo de entrega igual a 5 e 30)
+
+FILTROS com tempo de entrega igual a 5, 15 e 30 (IN):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega IN	(5,15,30)			(vai mostrar produtos com tempo de entrega igual a 5, 15 e 30)
+
+FILTROS EXCLUINDO com tempo de entrega igual a 5, 15 e 30 (NOT IN):
+
+SELECT 		nomeproduto, precounitario, tempoentrega	(colunas)
+FROM		produtos					(tabela)
+WHERE		tempoentrega NOT IN	(5,15,30)		(vai mostrar produtos excluindo o tempo de entrega igual a 5, 15 e 30)
+
+FILTROS que terminem com letras mug (LIKE "%mug") [% eh igual a *]:
+
+SELECT 		nomeproduto					(colunas)
+FROM		produtos					(tabela)
+WHERE		nomedoproduto LIKE "%mug"			(vai exibir todos os produtos que terminem com "mug").
+
+FILTROS que contenha letras BLEND (LIKE "%BLEND%") [% eh igual a *]:
+
+SELECT 		nomeproduto					(colunas)
+FROM		produtos					(tabela)
+WHERE		nomedoproduto LIKE "%BLEND%"			(vai exibir todos os produtos que contenham em algum lugar da palavra "BLEND").
+
+Mostrar produto com menor preco (Min) e chamar ele de um nome (as):
+
+SELECT 		Min(precounitario) as menorpreco		(colunas)
+FROM		produtos					(tabela)
+ 
+
+Mostrar produto com maior preco (Max) e chamar ele de um nome (as):
+
+SELECT 		Max(precounitario) as maiorpreco		(colunas)
+FROM		produtos					(tabela)
+
+Mostrar produto com preco MEDIO (AVG) e chamar ele de um nome (as):
+
+SELECT 		AVG(precounitario) as precomedio		(colunas)
+FROM		produtos					(tabela)
+
+Chamar todos os pedidos:
+
+SELECT 		*						(colunas)
+FROM		pedidos						(tabela)
+
+Chamar todos os pedidos:
+
+SELECT 		*						(colunas)
+FROM		pedidos						(tabela)
+
+Somar todos os pedidos (sum):
+
+SELECT 		sum(valor_pedido)				(colunas)
+FROM		pedidos						(tabela)
+
+Somar todos os pedidos de 2006 (sum):
+
+SELECT 		sum(valor_pedido)				(colunas)
+FROM		pedidos						(tabela)
+WHERE		year(data_pedido) = '2006' 			(Exibi a soma de todos os pedidos de 2006)
+
+Somar todos os pedidos de 2006 e conta o numero de pedidos (sum):
+
+SELECT 		sum(valor_pedido), count(pedidoID) as num_pedidos	(colunas)
+FROM		pedidos							(tabela)
+WHERE		year(data_pedido) = '2006' 				(Exibi a soma de todos os pedidos de 2006, e conta o numero de pedidos)
+
+Relatorio:
+
+Quantos produtos eu tenho para cada tempo de entrega diferente (vai aparecer todos):
+
+SELECT 	*								(colunas)
+FROM	produtos							(tabela)
+WHERE	tempoentrega = 5						
+
+Quantos produtos eu tenho para cada tempo de entrega diferente (vai contar e exibir o total):
+
+SELECT 	count(produtoID) as total					(colunas)
+FROM	produtos							(tabela)
+WHERE	tempoentrega = 5						(exibe a soma dos produtos com tempo de entrega 5)					
+Quantos produtos eu tenho para cada tempo de entrega diferente (vai contar e exibir o total):
+
+SELECT 		count(produtoID) as total					(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega							()
+
+Quantos produtos eu tenho para cada tempo de entrega diferente (vai exibir produtos e o tempo):
+
+SELECT 		tempoentrega, count(produtoID) as total				(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega							
+
+Digamos que queremos visualizar apenas os acima de 5:
+
+SELECT 		tempoentrega, count(produtoID) as total				(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega							(exibe a soma dos produtos com tempo de entrega 5)
+
+Queremos exibir apenas os que tenham apenas o tempo de entrega maiores que 5:
+
+SELECT 		tempoentrega, count(produtoID) as total				(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega							
+HAVING 		total >= 5
+
+Queremos exibir apenas os que tenham apenas o tempo de entrega maiores que 5 e ordenar em ordem crescente:
+
+SELECT 		tempoentrega, count(produtoID) as total				(colunas)
+FROM		produtos							(tabela)
+GROUP BY	tempoentrega							
+HAVING 		total >= 5
+ORDER BY	total ASC
+
+
+Relacionar 2 tabelas:
+
+SELECT 		nomeproduto, fornecedorID
+FROM 		produtos, fornecedores
+WHERE 		produtos.fornecedorID = fornecedores.fornecedorID	(campo ".fornecedorID" tem que igual ao segundo ".fornecedorID")
+
+
+Relacionar 2 tableas juntando elas (INNER JOIN):
+
+SELECT 		nomeproduto, nomefornecedor
+FROM 		produtos 						(Ele aceita tambem soh o: nomeproduto, nomefornecedor)
+		INNER JOIN fornecedores					(Ele aceita tambem soh o: INNER JOIN fornecedores)
+		ON produtos.fornecedorID = fornecedores.fornecedoresID	(Ele aceita tambem soh o: ON p.fornecedorID = f.fornecedoresID)
+
+Relacionar 2 tableas juntando elas (criando um alias):
+
+SELECT 		nomeproduto, nomefornecedor
+FROM 		produtos AS p 						(Ele aceita tambem soh o: nomeproduto, nomefornecedor)
+		INNER JOIN fornecedores	as f				(Ele aceita tambem soh o: INNER JOIN fornecedores)
+		ON p.fornecedorID = f.fornecedoresID			(Ele aceita tambem soh o: ON p.fornecedorID = f.fornecedoresID)
+
+Relacionar 2 tableas juntando elas (criando um alias, em alguns bancos nao precisa o AS):
+
+SELECT 		nomeproduto, nomefornecedor
+FROM 		produtos p 						
+		INNER JOIN fornecedores	f				
+		ON p.fornecedorID = f.fornecedoresID			
+
+
+Relacionar 2 tableas juntando elas (entre mais tabelas):
+
+SELECT 		nomeproduto, nomefornecedor
+FROM 		produtos p 						
+		INNER JOIN fornecedores	f ON p.fornecedorID = f.fornecedoresID
+		INNER JOIN categorias	c ON p.fornecedorID = c.fornecedoresID
+
+Agrupar informacoes com grupo BY (Quantos produtos eu tenho por categorias):
+
+SELECT 		categoriaID, COUNT(produtoID) AS total
+FROM		produtos p
+		INNER JOIN categorias c ON p.categoriaID = c.categoriaID
+GROUP BY 	p.categoriaID
+
+Agrupar informacoes com grupo BY (Quantos produtos eu tenho por categorias e mostrar quantos eu tenho do maior pro menor):
+
+SELECT 		categoriaID, COUNT(produtoID) AS total
+FROM		produtos p
+		INNER JOIN categorias c ON p.categoriaID = c.categoriaID
+GROUP BY 	p.categoriaID
+ORDER BY	total DESC
+
+
+
+Insercao de um novo campo de dados, na tabela estados:
+
+INSERT INTO	estados(nome,sigla) VALUES('Jack','JB');		(aspas porque eh char, se nao nao precisa)
+									*inserir dentro da tabela estado nos campos() os valores()
+
+
+Atualizar informacao que ja foi adicionada no banco de dados (alteracao):
+
+UPDATE 		estados		SET nome = 'Bravo'
+WHERE estadoID = 32;				
+
+*Update/atualize + o nome da tabela que vc quer alterar + SET/colocando + campo a ser alterado=valor do campo + WHERE/onde + o Nome do campo + tiver valor do campo = 32;
+
+
+Atualizar informacao que ja foi adicionada no banco de dados (alteracao de duas colunas):
+
+UPDATE 		estados		
+SET 		
+nome = 'Bravo',
+sigla = 'FT' 
+WHERE estadoID = 32;				
+
+
+Apagar um registro:
+
+DELETE 
+FROM		estado
+WHERE		estadoID=31;					*caso seja mais de um registro "estadoID IN (31, 32, 33);"
+
+
+Apagar mais de um registro:
+
+DELETE 
+FROM		estado
+WHERE		estadoID IN (31, 32, 33);			
+
+
+==================================================================================================
+
+
+Conectar PHP ao banco:
+php.net/manual/pt_BR/function.mysqli-connect.php
+
+
+
+==================================================================================================
+
+<?php
+
+//Passo 1 - Abrir conexao:
+
+//$conecta = mysqli_connect("mysql07-farm60.kinghost.net","jackbravo2106","m123456m","jackbravo2106"); 
+//("nome do servidor"localhost,"usuariodobanco"root,"nome do banco de dados");
+
+$servidor = "mysql07-farm60.kinghost.net";
+$usuario  = "jackbravo2106";
+$senha    = "m123456m";
+$banco    = "jackbravo2106";
+
+$conecta = mysqli_connect($servidor,$usuario,$senha,$banco);
+
+
+
+//Passo 2 - Testar conexao:
+
+if (mysqli_connect_errno() ){
+    die("Conexao Falhou: " . mysqli_connect_errno());
+}
+
+//Se o mysql der erro, matar a conexao e exibir mensagem + o erro.
+
+?>
+
+
+
+<?php
+
+//Passo 3 - Abrir consulta ao banco de dados:
+
+$consulta_categorias = "SELECT * FROM categorias";
+$categorias = mysqli_query($conecta, $consulta_categorias);
+
+if ( !$categorias ){
+die("Falha na consulta ao banco.");
+}
+
+?>
+
+
+
+<?php
+
+//fechar conexao:
+mysqli_close($conecta);
+
+?>
+
+==================================================================================================
+
+
+<?php
+
+//Passo 1 - Abrir conexao:
+
+//$conecta = mysqli_connect("mysql07-farm60.kinghost.net","jackbravo2106","m123456m","jackbravo2106"); 
+//("nome do servidor"localhost,"usuariodobanco"root,"nome do banco de dados");
+
+$servidor = "mysql07-farm60.kinghost.net";
+$usuario  = "jackbravo2106";
+$senha    = "m123456m";
+$banco    = "jackbravo2106";
+
+$conecta = mysqli_connect($servidor,$usuario,$senha,$banco);
+
+
+//Passo 2 - Testar conexao:
+
+if (mysqli_connect_errno() ){
+    die("Conexao Falhou: " . mysqli_connect_errno());
+}
+//Se o mysql der erro, matar a conexao e exibir mensagem + o erro.
+
+?>
+
+<?php
+
+//Passo 3 - Abrir consulta ao banco de dados
+$consulta_categorias = "SELECT * FROM categorias";
+$categorias = mysqli_query($conecta, $consulta_categorias);
+
+//$consulta a lista das categorias, e registro das query na $categorias.
+
+//se nao aconteceu o categorias, matar a conexao.
+if(!$categorias){
+    die("Falha na consulta ao banco.");
+
+}
+
+?>
+
+==================================================================================================
+
+<?php
+
+//Passo 1 - Abrir conexao:
+
+//$conecta = mysqli_connect("mysql07-farm60.kinghost.net","jackbravo2106","m123456m","jackbravo2106"); 
+//("nome do servidor"localhost,"usuariodobanco"root,"nome do banco de dados");
+
+$servidor = "mysql07-farm60.kinghost.net";
+$usuario  = "jackbravo2106";
+$senha    = "m123456m";
+$banco    = "jackbravo2106";
+
+$conecta = mysqli_connect($servidor,$usuario,$senha,$banco);
+
+
+//Passo 2 - Testar conexao:
+
+if (mysqli_connect_errno() ){
+    die("Conexao Falhou: " . mysqli_connect_errno());
+}
+//Se o mysql der erro, matar a conexao e exibir mensagem + o erro.
+
+?>
+
+<?php
+
+//Passo 3 - Abrir consulta ao banco de dados:
+$consulta_categorias = "SELECT * ";
+$consulta_categorias .= "FROM categorias ";
+$consulta_categorias .= "WHERE categoriaID > 2";
+
+$categorias = mysqli_query($conecta, $consulta_categorias);
+
+//$consulta a lista das categorias, e registro das query na $categorias.
+
+//se nao aconteceu o categorias, matar a conexao.
+if(!$categorias){
+    die("Falha na consulta ao banco.");
+
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+    </head>
+
+    <body>
+    </body>
+</html>
+
+<?php
+//fechar conexao:
+mysqli_close($conecta);
+
+?>
+
+==================================================================================================
+
+//Como listar os dados do banco na tela:
+
+
+<?php
+
+//Passo 1 - Abrir conexao:
+
+//$conecta = mysqli_connect("mysql07-farm60.kinghost.net","jackbravo2106","m123456m","jackbravo2106"); 
+//("nome do servidor"localhost,"usuariodobanco"root,"nome do banco de dados");
+
+$servidor = "mysql07-farm60.kinghost.net";
+$usuario  = "jackbravo2106";
+$senha    = "m123456m";
+$banco    = "jackbravo2106";
+
+$conecta = mysqli_connect($servidor,$usuario,$senha,$banco);
+
+
+//Passo 2 - Testar conexao:
+
+if (mysqli_connect_errno() ){
+    die("Conexao Falhou: " . mysqli_connect_errno());
+}
+//Se o mysql der erro, matar a conexao e exibir mensagem + o erro.
+
+?>
+
+<?php
+
+//Passo 3 - Abrir consulta ao banco de dados:
+
+//$consulta_categorias = "SELECT * ";
+$consulta_categorias = "SELECT nomeproduto, tempoentrega ";
+//$consulta_categorias .= "FROM categorias ";
+$consulta_categorias .= "FROM produtos";
+//$consulta_categorias .= "WHERE categoriaID > 2";
+
+$categorias = mysqli_query($conecta, $consulta_categorias);
+
+//$consulta a lista das categorias, e registro das query na $categorias.
+
+//se nao aconteceu o categorias, matar a conexao.
+if(!$categorias){
+    die("Falha na consulta ao banco.");
+
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+    </head>
+
+    <body>
+
+<?php
+
+//vai pegar linha por linha da Categorias:
+//    while($registro = mysqli_fetch_row($categorias)){
+
+//vai retornar um array associativo:
+    while($registro = mysqli_fetch_assoc($categorias)){
+
+//pesquisa por array
+//    while($registro = mysqli_fetch_array($categorias)){
+        print_r($registro);
+        echo "<br>";
+        
+}
+
+
+?>
+
+    </body>
+</html>
+
+<?php
+//fechar conexao:
+mysqli_close($conecta);
+
+?>
+
+==================================================================================================
+
+//mostrar uma inegracao com o HTML, fazendo uma lista dos nomes da categorias dentro de uma lista.
+
+
+<?php
+
+//Passo 1 - Abrir conexao:
+
+//$conecta = mysqli_connect("mysql07-farm60.kinghost.net","jackbravo2106","m123456m","jackbravo2106"); 
+//("nome do servidor"localhost,"usuariodobanco"root,"nome do banco de dados");
+
+$servidor = "mysql07-farm60.kinghost.net";
+$usuario  = "jackbravo2106";
+$senha    = "m123456m";
+$banco    = "jackbravo2106";
+
+$conecta = mysqli_connect($servidor,$usuario,$senha,$banco);
+
+
+//Passo 2 - Testar conexao:
+
+if (mysqli_connect_errno() ){
+    die("Conexao Falhou: " . mysqli_connect_errno());
+}
+//Se o mysql der erro, matar a conexao e exibir mensagem + o erro.
+
+?>
+
+<?php
+
+//Passo 3 - Abrir consulta ao banco de dados:
+
+//$consulta_categorias = "SELECT * ";
+$consulta_categorias = "SELECT nomeproduto, tempoentrega ";
+//$consulta_categorias .= "FROM categorias";
+$consulta_categorias .= "FROM produtos";
+//$consulta_categorias .= "WHERE categoriaID > 2";
+
+$categorias = mysqli_query($conecta, $consulta_categorias);
+
+//$consulta a lista das categorias, e registro das query na $categorias.
+
+//se nao aconteceu o categorias, matar a conexao.
+if(!$categorias){
+    die("Falha na consulta ao banco.");
+
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+    </head>
+
+    <body>
+
+<ul>
+
+<?php
+
+
+//vai pegar linha por linha da Categorias:
+//    while($registro = mysqli_fetch_row($categorias)){
+//pesquisa por array:
+//    while($registro = mysqli_fetch_array($categorias)){
+
+
+//vai retornar um array associativo:
+    while($registro = mysqli_fetch_assoc($categorias)){
+?>
+        
+      <li><?php echo $registro["nomeproduto"] ?></li>
+
+
+<?php      
+}
+?>
+</ul>
+
+
+    </body>
+</html>
+
+<?php
+//fechar conexao:
+mysqli_close($conecta);
+
+?>
+
+==================================================================================================
+
+
+<?php
+
+//Passo 1 - Abrir conexao:
+
+//$conecta = mysqli_connect("mysql07-farm60.kinghost.net","jackbravo2106","m123456m","jackbravo2106"); 
+//("nome do servidor"localhost,"usuariodobanco"root,"nome do banco de dados");
+
+$servidor = "mysql07-farm60.kinghost.net";
+$usuario  = "jackbravo2106";
+$senha    = "m123456m";
+$banco    = "jackbravo2106";
+
+$conecta = mysqli_connect($servidor,$usuario,$senha,$banco);
+
+
+//Passo 2 - Testar conexao:
+
+if (mysqli_connect_errno() ){
+    die("Conexao Falhou: " . mysqli_connect_errno());
+}
+//Se o mysql der erro, matar a conexao e exibir mensagem + o erro.
+
+?>
+
+<?php
+
+//Passo 3 - Abrir consulta ao banco de dados:
+
+//$consulta_categorias = "SELECT * ";
+$consulta_categorias = "SELECT nomeproduto, tempoentrega ";
+//$consulta_categorias .= "FROM categorias";
+$consulta_categorias .= "FROM produtos";
+//$consulta_categorias .= "WHERE categoriaID > 2";
+
+$categorias = mysqli_query($conecta, $consulta_categorias);
+
+//$consulta a lista das categorias, e registro das query na $categorias.
+
+//se nao aconteceu o categorias, matar a conexao.
+if(!$categorias){
+    die("Falha na consulta ao banco.");
+
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+    </head>
+
+    <body>
+
+<ul>
+
+<?php
+
+
+//Passo 4 - Listagem dos dados:
+
+//vai pegar linha por linha da Categorias:
+//    while($registro = mysqli_fetch_row($categorias)){
+//pesquisa por array:
+//    while($registro = mysqli_fetch_array($categorias)){
+
+
+//vai retornar um array associativo:
+    while($registro = mysqli_fetch_assoc($categorias)){
+?>
+        
+      <li><?php echo $registro["nomeproduto"] ?></li>
+
+
+<?php      
+}
+?>
+</ul>
+
+
+<?php
+
+//Passo 5 - Liberar dados da memoria:
+
+//libera o registro(para o servidor nao ficar fazendo consulta):
+   mysqli_free_result($categorias);
+?>
+
+
+    </body>
+</html>
+
+<?php
+//Passo 6 - Fechar Conexao:
+mysqli_close($conecta);
+
+?>
+
+
+==================================================================================================
+
+Diferenca entre include, includeonce, require.
+
+include("pagina1.php");     		-> inclue e exibe quantas vezes vc quizer.
+include_once("pagina1.php");     	-> inclue e exibe uma vez.
+require("pagina1.php");     		-> se der algum erro ele para a pagina.
+
+
+--------------------------
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+    </head>
+
+    <body>
+
+<?php
+
+      include("pagina1.php");
+      echo "<br>";
+      include("pagina2.php");
+      echo "<br>";
+      include("pagina2.php");
+?>
+
+    </body>
+</html>
+
+==================================================================================================
+
+<?php
+
+//Passo 1 - Abrir conexao:
+
+$servidor = "mysql07-farm60.kinghost.net";
+$usuario  = "jackbravo2106";
+$senha    = "m123456m";
+$banco    = "jackbravo2106";
+
+$conecta = mysqli_connect($servidor,$usuario,$senha,$banco);
+
+//Passo 2 - Testar conexao:
+
+if(mysqli_connect_errno()){
+   die("Conexao falhou: " . mysqli_connect_errno());
+}
+
+?>
+
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+
+<?php
+
+//Passo 3 - Abrir consulta ao banco de dados:
+
+$consulta_categorias = "SELECT nomeproduto, tempoentrega ";
+$consulta_categorias .= "FROM produtos";
+
+$categorias = mysqli_query($conecta, $consulta_categorias);
+
+if(!$categorias){
+    die("Falha na consulta ao banco.");
+
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+    </head>
+
+    <body>
+
+<ul>
+
+<?php
+
+
+//Passo 4 - Listagem dos dados:
+
+//vai pegar linha por linha da Categorias:
+//    while($registro = mysqli_fetch_row($categorias)){
+//pesquisa por array:
+//    while($registro = mysqli_fetch_array($categorias)){
+
+
+//vai retornar um array associativo:
+    while($registro = mysqli_fetch_assoc($categorias)){
+?>
+        
+      <li><?php echo $registro["nomeproduto"] ?></li>
+
+
+<?php      
+}
+?>
+</ul>
+
+
+<?php
+
+//Passo 5 - Liberar dados da memoria:
+
+//libera o registro(para o servidor nao ficar fazendo consulta):
+   mysqli_free_result($categorias);
+?>
+
+
+    </body>
+</html>
+
+<?php
+//Passo 6 - Fechar Conexao:
+mysqli_close($conecta);
+
+?>
+
+==================================================================================================
+
+Unidade 4:
+
+
+
+
+==================================================================================================
+
+
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+
+<?php
+
+//Consulta ao banco de dados:
+$produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena ";
+$produtos .= "FROM produtos ";
+$resultado = mysqli_query($conecta, $produtos);
+if(!$resultado){
+    die("Falha na consulta ao banco");
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo CSS -->
+        <link href="_css/estilo.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+                
+        <!-- Meio -->
+        <main>  
+
+        <?php
+              while($linha = mysqli_fetch_assoc($resultado)){
+
+        ?>
+           <ul>
+               <li><?php echo $linha["nomeproduto"] ?></li>
+               <li>Tempo de Entrega: <?php echo $linha["tempoentrega"] ?></li>
+               <li>Preco unitario: <?php echo $linha["precounitario"] ?></li>
+           </ul>
+
+        <?php
+          }
+
+        ?>
+
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Mostrar a imagem:
+
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+
+<?php
+
+//Consulta ao banco de dados:
+$produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena ";
+$produtos .= "FROM produtos ";
+$resultado = mysqli_query($conecta, $produtos);
+if(!$resultado){
+    die("Falha na consulta ao banco");
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo CSS -->
+        <link href="_css/estilo.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+                
+        <!-- Meio -->
+        <main>  
+
+        <?php
+              while($linha = mysqli_fetch_assoc($resultado)){
+
+        ?>
+           <ul>
+               <li><img src="<?php echo $linha["imagempequena"] ?>"></li>
+               <li><?php echo $linha["nomeproduto"] ?></li>
+               <li>Tempo de Entrega: <?php echo $linha["tempoentrega"] ?></li>
+               <li>Preco unitario: <?php echo $linha["precounitario"] ?></li>
+           </ul>
+
+        <?php
+          }
+
+        ?>
+
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Colocar CSS e Cifrao:
+
+
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+
+<?php
+
+//Determinar localidade BR
+setlocale(LC_ALL, 'pt_BR');
+
+//Consulta ao banco de dados:
+$produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena ";
+$produtos .= "FROM produtos ";
+$resultado = mysqli_query($conecta, $produtos);
+if(!$resultado){
+    die("Falha na consulta ao banco");
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo CSS -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/produtos.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+                
+        <!-- Meio -->
+        <main>  
+
+        <div id="listagem_produtos">
+
+        <?php
+              while($linha = mysqli_fetch_assoc($resultado)){
+
+        ?>
+           <ul>
+               <li class="imagem"><img src="<?php echo $linha["imagempequena"] ?>"></li>
+               <li><h3><?php echo $linha["nomeproduto"] ?></h3></li>
+               <li>Tempo de Entrega: <?php echo $linha["tempoentrega"] ?></li>
+               <li>Preco unitario: <?php echo money_format('%.2n', $linha["precounitario"]) ?></li>
+           </ul>
+
+        <?php
+          }
+
+        ?>
+        </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Como enviar um valor dinamico, atraves de um parametro de URL:
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+    // Determinar localidade BR
+    setlocale(LC_ALL, 'pt_BR');
+
+    // Consulta ao banco de dados
+    $produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena ";
+    $produtos .= "FROM produtos ";
+    $resultado = mysqli_query($conecta, $produtos);
+    if(!$resultado) {
+        die("Falha na consulta ao banco");   
+    }
+?>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/produtos.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+            
+           <div id="listagem_produtos"> 
+            <?php
+                while($linha = mysqli_fetch_assoc($resultado)) {
+            ?>
+                <ul>
+                    <li class="imagem">
+                          <a href="detalhe.php?codigo=<?php echo $linha['produtoID'] ?>">
+                          <img src="<?php echo $linha["imagempequena"] ?>">
+                          </a>
+                    </li>
+                    <li><h3><?php echo $linha["nomeproduto"] ?></h3></li>
+                    <li>Tempo de Entrega : <?php echo $linha["tempoentrega"] ?></li>
+                    <li>Pre&ccedil;o unit&aacute;rio : <?php echo money_format('%.2n',$linha["precounitario"]) ?></li>
+                </ul>
+             <?php
+                }
+            ?>           
+            </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+if(isset($_GET["codigo"])){
+$produto_id = $_GET["codigo"];
+} else {
+    Header("Location: inicial.php");
+}
+
+//Consulta ao banco de dados:
+$consulta = "SELECT * ";
+$consulta .= "FROM produtos ";
+$consulta .= "WHERE produtoID = {$produto_id}";
+$detalhe = mysqli_query($conecta, $consulta);
+
+//Testar erro
+if(!$detalhe){
+   die("Falha no Banco de dados");
+}else{
+   $dados_detalhe = mysqli_fetch_assoc($detalhe);
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+
+        <?php print_r($dados_detalhe) ?>
+
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>
+
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+public/unidade_05
+
+
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+if(isset($_GET["codigo"])){
+$produto_id = $_GET["codigo"];
+} else {
+    Header("Location: inicial.php");
+}
+
+//Consulta ao banco de dados:
+$consulta = "SELECT * ";
+$consulta .= "FROM produtos ";
+$consulta .= "WHERE produtoID = {$produto_id}";
+$detalhe = mysqli_query($conecta, $consulta);
+
+//Testar erro
+if(!$detalhe){
+   die("Falha no Banco de dados");
+}else{
+   $dados_detalhe = mysqli_fetch_assoc($detalhe);
+   $produtoID = $dados_detalhe["produtoID"];
+   $nomeproduto = $dados_detalhe["nomeproduto"];
+   $descricao = $dados_detalhe["descricao"];
+   $codigobarra = $dados_detalhe["codigobarra"];
+   $tempoentrega = $dados_detalhe["tempoentrega"];
+   $precorevenda = $dados_detalhe["precorevenda"];
+   $precounitario = $dados_detalhe["precounitario"];
+   $estoque = $dados_detalhe["estoque"];
+   $imagemgrande = $dados_detalhe["imagemgrande"];
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+        <div id="detalhe_produto">
+            <ul>
+                <li><img src="<?php echo $imagemgrande ?>"></li>
+                <li><?php echo $nomeproduto ?></li>
+                <li><?php echo $descricao ?></li>
+                <li><?php echo $codigobarra ?></li>
+                <li><?php echo $tempoentrega ?></li
+                <li><?php echo $precorevenda ?></li>
+                <li><?php echo $precounitario ?></li>
+                <li><?php echo $estoque ?></li>
+            </ul>
+        <?php print_r($dados_detalhe) ?>
+
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>
+
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+
+==================================================================================================
+
+public/unidade_05
+
+
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+if(isset($_GET["codigo"])){
+$produto_id = $_GET["codigo"];
+} else {
+    Header("Location: inicial.php");
+}
+
+//Consulta ao banco de dados:
+$consulta = "SELECT * ";
+$consulta .= "FROM produtos ";
+$consulta .= "WHERE produtoID = {$produto_id}";
+$detalhe = mysqli_query($conecta, $consulta);
+
+//Testar erro
+if(!$detalhe){
+   die("Falha no Banco de dados");
+}else{
+   $dados_detalhe = mysqli_fetch_assoc($detalhe);
+   $produtoID = $dados_detalhe["produtoID"];
+   $nomeproduto = $dados_detalhe["nomeproduto"];
+   $descricao = $dados_detalhe["descricao"];
+   $codigobarra = $dados_detalhe["codigobarra"];
+   $tempoentrega = $dados_detalhe["tempoentrega"];
+   $precorevenda = $dados_detalhe["precorevenda"];
+   $precounitario = $dados_detalhe["precounitario"];
+   $estoque = $dados_detalhe["estoque"];
+   $imagemgrande = $dados_detalhe["imagemgrande"];
+}
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/produto_detalhe.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+        <div id="detalhe_produto">
+            <ul>
+                <li class="imagem"><img src="<?php echo $imagemgrande ?>"></li>
+                <li><h2><?php echo $nomeproduto ?></h2></li>
+                <li><b>Descricao: </b><?php echo $descricao ?></li>
+                <li><b>Codigo de Barra: </b><?php echo $codigobarra ?></li>
+                <li><b>Tempo de entrega: </b><?php echo $tempoentrega ?></li
+                <li><b>Preco de revenda: </b><?php echo "R$ " . number_format($precorevenda,2,",",".") ?></li>
+                <li><b>Preco unitario: </b><?php echo "R$ " . number_format($precounitario,2,",",".") ?></li>
+                <li><b>Estoque: </b><?php echo $estoque ?></li>
+            </ul>
+        
+
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>
+
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+public/unidade_06
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+    // Determinar localidade BR
+    setlocale(LC_ALL, 'pt_BR');
+
+    // Consulta ao banco de dados
+    $produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena ";
+    $produtos .= "FROM produtos ";
+    $resultado = mysqli_query($conecta, $produtos);
+    if(!$resultado) {
+        die("Falha na consulta ao banco");   
+    }
+?>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/produtos.css" rel="stylesheet">
+        <link href="_css/produto_pesquisa.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>        
+           <div id="janela_pesquisa">
+                  <form action="inicial.php" method="get">
+                       <input type="text" name="produto" placeholder="Pesquisa">
+                       <input type="image" name="pesquisa" src="assets/botao_search.png">
+                  </form>
+           </div>
+            
+           <div id="listagem_produtos"> 
+            <?php
+                while($linha = mysqli_fetch_assoc($resultado)) {
+            ?>
+                <ul>
+                    <li class="imagem">
+                        <a href="detalhe.php?codigo=<?php echo $linha['produtoID'] ?>">
+                            <img src="<?php echo $linha["imagempequena"] ?>">
+                        </a>
+                    </li>
+                    <li><h3><?php echo $linha["nomeproduto"] ?></h3></li>
+                    <li>Tempo de Entrega : <?php echo $linha["tempoentrega"] ?></li>
+                    <li>Pre&ccedil;o unit&aacute;rio : <?php echo money_format('%.2n',$linha["precounitario"]) ?></li>
+                </ul>
+             <?php
+                }
+            ?>           
+            </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Filtrar no search:
+
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+    // Determinar localidade BR
+    setlocale(LC_ALL, 'pt_BR');
+
+    // Consulta ao banco de dados
+    $produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena ";
+    $produtos .= "FROM produtos ";
+    
+    //primeira coisa eh  perguntar se ta configurado o parametro "produto", se nao ele para por ali.
+    if(isset($_GET["produto"])) {
+       $nome_produto = $_GET["produto"];
+    //agora fazer o filtro, concatenando com a consulta anterior ali em cima de $produtos.
+    //e deve ser colocado o $nome_produto para que ele pesquise palavras entre o valor digita %entre%.
+       $produtos .= "WHERE nomeproduto LIKE '%{$nome_produto}%' ";
+    }
+    $resultado = mysqli_query($conecta, $produtos);
+    if(!$resultado) {
+        die("Falha na consulta ao banco");   
+    }
+?>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/produtos.css" rel="stylesheet">
+        <link href="_css/produto_pesquisa.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>        
+           <div id="janela_pesquisa">
+                  <form action="inicial.php" method="get">
+                       <input type="text" name="produto" placeholder="Pesquisa">
+                       <input type="image" name="pesquisa" src="assets/botao_search.png">
+                  </form>
+           </div>
+            
+           <div id="listagem_produtos"> 
+            <?php
+                while($linha = mysqli_fetch_assoc($resultado)) {
+            ?>
+                <ul>
+                    <li class="imagem">
+                        <a href="detalhe.php?codigo=<?php echo $linha['produtoID'] ?>">
+                            <img src="<?php echo $linha["imagempequena"] ?>">
+                        </a>
+                    </li>
+                    <li><h3><?php echo $linha["nomeproduto"] ?></h3></li>
+                    <li>Tempo de Entrega : <?php echo $linha["tempoentrega"] ?></li>
+                    <li>Pre&ccedil;o unit&aacute;rio : <?php echo money_format('%.2n',$linha["precounitario"]) ?></li>
+                </ul>
+             <?php
+                }
+            ?>           
+            </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+
+==================================================================================================
+
+public/unidade_07
+
+==================================================================================================
+
+//pagina1.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+     //Iniciar a sessao
+     session_start();
+     
+     //Criar variavel de sessao
+     $_SESSION["usuario"] = "Jack";
+
+?>
+
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div id="header_central">
+                <img src="assets/logo_andes.gif">
+                <img src="assets/text_bnwcoffee.gif">
+            </div>
+        </header>
+        
+        <main>
+
+        <?php
+              echo $_SESSION["usuario"];
+        ?>
+        <p>
+        <a href="pagina2.php">Pagina 2</a>
+        </p>
+
+        </main>
+
+        <footer>
+            <div id="footer_central">
+                <p>ANDES &eacute; uma empresa fict&iacute;cia, usada para o curso PHP Integra&ccedil;&atilde;o com MySQL.</p>
+            </div>
+        </footer>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//pagina2.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+     //Iniciar a sessao
+     session_start();
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div id="header_central">
+                <img src="assets/logo_andes.gif">
+                <img src="assets/text_bnwcoffee.gif">
+            </div>
+        </header>
+        
+        <main>  
+
+       <?php
+            if(isset($_SESSION["usuario"])){
+            echo $_SESSION["usuario"];
+            }
+        ?>
+
+        <p>
+        <a href="logout.php">Logout</a>
+        </p>
+
+        
+            
+        </main>
+
+        <footer>
+            <div id="footer_central">
+                <p>ANDES &eacute; uma empresa fict&iacute;cia, usada para o curso PHP Integra&ccedil;&atilde;o com MySQL.</p>
+            </div>
+        </footer>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//logout.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+     //Iniciar a sessao
+     session_start();
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div id="header_central">
+                <img src="assets/logo_andes.gif">
+                <img src="assets/text_bnwcoffee.gif">
+            </div>
+        </header>
+        
+        <main>  
+
+        <?php
+             //Exclue variavel de sessao mencionada.
+             unset($_SESSION["usuario"]);
+
+             //Destroi todas as variaveis de sessao da aplicacao.
+             session_destroy();
+        ?>
+            
+        </main>
+
+        <footer>
+            <div id="footer_central">
+                <p>ANDES &eacute; uma empresa fict&iacute;cia, usada para o curso PHP Integra&ccedil;&atilde;o com MySQL.</p>
+            </div>
+        </footer>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//CSS login:
+
+/* estilos da pesquisa */
+main div#janela_login {
+    width:860px;
+    margin:100px auto 30px;
+}
+
+main div#janela_login form {
+    width:470px;
+    margin:10px auto;
+}
+
+main div#janela_login form h2  {
+    font-family: sans-serif;
+    color:#C5996B;
+}
+
+main div#janela_login form p {
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    background: #F00;
+    color: #FFF;
+    padding: 10px;
+    border-radius: 5px;
+    width:120px;
+    text-align: center;
+}
+
+main div#janela_login form input[type="text"] {
+    width:280px;
+    padding:10px;
+    border:1px solid #CDC99B;
+    border-radius: 5px;
+    outline: none;
+}
+
+main div#janela_login form input[type="password"] {
+    width:280px;
+    padding:10px;
+    margin-top:15px;
+    border:1px solid #CDC99B;
+    border-radius: 5px;
+    outline: none;
+}
+
+main div#janela_login form input[type="submit"] {
+    display: block;
+    padding:10px 20px;
+    margin-top:15px;
+    color: #FFF;
+    border:0;
+    border-radius: 5px;
+    background-color: #C5996B;
+    outline: none;
+    cursor: pointer;
+}
+/* fim do estilo da pesquisa */
+
+==================================================================================================
+
+//login.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/login.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div id="header_central">
+                <img src="assets/logo_andes.gif">
+                <img src="assets/text_bnwcoffee.gif">
+            </div>
+        </header>
+        
+        <main>  
+              <div id="janela_login">
+                   <form action="login.php" method="post">
+                          <h2>Tela de login</h2>
+                          <input type="text" name="usuario" placeholder="Usuario">
+                          <input type="password" name="senha" placeholder="Senha">
+                          <input type="submit" value="Login">
+                   </form>
+              </div>
+        </main>
+
+        <footer>
+            <div id="footer_central">
+                <p>ANDES &eacute; uma empresa fict&iacute;cia, usada para o curso PHP Integra&ccedil;&atilde;o com MySQL.</p>
+            </div>
+        </footer>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+     if(isset($_POST["usuario"])){
+        $usuario = $_POST["usuario"];
+        $senha = $_POST["senha"];
+
+        echo $usuario . "<BR>";
+        echo $senha;
+
+}
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/login.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div id="header_central">
+                <img src="assets/logo_andes.gif">
+                <img src="assets/text_bnwcoffee.gif">
+            </div>
+        </header>
+        
+        <main>  
+              <div id="janela_login">
+                   <form action="login.php" method="post">
+                          <h2>Tela de login</h2>
+                          <input type="text" name="usuario" placeholder="Usuario">
+                          <input type="password" name="senha" placeholder="Senha">
+                          <input type="submit" value="Login">
+                   </form>
+              </div>
+        </main>
+
+        <footer>
+            <div id="footer_central">
+                <p>ANDES &eacute; uma empresa fict&iacute;cia, usada para o curso PHP Integra&ccedil;&atilde;o com MySQL.</p>
+            </div>
+        </footer>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//unidade07/login.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+     //adicionar variaveis de sessao:
+     session_start();
+
+
+//user test "zac:zac";
+
+     if(isset($_POST["usuario"])){
+        $usuario = $_POST["usuario"];
+        $senha = $_POST["senha"];
+
+      //consulta:
+      $login = "SELECT * ";
+      $login .= "FROM clientes ";
+      $login .= "WHERE usuario = '{$usuario}' and senha = '{$senha}' ";
+
+      //acesso ao banco de dados:
+      $acesso = mysqli_query($conecta, $login);
+      if(!$acesso){
+	  die("Falha na consulta ao banco");
+      }
+
+      $informacao = mysqli_fetch_assoc($acesso);
+
+      if(empty($informacao)){
+	$mensagem = "Login sem sucesso.";
+      } else {
+          //linha do $_SESSION pede qual parametro do banco sera usado, no caso clienteID, mas futuramente usar o parametro do banco Email
+          $_SESSION["user_portal"] = $informacao["clienteID"];
+	  header("location:listagem.php");
+      }
+    }
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/login.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div id="header_central">
+                <img src="assets/logo_andes.gif">
+                <img src="assets/text_bnwcoffee.gif">
+            </div>
+        </header>
+        
+        <main>  
+              <div id="janela_login">
+                   <form action="login.php" method="post">
+                          <h2>Tela de login</h2>
+                          <input type="text" name="usuario" placeholder="Usuario">
+                          <input type="password" name="senha" placeholder="Senha">
+                          <input type="submit" value="Login">
+
+                    <?php
+                       //se(Esta Definido(a variavel $mensagem)) ocorrera a falha, se nao tiver, eh porque deu sucesso.
+                         if(isset($mensagem)){                
+                    ?>
+                       <p><?php echo $mensagem ?></p>
+                    <?php
+                       }
+                    ?>
+
+                   </form>
+              </div>
+        </main>
+
+        <footer>
+            <div id="footer_central">
+                <p>ANDES &eacute; uma empresa fict&iacute;cia, usada para o curso PHP Integra&ccedil;&atilde;o com MySQL.</p>
+            </div>
+        </footer>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+
+==================================================================================================
+
+//unidade07/listagem.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+    //startar a sessao:
+    session_start();
+
+    // Determinar localidade BR
+    setlocale(LC_ALL, 'pt_BR');
+
+    // Consulta ao banco de dados
+    $produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena ";
+    $produtos .= "FROM produtos ";
+    if ( isset($_GET["produto"]) ) {
+        $nome_produto = $_GET["produto"];
+        $produtos .= "WHERE nomeproduto LIKE '%{$nome_produto}%' ";
+    }
+    $resultado = mysqli_query($conecta, $produtos);
+    if(!$resultado) {
+        die("Falha na consulta ao banco");   
+    }
+?>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/produtos.css" rel="stylesheet">
+        <link href="_css/produto_pesquisa.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>
+            <div id="janela_pesquisa">
+                <form action="listagem.php" method="get">
+                    <input type="text" name="produto" placeholder="Pesquisa">
+                    <input type="image"  src="assets/botao_search.png">
+                </form>
+            </div>
+            
+            <div id="listagem_produtos"> 
+            <?php
+                 //essas duas linhas a seguir sao para mostrar a variavel de sessao:
+                 if(isset($_SESSION["user_portal"])){
+                    echo $_SESSION["user_portal"];
+                 }
+                while($linha = mysqli_fetch_assoc($resultado)) {
+            ?>
+                <ul>
+                    <li class="imagem">
+                        <a href="detalhe.php?codigo=<?php echo $linha['produtoID'] ?>">
+                            <img src="<?php echo $linha["imagempequena"] ?>">
+                        </a>
+                    </li>
+                    <li><h3><?php echo $linha["nomeproduto"] ?></h3></li>
+                    <li>Tempo de Entrega : <?php echo $linha["tempoentrega"] ?></li>
+                    <li>Pre&ccedil;o unit&aacute;rio : <?php echo money_format('%.2n',$linha["precounitario"]) ?></li>
+                </ul>
+             <?php
+                }
+            ?>           
+            </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Proteger as paginas após o login: (pode fazer com include tb)
+
+ //proteger a pagina de login:
+    if(!isset($_SESSION["user_portal"])){
+        header("location:login.php");
+    //se nao tiver sessao definida, ele manda de volta para login.php            
+    }
+
+==================================================================================================
+
+//unidade07/listagem.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+    //startar a sessao:
+    session_start();
+
+    //proteger a pagina de login:
+    if(!isset($_SESSION["user_portal"])){
+        header("location:login.php");
+    //se nao tiver sessao definida, ele manda de volta para login.php            
+    }
+
+    // Determinar localidade BR
+    setlocale(LC_ALL, 'pt_BR');
+
+    // Consulta ao banco de dados
+    $produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena ";
+    $produtos .= "FROM produtos ";
+    if ( isset($_GET["produto"]) ) {
+        $nome_produto = $_GET["produto"];
+        $produtos .= "WHERE nomeproduto LIKE '%{$nome_produto}%' ";
+    }
+    $resultado = mysqli_query($conecta, $produtos);
+    if(!$resultado) {
+        die("Falha na consulta ao banco");   
+    }
+?>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/produtos.css" rel="stylesheet">
+        <link href="_css/produto_pesquisa.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>
+            <div id="janela_pesquisa">
+                <form action="listagem.php" method="get">
+                    <input type="text" name="produto" placeholder="Pesquisa">
+                    <input type="image"  src="assets/botao_search.png">
+                </form>
+            </div>
+            
+            <div id="listagem_produtos"> 
+            <?php
+                 //essas duas linhas a seguir sao para mostrar a variavel de sessao:
+                 if(isset($_SESSION["user_portal"])){
+                    echo $_SESSION["user_portal"];
+                 }
+                while($linha = mysqli_fetch_assoc($resultado)) {
+            ?>
+                <ul>
+                    <li class="imagem">
+                        <a href="detalhe.php?codigo=<?php echo $linha['produtoID'] ?>">
+                            <img src="<?php echo $linha["imagempequena"] ?>">
+                        </a>
+                    </li>
+                    <li><h3><?php echo $linha["nomeproduto"] ?></h3></li>
+                    <li>Tempo de Entrega : <?php echo $linha["tempoentrega"] ?></li>
+                    <li>Pre&ccedil;o unit&aacute;rio : <?php echo money_format('%.2n',$linha["precounitario"]) ?></li>
+                </ul>
+             <?php
+                }
+            ?>           
+            </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//unidade07/detalhe.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+<?php
+
+ //proteger a pagina de login:
+    if(!isset($_SESSION["user_portal"])){
+        header("location:login.php");
+    //se nao tiver sessao definida, ele manda de volta para login.php            
+    }
+
+
+    if ( isset($_GET["codigo"]) ) {
+        $produto_id = $_GET["codigo"];
+    } else {
+        Header("Location: login.php");
+    }
+
+    // Consulta ao banco de dados
+    $consulta = "SELECT * ";
+    $consulta .= "FROM produtos ";
+    $consulta .= "WHERE produtoID = {$produto_id} ";
+    $detalhe    = mysqli_query($conecta,$consulta);
+
+    // Testar erro
+    if ( !$detalhe ) {
+        die("Falha no Banco de dados");
+    } else {
+        $dados_detalhe = mysqli_fetch_assoc($detalhe);
+        $produtoID      = $dados_detalhe["produtoID"];
+        $nomeproduto    = $dados_detalhe["nomeproduto"];
+        $descricao      = $dados_detalhe["descricao"];
+        $codigobarra    = $dados_detalhe["codigobarra"];
+        $tempoentrega   = $dados_detalhe["tempoentrega"];
+        $precorevenda   = $dados_detalhe["precorevenda"];
+        $precounitario  = $dados_detalhe["precounitario"];
+        $estoque        = $dados_detalhe["estoque"];
+        $imagemgrande   = $dados_detalhe["imagemgrande"];
+    }
+?>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP FUNDAMENTAL</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/produto_detalhe.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+            <div id="detalhe_produto">
+                <ul>
+                    <li class="imagem"><img src="<?php echo $imagemgrande ?>"></li>
+                    <li><h2><?php echo $nomeproduto ?></h2></li>
+                    <li><b>Descri&ccedil;&atilde;o: </b><?php echo $descricao ?></li>
+                    <li><b>C&oacute;digo de Barra: </b><?php echo $codigobarra ?></li>
+                    <li><b>Tempo de Entrega: </b><?php echo $tempoentrega ?></li>
+                    <li><b>Pre&ccedil;o Revenda: </b><?php echo "R$ " . number_format($precorevenda,2,",",".") ?></li>
+                    <li><b>Pre&ccedil;o Unit&aacute;rio: </b><?php echo "R$ " . number_format($precounitario,2,",",".") ?></li>
+                    <li><b>Estoque: </b><?php echo $estoque ?></li>
+                </ul>
+               
+            </div>
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Criar saudacao de bem vindo:
+unidade_07/_incluir/topo.php
+
+==================================================================================================
+
+<header>
+    <div id="header_central">
+
+     <?php
+     //rotina para saudacao do usuario:
+
+     //Se a variavel de Sessao estiver habilitada com o usuarioDoPortal, escreve uma saudacao, chamado os campos do banco de dados.
+     if(isset($_SESSION["user_portal"])){
+            $user = $_SESSION["user_portal"];
+            
+            $saudacao = "SELECT nomecompleto ";
+            $saudacao .= "FROM clientes ";
+            //$user eh a variavel que foi criada ali em cima para receber os dados de sessao do usuarioDoPortal
+            $saudacao .= "WHERE clienteID = {$user} ";
+
+            $saudacao_login = mysqli_query($conecta, $saudacao);
+            if(!$saudacao_login){
+               die("Falha no banco");
+            }
+ 
+            $saudacao_login = mysqli_fetch_assoc($saudacao_login);
+            $nome = $saudacao_login["nomecompleto"];
+
+     ?>
+
+           <div id="header_saudacao"><h5>Bem vindo, <?php echo $nome ?></h5>
+           </div>
+
+
+     <?php
+          }
+     ?>
+
+
+        <img src="assets/logo_andes.gif">
+        <img src="assets/text_bnwcoffee.gif">
+    </div>
+</header>
+
+==================================================================================================
+
+Fazer logou:
+
+==================================================================================================
+
+//unidade_07/_incluir/topo.php
+
+<header>
+    <div id="header_central">
+
+     <?php
+     //rotina para saudacao do usuario:
+
+     //Se a variavel de Sessao estiver habilitada com o usuarioDoPortal, escreve uma saudacao, chamado os campos do banco de dados.
+     if(isset($_SESSION["user_portal"])){
+            $user = $_SESSION["user_portal"];
+            
+            $saudacao = "SELECT nomecompleto ";
+            $saudacao .= "FROM clientes ";
+            //$user eh a variavel que foi criada ali em cima para receber os dados de sessao do usuarioDoPortal
+            $saudacao .= "WHERE clienteID = {$user} ";
+
+            $saudacao_login = mysqli_query($conecta, $saudacao);
+            if(!$saudacao_login){
+               die("Falha no banco");
+            }
+ 
+            $saudacao_login = mysqli_fetch_assoc($saudacao_login);
+            $nome = $saudacao_login["nomecompleto"];
+
+     ?>
+
+           <div id="header_saudacao"><h5>Bem vindo, <?php echo $nome ?> - <a href="sair.php">Sair</a></h5></div>
+           
+
+
+     <?php
+          }
+     ?>
+
+
+        <img src="assets/logo_andes.gif">
+        <img src="assets/text_bnwcoffee.gif">
+    </div>
+</header>
+
+==================================================================================================
+
+///public/unidade_07/sair.php
+
+<?php
+     //abrir minha variavel sessao:
+     session_start();
+     //excluir a variavel:
+     unset($_SESSION["user_portal"]);
+     //header para a pagina de login.php:
+     header("location:login.php");
+?>
+
+
+==================================================================================================
+
+inserir dados no banco:
+
+INSERT INTO estados (nome,sigla)
+VALUES ('Florida','FL');
+
+==================================================================================================
+
+//(com estado errado)
+
+///unidade_08/inserir_transportadoras.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/crud.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+
+        <div id="janela_formulario">
+
+              <form action="inserir_transportadoras.php" method="post">
+                    <!-- usando o mesmo nome do banco nos campos -->
+                    <input type="text" name="nometransportadora" placeholder="Nome Transportadora">
+                    <input type="text" name="endereco" placeholder="Endereco">
+                    <input type="text" name="telefone" placeholder="Telefone">
+                    <input type="text" name="cidade" placeholder="Cidade">
+                    <select name="estados">
+                           <option value="1">Acre</option>
+                           <option value="2">Amapa</option>
+                    <input type="text" name="cep" placeholder="CEP">
+                    <input type="text" name="cnpj" placeholder="CNPJ">
+                    <input type="Submit" value="inserir">
+              </form>
+
+        </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//(com valor 1 errado no option value)
+
+//unidade_08/inserir_transportadoras.php
+
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+     //chama no banco os estados, consultando:
+     $select = "SELECT estadoID, nome ";
+     $select .= "FROM estados ";
+     $lista_estados = mysqli_query($conecta, $select);
+     if(!$lista_estados){
+         die("Erro no banco");
+     }
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/crud.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+
+        <div id="janela_formulario">
+
+              <form action="inserir_transportadoras.php" method="post">
+                    <!-- usando o mesmo nome do banco nos campos -->
+                    <input type="text" name="nometransportadora" placeholder="Nome Transportadora">
+                    <input type="text" name="endereco" placeholder="Endereco">
+                    <input type="text" name="telefone" placeholder="Telefone">
+                    <input type="text" name="cidade" placeholder="Cidade">
+                    <select name="estados">
+                           <?php
+                                while($linha = mysqli_fetch_assoc($lista_estados)){
+                           ?>
+                           <!-- utf8_encode eh para nao bugar os acentos no banco de dados -->
+                           <option value="1"><?php echo utf8_encode($linha["nome"]); ?></option>
+                           <?php
+                               }
+                           ?>
+                    <input type="text" name="cep" placeholder="CEP">
+                    <input type="text" name="cnpj" placeholder="CNPJ">
+                    <input type="Submit" value="inserir">
+              </form>
+
+        </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//(com option value correto)
+
+//unidade_08/inserir_transportadoras.php
+
+
+==================================================================================================
+
+Conferir se a informacao está chegando no banco:
+
+==================================================================================================
+
+//unidade_08/inserir_transportadoras.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+     //insercao no banco (conferir primeiro se ele esta pela navegacao ou pelo formulario)
+     if(isset($_POST["nometransportadora"])){
+        print_r($_POST);
+     }
+
+     //chama no banco os estados, consultando, selecao de estados:
+     $select = "SELECT estadoID, nome ";
+     $select .= "FROM estados ";
+     $lista_estados = mysqli_query($conecta, $select);
+     if(!$lista_estados){
+         die("Erro no banco");
+     }
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/crud.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+
+        <div id="janela_formulario">
+
+              <form action="inserir_transportadoras.php" method="post">
+                    <!-- usando o mesmo nome do banco nos campos -->
+                    <input type="text" name="nometransportadora" placeholder="Nome Transportadora">
+                    <input type="text" name="endereco" placeholder="Endereco">
+                    <input type="text" name="telefone" placeholder="Telefone">
+                    <input type="text" name="cidade" placeholder="Cidade">
+                    <select name="estados">
+                           <?php
+                                while($linha = mysqli_fetch_assoc($lista_estados)){
+                           ?>
+                           <!-- estadoID eh para chamar os valores de cada estado no campo estadoID da tabela do banco, referente ao la de cima tb -->
+                           <option value="<?php echo $linha["estadoID"]; ?>">
+                           <!-- utf8_encode eh para nao bugar os acentos no banco de dados -->
+                           <?php echo utf8_encode($linha["nome"]); ?>
+                           </option>
+                           <?php
+                               }
+                           ?>
+                    <input type="text" name="cep" placeholder="CEP">
+                    <input type="text" name="cnpj" placeholder="CNPJ">
+                    <input type="Submit" value="inserir">
+              </form>
+
+        </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Fazer realmente a insercao no banco de dados:
+
+==================================================================================================
+
+//public/unidade_08/inserir_transportadoras.php
+
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+     //insercao no banco (conferir primeiro se ele esta pela navegacao ou pelo formulario)
+     if(isset($_POST["nometransportadora"])){
+     //resgatou a informacao e colocou dentro da variavel nome;      
+        $nome       = utf8_decode($_POST["nometransportadora"]);     
+        $endereco   = utf8_decode($_POST["endereco"]);
+        $cidade     = utf8_decode($_POST["cidade"]);
+        $estado     = $_POST["estados"];
+        $cep        = $_POST["cep"];
+        $cnpj       = $_POST["cnpj"];
+        $telefone   = $_POST["telefone"];
+     //os nomes entre aspas, sao os mesmos do formulario.        
+
+     //depois de criar as variaveis, vamos fazer a insercao no banco.
+     //inserir dentro da tabela "transportadoras".
+        $inserir    = "INSERT INTO transportadoras ";
+     //agora a relacao das colunas com o banco de dados, que serao inseridas.
+        $inserir   .= "(nometransportadora, endereco, cidade, estadoID, cep, cnpj, telefone) ";
+        $inserir   .= "VALUES ";
+        $inserir   .= "('$nome,','$endereco','$cidade',$estado,'$cep','$cnpj','$telefone')";
+
+     //comando mysql para conectar no banco e inserir;
+        $operacao_inserir = mysqli_query($conecta, $inserir);
+        if(!$operacao_inserir){
+            die("Erro no banco");
+        }
+
+     }
+
+     //chama no banco os estados, consultando, selecao de estados:
+     $select = "SELECT estadoID, nome ";
+     $select .= "FROM estados ";
+     $lista_estados = mysqli_query($conecta, $select);
+     if(!$lista_estados){
+         die("Erro no banco");
+     }
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/crud.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+
+        <div id="janela_formulario">
+
+              <form action="inserir_transportadoras.php" method="post">
+                    <!-- usando o mesmo nome do banco nos campos -->
+                    <input type="text" name="nometransportadora" placeholder="Nome Transportadora">
+                    <input type="text" name="endereco" placeholder="Endereco">
+                    <input type="text" name="telefone" placeholder="Telefone">
+                    <input type="text" name="cidade" placeholder="Cidade">
+                    <select name="estados">
+                           <?php
+                                while($linha = mysqli_fetch_assoc($lista_estados)){
+                           ?>
+                           <!-- estadoID eh para chamar os valores de cada estado no campo estadoID da tabela do banco, referente ao la de cima tb -->
+                           <option value="<?php echo $linha["estadoID"]; ?>">
+                           <!-- utf8_encode eh para nao bugar os acentos no banco de dados -->
+                           <?php echo utf8_encode($linha["nome"]); ?>
+                           </option>
+                           <?php
+                               }
+                           ?>
+                    <input type="text" name="cep" placeholder="CEP">
+                    <input type="text" name="cnpj" placeholder="CNPJ">
+                    <input type="Submit" value="inserir">
+                      
+                    
+                    <input type="Reset"  value="Limpar">
+
+              </form>
+              
+        </div>
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Remover do banco, usar o comando:
+
+"DELETE FROM `jackbravo2106`.`transportadoras` WHERE `transportadoras`.`transportadoraID` = 5"?
+
+==================================================================================================
+
+Alterar dados:
+
+public/unidade_09
+http://www.jackbravo21.com.br/tcc/phponey/public/unidade_09/listagem.php
+
+==================================================================================================
+
+//public/unidade_09/alteracao.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/alteracao.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+            <div id="janela_formulario">
+                 <form action="alteracao.php" method="post">
+                     <h2>Alteracao de Transportadoras</h2>
+                     
+                     <label for="nometransportadora">Nome da Transportadora</label>
+                     <input type="text" value="" name="nometransportadora" id="nometransportadora">
+                     
+                     <label for="endereco">Endereco</label>
+                     <input type="text" value="" name="endereco" id="endereco">
+
+                     <label for="cidade">Cidade</label>
+                     <input type="text" value="" name="cidade" id="cidade">
+
+                     <label for="estados">Estados</label>
+                     <select id="estados" name="estados">
+                     </select>
+
+                     <label for="cep">CEP</label>
+                     <input type="text" value="" name="cep" id="">
+
+                     <label for="telefone">Telefone</label>
+                     <input type="text" value="" name="telefone" id="telefone">
+
+                     <label for="cnpj">CNPJ</label>
+                     <input type="text" value="" name="cnpj" id="cnpj">
+
+                     <input type="submit" value="Confirmar alteracao">
+
+
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//alterando dados, fazendo consulta nos atuais:
+
+//public/unidade_09/alteracao.php
+
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+       //consulta a tabela de transportadoras
+       $tr = "SELECT * ";
+       $tr .= "FROM transportadoras ";
+       if(isset($_GET["codigo"])){
+             $id = $_GET["codigo"];
+             $tr .= "WHERE transportadoraID = {$id} ";
+
+       }else{
+
+           $tr .= "WHERE transportadoraID = 1 ";
+       } 
+         
+       $con_transportadora = mysqli_query($conecta, $tr);
+       if(!$con_transportadora){
+          die("Erro na consulta");   
+       }
+
+       $info_transportadora = mysqli_fetch_assoc($con_transportadora);
+
+       //exibe o valor la em cima
+       print_r($info_transportadora);
+
+?>
+
+
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/alteracao.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+            <div id="janela_formulario">
+                 <form action="alteracao.php" method="post">
+                     <h2>Alteracao de Transportadoras</h2>
+                     
+                     <label for="nometransportadora">Nome da Transportadora</label>
+                     <input type="text" value="" name="nometransportadora" id="nometransportadora">
+                     
+                     <label for="endereco">Endereco</label>
+                     <input type="text" value="" name="endereco" id="endereco">
+
+                     <label for="cidade">Cidade</label>
+                     <input type="text" value="" name="cidade" id="cidade">
+
+                     <label for="estados">Estados</label>
+                     <select id="estados" name="estados">
+                     </select>
+
+                     <label for="cep">CEP</label>
+                     <input type="text" value="" name="cep" id="cep">
+
+                     <label for="telefone">Telefone</label>
+                     <input type="text" value="" name="telefone" id="telefone">
+
+                     <label for="cnpj">CNPJ</label>
+                     <input type="text" value="" name="cnpj" id="cnpj">
+
+                     <input type="submit" value="Confirmar alteracao">
+
+                 </form>
+           </div>
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Preencher de forma dinamica o formulario, recebendo os dados do banco para editar:
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+       //consulta a tabela de transportadoras
+       $tr = "SELECT * ";
+       $tr .= "FROM transportadoras ";
+       if(isset($_GET["codigo"])){
+             $id = $_GET["codigo"];
+             $tr .= "WHERE transportadoraID = {$id} ";
+
+       }else{
+
+           $tr .= "WHERE transportadoraID = 1 ";
+       } 
+         
+       $con_transportadora = mysqli_query($conecta, $tr);
+       if(!$con_transportadora){
+          die("Erro na consulta");   
+       }
+
+       $info_transportadora = mysqli_fetch_assoc($con_transportadora);
+
+?>
+
+
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/alteracao.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+            <div id="janela_formulario">
+                 <form action="alteracao.php" method="post">
+                     <h2>Alteracao de Transportadoras</h2>
+                     
+                     <label for="nometransportadora">Nome da Transportadora</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["nometransportadora"]) ?>" name="nometransportadora" id="nometransportadora">
+                     
+                     <label for="endereco">Endereco</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["endereco"]) ?>" name="endereco" id="endereco">
+
+                     <label for="cidade">Cidade</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cidade"]) ?>" name="cidade" id="cidade">
+
+                     <label for="estados">Estados</label>
+                     <select id="estados" name="estados">
+                     </select>
+
+                     <label for="cep">CEP</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cep"]) ?>" name="cep" id="cep">
+
+                     <label for="telefone">Telefone</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["telefone"]) ?>" name="telefone" id="telefone">
+
+                     <label for="cnpj">CNPJ</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cnpj"]) ?>" name="cnpj" id="cnpj">
+
+                     <input type="submit" value="Confirmar alteracao">
+
+                 </form>
+           </div>
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//parte da selecao do estado:
+
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+       //consulta a tabela de transportadoras
+       $tr = "SELECT * ";
+       $tr .= "FROM transportadoras ";
+       if(isset($_GET["codigo"])){
+             $id = $_GET["codigo"];
+             $tr .= "WHERE transportadoraID = {$id} ";
+
+       }else{
+
+           $tr .= "WHERE transportadoraID = 1 ";
+       } 
+         
+       $con_transportadora = mysqli_query($conecta, $tr);
+       if(!$con_transportadora){
+          die("Erro na consulta");   
+       }
+
+       $info_transportadora = mysqli_fetch_assoc($con_transportadora);
+
+       //Consulta aos estados
+       $estados = "SELECT * ";
+       $estados .= "FROM estados ";
+       $lista_estados = mysqli_query($conecta, $estados);
+       if(!$lista_estados){
+         die("erro no banco");
+}
+
+
+?>
+
+
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/alteracao.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+            <div id="janela_formulario">
+                 <form action="alteracao.php" method="post">
+                     <h2>Alteracao de Transportadoras</h2>
+                     
+                     <label for="nometransportadora">Nome da Transportadora</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["nometransportadora"]) ?>" name="nometransportadora" id="nometransportadora">
+                     
+                     <label for="endereco">Endereco</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["endereco"]) ?>" name="endereco" id="endereco">
+
+                     <label for="cidade">Cidade</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cidade"]) ?>" name="cidade" id="cidade">
+
+                     <label for="estados">Estados</label>
+                     <select id="estados" name="estados">
+                        <?php
+
+                        $meuestado = $info_transportadora["estadoID"];
+                        while($linha = mysqli_fetch_assoc($lista_estados)){
+                             $estado_principal = $linha["estadoID"];
+                             if($meuestado == $estado_principal){
+                        ?>
+
+                        <option value="<?php echo $linha["estadoID"] ?>" selected>
+                             <?php echo utf8_encode($linha["nome"]) ?>
+                        </option>
+                        <?php 
+                        //comparar a linha que esta na tabela de transportadora, com a linha do estado                       
+                           }else{
+                        ?>
+                        <option value="<?php echo $linha["estadoID"] ?>">
+                             <?php echo utf8_encode($linha["nome"]) ?>
+                        </option>
+                        <?php 
+                                }
+                        }
+                        ?>
+                     </select>
+
+                     <label for="cep">CEP</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cep"]) ?>" name="cep" id="cep">
+
+                     <label for="telefone">Telefone</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["telefone"]) ?>" name="telefone" id="telefone">
+
+                     <label for="cnpj">CNPJ</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cnpj"]) ?>" name="cnpj" id="cnpj">
+
+                     <input type="submit" value="Confirmar alteracao">
+
+                 </form>
+           </div>
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//Certificando que esta enviando a informacao correta:
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+       //vou perguntar pra ela se ja foi configurar determinada variavel.
+       if(isset($_POST["nometransportadora"])){
+       $nome         = utf8_decode($_POST["nometransportadora"]);
+       $endereco     = utf8_decode($_POST["endereco"]);
+       $cidade       = utf8_decode($_POST["cidade"]);
+       $estado       = $_POST["estado"];
+       $cep          = $_POST["cep"];
+       $cnpj         = $_POST["cnpj"];
+       $telefone     = $_POST["telefone"];
+       $tID          = $_POST["tID"];
+
+       print_r($nome);
+
+}
+
+
+       //consulta a tabela de transportadoras
+       $tr = "SELECT * ";
+       $tr .= "FROM transportadoras ";
+       if(isset($_GET["codigo"])){
+             $id = $_GET["codigo"];
+             $tr .= "WHERE transportadoraID = {$id} ";
+
+       }else{
+
+           $tr .= "WHERE transportadoraID = 1 ";
+       } 
+         
+       $con_transportadora = mysqli_query($conecta, $tr);
+       if(!$con_transportadora){
+          die("Erro na consulta");   
+       }
+
+       $info_transportadora = mysqli_fetch_assoc($con_transportadora);
+
+       //Consulta aos estados
+       $estados = "SELECT * ";
+       $estados .= "FROM estados ";
+       $lista_estados = mysqli_query($conecta, $estados);
+       if(!$lista_estados){
+         die("erro no banco");
+}
+
+
+?>
+
+
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/alteracao.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+            <div id="janela_formulario">
+                 <form action="alteracao.php" method="post">
+                     <h2>Alteracao de Transportadoras</h2>
+                     
+                     <label for="nometransportadora">Nome da Transportadora</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["nometransportadora"]) ?>" name="nometransportadora" id="nometransportadora">
+                     
+                     <label for="endereco">Endereco</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["endereco"]) ?>" name="endereco" id="endereco">
+
+                     <label for="cidade">Cidade</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cidade"]) ?>" name="cidade" id="cidade">
+
+                     <label for="estados">Estados</label>
+                     <select id="estados" name="estados">
+                        <?php
+
+                        $meuestado = $info_transportadora["estadoID"];
+                        while($linha = mysqli_fetch_assoc($lista_estados)){
+                             $estado_principal = $linha["estadoID"];
+                             if($meuestado == $estado_principal){
+                        ?>
+
+                        <option value="<?php echo $linha["estadoID"] ?>" selected>
+                             <?php echo utf8_encode($linha["nome"]) ?>
+                        </option>
+                        <?php 
+                        //comparar a linha que esta na tabela de transportadora, com a linha do estado                       
+                           }else{
+                        ?>
+                        <option value="<?php echo $linha["estadoID"] ?>">
+                             <?php echo utf8_encode($linha["nome"]) ?>
+                        </option>
+                        <?php 
+                                }
+                        }
+                        ?>
+                     </select>
+
+                     <label for="cep">CEP</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cep"]) ?>" name="cep" id="cep">
+
+                     <label for="telefone">Telefone</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["telefone"]) ?>" name="telefone" id="telefone">
+
+                     <label for="cnpj">CNPJ</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cnpj"]) ?>" name="cnpj" id="cnpj">
+                     
+                     <p>ID Banco <br> (Nao Mexer!)</p>
+                    &nbsp;<!-- exibe o codigo da transportadora: coloca-se no type "hidden" -->
+                     <input type="text" name="transportadoraID" value="<?php echo $info_transportadora["transportadoraID"] ?>">
+
+                     <input type="submit" value="Confirmar alteracao">
+
+                 </form>
+           </div>
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//Realizando a alteracao de fato dos dados:
+
+use jackbravo2106;
+UPDATE 	transportadoras						//nome da tabela
+SET	nometransportadora = 'Transportadora FEDEXX',		//nome do campo + nome da transportadora
+cidade = "São Paulo",						//se tiver outros campos, seguir
+estadoID = 27,							//numero nao tem aspas
+cep = "01.101-100"
+WHERE transportadoraID = 5;					//ATENCAO: precisa de WHERE para n alterar todos os campos/linhas.
+
+
+==================================================================================================
+
+//public/unidade_09
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+       //vou perguntar pra ela se ja foi configurar determinada variavel.
+       if(isset($_POST["nometransportadora"])){
+       $nome         = utf8_decode($_POST["nometransportadora"]);
+       $endereco     = utf8_decode($_POST["endereco"]);
+       $cidade       = utf8_decode($_POST["cidade"]);
+       $estado       = $_POST["estados"];
+       $cep          = $_POST["cep"];
+       $cnpj         = $_POST["cnpj"];
+       $telefone     = $_POST["telefone"];
+       $tID          = $_POST["transportadoraID"];
+
+       //Objeto para alterar:
+       $alterar = "UPDATE transportadoras ";
+       $alterar .= "SET ";
+       $alterar .= "nometransportadora = '{$nome}', ";
+       $alterar .= "endereco = '{endereco}', ";
+       $alterar .= "cidade = '{$cidade}', ";
+       $alterar .= "estadoID = {$estado}, ";
+       $alterar .= "cep = '{$cep}', ";
+       $alterar .= "cnpj = '{$cnpj}', ";
+       $alterar .= "telefone = '{$telefone}' ";
+       $alterar .= "WHERE transportadoraID = {$tID} ";
+       //comando mysql:
+       $operacao_alterar = mysqli_query($conecta, $alterar);
+       if(!$operacao_alterar){
+          die("Erro na alteracao");
+       } else{
+              header("location:listagem.php");
+       }
+
+
+}
+
+
+       //consulta a tabela de transportadoras
+       $tr = "SELECT * ";
+       $tr .= "FROM transportadoras ";
+       if(isset($_GET["codigo"])){
+             $id = $_GET["codigo"];
+             $tr .= "WHERE transportadoraID = {$id} ";
+
+       }else{
+
+           $tr .= "WHERE transportadoraID = 1 ";
+       } 
+         
+       $con_transportadora = mysqli_query($conecta, $tr);
+       if(!$con_transportadora){
+          die("Erro na consulta");   
+       }
+
+       $info_transportadora = mysqli_fetch_assoc($con_transportadora);
+
+       //Consulta aos estados
+       $estados = "SELECT * ";
+       $estados .= "FROM estados ";
+       $lista_estados = mysqli_query($conecta, $estados);
+       if(!$lista_estados){
+         die("erro no banco");
+}
+
+
+?>
+
+
+
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/alteracao.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+            <div id="janela_formulario">
+                 <form action="alteracao.php" method="post">
+                     <h2>Alteracao de Transportadoras</h2>
+                     
+                     <label for="nometransportadora">Nome da Transportadora</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["nometransportadora"]) ?>" name="nometransportadora" id="nometransportadora">
+                     
+                     <label for="endereco">Endereco</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["endereco"]) ?>" name="endereco" id="endereco">
+
+                     <label for="cidade">Cidade</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cidade"]) ?>" name="cidade" id="cidade">
+
+                     <label for="estados">Estados</label>
+                     <select id="estados" name="estados">
+                        <?php
+
+                        $meuestado = $info_transportadora["estadoID"];
+                        while($linha = mysqli_fetch_assoc($lista_estados)){
+                             $estado_principal = $linha["estadoID"];
+                             if($meuestado == $estado_principal){
+                        ?>
+
+                        <option value="<?php echo $linha["estadoID"] ?>" selected>
+                             <?php echo utf8_encode($linha["nome"]) ?>
+                        </option>
+                        <?php 
+                        //comparar a linha que esta na tabela de transportadora, com a linha do estado                       
+                           }else{
+                        ?>
+                        <option value="<?php echo $linha["estadoID"] ?>">
+                             <?php echo utf8_encode($linha["nome"]) ?>
+                        </option>
+                        <?php 
+                                }
+                        }
+                        ?>
+                     </select>
+
+                     <label for="cep">CEP</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cep"]) ?>" name="cep" id="cep">
+
+                     <label for="telefone">Telefone</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["telefone"]) ?>" name="telefone" id="telefone">
+
+                     <label for="cnpj">CNPJ</label>
+                     <input type="text" value="<?php echo utf8_encode($info_transportadora["cnpj"]) ?>" name="cnpj" id="cnpj">
+                     
+                     <p>ID Banco <br> (Nao Mexer!)</p>
+                    &nbsp;<!-- exibe o codigo da transportadora: coloca-se no type "hidden" -->
+                     <input type="text" name="transportadoraID" value="<?php echo $info_transportadora["transportadoraID"] ?>">
+
+                     <input type="submit" value="Confirmar alteracao">
+
+                 </form>
+           </div>
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+
+==================================================================================================
+
+//Criar uma pagina de exclusao de dados e consulta de banco de dados:
+
+/unidade_10/exclusao.php
+/www/tcc/phponey/public/unidade_10/exclusao.php
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+//primeiro passo eh a consulta do banco de dados.
+
+           //consulta a tabela de transportadoras;
+           $tr = "SELECT * FROM transportadoras ";
+           if (isset($_GET["codigo"])){
+                $id = $_GET["codigo"];
+                $tr .= "WHERE transportadoraID = {$id} "; 
+           }
+
+           $con_transportadora = mysqli_query($conecta, $tr);
+           if(!$con_transportadora){
+               die("Erro na consulta");
+           }
+           $info_transportadora = mysqli_fetch_assoc($con_transportadora);
+           print_r($info_transportadora);
+
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//Pagina de confirmacao de exclusao de dados:
+
+ Arquivo: /www/tcc/phponey/public/unidade_10/exclusao.php
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+//primeiro passo eh a consulta do banco de dados.
+
+           //consulta a tabela de transportadoras;
+           $tr = "SELECT * FROM transportadoras ";
+           if (isset($_GET["codigo"])){
+                $id = $_GET["codigo"];
+                $tr .= "WHERE transportadoraID = {$id} "; 
+           }
+
+           $con_transportadora = mysqli_query($conecta, $tr);
+           if(!$con_transportadora){
+               die("Erro na consulta");
+           }
+           $info_transportadora = mysqli_fetch_assoc($con_transportadora);
+          
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/alteracao.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>  
+
+<div id="janela_formulario">
+                <form action="alteracao.php" method="post">
+                    <h2>ExclusÃ£o de Transportadora</h2>
+                    
+                    <label for="nometransportadora">Nome da Transportadora</label>
+                    <input type="text" value="<?php echo utf8_encode($info_transportadora["nometransportadora"])  ?>" name="nometransportadora" id="nometransportadora">
+
+                    <label for="endereco">EndereÃ§o</label>
+                    <input type="text" value="<?php echo utf8_encode($info_transportadora["endereco"])  ?>" name="endereco" id="endereco">
+                    
+                    <label for="cidade">Cidade</label>
+                    <input type="text" value="<?php echo utf8_encode($info_transportadora["cidade"])  ?>" name="cidade" id="cidade">
+                    
+ 
+                    <input type="hidden" name="transportadoraID" value="<?php echo $info_transportadora["transportadoraID"] ?>">
+                    <input type="submit" value= "Confirmar ExclusÃ£o">                    
+                </form>   
+            </div>
+
+            
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+Upload de arquivos:
+
+/www/tcc/phponey/public/unidade_11/upload.php
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <style>
+              input{
+                     display:block;
+                     margin-bottom:15px;
+                   }
+        </style>
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>
+            <form action="upload.php"
+                  method="post" enctype="multipart/form-data">
+
+                <input type="file" name="upload_file">
+                <input type="submit" name="enviar" value="publicar">  
+            </form>   
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+
+==================================================================================================
+
+
+==================================================================================================
+
+phpfsTQeg
+
+44404841_1082745591887339_364594542487273472_n.jpg
+
+[name] => 44404841_1082745591887339_364594542487273472_n.jpg
+    [type] => image/jpeg
+    [tmp_name] => /tmp/phpfsTQeg
+    [error] => 0
+    [size] => 22725
+
+==================================================================================================
+
+//www/tcc/phponey/public/unidade_11/upload.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+//verificar se a pagina veio atraves do formulario ou navegacao (POST eh superglobal)
+     if(isset($_POST["enviar"])) {
+        echo "<pre>";
+        print_r($_FILES['upload_file']);     
+        echo "</pre>";
+
+        echo $_FILES['upload_file']['name'];
+     }
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <style>
+              input{
+                     display:block;
+                     margin-bottom:15px;
+                   }
+        </style>
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>
+            <form action="upload.php"
+                  method="post" enctype="multipart/form-data">
+
+                <input type="file" name="upload_file">
+                <input type="submit" name="enviar" value="publicar">  
+            </form>   
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+    //codigos de erro:
+    $array_erro = array(
+        UPLOAD_ERR_OK => "Sem erro.",
+        UPLOAD_ERR_INI_SIZE => "O arquivo enviado excede o limite definido na diretiva upload_max_filesize do php.ini.",
+        UPLOAD_ERR_FORM_SIZE => "O arquivo excede o limite definido em MAX_FILE_SIZE no formulÃ¡rio HTML",
+        UPLOAD_ERR_PARTIAL => "O upload do arquivo foi feito parcialmente.",
+        UPLOAD_ERR_NO_FILE => "Nenhum arquivo foi enviado.",
+        UPLOAD_ERR_NO_TMP_DIR => "Pasta temporÃ¡ria ausente.",
+        UPLOAD_ERR_CANT_WRITE => "Falha em escrever o arquivo em disco.",
+        UPLOAD_ERR_EXTENSION => "Uma extensÃ£o do PHP interrompeu o upload do arquivo."
+    ); 
+
+
+//verificar se a pagina veio atraves do formulario ou navegacao (POST eh superglobal)
+     if(isset($_POST["enviar"])) {
+        $numero_erro = $_FILES['upload_file']['error'];
+        $mensagem = $array_erro[$numero_erro];
+
+        echo "<pre>";
+        print_r($_FILES['upload_file']);     
+        echo "</pre>";
+        echo "</hr>";
+        echo $mensagem;
+     }
+
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <style>
+              input{
+                     display:block;
+                     margin-bottom:15px;
+                   }
+        </style>
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>
+            <form action="upload.php"
+                  method="post" enctype="multipart/form-data">
+
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+                <input type="file" name="upload_file">
+                <input type="submit" name="enviar" value="publicar">  
+            </form>   
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+//www/tcc/phponey/public/unidade_11/upload.php
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+    //codigos de erro:
+    $array_erro = array(
+        UPLOAD_ERR_OK => "Sem erro.",
+        UPLOAD_ERR_INI_SIZE => "O arquivo enviado excede o limite definido na diretiva upload_max_filesize do php.ini.",
+        UPLOAD_ERR_FORM_SIZE => "O arquivo excede o limite definido em MAX_FILE_SIZE no formulÃ¡rio HTML",
+        UPLOAD_ERR_PARTIAL => "O upload do arquivo foi feito parcialmente.",
+        UPLOAD_ERR_NO_FILE => "Nenhum arquivo foi enviado.",
+        UPLOAD_ERR_NO_TMP_DIR => "Pasta temporÃ¡ria ausente.",
+        UPLOAD_ERR_CANT_WRITE => "Falha em escrever o arquivo em disco.",
+        UPLOAD_ERR_EXTENSION => "Uma extensÃ£o do PHP interrompeu o upload do arquivo."
+    ); 
+
+
+//verificar se a pagina veio atraves do formulario ou navegacao (POST eh superglobal)
+     if(isset($_POST["enviar"])) {
+
+        $arquivo_temporario = $_FILES['upload_file']['tmp_name'];
+        $arquivo = basename($_FILES['upload_file']['name']);
+        $diretorio = "uploads";
+        
+        if
+        (move_uploaded_file($arquivo_temporario, $diretorio."/".$arquivo)) {
+               $mensagem = "Arquivo publicado";
+        }else{
+               $numero_erro = $_FILES['upload_file']['error'];
+               $mensagem = $array_erro[$numero_erro];
+        }
+     }
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <style>
+              input{
+                     display:block;
+                     margin-bottom:15px;
+                   }
+        </style>
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>
+            <form action="upload.php"
+                  method="post" enctype="multipart/form-data">
+
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+                <input type="file" name="upload_file">
+                <input type="submit" name="enviar" value="publicar">  
+            </form>   
+
+            <?php
+                if(isset($mensagem)){
+	           echo $mensagem;
+                }
+            ?>
+
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+ Arquivo: /www/tcc/phponey/public/unidade_11/_incluir/funcoes.php
+
+
+<?php
+
+     function mostrarAvisoPublicacao($numero){
+
+    //codigos de erro:
+    $array_erro = array(
+        UPLOAD_ERR_OK => "Sem erro.",
+        UPLOAD_ERR_INI_SIZE => "O arquivo enviado excede o limite definido na diretiva upload_max_filesize do php.ini.",
+        UPLOAD_ERR_FORM_SIZE => "O arquivo excede o limite definido em MAX_FILE_SIZE no formulÃ¡rio HTML",
+        UPLOAD_ERR_PARTIAL => "O upload do arquivo foi feito parcialmente.",
+        UPLOAD_ERR_NO_FILE => "Nenhum arquivo foi enviado.",
+        UPLOAD_ERR_NO_TMP_DIR => "Pasta temporÃ¡ria ausente.",
+        UPLOAD_ERR_CANT_WRITE => "Falha em escrever o arquivo em disco.",
+        UPLOAD_ERR_EXTENSION => "Uma extensÃ£o do PHP interrompeu o upload do arquivo."
+    ); 
+        return $array_erro[$numero];
+
+    }
+ 
+?>
+
+==================================================================================================
+
+ Arquivo: /www/tcc/phponey/public/unidade_11/_incluir/funcoes.php
+
+<?php
+
+     function mostrarAvisoPublicacao($numero){
+
+    //codigos de erro:
+    $array_erro = array(
+        UPLOAD_ERR_OK => "Sem erro.",
+        UPLOAD_ERR_INI_SIZE => "O arquivo enviado excede o limite definido na diretiva upload_max_filesize do php.ini.",
+        UPLOAD_ERR_FORM_SIZE => "O arquivo excede o limite definido em MAX_FILE_SIZE no formulÃ¡rio HTML",
+        UPLOAD_ERR_PARTIAL => "O upload do arquivo foi feito parcialmente.",
+        UPLOAD_ERR_NO_FILE => "Nenhum arquivo foi enviado.",
+        UPLOAD_ERR_NO_TMP_DIR => "Pasta temporÃ¡ria ausente.",
+        UPLOAD_ERR_CANT_WRITE => "Falha em escrever o arquivo em disco.",
+        UPLOAD_ERR_EXTENSION => "Uma extensÃ£o do PHP interrompeu o upload do arquivo."
+    ); 
+        return $array_erro[$numero];
+
+    }
+
+        function publicarArquivo($imagem) {
+
+        $arquivo_temporario = $_FILES['upload_file']['tmp_name'];
+        $arquivo = basename($_FILES['upload_file']['name']);
+        $diretorio = "uploads";
+        
+        if
+        (move_uploaded_file($arquivo_temporario, $diretorio."/".$arquivo)) {
+               $mensagem = "Arquivo publicado";
+        }else{
+               $numero_erro = $_FILES['upload_file']['error'];
+               $mensagem = $array_erro[$numero_erro];
+        }
+
+    }
+ 
+?>
+
+==================================================================================================
+
+ Arquivo: /www/tcc/phponey/public/unidade_11/upload.php
+  
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+
+<?php
+
+//verificar se a pagina veio atraves do formulario ou navegacao (POST eh superglobal)
+     if(isset($_POST["enviar"])) {
+          $mensagem = publicarArquivo($_FILES['upload_file']);      
+     }
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <style>
+              input{
+                     display:block;
+                     margin-bottom:15px;
+                   }
+        </style>
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>
+            <form action="upload.php"
+                  method="post" enctype="multipart/form-data">
+
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+                <input type="file" name="upload_file">
+                <input type="submit" name="enviar" value="publicar">  
+            </form>   
+
+            <?php
+                if(isset($mensagem)){
+	           echo $mensagem;
+                }
+            ?>
+
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+<?php require_once("../../php_integracao/conexao/conexao.php"); ?>
+<?php require_once("_incluir/funcoes.php"); ?>
+
+
+<?php
+
+//verificar se a pagina veio atraves do formulario ou navegacao (POST eh superglobal)
+     if(isset($_POST["enviar"])) {
+          $mensagem = publicarArquivo($_FILES['upload_file']);      
+     }
+?>
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Curso PHP INTEGRACAO</title>
+        
+        <!-- estilo -->
+        <link href="_css/estilo.css" rel="stylesheet">
+        <style>
+              input{
+                     display:block;
+                     margin-bottom:15px;
+                   }
+        </style>
+    </head>
+
+    <body>
+        <?php include_once("_incluir/topo.php"); ?>
+        
+        <main>
+            <form action="upload.php"
+                  method="post" enctype="multipart/form-data">
+
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+                <input type="file" name="upload_file">
+                <input type="submit" name="enviar" value="publicar">  
+            </form>   
+
+            <?php
+                if(isset($mensagem)){
+	           echo $mensagem;
+                }
+            ?>
+
+        </main>
+
+        <?php include_once("_incluir/rodape.php"); ?>  
+    </body>
+</html>
+
+<?php
+    // Fechar conexao
+    mysqli_close($conecta);
+?>
+
+==================================================================================================
+
+<?php
+
+     function mostrarAvisoPublicacao($numero){
+
+    //codigos de erro:
+    $array_erro = array(
+        UPLOAD_ERR_OK => "Sem erro.",
+        UPLOAD_ERR_INI_SIZE => "O arquivo enviado excede o limite definido na diretiva upload_max_filesize do php.ini.",
+        UPLOAD_ERR_FORM_SIZE => "O arquivo excede o limite definido em MAX_FILE_SIZE no formulÃ¡rio HTML",
+        UPLOAD_ERR_PARTIAL => "O upload do arquivo foi feito parcialmente.",
+        UPLOAD_ERR_NO_FILE => "Nenhum arquivo foi enviado.",
+        UPLOAD_ERR_NO_TMP_DIR => "Pasta temporÃ¡ria ausente.",
+        UPLOAD_ERR_CANT_WRITE => "Falha em escrever o arquivo em disco.",
+        UPLOAD_ERR_EXTENSION => "Uma extensÃ£o do PHP interrompeu o upload do arquivo."
+    ); 
+        return $array_erro[$numero];
+
+    }
+
+        function publicarArquivo($imagem) {
+
+        $arquivo_temporario = $imagem['tmp_name'];
+        $arquivo = basename($imagem['name']);
+        $diretorio = "uploads";
+        
+        if
+        (move_uploaded_file($arquivo_temporario, $diretorio."/".$arquivo)) {
+               $mensagem = "Arquivo publicado";
+        }else{
+               $numero_erro = $imagem['upload_file']['error'];
+               $mensagem = mostrarAvisoPublicacao($imagem['error']);
+        }
+             return $mensagem;
+
+    }
+ 
+?>
+
+==================================================================================================
+
+
+==================================================================================================
+
+
+==================================================================================================
+
+==================================================================================================
+
+
+==================================================================================================
+
+
+==================================================================================================
+
+
+==================================================================================================
+
+
+==================================================================================================
+
+==================================================================================================
+
+
+==================================================================================================
+
+
+==================================================================================================
+
+
+==================================================================================================
+
+
+==================================================================================================
+
+
+equação de 1° e 2° Grau, Teoremas
+
+
+fraps = gravar
+vip chat thinder
+
+Banco de dados:
+use jackbravo2106;
+select nomeproduto, precounitario from produtos;
+
+

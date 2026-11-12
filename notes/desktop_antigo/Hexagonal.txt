@@ -1,0 +1,60 @@
+- Primeiro a estrutura:
+
+-src
+
+ --finances
+
+ --humanresources
+  ---adapter
+  ----mail
+  ----repository
+  -----employeeModel.ts
+  -----employeeRepositoryArray.ts
+  -----employeeRepositoryDb.ts
+  -----employeeRepositoryJson.ts	//implemento a interface;
+
+  ---application			//crio classes de casos de uso;
+  ----registerEmployeeService.ts	//crio classes que reprentam a ligacao de casos de uso, nesse ex eh um service, nesse caso eu recebo um request e converto os dados, chamo o caso de uso e executo ele;
+
+  ---domain
+   ----entity				//nao eh a entidade que eu mando para ORM, eh a entidade de dominio;
+    -----employee.ts
+   ----port
+   -----employeeRepository.ts		//entidade de modelar negocio;
+   ----usecase				//caso de uso, regra de negocio (filterEmployeeUseCase), se eu tiver um envio de email, o email vai ser uma porta, que vai depender de alguma implementacao;
+
+  ---http
+   ----rest
+    -----employeeController.ts		//camada de framework; Tem os metodos handle que tem os controllers com os request;
+
+  --shared				//coisas complartilhadas, como financas, recursos humanos;
+  ---domain
+  ----email.ts
+  ----entity.ts				//entidade que apenas gera UUID;
+
+  --util
+  ---either.ts
+
+-app.ts					//express;
+
+-test					//pasta teste para teste de integracao;
+
+==============================
+
+adapter 
+application
+domain
+http				//unica camada que muda;
+
+==============================
+
+controller/aplication(chama o caso de uso/domain(caso de uso)/porta(pega implementacao completa)/
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1080 @@
+npm install -g @vue/cli
+vue create nome-projeto
+npm run serve
+
+npm install axios
+yarn add axios
+import axios from "axios";
+https://www.youtube.com/watch?v=vYlz3SmNXQQ
+
+
+npm install v-mask
+yarn add v-mask
+- E também realizar a importação no main.js do Vue:
+import VueMask from 'v-mask';
+Vue.use(VueMask);
+
+-----------------
+
+https://github.com/vuejs/vue-cli
+
+npm install --global vue-cli
+vue init webpack-simple nome_do_projeto
+
+pasta de trabalho: ./src/main.js
+
+   To get started:
+
+     cd netflix_vue
+     npm install
+     npm run build
+     npm run dev
+
+
+==================================================================================
+
+componente: json-server
+- Criar um arquivo db.json e colocar dentro os arquivos que vc quer listar.
+- Ex.:
+{
+  "posts": [
+    { "id": 1, "title": "json-server", "author": "typicode" }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "profile": { "name": "typicode" }
+}    
+
+-----------------------------------------------------------------------------------
+
+- Install JSON Server:
+npm install -g json-server
+
+- Start JSON Server:
+json-server --watch db.json
+
+- URL test:
+http://localhost:3000/
+http://localhost:3000/db
+
+Now if you go to http://localhost:3000/posts/1, you'll get
+
+{ "id": 1, "title": "json-server", "author": "typicode" }
+
+==================================================================================
+
+Requisicoes HTTP/Rest:
+
+- vue-resource;
+
+- Install:
+npm install vue-resource --save
+yarn add vue-resource
+
+Ex.:
+
+{
+  // GET /someUrl
+  this.$http.get('/someUrl').then(response => {
+
+    // get body data
+    this.someData = response.body;
+
+  }, response => {
+    // error callback
+  });
+}
+
+==================================================================================
+
+Vue-Router 2
+
+npm install vue-router
+
+
+- Tirar # das rotas:
+https://router.vuejs.org/en/essentials/history-mode.html
+
+==================================================================================
+
+- Copilar e enviar para o servidor:
+npm run build
+
+- Os arquivos vao estar dentro da "/dist";
+
+
+==============================================================================
+
+- Passagem de dados por meio do parametro "data":
+
+{{identificador}}, v-html, v-bind, {{identificador+expressao_js}};
+
+--------
+
+<div id="data_binding">
+
+	<h1>{{ message }}</h1>
+	
+	<p> Meu nome eh {{ person.name }}. Tenho  {{ person.age }} anos. </p>
+	
+	<span v-html="tag"></span>
+
+	<h1 v-bind:title="tagMessage">{{ message }}</h1>
+
+	<h2>Essa mensagem em letras garrafais: {{ message.toUpperCase() }}</h2>
+
+<script>
+
+	let app = new Vue({
+		el: "#data_binding",
+		data:{
+			message: "Mensagem a ser exibida",
+			person: {
+				name: "Antony",
+				age: 20
+			},
+			tag: "<button>Clique Aqui</button>",
+			tagMessage: "Essa eh uma tag de titulo."
+			
+		}
+	})
+
+</script>
+==============================================================================
+
+- Methods (v-on):
+* Realizam acoes e eventos;
+* Fica escutando e eh executado quantas vezes for chamado;
+
+<div id="methods">
+
+	<h1>{{ message }}</h1>
+	
+	<!-- v-on: quando acontece algo, blur: quando tira o mouse de cima, $event: variavel padrao que contem objeto do evento, target: alvo/input, value: busca o valor dele -->
+	<input type="text" placeholder="Digite uma mensagem" v-on:blur="replaceMessage($event.target.value)">
+	
+
+<script>
+
+	let app = new Vue({
+		el: "#methods",
+		data:{
+			message: "Mensagem a ser exibida";
+		},
+		methods:{
+			reverseMessage: function(){
+				this.message = this.message.split("").reverse().join("");
+		},
+			replaceMessage(newMessage){
+				this.message = newMessage;
+		}	
+		}
+	})
+
+</script>
+
+ConsoleLog: app.reverseMessage();
+
+--------------------------------------------------
+
+Exemplos de SPLIT:
+
+Podes usar .split(' ') para criar uma array. Depois usando o .slice(0, 2) crias uma cópia só com os dois primeiros. Por fim, se quiseres de volta uma string, podes fazer .join(' '):
+
+---------------------
+
+'Renan Rodrigues Moraes'.split(' ').slice(0, 2).join(' ');
+
+---------------------
+
+exemplo: https://jsfiddle.net/bo2ropp1/
+No caso de haver nomes com de ou do como por exemplo Renan de Assis poderias usar regex assim (link), ou verificar se a segunda palavra começa com letra grande assim (link), assim:
+
+---------------------
+
+function nome(str) {
+    var arr = str.split(' ');
+    if (arr[1][0].toUpperCase() != arr[1][0]) arr.splice(1, 1);
+    return arr.slice(0, 2).join(' ');
+}
+
+---------------------
+
+De qualquer maneira precisas criar alguns exemplos e testar para teres certeza que funciona como queres...
+
+E para manter esses de/do poderias fazer assim:
+
+---------------------
+
+function nome(str) {
+    var arr = str.split(' ');
+    var keep = arr[1][0].toUpperCase() != arr[1][0];
+    return arr.slice(0, keep ? 3 : 2).join(' ');
+}
+
+---------------------
+---------------------
+var nome = "Renan Rodrigues Moraes";
+var tmp = nome.split(" ");
+nome = tmp[0] + " " + tmp[1];
+---------------------
+---------------------
+
+Console.log:
+
+var nome = "Renan Rodrigues de Ferreira";
+nome
+'Renan Rodrigues de Ferreira'
+var tmp = nome.split(" ");
+tmp
+(4) ['Renan', 'Rodrigues', 'de', 'Ferreira'] 
+	0: "Renan"1: "Rodrigues"2: "de"3: "Ferreira"
+		length: 4
+tmp[1]
+'Rodrigues'
+nome = tmp[0] + " " + tmp[3]
+'Renan Ferreira'
+tmp.length
+4
+
+nome = tmp[0] + " " + tmp[tmp.length-1];
+'Renan Ferreira'
+
+-----------------------
+
+split de hora:
+
+var c = '2015-03-04T00:00:00.000Z';
+var d = c.split("T");
+	['2015-03-04', '00:00:00.000Z']
+var f = d[0]
+	'2015-03-04'
+var g = f[0].split("-")
+	(3) ['2015', '03', '04']
+var h = g[2]+"-"+g[1]+"-"+g[0]
+	'04-03-2015'
+
+==============================================================================
+
+- Computed:
+* Manipulam dados;
+* Fica em cache, eh chamado uma unica vez devido a manter um cache, sendo mais leve;
+
+<div id="computed">
+
+	<h2>Nome: {{ person.firstName }} {{ person.lastName }}</h2>
+
+	//nova propriedade da instancia view
+	<h2>Nome Completo: {{ fullName }}</h2>
+
+<script>
+
+	let app = new Vue({
+		el: "#computed",
+		data: {
+			person: {
+				firstName: "Jack",
+				lastName: "Bravo"
+			},
+		computed:{
+			fullName: function(){
+				return `${this.person.firstName} ${this.person.lastName}`;
+				//return this.person.firstName + " " + this.person.lastName;
+		}	
+		}
+	})
+
+</script>
+
+
+==============================================================================
+
+- Mostrando diferenca entre method e computed;
+* Vou criar os dois e chamar os dois executando a mesma acao;
+
+<div id="computed">
+
+	<h2>Nome: {{ person.firstName }} {{ person.lastName }}</h2>
+
+	//nova propriedade da instancia view;
+	<h2>Nome Completo(computed): {{ fullName }}</h2>
+	<h2>Nome Completo(computed): {{ fullName }}</h2>
+	<h2>Nome Completo(computed): {{ fullName }}</h2>
+	<h2>Nome Completo(computed): {{ fullName }}</h2>
+	<h2>Nome Completo(computed): {{ fullName }}</h2>
+
+	//dando get no metodo criado fullName;
+	<h2>Nome Completo(metodo): {{ getFullName }}</h2>
+	<h2>Nome Completo(metodo): {{ getFullName }}</h2>
+	<h2>Nome Completo(metodo): {{ getFullName }}</h2>
+	<h2>Nome Completo(metodo): {{ getFullName }}</h2>
+	<h2>Nome Completo(metodo): {{ getFullName }}</h2>
+
+<script>
+
+	let app = new Vue({
+		el: "#computed",
+		data: {
+			person: {
+				firstName: "Jack",
+				lastName: "Bravo"
+			},
+		methods:{
+			fullName: function(){
+				console.log("METODO");			//para verificar quantas vezes foi chamado;
+				return `${this.person.firstName} ${this.person.lastName}`;
+		},
+		computed:{
+			fullName: function(){
+				console.log("COMPUTED");		//para verificar quantas vezes foi chamado;
+				return `${this.person.firstName} ${this.person.lastName}`;
+				//return this.person.firstName + " " + this.person.lastName;
+		}	
+		}
+	})
+
+</script>
+
+==============================================================================
+
+- Computed:
+* Passando valor/value para a computed property, dentro dela deve haver uma opcao de GET e SET;
+
+<div id="computed">
+
+	<h2>Nome: {{ person.firstName }} {{ person.lastName }}</h2>
+
+	//nova propriedade da instancia view;
+	<h2>Nome Completo(computed): {{ fullName }}</h2>
+
+
+	//dando get no metodo criado fullName;
+	<h2>Nome Completo(metodo): {{ getFullName }}</h2>
+
+
+<script>
+
+	let app = new Vue({
+		el: "#computed",
+		data: {
+			person: {
+				firstName: "Jack",
+				lastName: "Bravo"
+			},
+		computed:{
+			fullName:{
+				get: function() {
+					return `${this.person.firstName} ${this.person.lastName}`;
+				},
+				ser: function(newValue) {
+					//split vai pegar o espaco e criar um array entre as duas posicoes
+					let name = newValue.split(" ");
+					this.person.firstName = name[0];
+					this.person.lastName = name[1];
+				}
+			}
+		}
+	})
+
+</script>
+
+
+==============================================================================
+
+- Watchers:
+* Usado quando temos que escutar alguma propriedade;
+* informamos dentro do "watch" o que queremos escutar;
+
+<div id="Watchers">
+
+	//v-model ja eh um watcher por natureza, ele monitora para ver se vai ser modificada a propriedade do data;
+	<input type="text" v-model="country>
+
+<script>
+
+	let app = new Vue({
+		el: "#watchers",
+		data: {
+			country: "Brasil"
+			},
+		watch:{
+			//dizemos qual propriedade queremos monitorar, o old mostra qual o valor antigo;
+			country: function(newValue, oldValue){
+				console.log(newValue, oldValue);
+			}
+		}
+	})
+
+</script>
+ 
+
+==============================================================================
+
+- Ciclo de vida da instancia Vue;
+* Permite executar codigos, antes, durante e depois da aplicacao estar na pagina;
+
+---------------------------------------------
+
+1 - beforeCreate() -> Executada assim que a instância Vue é criada, mas antes de os dados, eventos e watchers estarem disponíveis.
+2 - created() -> Executada assim que a instância Vue é criada. Tem à disposição os recursos básicos: dados, computed properties, events, watchers, etc. Contudo, a aplicação ainda não foi montada.
+3 - beforeMount() -> Executada um pouco antes do processo de montagem da aplicação começar.
+4 - mounted() -> Chamada assim que o processo de montagem é finalizado, já tem acesso à propriedade this.el, para manipular o componente.
+
+1 - activated() -> Chamada quando um componente com a estrutura keep-alive é ativado
+2 - deactivated() -> Chamada quando um componente com a estrutura keep-alive é desativado
+3 - errorCaptured() -> Chamada quando ocorre um erro em algum componente (Novidade versão 2.5 do Vue)
+
+---------------------------------------------
+
+let app = new Vue({
+created: function() {
+	console.log(‘A instância foi criada’)
+},
+mounted: function() {
+	console.log(‘A aplicação foi montada’);
+}
+});
+
+---------------------------------------------
+
+<div id="lifecycle">
+
+	<h1>Olha a {{ name }}</h1>
+
+<script>
+
+	let app = new Vue({
+		el: "#lifecycle",
+		data: {
+				name: "Informacao na tela"
+			},
+		beforeCreate(){
+			console.log("beforeCreate");
+		},
+		created(){
+			console.log("created");
+		},
+		beforeMount(){
+			console.log("beforeMount");
+		},
+		mounted(){
+			console.log("mounted");
+		},
+		beforeUpdate(){
+			console.log("beforeUpdate");
+		},
+		updated(){
+			console.log("updated");
+		},
+		beforeDestroy(){
+			console.log("beforeDestroy");
+		},
+		destroyed(){
+			console.log("destroyed");
+		},
+	})
+
+</script>
+
+==============================================================================
+
+- Trazendo dados ao renderizar:
+
+
+<div id="lifecycle">
+
+	<h1>Olha a {{ name }}</h1>
+
+	<ul>
+		//precisamos criar uma variavel generica para o vue usar para acessar os dados/propriedade do objeto;
+		<li v-for="state in states">{{ state }}</li>
+	</ul>
+
+<script>
+
+	let app = new Vue({
+		el: "#lifecycle",
+		data: {
+				name: "Informacao na tela",
+				states: []
+			},
+		beforeCreate(){
+			console.log("beforeCreate");
+		},
+		created(){
+			//acessa a URL da API do cep do IBGE;
+			fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+			.then(response => {
+				response.json().then(data =>{
+					this.states = data;		//states da pagina vai receber os dados/data;
+				})
+			}).catch(err => {
+				console.log(err);
+			})
+		},
+		beforeMount(){
+			console.log("beforeMount");
+		},
+		mounted(){
+			console.log("mounted");
+		},
+		beforeUpdate(){
+			console.log("beforeUpdate");
+		},
+		updated(){
+			console.log("updated");
+		},
+		beforeDestroy(){
+			console.log("beforeDestroy");
+		},
+		destroyed(){
+			console.log("destroyed");
+		},
+	})
+
+</script>
+
+==============================================================================
+
+v-for:
+
+- Todavia, tipicamente você vai querer ter um array de posts em data:
+
+new Vue({
+  el: '#blog-post-demo',
+  data: {
+    posts: [
+      { id: 1, title: 'Minha jornada com Vue' },
+      { id: 2, title: 'Postagens com Vue' },
+      { id: 3, title: 'Porque Vue é tão divertido' }
+    ]
+  }
+})
+
+Quando quisermos renderizar um componente para cada:
+
+<blog-post
+  v-for="post in posts"
+  v-bind:key="post.id"
+  v-bind:title="post.title"
+></blog-post>
+
+==============================================================================
+
+vueaxios
+node_api_mysql
+crudyoutube
+visie
+
+
+
+conceitos iniciais
+crudyoutube
+
+----
+teste_crud_componentes
+teste_de_crud
+node_api_mysql
+teste_de_crud_pronto
+teste_visie
+
+==============================================================================
+
+You may use special comments to disable some warnings.
+Use // eslint-disable-next-line to ignore the next line.
+Use /* eslint-disable */ to ignore all warnings in a file.
+
+==============================================================================
+
+var d = '2015-03-04T00:00:00.000Z';
+undefined
+d
+'2015-03-04T00:00:00.000Z'
+c = d.split("T");
+(2) ['2015-03-04', '00:00:00.000Z']
+c = d.split("T", "Z");
+[]length: 0[[Prototype]]: Array(0)at: ƒ at()concat: ƒ concat()constructor: ƒ Array()copyWithin: ƒ copyWithin()entries: ƒ entries()every: ƒ every()fill: ƒ fill()filter: ƒ filter()find: ƒ find()findIndex: ƒ findIndex()flat: ƒ flat()flatMap: ƒ flatMap()forEach: ƒ forEach()includes: ƒ includes()indexOf: ƒ indexOf()join: ƒ join()keys: ƒ keys()lastIndexOf: ƒ lastIndexOf()length: 0map: ƒ map()pop: ƒ pop()push: ƒ push()reduce: ƒ reduce()reduceRight: ƒ reduceRight()reverse: ƒ reverse()shift: ƒ shift()slice: ƒ slice()some: ƒ some()sort: ƒ sort()splice: ƒ splice()toLocaleString: ƒ toLocaleString()toString: ƒ toString()unshift: ƒ unshift()values: ƒ values()Symbol(Symbol.iterator): ƒ values()Symbol(Symbol.unscopables): {copyWithin: true, entries: true, fill: true, find: true, findIndex: true, …}Symbol(includes): ƒ (b,c)Symbol(includes): ƒ (b,c)Symbol(values): ƒ ()Symbol(values): ƒ ()[[Prototype]]: Object
+c = d.regex.split("T","Z")
+VM3685:1 Uncaught TypeError: Cannot read properties of undefined (reading 'split')
+    at <anonymous>:1:13
+(anônimo) @ VM3685:1
+c
+[]length: 0[[Prototype]]: Array(0)
+c = d.split("T");
+(2) ['2015-03-04', '00:00:00.000Z']
+f = c.split("-")
+VM4562:1 Uncaught TypeError: c.split is not a function
+    at <anonymous>:1:7
+(anônimo) @ VM4562:1
+c
+(2) ['2015-03-04', '00:00:00.000Z']0: "2015-03-04"1: "00:00:00.000Z"length: 2[[Prototype]]: Array(0)
+f = c.split[0]("-")
+VM4866:1 Uncaught TypeError: Cannot read properties of undefined (reading '0')
+    at <anonymous>:1:12
+(anônimo) @ VM4866:1
+f = c[0]
+'2015-03-04'
+f = c[0].split("-")
+(3) ['2015', '03', '04']
+g = f[2]+"-"+f[1]+"-"f[0]
+VM6820:1 Uncaught SyntaxError: Unexpected identifier
+f[2]+"-"+f[1]+"-"f[0]
+VM6900:1 Uncaught SyntaxError: Unexpected identifier
+f[1]
+'03'
+f[0]
+'2015'
+g = f[2]+f[1]+f[0]
+'04032015'
+g = f[2]+"-"+f[1]+"-"+f[0]
+'04-03-2015
+
+---------------------------------------
+
+    formatardata(valor)
+    {
+      let c = valor;
+      let d = c.split("T");
+      let f = d[0];
+      let g = f.split("-");
+      let h = g[2]+"/"+g[1]+"/"+g[0];
+      return h;
+    },
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+==============================================================================
+
+
+

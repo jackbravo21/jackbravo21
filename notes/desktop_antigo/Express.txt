@@ -1,0 +1,944 @@
+
+Basico:
+
+====================================================================
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+});
+
+
+//O req (solicitação) e res (resposta) são os mesmos objetos que o Node fornece, para que seja possível chamar o req.pipe(), req.on('data', callback), e qualquer outra coisa que desejaria fazer sem o envolvimento do Express.
+//$ node app.js
+
+====================================================================
+
+====================================================================
+
+
+Roteamento:
+
+O Express suporta os seguintes métodos de roteamento que correspondem aos métodos HTTP: get, post, put, head, delete, options, trace, copy, lock, mkcol, move, purge, propfind, proppatch, unlock, report, mkactivity, checkout, merge, m-search, notify, subscribe, unsubscribe, patch, search, e connect.
+
+Para métodos de rota que são traduzidos para nomes de variáveis inválidas no Javascript, use a notação de colchetes. Por exemplo, app['m-search']('/', function ...
+
+====================================================================
+
+====================================================================
+
+
+var express = require('express');
+var app = express();
+
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/', function(req, res) {
+  res.send('hello world');
+});
+
+====================================================================
+
+====================================================================
+
+// GET method route
+app.get('/', function (req, res) {
+  res.send('GET request to the homepage');
+});
+
+// POST method route
+app.post('/', function (req, res) {
+  res.send('POST request to the homepage');
+});
+
+====================================================================
+
+====================================================================
+
+Existe um método de roteamento especial, app.all(), que não é derivado de nenhum método HTTP. Este método é usado para carregar funções de middleware em um caminho para todos os métodos de solicitação.
+
+No exemplo a seguir, o manipulador irá ser executado para solicitações para “/secret” se você estiver usando GET, POST, PUT, DELETE, ou qualquer outro método de solicitação HTTP que é suportado no módulo http.
+
+- Em resumo: Pode usar qualquer metodo que ele vai responder.
+
+--------------------------------------------------------------------
+
+app.all('/secret', function (req, res, next) {
+  console.log('Accessing the secret section ...');
+  next(); // pass control to the next handler
+});
+
+====================================================================
+
+====================================================================
+
+//Este caminho de rota irá corresponder a solicitações ao /random.text.
+
+app.get('/random.text', function (req, res) {
+  res.send('random.text');
+});
+
+====================================================================
+
+====================================================================
+
+//Aqui estão alguns exemplos de caminhos de rota baseados em padrões de sequência
+//Este caminho de rota irá corresponder ao acd e abcd.
+
+app.get('/ab?cd', function(req, res) {
+  res.send('ab?cd');
+});
+
+
+====================================================================
+
+====================================================================
+
+//Este caminho de rota irá corresponder ao abcd, abbcd, abbbcd, e assim por diante.
+
+app.get('/ab+cd', function(req, res) {
+  res.send('ab+cd');
+});
+
+====================================================================
+
+====================================================================
+
+//Este caminho de rota irá corresponder ao abcd, abxcd, abRABDOMcd, ab123cd, e assim por diante.
+
+app.get('/ab*cd', function(req, res) {
+  res.send('ab*cd');
+});
+
+====================================================================
+
+====================================================================
+
+//Este caminho de rota irá corresponder ao /abe e /abcde.
+
+app.get('/ab(cd)?e', function(req, res) {
+ res.send('ab(cd)?e');
+});
+
+====================================================================
+
+====================================================================
+
+//Este caminho de rota irá corresponder a qualquer coisa com um “a” no nome.
+
+app.get(/a/, function(req, res) {
+  res.send('/a/');
+});
+
+====================================================================
+
+====================================================================
+
+//Este caminho de rota irá corresponder a butterfly e dragonfly, mas não a butterflyman, dragonfly man, e assim por diante.
+
+app.get(/.*fly$/, function(req, res) {
+  res.send('/.*fly$/');
+});
+
+====================================================================
+
+====================================================================
+
+//Mais de uma função de retorno de chamada pode manipular uma rota (certifique-se de especificar o objeto next object). Por exemplo:
+
+app.get('/example/b', function (req, res, next) {
+  console.log('the response will be sent by the next function ...');
+  next();
+}, function (req, res) {
+  res.send('Hello from B!');
+});
+
+====================================================================
+
+====================================================================
+
+//Uma matriz de funções de retorno de chamada podem manipular uma rota. Por exemplo:
+
+var cb0 = function (req, res, next) {
+  console.log('CB0');
+  next();
+}
+
+var cb1 = function (req, res, next) {
+  console.log('CB1');
+  next();
+}
+
+var cb2 = function (req, res) {
+  res.send('Hello from C!');
+}
+
+app.get('/example/c', [cb0, cb1, cb2]);
+
+====================================================================
+
+====================================================================
+
+//Uma combinação de funções independentes e matrizes de funções podem manipular uma rota. Por exemplo:
+
+var cb0 = function (req, res, next) {
+  console.log('CB0');
+  next();
+}
+
+var cb1 = function (req, res, next) {
+  console.log('CB1');
+  next();
+}
+
+app.get('/example/d', [cb0, cb1], function (req, res, next) {
+  console.log('the response will be sent by the next function ...');
+  next();
+}, function (req, res) {
+  res.send('Hello from D!');
+});
+
+====================================================================
+
+====================================================================
+
+Métodos de resposta:
+
+Os métodos do objeto de resposta (res) na seguinte tabela podem enviar uma resposta ao cliente, e finalizar o ciclo solicitação-resposta. Se nenhum destes métodos forem chamados a partir de um manipulador de rota, a solicitação do cliente será deixada em suspenso.
+
+Método	Descrição
+res.download()		Solicita que seja efetuado o download de um arquivo
+res.end()		Termina o processo de resposta.
+res.json()		Envia uma resposta JSON.
+res.jsonp()		Envia uma resposta JSON com suporta ao JSONP.
+res.redirect()		Redireciona uma solicitação.
+res.render()		Renderiza um modelo de visualização.
+res.send()		Envia uma resposta de vários tipos.
+res.sendFile		Envia um arquivo como um fluxo de octeto.
+res.sendStatus()	Configura o código do status de resposta e envia a sua representação em sequência de caracteres como o corpo de resposta.
+
+====================================================================
+
+====================================================================
+
+app.route()
+
+É possível criar manipuladores de rota encadeáveis para um caminho de rota usando o app.route(). Como o caminho é especificado em uma localização única, criar rotas modulares é útil, já que reduz redundâncias e erros tipográficos. Para obter mais informações sobre rotas, consulte: documentação do Router().
+
+====================================================================
+
+====================================================================
+
+//Aqui está um exemplo de manipuladores de rotas encadeáveis que são definidos usando app.route();
+//A resposta depende do verbo usado;
+
+app.route('/book')
+  .get(function(req, res) {
+    res.send('Get a random book');
+  })
+  .post(function(req, res) {
+    res.send('Add a book');
+  })
+  .put(function(req, res) {
+    res.send('Update the book');
+  });
+
+====================================================================
+
+====================================================================
+
+express.Router
+
+//Use a classe express.Router para criar manipuladores de rota modulares e montáveis. Uma instância de Router é um middleware e sistema de roteamento completo; por essa razão, ela é frequentemente referida como um “mini-aplicativo”
+
+//O seguinte exemplo cria um roteador como um módulo, carrega uma função de middleware nele, define algumas rotas, e monta o módulo router em um caminho no aplicativo principal.
+
+//Crie um arquivo de roteador com um arquivo chamado birds.js no diretório do aplicativo, com o seguinte conteúdo:
+
+------------------------------------------------
+
+var express = require('express');
+var router = express.Router();
+
+// middleware that is specific to this router
+router.use(function timeLog(req, res, next) {
+  console.log('Time: ', Date.now());
+  next();
+});
+// define the home page route
+router.get('/', function(req, res) {
+  res.send('Birds home page');
+});
+// define the about route
+router.get('/about', function(req, res) {
+  res.send('About birds');
+});
+
+module.exports = router;
+
+------------------------------------------------
+
+//Em seguida, carregue o módulo roteador no aplicativo:
+
+------------------------------------------------
+
+var birds = require('./birds');
+...
+app.use('/birds', birds);
+
+O aplicativo será agora capaz de manipular solicitações aos caminhos /birds e /birds/about, assim como chamar a função de middleware timeLog que é específica para a rota.
+
+====================================================================
+
+====================================================================
+
+//Basico para rotear no app.js:
+const nomeDaRota = require("./pasta/arquivo");
+app.use("caminho", nomeDaRota); 
+
+Exemplo.:
+
+const express = require ("express");
+const app = express();
+
+//rotas (preciso instanciar e depois associar ao app a rota exportada):
+const indexRoute = require("./Routes/index");
+app.use("/", indexRoute);
+
+app.listen(3000 , () => {
+    console.log("Server rodando na porta 3000.");
+});
+
+====================================================================
+
+====================================================================
+
+Entregando arquivos estáticos no Express
+
+//Para entregar arquivos estáticos como imagens, arquivos CSS, e arquivos JavaScript, use a função de middleware express.static integrada no Express.
+
+//Passe o nome do diretório que contém os ativos estáticos para a função de middleware express.static para iniciar a entregar os arquivos diretamente. Por exemplo, use o código a seguir para entregar imagens, arquivos CSS, e arquivos JavaScript em um diretório chamado public:
+
+app.use(express.static('public'));
+
+--------------------------------------------
+
+//Agora, é possível carregar os arquivos que estão no diretório public:
+
+http://localhost:3000/images/kitten.jpg
+http://localhost:3000/css/style.css
+http://localhost:3000/js/app.js
+http://localhost:3000/images/bg.png
+http://localhost:3000/hello.html
+
+--------------------------------------------
+
+//Para usar vários diretórios de ativos estáticos, chame a função de middleware express.static várias vezes:
+
+app.use(express.static('public'));
+app.use(express.static('files'));
+
+--------------------------------------------
+
+//Entretanto, o caminho fornecido para a função express.static é relativa ao diretório a partir do qual você inicia o seu node de processo. Se você executar o aplicativo express a partir de outro diretório, é mais seguro utilizar o caminho absoluto do diretório para o qual deseja entregar.
+
+app.use('/static', express.static(__dirname + '/public'));
+
+====================================================================
+
+====================================================================
+
+Como manipulo respostas 404?
+
+//Você define middlewares de manipulação de erros da mesma forma que outros middlewares, exceto que com quatro argumentos ao invés de três; especificamente com a assinatura (err, req, res, next):
+
+app.use(function(req, res, next) {
+  res.status(404).send('Sorry cant find that!');
+});
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+====================================================================
+
+====================================================================
+
+Manipulação de erros:
+
+Defina funções de middleware de manipulação de erros da mesma forma que outras funções de middleware, exceto que funções de manipulação de erros possuem quatro argumentos ao invés de três: (err, req, res, next). Por exemplo:
+
+--------
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+====================================================================
+
+====================================================================
+
+//Você define os middlewares de manipulação de erros por último, após outros app.use() e chamads de rota; por exemplo:
+
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+
+app.use(bodyParser());
+app.use(methodOverride());
+app.use(function(err, req, res, next) {
+  // logic
+});
+
+====================================================================
+
+====================================================================
+
+Como renderizar um HTML simples?
+Você não faz! Não há necessidade de se “renderizar” HTML com a função res.render(). se você tiver um arquivo específico, use a função res.sendFile(). Se estiver entregando muitos ativos a partir de um diretório, use a função de middleware express.static().
+
+
+====================================================================
+
+====================================================================
+
+http://expressjs.com/pt-br/guide/error-handling.html
+http://expressjs.com/pt-br/guide/routing.html
+
+====================================================================
+
+====================================================================
+
+Desenvolvimento
+
+//Aqui está um exemplo simples de uma função de middleware chamada “myLogger”. Esta função apenas imprime “LOGGED” quando uma solicitação para o aplicativo passa por ela. A função de middleware é designada para uma variável chamada myLogger.
+
+var myLogger = function (req, res, next) {
+  console.log('LOGGED');
+  next();
+};
+
+//Observe a chamada acima para next(). A chamada desta função chama a próxima função de middleware no aplicativo. A função next() não faz parte do Node.js ou da API Express, mas é o terceiro argumento que é passado para a função de middleware. A função next() poderia ter qualquer nome, mas por convenção ela é sempre chamada de “next”. Para evitar confusão, sempre use esta convenção.
+
+====================================================================
+
+====================================================================
+
+//Para carregar a função de middleware, chame app.use(), especificando a função de middleware. Por exemplo, o código a seguir carrega a função de middleware do myLogger antes da rota para o caminho raiz (/).
+
+var express = require('express');
+var app = express();
+
+var myLogger = function (req, res, next) {
+  console.log('LOGGED');
+  next();
+};
+
+app.use(myLogger);
+
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
+
+app.listen(3000);
+
+--------------------------------------
+
+Sempre que o aplicativo recebe uma chamada, ele imprime a mensagem “LOGGED” no terminal.
+
+A ordem de carregamento do middleware é importante: funções de middleware que são carregadas primeiro também são executadas primeiro.
+
+Se myLogger é carregada após a rota para o caminho raiz, a chamada nunca chegará a ela e o aplicativo não imprimirá “LOGGED”, pois o manipulador de rota do caminho raiz encerra o ciclo de solicitação-resposta.
+
+A função de middleware myLogger simplesmente imprime uma mensagem, e em seguida passa a solicitação para a próxima função de middleware na pilha chamando a função next().
+
+====================================================================
+
+====================================================================
+
+//O próximo exemplo inclui uma propriedade chamada requestTime ao objeto da solicitação. Iremos chamar esta função de middleware de “requestTime”.
+
+var requestTime = function (req, res, next) {
+  req.requestTime = Date.now();
+  next();
+};
+
+====================================================================
+
+====================================================================
+
+//O aplicativo agora usa a função de middleware requestTime. Além disso, a função de retorno de chamada do caminho raiz usa a propriedade que a função de middleware inclui no req (o objeto da solicitação).
+
+var express = require('express');
+var app = express();
+
+var requestTime = function (req, res, next) {
+  req.requestTime = Date.now();
+  next();
+};
+
+app.use(requestTime);
+
+app.get('/', function (req, res) {
+  var responseText = 'Hello World!';
+  responseText += 'Requested at: ' + req.requestTime + '';
+  res.send(responseText);
+});
+
+app.listen(3000);
+
+----------------------------------------------------------
+
+Ao fazer uma solicitação para a raiz do aplicativo, o aplicativo agora exibe o registro de data e hora da sua solicitação no navegador.
+
+Como você tem acesso ao objeto da solicitação, ao objeto de resposta, à próxima função de middleware na pilha, e à API completa do Node.js, as possibilidades com as funções de middleware são ilimitadas.
+
+Para obter mais informações sobre middlewares no Express, consulte: Usando middlewares no Express.
+
+====================================================================
+
+====================================================================
+
+Middleware de nível do aplicativo
+
+Vincule middlewares de nível do aplicativo a uma instância do objeto app usando as funções app.use() e app.METHOD(), onde METHOD é o método HTTP da solicitação que a função de middleware manipula (como GET, PUT, ou POST) em letras minúsculas.
+
+Este exemplo mostra uma função de middleware sem um caminho de montagem. A função é executada sempre que o aplicativo receber uma solicitação.
+
+--------------------------------------------
+
+var app = express();
+
+app.use(function (req, res, next) {
+  console.log('Time:', Date.now());
+  next();
+});
+
+====================================================================
+
+====================================================================
+
+//Este exemplo mostra uma função de middleware montada no caminho /user/:id. A função é executada para qualquer tipo de solicitação HTTP no caminho /user/:id.
+
+app.use('/user/:id', function (req, res, next) {
+  console.log('Request Type:', req.method);
+  next();
+});
+
+====================================================================
+
+====================================================================
+
+//Este exemplo mostra uma rota e sua função manipuladora (sistema de middleware). A função manipula solicitações GET ao caminho /user/:id.
+
+app.get('/user/:id', function (req, res, next) {
+  res.send('USER');
+});
+
+====================================================================
+
+====================================================================
+
+//Aqui está um exemplo de carregamento de um série de funções de middleware em um ponto de montagem, com um caminho de montagem. Ele ilustra uma sub-pilha de middleware que imprime informações de solicitação para qualquer tipo de solicitação HTTP no caminho /user/:id.
+
+app.use('/user/:id', function(req, res, next) {
+  console.log('Request URL:', req.originalUrl);
+  next();
+}, function (req, res, next) {
+  console.log('Request Type:', req.method);
+  next();
+});
+
+====================================================================
+
+====================================================================
+
+Manipuladores de rota permitem a você definir várias rotas para um caminho. O exemplo abaixo define duas rotas para solicitações GET no caminho /user/:id. A segunda rota não irá causar nenhum problema, mas ela nunca será chamada pois a primeira rota termina o ciclo solicitação-resposta.
+
+Este exemplo mostra uma sub-pilha de middleware que manipula solicitações GET no caminho /user/:id.
+
+-------------------------------------------------------
+
+app.get('/user/:id', function (req, res, next) {
+  console.log('ID:', req.params.id);
+  next();
+}, function (req, res, next) {
+  res.send('User Info');
+});
+
+// handler for the /user/:id path, which prints the user ID
+app.get('/user/:id', function (req, res, next) {
+  res.end(req.params.id);
+});
+
+====================================================================
+
+====================================================================
+
+Para pular o restante das funções de middleware de uma pilha de middlewares do roteador, chame next('route') para passar o controle para a próxima rota. NOTA: O next('route') irá funcionar apenas em funções de middleware que são carregadas usando as funções app.METHOD() ou router.METHOD().
+
+Este exemplo mostra uma sub-pilha de middleware que manipula solicitações GET no caminho /user/:id.
+
+----------------------------------------------------------
+
+app.get('/user/:id', function (req, res, next) {
+  // if the user ID is 0, skip to the next route
+  if (req.params.id == 0) next('route');
+  // otherwise pass the control to the next middleware function in this stack
+  else next(); //
+}, function (req, res, next) {
+  // render a regular page
+  res.render('regular');
+});
+
+// handler for the /user/:id path, which renders a special page
+app.get('/user/:id', function (req, res, next) {
+  res.render('special');
+});
+
+====================================================================
+
+====================================================================
+
+Carregue os middlewares de nível de roteador usando as funções router.use() e router.METHOD().
+
+O seguinte código de exemplo replica o sistema de middleware que é mostrado acima para o middleware de nível do aplicativo, usando um middleware de nível de roteador:
+
+-------------------------------------------------------------
+
+// mount the router on the app
+app.use('/', router);
+
+-------------------------------------------------------------
+
+var app = express();
+var router = express.Router();
+
+// a middleware function with no mount path. This code is executed for every request to the router
+router.use(function (req, res, next) {
+  console.log('Time:', Date.now());
+  next();
+});
+
+// a middleware sub-stack shows request info for any type of HTTP request to the /user/:id path
+router.use('/user/:id', function(req, res, next) {
+  console.log('Request URL:', req.originalUrl);
+  next();
+}, function (req, res, next) {
+  console.log('Request Type:', req.method);
+  next();
+});
+
+// a middleware sub-stack that handles GET requests to the /user/:id path
+router.get('/user/:id', function (req, res, next) {
+  // if the user ID is 0, skip to the next router
+  if (req.params.id == 0) next('route');
+  // otherwise pass control to the next middleware function in this stack
+  else next(); //
+}, function (req, res, next) {
+  // render a regular page
+  res.render('regular');
+});
+
+// handler for the /user/:id path, which renders a special page
+router.get('/user/:id', function (req, res, next) {
+  console.log(req.params.id);
+  res.render('special');
+});
+
+-------------------------------------------------------------
+
+====================================================================
+
+====================================================================
+
+Middleware de manipulação de erros:
+
+Middlewares de manipulação de erros sempre levam quatro argumentos. Você deve fornecer quatro argumentos para identificá-lo como uma função de middleware de manipulação de erros. Mesmo se você não precisar usar o objeto next, você deve especificá-lo para manter a assinatura. Caso contrário, o objeto next será interpretado como um middleware comum e a manipulação de erros falhará.
+
+Defina funções de middleware de manipulação de erros da mesma forma que outras funções de middleware, exceto que com quatro argumentos ao invés de três, especificamente com a assinatura (err, req, res, next)):
+
+---------------------------------------------------
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+====================================================================
+
+====================================================================
+
+https://github.com/senchalabs/connect#middleware
+
+
+====================================================================
+
+====================================================================
+
+Middleware de Terceiros
+
+Use middlewares de terceiros para incluir funcionalidades aos aplicativos do Express
+
+Instale o módulo Node.js para a funcionalidade requerida, em seguida carregue-a no seu aplicativo no nível do aplicativo ou no nível de roteador.
+
+O exemplo a seguir ilustra a instalação e carregamento da função de middleware para análise sintática de cookies cookie-parser.
+
+$ npm install cookie-parser
+
+----------------------------------------
+
+var express = require('express');
+var app = express();
+var cookieParser = require('cookie-parser');
+
+// load the cookie-parsing middleware
+app.use(cookieParser());
+
+====================================================================
+
+====================================================================
+
+Usando mecanismos de modelo com o Express
+
+Antes do Express poder renderizar arquivos de modelo, as seguintes configurações do aplicativo devem ser configuradas:
+
+views, é o diretório onde os arquivos de modelo estão localizados. Por exemplo: app.set('views',
+'./views')
+view engine, o mecanismo de modelo a ser usado. Por Exemplo: app.set('view engine', 'pug')
+Em seguida instale o pacote npm correspondente ao mecanismo de modelo:
+
+
+$ npm install pug --save
+
+Mecanismos de modelo compatíveis com o Express como o Pug exportam uma função chamada __express(filePath, options,
+callback), que é chamada pela função res.render() para renderizar o código de modelo.
+
+Alguns mecanismos de modelo não seguem esta convenção. A biblioteca Consolidate.js segue esta convenção mapeando todos os mecanismos de modelo populares do Node.js, e portanto funciona de forma harmoniosa com o Express.
+
+Após o mecanismo de visualização estar configurado, você não precisa especificar o mecanismo ou carregar o módulo do mecanismo de modelo no seu aplicativo; o Express carrega o módulo internamente, como mostrado abaixo (para o exemplo acima).
+
+----------------------------------------------------------------
+app.set('view engine', 'pug');
+----------------------------------------------------------------
+
+Crie um arquivo de modelo do Pug chamado index.pug no diretório views, com o seguinte conteúdo:
+
+----------------------------------------------------------------
+
+html
+  head
+    title= title
+  body
+    h1= message
+
+----------------------------------------------------------------
+
+Em seguida crie uma rota para renderizar o arquivo index.pug. Se a propriedade view
+engine não estiver configurada, é preciso especificar a extensão do arquivo view. Caso contrário, é possível omití-la.
+
+----------------------------------------------------------------
+
+app.get('/', function (req, res) {
+  res.render('index', { title: 'Hey', message: 'Hello there!'});
+});
+
+----------------------------------------------------------------
+
+Ao fazer uma solicitação à página inicial, o arquivo index.pug será renderizado como HTML.
+
+Para aprender mais sobre como mecanismos de modelo funcionam no Express, consulte: “Desenvolvendo mecanismos de para o Express”.
+
+====================================================================
+
+====================================================================
+
+- REQUEST:
+
+O objeto representa a solicitação HTTP e possui propriedades para a sequência de consulta de solicitação, parâmetros, corpo, cabeçalhos HTTP e assim por diante. Nesta documentação e por convenção, o objeto é sempre referido como (e a resposta HTTP é ), mas seu nome real é determinado pelos parâmetros para a função de retorno de chamada em que você está trabalhando.reqreqres
+
+Por exemplo:
+
+----------------------------------------------------
+
+app.get('/user/:id', function (req, res) {
+  res.send('user ' + req.params.id)
+})
+
+----------------------------------------------------
+
+Mas você poderia muito bem ter:
+
+----------------------------------------------------
+
+app.get('/user/:id', function (request, response) {
+  response.send('user ' + request.params.id)
+})
+
+----------------------------------------------------
+
+O objeto req object é uma versão aprimorada do objeto de solicitação do próprio Node e suporta todos os campos e métodos incorporados.req;
+
+https://nodejs.org/api/http.html#http_class_http_incomingmessage
+
+
+================
+
+- req.app
+
+Esta propriedade possui uma referência à instância do aplicativo Express que está usando o middleware.
+
+Se você seguir o padrão em que você cria um módulo que apenas exporta uma função middleware e ele em seu arquivo principal, então o middleware pode acessar a instância Express via require()req.app
+
+Por exemplo:
+
+----------------------------------------------------
+
+// index.js
+app.get('/viewdirectory', require('./mymiddleware.js'))
+// mymiddleware.js
+module.exports = function (req, res) {
+  res.send('The views directory is ' + req.app.get('views'))
+}
+
+----------------------------------------------------
+================
+
+- req.baseUrl
+
+O caminho de URL no qual uma instância de roteador foi montado.
+
+A propriedade é semelhante à propriedade mountpath do objeto, exceto retorna o padrão de caminho combinado.req.baseUrlappapp.mountpath
+
+Por exemplo:
+
+----------------------------------------------------
+
+var greet = express.Router()
+
+greet.get('/jp', function (req, res) {
+  console.log(req.baseUrl) // /greet
+  res.send('Konichiwa!')
+})
+
+app.use('/greet', greet) // load the router on '/greet'
+
+----------------------------------------------------
+
+Mesmo se você usar um padrão de caminho ou um conjunto de padrões de caminho para carregar o roteador, a propriedade retorna a sequência combinada, não o padrão(s). No exemplo a seguir, o roteador é carregado em dois padrões de caminho.baseUrlgreet
+
+----------------------------------------------------
+
+app.use(['/gre+t', '/hel{2}o'], greet) // load the router on '/gre+t' and '/hel{2}o'
+Quando um pedido é feito para , é "/greet". Quando uma solicitação é feita para , é "/olá"./greet/jpreq.baseUrl/hello/jpreq.baseUrl
+
+----------------------------------------------------
+================
+
+- req.body
+
+Contém pares de dados de valor-chave enviados no órgão de solicitação. Por padrão, ele é , e é preenchido quando você usa middleware de análise corporal, como express.json() ou express.urlencoded().undefined
+
+O exemplo a seguir mostra como usar o middleware de análise corporal para preencher .req.body
+
+----------------------------------------------------
+
+var express = require('express')
+
+var app = express()
+
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+app.post('/profile', function (req, res, next) {
+  console.log(req.body)
+  res.json(req.body)
+})
+
+----------------------------------------------------
+================
+
+- req.cookies
+
+Ao usar middleware de cookies, esta propriedade é um objeto que contém cookies enviados pela solicitação. Se a solicitação não contiver cookies, ela será padrão para .{}
+
+----------------------------------------------------
+
+// Cookie: name=tj
+console.dir(req.cookies.name)
+// => 'tj'
+
+----------------------------------------------------
+
+Se o cookie foi assinado, você tem que usar req.signedCookies.
+
+Para obter mais informações, problemas ou preocupações, consulte cookie-parser.
+
+----------------------------------------------------
+================
+
+- req.fresh
+
+Quando a resposta ainda está "fresca" no cache do cliente é devolvida, caso contrário é devolvida para indicar que o cache do cliente está agora obsoleto e a resposta completa deve ser enviada.truefalse
+
+Quando um cliente envia o cabeçalho de solicitação para indicar uma solicitação de recarga de ponta a ponta, este módulo retornará para tornar o manuseio dessas solicitações transparente.Cache-Control: no-cachefalse
+
+Mais detalhes sobre como a validação do cache funciona podem ser encontrados na Especificação http/1.1 cache.
+
+----------------------------------------------------
+
+console.dir(req.fresh)
+// => true
+
+----------------------------------------------------
+================
+
+http://expressjs.com/pt-br/4x/api.html#req
+http://expressjs.com/pt-br/4x/api.html#req
+http://expressjs.com/pt-br/4x/api.html#req
+
+====================================================================
+
+====================================================================
+
+
+http://expressjs.com/en/resources/middleware/body-parser.html
+
+Installation
+$ npm install body-parser
+API
+var bodyParser = require('body-parser')
+
+====================================================================
+
+====================================================================
+
+
+
+====================================================================
+
+====================================================================
+
+
+
+
+====================================================================
+
+====================================================================
+
+
+
+
+====================================================================
+
+====================================================================
+
+
+

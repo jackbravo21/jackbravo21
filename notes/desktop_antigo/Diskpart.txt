@@ -1,0 +1,33 @@
+A seguir irei ensinar como realizar manualmente a limpeza e inserir um código de linha de comando de boot no pen drive, particionando para esta sessão. Requer um conhecimento avançado de informática, não prescisa ser programador, mas pelo menos entender o que estou falando técnicamente. 
+
+Este procedimento é um procedimento muito importante para quem é administrador de redes, ou simplesmente quem deseja testar um sistema operacional, ou se você tem um Netbook que não tem drive de cd. 
+
+Pois nem sempre funciona e é reconhecido pelo boot da bios com programas que dizem fazer isso milagrosamente. Primeiro de tudo você necessita utilizar o "Windows 7" ou o "Windows Vista", que também serve. 
+
+Detalhe básico, com privilégios de administrador. 
+
+Os comandos estão em "negrito". Mãos a obra: 
+
+1. Certifique-se que o pen drive que você irá utilizar não tem dados importantes, pois irá perder todos os dados do pen drive. 
+
+2. Abra o Prompt de Comando(CMD), e digite diskpart (você deve estar logado como administrador na máquina). 
+
+3. Diante do Prompt DISKPART>, digite list disk, identifique o disco conectado ao computador que representa o dispositivo de armazenamento USB. 
+
+4. Diante do Prompt DISKPART>, digite select disk X, onde o X é o número do disco que você identificou com o dispositivo de armazenamento USB. 
+
+5.1. Diante do Prompt DISKPART>, digite clean. Quando o disco estiver limpo, digite create partition primary. 
+
+5.2. Corrigindo um erro no HD, se o disco for maior que 2T, ele não irá reconhecer, para isso vc necessita executar: Diante do Prompt DISKPART>, convert GPT e tecle ENTER (isso em caso de formatar um HD maior que 2T). 
+
+6. Diante do Prompt DISKPART>, digite format fs=fat32 quick. Quando a formatação estiver concluída, digite active e, em seguida, exit. (Se tiver dúvidas no passo 6:  >>  digite "help format". Ou se vc quizer formatar em NTFS: "format fs=ntfs quick") 
+
+7. Diante do Prompt DISKPART >>, digite Assign letra(letra da partição). 
+
+8. Quando você terminar as etapas, copie e cole todos os arquivos localizados no CD de instalação do Windows 7 para o dispositivo USB, ou se quizer instalar uma imagem .iso no pen drive, continue realizando o procedimento a seguir. 
+
+9. Baixe o programa "Unetbootin", com ele não há a necessidade de instalar, ele é executável. Execute-o. 
+
+10. Preencha os dados que você deve preencher do seu Linux, no meu caso escolhi a versão poket que cabe até em um pen drive de 512 megabytes, o Dam Small Linux. 
+
+11. Por final entre e configure a BIOS do computador que você deseja instalar o Sistema operacional, de modo a inicializar a partir do dispositivo de armazenamento USB. Reinicie a máquina com o Dispositivo USB conectado e aguarde a inicialização do boot do pen drive. Agora é só instalar o sistema. NOTA: Alguns pen drives ou máquinas podem não inicializar só configurando pela BIOS, então você deve apertar o comando no teclado que força a máquina a perguntar qual recurso deseja utilizar para iniciar o Boot, algumas variam entre: F2, F10, F12. Você escolhe o dispositivo USB e ele força a executar sem problemas. Espero ter ajudado. Mas descobri na Certificação do Windows 7 que manualmente também é possível fazer.

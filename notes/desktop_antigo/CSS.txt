@@ -1,0 +1,70 @@
+/*
+
+seletor{
+	propriedade1: valor1;
+	propriedade2: valor2;
+	
+	* = quer dizer toda;
+	. = classes sao declaradas com ponto.
+	# = ID, quando eu crio um ID, eu uso um "#".
+	color: #ff7f50;		= a cada 2 numeros, representa cada quantidade de cor: vermelho, verde, azul;
+	background-color: green;	=	 vai mudar apenas o fundo da linha;
+	margin = margem externa, espacamento dela para com outros objetos;
+	border = borda;
+	padding = 10px;		= margen/espacamento interno, espaco do conteudo para ela mesma, uma propriedade soh, ele aplica para todos os lados;
+	padding = 10px 0px 0px 0px;  	=	primeiro: padding cima, segundo: direita, terceiro: baixo, quarto: esquerda;
+	height: 100px; 	=	altura: 100 pixels.
+	min-height: 200px; =	o "min"-height diz que ela comeca com 200, mas conforme for add conteudo, ela vai crescendo.
+	width: 60%;	=	largura da div, em porcentagem da pagina.
+	float: left;	=	obriga a div a ficar de um lado, o "float" significa o lado.
+	clear: both;	= 	se usar float em uma propriedade, abaixo dela tem que por clear, para nao ficar atras.	
+	text-align: center; 	=	para centralizar um texto por exemplo;
+	font-size: 40px; 	=	altera o tamanho da fonte do texto 
+	font-family: monospace, "Comic Sans MS", "Times new roman";		=  O tipo de fonte, e as virgulas eh para caso nao encontrar, tenta a proxima. Nomes compostos tem que usar "aspas";
+	background-size = 100%;		=	Ajusta a imagem a toda;
+	text-shadow: 1px 1px 1px #111111;	=	cria sombra no texto, pode criar sombreamento de verdade tb, alterando os px (usar em tudo xD);
+
+	EFEITO ALPHA (deixa um painel preto atraz transparente):
+	.efeito{
+		background-color: rgba(0, 0, 0, 0.5);	= o ultimo valor eh a transparencia;
+	}
+	E la no html vc usa o <div class="efeito"> E coloca todo o conteudo dentro da div </div>;
+
+	}
+
+	Quando for TAG, eh puro, sem nada;
+	Quando for ID, usa-se o "#";
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="estyle.css">
+	<meta charset="utf-8">
+</head>
+<body>
+
+
+
+
+
+
+
+</body>
+</html>

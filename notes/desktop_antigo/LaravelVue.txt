@@ -1,0 +1,632 @@
+C:\xampp\htdocs\server\labs\laravel\laravelvue\projeto002_mod003
+C:\xampp\htdocs\server\labs\laravel\laravelvue
+
+https://vuejs.org/v2/guide/
+
+http://127.0.0.1:8000/home
+
+https://adminlte.io/themes/AdminLTE/index.html
+https://nodejs.org/en/about/
+
+php artisan serve
+
+
+npm run watch
+
+=============================================================
+
+Comando:
+
+composer create-project --prefer-dist laravel/laravel blog
+
+
+
+Rodar Servidor PHP:
+
+php artisan serve
+
+
+
+Ativar sistema de login:
+
+php artisan make:auth
+
+
+
+Criar tabelas do Banco de Dados:
+
+php artisan migrate
+
+Configurar o Framework para utilizar a linguagem como Default
+    
+//Linha 81 do arquivo config/app.php
+    'locale' => 'pt-BR',
+
+=============================================================
+
+Após rodar o comando "php artisan serve", acessar:
+http://127.0.0.1:8000/home
+
+admin@mail.com : 123456
+
+=============================================================
+
+DB Config Conexao:
+O arquivo "/.env" possui aproximadamente na linha 8 a configuracao do DB.
+
+Database.php
+Na pasta "/config/database.php" existe aproximadamente na linha 38 o parametro "database_path('database.sqlite')),"
+Esse parametro precisa que na pasta "/database" seja criado o arquivo "database.sqlite"
+
+=============================================================
+
+Componentes estao em:
+
+/resources/assets/js
+/resources/assets/sass
+/resources/assets/js/componentes/Example.vue
+
+/resources/assets/js/componentes/Example.vue :
+-------------------------------------------------------------
+<template>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Cabeçalho de painel.</div>
+
+                    <div class="panel-body">
+                        Eu sou um exemplo de panel componente!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        mounted() {
+            console.log('Component mounted.')
+        }
+    }
+</script>
+-------------------------------------------------------------
+
+
+Para usar ele como teste o vue:
+
+Primeiro ir em "/resources/assets/js/componentes/app.js" e verificar o nome do Vue.componente, neste caso eh 'example'. (igual o primeiro valor quando vc da um assign na variavel em smarty)
+-------------------------------
+Vue.component('example', require('./components/Example.vue'));
+-------------------------------
+
+
+Ir ate /resources/views/layouts/home.blade.php
+Apagar a div do 'content', e dar um "<example></example>";
+
+Vai ficar assim:
+-------------------------------------------------------------
+@extends('layouts.app')
+
+@section('content')
+
+<example></example>
+
+
+<!--
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
+
+                <div class="panel-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    You are logged in!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+@endsection
+-------------------------------------------------------------
+
+
+Instalar o node:
+node i
+ou
+node install
+
+Copilar os componentes:
+npm run dev
+
+Deixar ele copilando automaticamente (vai ficar rodando):
+npm run watch
+
+--------------------------------------------------------------
+
+Criar:
+/resources/assets/js/componentes/Topo.vue
+
+Verificar e copiar a NavBar dentro de:
+/resources/views/layouts/app.blade.php
+
+Criamos os mesmos scripts que o Smart:
+
+------------------------------------------------
+<script>
+    export default {
+     
+        props:['titulo', 'url']
+
+    }
+</script>
+------------------------------------------------
+
+E passamos para o front atraves do v-bind:href="url" , onde as variaveis foram declaradas ali em cima, o vbind, faz com que ele leia a url, pois se nao vira string, apenas com href:
+
+------------------------------------------------
+<a class="navbar-brand" v-bind:href="url">
+                        <!-- Logo -->
+                        {{ titulo }}
+------------------------------------------------
+
+E vou configurar ele no app.
+Dentro do /resources/assets/js/components/app.js
+
+E criar abaixo do que ja tem, igual.
+Verificando que as palavras mudadas foram 'topo' e 'Topo.vue':
+
+------------------------------------------------
+Vue.component('example', require('./components/Example.vue'));
+Vue.component('topo', require('./components/Topo.vue'));
+------------------------------------------------
+
+Depois eu vou novamente no: 
+/resources/views/layouts/app.blade.php
+
+E crio um ap soh colocando o "topo" abrindo e fechando o componente;
+------------------------------------------------
+<body>
+    <div id="app">
+        <topo></topo>
+------------------------------------------------
+E como eu passo os atributos? Coloco como classes do BT4:
+	<topo titulo="{{ config('app.name', 'Laravel') }}" url="{{ url('/') }}"></topo>
+------------------------------------------------
+
+Para utilizar os componentes, podemos utilizar os "slots":
+<slot></slot>
+
+
+Podemos tirar o codigo do 'exemplo.vue' e colocar direto no html do 'home.blade.php':
+
+------------------------------------------------
+   <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Título</div>
+
+                    <div class="panel-body">
+                        Eu sou um componente!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+------------------------------------------------
+
+
+
+Criar um novo componente:
+
+
+Posso agora criar um novo arquivo em componentes e criar um "Painel.vue" dentro de "/resources/assets/js/componentes/Painel.vue".
+
+E vamos utilizar o sistema de slots "<slot></slot>" que sera exibido ali dentro tudo que tiver no componente.
+Vamos passar esta informacao com o "export", atraves do "props", que eh tipo o 'assign' do smarty.
+Stando o titulo igual qualquer outro framework: "{{titulo}}".
+
+------------------------------------------------
+<template>
+   <div class="panel panel-default">
+        <div class="panel-heading">{{titulo}}</div>
+
+        <div class="panel-body">
+            <slot></slot>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        props:['titulo']
+    }
+</script>
+------------------------------------------------
+
+Depois precisamos declarar o componente dentro do:
+/resources/assets/js/componentes/app.js
+
+Podemos eliminar ja o:
+Vue.component('example', require('./components/Example.vue'));
+
+E deixar apenas os dois que ficarao definitivo, a declaracao eh igual a qualquer framework, apenas colocando o valor atribuido a variavel e depois dando o valor dela, no caminho do require apenas substituindo o ultimo caminho com o nome do componente declarado:
+------------------------------------------------
+Vue.component('topo', require('./components/Topo.vue'));
+Vue.component('painel', require('./components/Painel.vue'));
+------------------------------------------------
+
+Depois posso ir no /resources/views/"home.blade.php" e apagar a div panel-default e colocar o nome do componente criado, que foi painel, e o titulo podemos dizer que eh a pagina principal (dashboard):
+------------------------------------------------
+<painel titulo="Dashboard"></painel>
+------------------------------------------------
+
+Agora posso utilizar normalmente, e fazer meus testes normalmente.
+Colocando um "Teste de conteúdo..." dentro do componente criado.
+E posso continuar usando botstrap normalmente como aumentando a div para 10, e aumentando ou diminuindo a altura da coluna com o col offset:
+"<div class="col-md-10 col-md-offset-1">"
+
+------------------------------------------------
+@extends('layouts.app')
+
+@section('content')
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+ 
+            <painel titulo="Dashboard">
+                
+                Teste de conteúdo...
+
+            </painel>
+
+            </div>
+        </div>
+    </div>
+
+@endsection
+------------------------------------------------
+
+================================================
+
+A "home" foi modificada novamente para o Arquivo do projeto 005.
+
+Apos isso podemos alterar o componente conforme quizermos. No caso do "Painel.Vue", vamos alterar a cor da div class de default para primary, e passar a cor dinamicamente por uma variavel, acrescentando primeiro a 'cor' no 'pops', junto com o titulo que ja estava la: "pops:
+['titulo','cor']".
+
+Mas para passar esta variavel na div, e trocar o default para primary, precisamos utilizar o "v-bind" desta forma:
+<div v-bind:class="">
+
+E usando uma funcao computada dentro do "export default" no "props" criando uma funcao, no caso demos o nome "defineCor":
+------------------------------------------------
+computed:{defineCor: function(){
+	return "panel panel-default"}}
+------------------------------------------------
+
+Assim podemos usar ao inves de escrever "panel panel-default" nas divs, vamos escrever apenas a variavel "defineCor", o codigo fica assim:
+------------------------------------------------<template>
+<template>
+   <div v-bind:class="defineCor">
+        <div class="panel-heading">{{titulo}}</div>
+
+        <div class="panel-body">
+            <slot></slot>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        props:['titulo', 'cor'],
+        computed:{
+            defineCor: function(){
+    return "panel panel-default"
+            }
+        }
+    }
+</script>
+------------------------------------------------
+
+E podemos criar uma teste, para que se nao for enviado o parametro, ele assuma um valor defaul, pode o padrao como estava antes:
+------------------------------------------------
+return "panel "+ (this.cor || "panel-default");
+------------------------------------------------
+
+E ficaria:
+------------------------------------------------
+<template>
+   <div v-bind:class="defineCor">
+        <div class="panel-heading">{{titulo}}</div>
+
+        <div class="panel-body">
+            <slot></slot>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        props:['titulo', 'cor'],
+        computed:{
+            defineCor: function(){
+return "panel "+ (this.cor || "panel-default");
+            }
+        }
+    }
+</script>
+------------------------------------------------
+
+Agora eu posso utilizar dentro das divs onde tem "painel", o parametro "cor", definindo os valores de bootstrap.
+------------------------------------------------
+<painel titulo="Conteudo 4" cor="panel-success">
+------------------------------------------------
+
+No "Painel.vue", pode ser adicionado folhas de estilo CSS, criando no final, após o script, um CSS normal, no caso, com a classe "blue":
+------------------------------------------------
+<style media="screen">
+    .blue{
+        border-color: #0d4a96;
+    }
+
+    .blue > .panel-heading {
+        color: #f7f7f7;
+        background-color: #0d4a96;
+        border-color: #0d4a96;
+    }
+
+</style>
+------------------------------------------------
+
+Depois basta ir na "home.blade.php" e colocar no lugar dos 'panel-warning' o codigo que criamos em css: 
+------------------------------------------------
+<painel titulo="Conteudo 7" cor="panel-warning">
+------------------------------------------------
+
+Colocamos entao o parametro "blue", fica assim:
+------------------------------------------------
+<painel titulo="Conteudo 7" cor="blue">
+------------------------------------------------
+
+Aula 8:
+
+Para criar novos componentes:
+
+- descidir o que ele será, no caso vamos usar o nome "Caixa".
+- ir em "/resources/assets/js/componentes/" e criar seu componente, com o nome por exemplo "Caixa.vue", colocando o codigo dentro dele, do que ele será.
+- ir em "/resources/assets/js/app.js" e declarar o componente como o padrao "Vue.component('caixa', require('./components/Caixa.vue'));" com o nome do componente novo.
+- ir na "/resources/views/home.blade.php" e utilizar, chamando pelo nome declarado "<caixa></caixa>".
+
+- para importar fonts, icones, etc. Ir em "/resources/componentes/sass/app.scss". Por exemplo:
+------------------------------------------------
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url("http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css");
+------------------------------------------------
+
+Continuando no Caixa.vue:
+
+- Definir um "props" para utilizar variaveis, declarando elas como faco no 'smarty', ao inves de colocar valores na mao, vao receber cores, icones, de forma dinamica. Definir dentro do metodo computado a cor (defineCor). Note que como esta definido no props o icone, ele vai ser definido com um 'v-bind' e declarado apenas como 'icone', ao inves de "<i class="ion ion-stats-bars"></i>" como no bootstrap.
+------------------------------------------------
+<template>
+  <div class="small-box" v-bind:style="defineCor">
+    <div class="inner">
+      <h3>{{qtd}}</h3>
+
+      <p>{{titulo}}</p>
+    </div>
+    <div class="icon">
+      <i v-bind:class="icone"></i>
+    </div>
+    <a href="#" class="small-box-footer">
+      Ver mais <i class="fa fa-arrow-circle-right"></i>
+    </a>
+  </div>
+</template>
+
+<script>
+    export default {
+    	props:['qtd', 'titulo', 'url', 'cor', 'icone'],
+    	computed:{
+    		defineCor:function(){
+    			return "background-color: "+this.cor+" !important;"
+    		}
+    	}
+    }
+</script>
+------------------------------------------------
+
+
+- No home.blade.php basta definir agora os parametros no <caixa>.
+------------------------------------------------
+<caixa  qtd="" titulo="" url="" cor="" icone="">Componente caixa</caixa>
+------------------------------------------------
+
+Ficando:
+------------------------------------------------
+<caixa  qtd="80" titulo="Artigos" url="#" cor="orange" icone="ion ion-pie-graph">Componente caixa</caixa>
+------------------------------------------------
+
+
+Nas divs, as col devem acompanhar os offser, ou usa assim:
+<div class="col-md-10 col-md-offset-1">
+
+Pode ir definindo o offset e sua numeracao, e ir empurrando a coluna.
+
+Podendo entao pegar a logica do divido por 2.
+<div class="col-md-6 col-md-offset-3">
+
+------------------------------------------------
+
+Criando novamente um componente:
+
+- Crio o nome dele na "/resources/assets/js/componentes/" como Exemplo.vue.
+- No arquivo criado, trabalhamos com os skills dentro do <template>.
+- Defino ele no app.js.
+- uso ele na pagina que eu quero dentro da Views.
+
+- Quando eu for usar uma parametro do props na div, deve ter o v-bind: <div v-bind:class="defineTamanho"> .
+- O "props" serve para definir e passar variaveis, como os smarty:  props:['tamanho'] .
+- O "computed" serve para criar funcoes, como: "NomeDaFuncao: function(){ return "valor" };"
+
+------------------------------------------------
+
+CRIAR CONTROLLER (Resource Controllers do Laravel):
+
+Criar Controler com todos os metodos de crud:
+php artisan make:controller Adm/ArtigosController --resource
+
+E dentro do App\Http\Controllers\Adm vai ser criado este ArtigosController.php
+
+------------------------------------------------
+
+Depois posso ir em "router/web.php" e criar uma rota, protegida pelo sistema de grupo de login do laravel 'middleware'.
+Se eu colocar o 'admin', o 'prefixo' vai obrigar a ficar no url /admin/artigos.
+E definir, criando um namespace para que nao precise por antes todo o caminho.
+Assim atribuimos um group, seguido da funcao.
+E por ultimo vamos criar a rota resource para ter acessos a todos os metodos dentro do controller Artigos.
+------------------------------------------------
+Route::middleware(['auth'])->prefix('admin')->namespace('Admin')->group(function(){
+
+Route::resource('artigos', 'ArtigosController');
+});
+------------------------------------------------
+
+Actions Handled By Resource Controller do Laravel (comandos, metodos e apelidos das rotas):
+Verb		URI			Action		Route Name
+GET		/photos			index		photos.index
+GET		/photos/create		create		photos.create
+POST		/photos			store		photos.store
+GET		/photos/{photo}		show		photos.show
+GET		/photos/{photo}/edit	edit		photos.edit
+PUT/PATCH	/photos/{photo}		update		photos.update
+DELETE		/photos/{photo}		destroy		photos.destroy
+
+------------------------------------------------
+
+Basta editar o 'web.php' no 'routes'.
+------------------------------------------------
+Route::middleware(['auth'])->prefix('admin')->namespace('Admin')->group(function(){
+
+  Route::resource('artigos', 'ArtigosController');
+
+});
+------------------------------------------------
+
+Depois ir em "/app/Http/Admin/ArtigosController.php" e editar a linha da funcao index, para retornar o artigo:
+------------------------------------------------
+return view('admin.artigos.index');
+------------------------------------------------
+
+Ir nas "/resources/views/" e criar o caminho "/resources/views/admin/artivos/index.blade.php"
+
+E criar o script.
+
+Para acessar as rotas com metodo "action" "index" da tabela, tem que colocar no campi link da home.blad.php o "apelido"(route name) o url:
+------------------------------------------------
+<caixa  qtd="80" titulo="Artigos" url="{{route('artigos.index')}}" cor="orange" icone="ion ion-pie-graph"></caixa>
+------------------------------------------------
+
+Criando novo componente.
+No vue, criar um "TabelaLista.vue", no app.js passar o url para o programa: 
+------------------------------------------------
+Vue.component('tabela-lista', require('./components/TabelaLista.vue'));
+------------------------------------------------
+
+
+Na tabela, agora depois que eu criar um props com a declaracao smarty para titulo, posso usar o "v-for", que eh o FOR do Laravel:
+------------------------------------------------
+<th v-for="titulo in titulos">{{titulo}}</th>
+------------------------------------------------
+
+E posso usar o "i in item" tambem:
+------------------------------------------------
+<th v-for="i in item">{{i}}</th>
+------------------------------------------------
+
+Assim podemos usar dinamicamente para imprimir os itens dentro do props:
+------------------------------------------------
+v-bind:itens="[[1,'PHP OO', 'Curso de PHP OO'],[2,'Vue JS', 'Curso de Vue JS']]"
+------------------------------------------------
+
+Imprimindo com o v-for assim:
+------------------------------------------------
+<tr>
+    <th v-for="titulo in titulos">{{titulo}}</th>
+    <th v-for="i in item">{{i}}</th>
+</tr>
+------------------------------------------------
+
+Sempre que for usar formulario em laravel, deve-se usar um "token".
+Normalmente ele eh usado, para enviar um deletar, que ao inves do parametro GET normal, com a requisicao deletar, vc usa o "token".
+
+------------------------------------------------
+
+A logica do laravel eh igual a todos os programas, mas ao inves de if, usa-se "v-if":
+------------------------------------------------
+<a v-if="criar" v-bind:href="criar">Criar</a>
+------------------------------------------------
+
+Estava trabalhando com "index.blade.php" e "TabelaLista.vue".
+
+------------------------------------------------
+
+Metodos:
+
+        methods:{
+            /* criar metodo executaForm, vai ser uma funcao, vai receber o index, e dentro{vai executar a acao} */
+            executaForm: function(index){
+                document.getElementById(index).submit();
+            }
+        }
+
+------------------------------------------------
+
+Laravel:
+v-bind: permite links e opcoes.
+v-model: define variavel.
+v-for: for.
+v-if: if.
+
+Metodos computados: Utilizar em metodos que carregam itens para determinar alguma acao.
+
+
+
+Como eu chamo um metodo de evento onclick que eu declarei na variavel do props (o cursor pointer eh para quando passar o cursor em cima, virar uma maozinha):
+------------------------------------------------
+<th style="cursor:pointer" v-on:click="ordenaColuna(index)" v-for="(titulo,index) in titulos">{{titulo}}</th>
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------
+
+------------------------------------------------

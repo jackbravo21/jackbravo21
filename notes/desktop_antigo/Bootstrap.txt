@@ -1,0 +1,462 @@
+
+&nbsp;
+
+Bootstrap
+node.js
+sass do bootstrap
+
+
+usar node em uma pasta:
+- ir ate a pasta pelo cmd, e digitar "npm init", enter...
+
+instalar o bootstrap e o Jquery e o javascrip:
+- ir ate a pasta pelo cmd.
+- npm install bootstrap					//boostrap
+- npm install jquery					//jquery
+- npm install popper.js					//popper.js
+
+- npm install font-awesome				//fonts do "https://fontawesome.com/"
+
+instalar no windows SASS:
+npm install -g sass
+
+Versao SASS:
+sass --version
+
+Copilar com SASS:
+sass --watch node_modules/bootstrap/scss:node_modules/bootstrap/copiler		//pasta onde estao:pasta destino
+
+sass --watch node_modules/bootstrap/scss:node_modules/bootstrap/copiler node_modules/font-awesome/scss:node_modules/font-awesome/css style/scss:style/css
+
+Imagens com 1680 de largura e 500 de altura, que são os valores que o proprio bootstrap recomenda para o carousel. 
+
+
+- O arquivo css proprio, deve ser carregado depois do bootrap na head.
+
+Componentes: Navbar, Carrousel, ScroolSpy, card, modal, Jumbotron, Nav Pills, Embed, Formulario(Popover), rodape(list group, button group, blockout).
+
+
+<div class="container"></div> = cria uma especie de cercado, tabela, aquelas antigas
+
+Para fixar no top, usar na classe: "fixed-top"
+Para fixar no rodape, usar na classe: "fixed-bottom"
+
+ml-1a5 = margem left
+mr-1a5 = margem right
+mb-1a5 = margem bottom
+mt-1a5 = margem top
+my-1a5 = margem  em todo eixo Y da pagina
+
+Exemplo de uso para: col-sm-6 col-md-4
+col-xs-6 = super small tem que ficar no tamanho 6.
+col-sm-6 = small tem que ficar no tamanho 6.
+col-md-4 = medium tem que ficar no tamanho 4.
+col-lg-4 = large tem que ficar no tamanho 4.
+
+justify-content-center = para centralizar algo
+justify-content-sm-center = para centralizar algo, o sm eh o tamanho.
+font-weight-bold = negrito
+
+<p class="text-center"></p> = centraliza o texto.
+Exemplo: <div class="col-12 text-center"></div>
+
+<h1 class="display-4"></h1> = display aumenta o texto.
+<p class="lead"> = aumenta o texto.
+
+Icones:
+
+Caveira: <i class="fas fa-skull fa-lg"></i> ou <i class="far fa-skull fa-lg"></i> ou <i class="fal fa-skull fa-lg"></i>
+<i class="fas fa-skull" style="color: #339af0;"></i>
+
+Cafe: <i class="fas fa-coffee fa-lg"></i> 
+
+Rollover apenas com html:
+<img class="img-top"  src="imgs/engrenagem.png" onmouseover="this.src='imgs/engrenagem.gif'" onmouseout="this.src='imgs/engrenagem.png'">
+
+<a href="#cabecalho" class="page-scroll" style="color:white" onmouseover="style='color:red'" onmouseout="style='color:white'" >
+
+&nbsp = espaco vazio
+
+
+<ul class="list-group">
+             <li class="list-group-item">Perfil</li>
+</ul>
+
+Certo:
+<div class="list-group">
+                    <a href="#" class="list-group-list list-group-item-action">Perfil</a>
+            </div>
+
+==========================================================
+
+TAMANHOS:
+
+xs	Extra small 	<576px		Portrait Mobile
+sm	Small		>=576px		landscape mobile		
+md	Medium		>=768px		portrait tablets navbar collapse
+lg	Large		>=992px		landscape
+xl	Extra large	>=1200px	laptops, desktops, TVs
+
+
+==========================================================
+
+BACKGROUND COLOR:
+
+<span class="border border-secondary"></span>		//borda
+
+<div class="container" style="background-color: #63b8ff;">
+		       style="background-color: #87CEFF;
+		       style="background-color: #00BFFF;
+
+Letra:
+style="color:white"
+
+BackGround
+style="background-color:#dff1ffff;"
+
+
+ou:
+class="bg-primary";
+
+style="font-size:30px"
+
+
+//onmouse click
+<li><a href="#cabecalho" class="page-scroll" style="color:white" onmouseover="style='color:red'" onmouseout="style='color:white'" >Home </a></li>
+
+<img class="card-img-top rounded mx-auto d-block img-fluid d-block"  src="imgs/painel2.jpg" onmouseover="this.src='imgs/afagadores1.gif'" onmouseout="this.src='imgs/painel2.jpg'" style="width: 348px; height: 153px;">
+
+==========================================
+
+BORDAS:
+
+Para tabelas:
+table-bordered
+
+Para tudo:
+
+<span class="border border-primary"></span>
+<span class="border border-secondary"></span>
+<span class="border border-success"></span>
+<span class="border border-danger"></span>
+<span class="border border-warning"></span>
+<span class="border border-info"></span>
+<span class="border border-light"></span>
+<span class="border border-dark"></span>
+<span class="border border-white"></span>
+
+Arredondar etc:
+
+<img src="..." alt="..." class="rounded">
+<img src="..." alt="..." class="rounded-top">
+<img src="..." alt="..." class="rounded-right">
+<img src="..." alt="..." class="rounded-bottom">
+<img src="..." alt="..." class="rounded-left">
+<img src="..." alt="..." class="rounded-circle">
+<img src="..." alt="..." class="rounded-0">
+
+==========================================
+
+Linha sim, linha nao cinza: <table class="table table-striped">
+table-striped
+
+Para colocar na posicao da linha:
+<div class="d-flex justify-content-start">...</div>
+<div class="d-flex justify-content-end">...</div>
+<div class="d-flex justify-content-center">...</div>
+<div class="d-flex justify-content-between">...</div>
+<div class="d-flex justify-content-around">...</div>
+
+
+
+Forcar a ficar de um lado da linha/tabela (colocar dentro da class=""):
+float-left
+float-right
+float-none
+d-flex justify-content-center
+
+.float-left
+.float-right
+.float-none
+.float-sm-left
+.float-sm-right
+.float-sm-none
+.float-md-left
+.float-md-right
+.float-md-none
+.float-lg-left
+.float-lg-right
+.float-lg-none
+.float-xl-left
+.float-xl-right
+.float-xl-none
+
+<div class="bg-info clearfix">
+  <button type="button" class="btn btn-secondary float-left">Exemplo de botão flutuando à esquerda</button>
+  <button type="button" class="btn btn-secondary float-right">Exemplo de botão flutuando à direita</button>
+</div>
+
+
+<div class="float-sm-left">Flutua à esquerda, em viewports de tamanho SM (pequena) ou maior.</div><br>
+<div class="float-md-left">Flutua à esquerda, em viewports de tamanho MD (média) ou maior.</div><br>
+<div class="float-lg-left">Flutua à esquerda, em viewports de tamanho LG (grande) ou maior.</div><br>
+<div class="float-xl-left">Flutua à esquerda, em viewports de tamanho XL (extra-grande) ou maior.</div><br>
+
+
+Espaco vazio:
+&nbsp;
+
+
+
+Deixar desaparecendo, com o Opacity filter:
+
+<div class="hero-content text-center" style="background-color: #f0ffff; filter: opacity(10%);">
+
+
+
+Grayscale (sem cor):
+
+<div class="hero-content text-center" style="background-color: #f0ffff; filter: grayscale(10%);">
+
+
+
+Borrado:
+
+ <div class="hero-content text-center" style="background-color: #f0ffff; filter: blur(5px);">
+
+==========================================================
+
+Modal tamanhos:
+
+<div class="modal fade" id="siteModal1" tabindex="-1" role="dialog"> 
+
+Tamanho	Classe	Largura máxima
+
+Pequeno	.modal-sm	300px
+Padrão	Nenhuma	500px
+Grande	.modal-lg	800px
+Extra grande	.modal-xl	1140px
+
+
+==========================================================
+
+Alinhamento de texto:
+
+<p class="text-justify">
+
+<p class="text-left">Alinhado à esquerda, em todos tamanhos de viewport.</p>
+<p class="text-center">Centralizado, em todos tamanhos de viewport.</p>
+<p class="text-right">Alinhado à direita, em todos tamanhos de viewport.</p>
+
+<p class="text-sm-left">Alinhado à esquerda, em viewports com tamanho SM (pequenas) ou maior.</p>
+<p class="text-md-left">Alinhado à esquerda, em viewports com tamanho MD (médias) ou maior.</p>
+<p class="text-lg-left">Alinhado à esquerda, em viewports com tamanho LG (grandes) ou maior.</p>
+<p class="text-xl-left">Alinhado à esquerda, em viewports com tamanho XL (extra-grandes) ou maior.</p>
+
+
+Alinhamento:
+
+<div class="float-left">Flutua à esquerda em todos os tamanhos de viewport.</div><br>
+<div class="float-right">Flutua à direita em todos os tamanhos de viewport.</div><br>
+<div class="float-none">Nunca flutua, independente do tamanho da viewport.</div>
+
+Fixar no Bot ou Top:
+<footer class="footer navbar-fixed-bottom">
+
+==========================================================
+Excencial nas imagens!
+
+IMAGENS RESPONSIVAS:
+"Add o atributo a classe "img-responsive".
+<img src="img/uvas.png" class="img-responsive">
+
+Circulo nas imagens:
+<class = "img-circle">
+
+Borda arredondada:
+<class = "img-rounded">
+
+Borda tumbnail:
+<class = "img-thumbnail">
+
+Centralizar imagem:
+class="rounded mx-auto d-block"
+Faz imagem redimensionar em todos os tamanhos:
+class="img-fluid d-block"
+
+class="rounded mx-auto d-block img-fluid d-block"
+
+
+img-top = engrenagens
+==========================================================
+
+MENUS RESPONSIVOS:
+
+Tem que por "container-fluid col-sm-12" para ele usar tela toda e reconhecer isso no celular.
+
+<div class="container-fluid col-md-9 col-sm-12">
+
+
+FORMULARIOS RESPONSIVOS:
+
+"form-group" serve para quando diminuir a tela, o form nao fique acavalado.
+
+Ex:
+<div class="form-row">
+<div class="form-group col-md-6 col-sm-12">
+
+
+
+BORDAS:
+table-bordered
+border="1";
+
+
+Personalizar as cores dos BGs, exemplo com NAVBAR:
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+
+Tamanho das modais:
+Normal:
+<div class="modal-dialog" role="document">
+LG:
+<div class="modal-dialog modal-lg" role="document">
+Colunas:
+<div class="modal-dialog modal-lg" role="document">
+  <div class="row">
+                            
+                                <!-- dividir em duas colunas, o valor eh 6 para cada, porque o maximo do BT4 eh 12 -->
+                                
+                                <!-- 1 coluna -->
+                                <div class="col-6">
+
+
+Tamanho da imagem (exemplo no card):
+<img class="card-img-top"  src="imgs/item-03.jpg" style="width: 348px; height: 153px;">
+
+
+==========================================================
+
+TEXTO:
+
+
+<p class="text-primary">.text-primary</p>
+<p class="text-secondary">.text-secondary</p>
+<p class="text-success">.text-success</p>
+<p class="text-danger">.text-danger</p>
+<p class="text-warning">.text-warning</p>
+<p class="text-info">.text-info</p>
+<p class="text-light bg-dark">.text-light</p>
+<p class="text-dark">.text-dark</p>
+<p class="text-muted">.text-muted</p>
+<p class="text-white bg-dark">.text-white</p>
+
+--------------------------------------------------------
+
+TEXTO HTML puro:
+
+<p style="color:#FF0000";>Red paragraph text</p>
+
+<p style="color:red">This is a paragraph.</p>
+<p style="color:blue">This is another paragraph.</p>
+Example
+Set the font of text (with CSS):
+
+<p style="font-family:verdana">This is a paragraph.</p>
+<p style="font-family:'Courier New'">This is another paragraph.</p>
+Example
+
+Alinhamento:
+
+<p style="text-align:center/left/right">This is a paragraph.</p>
+
+Set the size of text (with CSS):
+
+<p style="font-size:30px">This is a paragraph.</p>
+<p style="font-size:11px">This is another paragraph.</p>
+
+
+<p class="text-left">Alinhado à esquerda, em todos tamanhos de viewport.</p>
+<p class="text-center">Centralizado, em todos tamanhos de viewport.</p>
+<p class="text-right">Alinhado à direita, em todos tamanhos de viewport.</p>
+
+<p class="text-sm-left">Alinhado à esquerda, em viewports com tamanho SM (pequenas) ou maior.</p>
+<p class="text-md-left">Alinhado à esquerda, em viewports com tamanho MD (médias) ou maior.</p>
+<p class="text-lg-left">Alinhado à esquerda, em viewports com tamanho LG (grandes) ou maior.</p>
+<p class="text-xl-left">Alinhado à esquerda, em viewports com tamanho XL (extra-grandes) ou maior.</p>
+
+--------------------------------------------------------
+
+
+<p class="font-weight-bold">Texto grosso.</p>
+<p class="font-weight-normal">Texto de espessura comum.</p>
+<p class="font-weight-light">Texto de espessura leve.</p>
+<p class="font-italic">Texto itálico.</p>
+
+Texto grosso.
+Texto de espessura comum.
+Texto de espessura leve.
+Texto itálico.
+
+
+Criar Bordas:
+<span class="border"></span>
+
+
+<!-- Para deixar com Borda e ver: <table id="tb_usuario" class="table table-striped table-bordered" cellspacing="0" width="100%"> -->
+
+
+Alinhamento para menor
+<div class="col-sm-6 col-md-4">
+                    <div class="card mb-5">
+
+
+Inserir imagem:
+<img src="imgs/it.jpg">
+
+
+
+
+
+MER
+- enditades
+- atributos
+- relacionamentos
+
+
+
+
+
+tela ver todos os clientes,
+fetch all
+
+tela de inserir os clientes,
+insert into table values;
+
+
+tela de editar os clientes,
+select
+
+
+tela de remover os clientes,
+delete
+
+
+Cores online:
+https://flatuicolors.com/
+http://www.flatuicolorpicker.com/
+
+
+
+201907188842470 - 18-07-2019
+
+
+==============================================================================================================
+
+Materialize:
+
+Instalar:
+
+npm install materialize-css@next
+
+
+
